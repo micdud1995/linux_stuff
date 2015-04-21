@@ -1,0 +1,68 @@
+background yes
+use_xft yes
+xftfont sans-serif:size=8
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 200 200
+maximum_width 80
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color white
+#default_shade_color black
+default_outline_color white
+alignment top_right
+gap_x 0
+gap_y 80
+no_buffers yes
+uppercase no
+override_utf8_locale yes
+
+TEXT
+${font hooge 05_55 Cyr2:size=9}SYSTEM${font}${color A6A6A6} ${hr 2}
+Arch Linux
+$alignr$kernel
+Up: $alignr$uptime
+${font hooge 05_55 Cyr2:size=9}${color}TIME ${voffset 3}${hr 2}$color
+${alignc 20}${font hooge 05_55 Cyr2:size=20}${color FFFFFF}$alignc${time %H:%M}${color A6A6A6}${font}
+${alignc}${time %a %d %b %Y}
+${color}${font hooge 05_55 Cyr2:size=9}MEMORY ${font}${color A6A6A6}${hr 2}
+${font sans-serif:normal:size=8}RAM $alignr $mem 
+${color FFFFFF}${memgraph mem 25,0 000000 FFFFFF}${color A6A6A6}
+$alignc RAM: $memperc%
+$alignc ${color A6A6A6}SWAP: ${swapperc}%
+${font hooge 05_55 Cyr2:size=9}${color}PROCESSORS ${color A6A6A6}${font}${hr 2}
+${font sans-serif:normal:size=8}${color FFFFFF}${cpugraph cpu1 25,0 000000 FFFFFF}${color A6A6A6}
+${alignc}CPU: ${cpu cpu1}%
+temp: ${alignr}${hwmon temp 1}°C
+${font hooge 05_55 Cyr2:size=9}${color}DISKS ${color A6A6A6}${font}${hr 2}
+${font sans-serif:normal:size=8}/ $alignr ${fs_used /}
+${color FFFFFF}${fs_bar 5 /}${color A6A6A6}
+/home $alignr ${fs_used /home}
+${color FFFFFF}${fs_bar 5 /home}${color A6A6A6}
+${font hooge 05_55 Cyr2:size=9}${color}NETWORK${color A6A6A6}${font} ${hr 2}
+${font sans-serif:normal:size=8}IP:$alignr ${addr wlp2s0}
+E:$alignr ${wireless_essid wlp2s0}
+Q: $alignr ${wireless_link_qual_perc wlp2s0}%
+${color FFFFFF}${downspeedgraph wlp2s0}${color A6A6A6}
+DLS:${downspeed wlp2s0} $alignr
+total: ${totaldown wlp2s0}
+${color FFFFFF}${upspeedgraph wlp2s0}${color A6A6A6}
+ULS:${upspeed wlp2s0} $alignr
+total: ${totalup wlp2s0}
+${color}${font hooge 05_55 Cyr2:size=9}INFO ${color A6A6A6}${font}${hr 2}
+${font sans-serif:size=8}Bat: ${battery_percent BAT1}% ${alignc}${color FFFFFF}${battery_bar 5, 24 BAT1}
+${hr 3}
+${font hooge 05_55 Cyr2:size=8}${alignc}Notes
+${font sans-serif:size=6}25.03 KnowCamp
+${hr 3}${font sans-serif:size=7}
+${font hooge 05_55 Cyr2:size=8}${alignc}MOC
+$alignc${exec mocp -Q %artist}
+$alignc${exec mocp -Q %song}
