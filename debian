@@ -1,0 +1,67 @@
+# touchpad
+synclient TapButton1=1 w konsoli
+
+# wifi
+aptitude install wicd firmware-brcm80211
+iwconfig wlan0 txpower auto
+ wicd-client -n (i zmień w ustawieniach na wlan0)
+
+# color in ls 
+alias ls='ls --color=auto'
+
+# skype
+http://www.skype.com/en/download-skype/skype-for-computer/
+dpkg --add-architecture i386
+dpkg -i skype.deb
+
+# microphone
+vim /etc/modprobe.d/alsa-base.conf
+type: options snd-hda-intel model=auto
+
+# rtorrent
+aptitude install rtorrent
+mkdir ~/.session
+skopiuj rtorrent.rc do domowego i dodaj kropkę na początku
+ctrl+d - pauza
+ctrl+d x2 - zatrzymanie ściągania, usunięcie pliku .torrent
+ctrl+s - wznowienie pobierania
+
+# grub	
+sudo vim /etc/default/grub
+update-grub
+
+# automatic login
+vim /etc/slim.conf
+default_user      michal
+auto_login        yes
+
+# beep sound
+alsamixer
+press F6 and choose sound card
+mute beep
+Esc
+
+# packages
+gmtp feh ufw xfce4-screenshooter xfce4-appfinder leafpad brasero terminator gimp slim mc moc conky vim chromium tint2 git steam tree htop gummi geeqie guvcview vlc alsa-utils
+____________________________________________________________________________________________________________________
+
+1) vim /etc/apt/sources.list
+
+#~~~~~~Jessie~~~~~~#
+
+deb http://ftp.pl.debian.org/debian/ testing main non-free contrib
+deb-src http://ftp.pl.debian.org/debian/ testing main non-free contrib
+deb http://security.debian.org/ testing/updates main contrib non-free
+deb-src http://security.debian.org/ testing/updates main contrib non-free
+
+#~~~~~~Deb-multimedia~~~~~~#
+
+deb http://www.deb-multimedia.org/ testing main non-free
+deb-src http://www.deb-multimedia.org/ testing main non-free
+
+
+2) aptitude update && aptitude dist-upgrade (jeśli w virtualbox, to także aptitude install virtualbox-guest-x11)
+
+3) aptitude install xserver-xorg xinit openbox slim
+4) startx
+* dpkg-reconfigure xserver-xorg
