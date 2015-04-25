@@ -42,7 +42,7 @@ mute beep
 Esc
 
 # packages
-gmtp feh ufw xfce4-screenshooter xfce4-appfinder leafpad brasero terminator gimp slim mc moc conky vim chromium tint2 git steam tree htop gummi geeqie guvcview vlc alsa-utils
+gmtp feh ufw xfce4-screenshooter xfce4-appfinder leafpad brasero terminator gimp slim mc moc conky vim chromium tint2 git steam tree htop gummi geeqie vlc alsa-utils
 ____________________________________________________________________________________________________________________
 
 1) vim /etc/apt/sources.list
