@@ -3,9 +3,7 @@ colors          # colors
 zsh-mime-setup  # run everything as if it's an executable
 select-word-style bash # ctrl+w on words
 
-##
 # Vcs info
-##
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn hg
 zstyle ':vcs_info:*' check-for-changes true
@@ -14,9 +12,7 @@ precmd() {  # run before each prompt
   vcs_info
 }
 
-##
 # Prompt
-##
 setopt PROMPT_SUBST     # allow funky stuff in prompt
 color="white"
 if [ "$USER" = "root" ]; then
@@ -26,9 +22,7 @@ prompt="%{$fg[$color]%}%n%{$reset_color%}@%U%{$fg[green]%}%m%{$reset_color%}%~
  └──────> "
 RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
 
-##
 # Completion
-##
 autoload -U compinit
 compinit
 zmodload -i zsh/complist        
@@ -46,7 +40,7 @@ zstyle ':completion:*' menu select=2                        # menu if nb items >
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}       # colorz !
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate # list of completers to use
 
-# sections completion !
+# sections completion
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format $'\e[00;34m%d'
 zstyle ':completion:*:messages' format $'\e[00;31m%d'
@@ -66,17 +60,13 @@ zstyle ':completion:*' users $users
 compdef _gnu_generic gcc
 compdef _gnu_generic gdb
 
-##
 # Pushd
-##
 setopt auto_pushd               # make cd push old dir in dir stack
 setopt pushd_ignore_dups        # no duplicates in dir stack
 setopt pushd_silent             # no dir stack after pushd or popd
 setopt pushd_to_home            # `pushd` = `pushd $HOME`
-#
-##
+
 # History
-##
 HISTFILE=~/.zsh_history         # where to store zsh config
 HISTSIZE=1024                   # big history
 SAVEHIST=1024                   # big history
@@ -89,9 +79,7 @@ setopt inc_append_history       # add commands as they are typed, don't wait unt
 setopt share_history            # share hist between sessions
 setopt bang_hist                # !keyword
 
-##
 # Various
-##
 setopt auto_cd                  # if command is a path, cd into it
 setopt auto_remove_slash        # self explicit
 setopt chase_links              # resolve symlinks
