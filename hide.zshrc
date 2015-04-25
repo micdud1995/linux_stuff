@@ -9,7 +9,7 @@ select-word-style bash # ctrl+w on words
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn hg
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%c%{$fg[green]%}%u%{$reset_color%} [%{$fg[blue]%}%b%{$reset_color%}] %{$fg[yellow]%}%s%{$reset_color%}:%r"
+zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%c%{$fg[green]%}%u%{$reset_color%} [%{$fg[orange]%}%b%{$reset_color%}] %{$fg[yellow]%}%s%{$reset_color%}:%r"
 precmd() {  # run before each prompt
   vcs_info
 }
@@ -22,7 +22,7 @@ color="white"
 if [ "$USER" = "root" ]; then
     color="red"         
 fi;
-prompt="%{$fg[$color]%}%n%{$reset_color%}@%U%{$fg[green]%}%m%{$reset_color%}
+prompt="%{$fg[$color]%}%n%{$reset_color%}@%U%{$fg[green]%}%m%{$reset_color%}%~
  └──────> "
 RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
 
@@ -109,3 +109,6 @@ unsetopt list_beep              # no bell on ambiguous completion
 unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
 setxkbmap -option compose:ralt  # compose-key
 print -Pn "\e]0; %n@%M: %~\a"   # terminal title
+
+# Aliases
+alias ls='ls --color'
