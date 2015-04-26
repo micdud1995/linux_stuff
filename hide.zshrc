@@ -100,3 +100,4 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 
 # Aliases
 alias ls='ls --color'
+alias off='systemctl poweroff'
