@@ -1,0 +1,114 @@
+---------------------------------- basics
+mkdir
+touch
+ls -a (with hidden files)
+ls -l (with files permissions)
+cat a.txt b.txt c.txt >> abcd.txt - merge files
+cp /path/from/file /path/where
+mv /home/path/file /path/where
+pwd - prints working directory
+less /path/to/file (opens large file)
+	arrows - moving
+	q - end
+mv old_name new_name (changes name of file)
+mv *.txt *.cpp (changes all files extensions)
+tar -zxvf abc.tar.gz (unpack)
+tar -jxvf abc.tar.bz2 (unpack)
+tar -cvf archieve.tar.gz /path/to/dir/abc (pack)
+rm /path/to/file (remove file)
+rm -rf /path/to/dir (remove directory)
+cal (shows calendar)
+date (shows date)
+---------------------------------- sysadmin
+lsblk (shows mounted disks as a tree)
+uptime 
+w (uptime & who)
+free -h (free memory)
+htop (ram & cpu consumption)
+uname -a (all system's informations)
+history (history of commands)
+man xxx (shows manual of xxx command)
+ps (shows processes)
+ps -A (shows all processes)
+ps -A | grep -i chrome (looks for process with chrome in name)
+kill xxxx (kills process with xxxx pid)
+pkill chrome (kills process with xxx name)
+whereis bin (finds binary file)
+df -h (all disks free spaces)
+wall "Communicate for all users"
+passwd (changing your password)
+making alias	
+	alias l='ls -a'
+	unalias l
+
+	alias cp='rsync -aP' (adds progress bar)
+	unalias cp
+chsh -s /bin/zsh (changes default shell)
+---------------------------------- mount/formatting
+dd if=/path/to/iso of=/dev/sdb && sync (sdb without number)
+mkfs.ext4 /dev/sdb1 (formatting to ext4)
+mounting usb
+	lsblk
+	su
+	cd /dev
+	mkdir usb
+	mount /dev/sdb1 /dev/usb
+	umount /dev/usb
+----------------------------------
+md5sum file - checksum
+reset (resets terminal)
+chmod 761 abc.sh (owner=all, group=read and write, world=only execute)
+	values: read=4, write=2, execute=1
+find -name *.txt (always with -name - finds in folder and subfolders)
+find -iname *.tXT (no difference small/big letters)
+find ~ -empty (finds empty files)
+grep word /path/to/file (finds word in file)
+grep -i wOrD /path/to/file (no difference small/big letters)
+---------------------------------- programming
+g++ *.cpp -o bin
+./bin
+
+javac program.java
+java program
+---------------------------------- network
+ifconfig (with sudo - network interfaces)
+ifconfig -a (all interfaces, even disabled)
+
+ifconfig eth0 down (disable interface)
+ifconfig eth0 up (enable interface)
+---------------------------------- output
+xrandr (available outputs)
+xrandr --output HDMI1 --off (off HDMI1 output)
+xrandr --output HDMI1 --mode 1024x768 (changing resolution)
+xrandr --output HDMI1 --auto (default settings)
+xrandr --output HDMI1 --mode 1366x768
+---------------------------------- crontab
+crontab -l (list of jobs)
+crontab -e (edit jobs of cron)
+crontab -r (delete all jobs of cron)
+* * * * * command to be executed
+- - - - -
+| | | | |
+| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+| | | ------- Month (1 - 12)
+| | --------- Day of month (1 - 31)
+| ----------- Hour (0 - 23)
+------------- Minute (0 - 59)
+
+MAILTO="michal.dudek1995@gmail.com"
+MAIL="" (disable mail's output)
+
+crontab -e (editing config file)
+crontab -l (shows content of crontab file) 
+crontab -r (delete the content of crontab file)
+
+or instead of "*" we can use strings:
+@reboot (runs job on every start)
+@hourly (runs job on round hours)
+etc
+
+Examples:
+
+* * * * * echo "Hello World" >> ~/tmp/hello.txt (plik sam się utworzy)
+
+* * * * * tar -zcf /path/to/new/archive /path/to/file (tworzy archiwum z pliku/folderu)
