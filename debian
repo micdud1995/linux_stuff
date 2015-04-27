@@ -2,12 +2,21 @@
 synclient TapButton1=1 w konsoli
 
 # wifi
-aptitude install wicd firmware-brcm80211
-iwconfig wlan0 txpower auto
- wicd-client -n (i zmień w ustawieniach na wlan0)
-
-# color in ls 
-alias ls='ls --color=auto'
+Add a "non-free" component to /etc/apt/sources.list
+aptitude update
+aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms
+modprobe -r b44 b43 b43legacy ssb brcmsmac
+modprobe wl
+aptitude update
+aptitude install wicd
+Amend /etc/network/interfaces to contain only the following:
+	auto lo
+	iface lo inet loopback
+adduser yourusername netdev
+/etc/init.d/dbus reload
+/etc/init.d/wicd start
+exit
+wicd-client -n
 
 # skype
 http://www.skype.com/en/download-skype/skype-for-computer/
