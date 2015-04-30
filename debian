@@ -1,6 +1,12 @@
 # touchpad
 synclient TapButton1=1 w konsoli
 
+# polish letters
+vim /etc/locale.gen (uncomment pl files)
+locale-gen
+vim /etc/locale.conf
+	add: LANG=pl_PL.UTF-8
+
 # wifi
 Add a "non-free" component to /etc/apt/sources.list
 aptitude update
