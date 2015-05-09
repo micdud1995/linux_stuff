@@ -1,6 +1,0 @@
-pathogen
-nerdtree
-syntastic
-tagbar
-GitGutter
-gruvbox

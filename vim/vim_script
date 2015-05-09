@@ -1,0 +1,15 @@
+aptitude install vim 
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+cd ~/.vim/bundle && \
+git clone https://github.com/scrooloose/nerdtree.git
+cd ~/.vim/bundle && \
+git clone https://github.com/scrooloose/syntastic.git
+cd ~/.vim/bundle && \
+git clone git://github.com/majutsushi/tagbar
+cd ~/.vim/bundle && \
+git clone git://github.com/airblade/vim-gitgutter.git
+cd ~/.vim && \
+https://github.com/morhetz/gruvbox.git
+mv ~/tmp/hide.vimrc ~/.vimrc
