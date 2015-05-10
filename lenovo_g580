@@ -1,5 +1,5 @@
 # touchpad
-synclient TapButton1=1 w konsoli
+synclient TapButton1=1
 
 # polish letters
 vim /etc/locale.gen (uncomment pl files)
