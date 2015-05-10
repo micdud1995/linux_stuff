@@ -279,12 +279,8 @@ type/^ASCII\ mail\ text
 
 ### Sources ###
 
-regex/\.(C|cc|cpp|h)$
+regex/\.(C|cc|cpp|h|txt|rc)$
 	Open=%var{EDITOR:vim} %f
-
-# C/C++ header
-regex/i/\.(h|hh|hpp)$
-	Include=editor
 
 # Fortran
 shell/i/.f
