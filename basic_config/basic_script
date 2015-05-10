@@ -1,7 +1,9 @@
 # run this with sudo, not su!
 # commands after cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
 
+echo
 echo Configuration moc player, midnight commander and zsh...
+echo
 
 aptitude install mc moc zsh
 

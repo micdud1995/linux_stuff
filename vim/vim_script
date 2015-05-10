@@ -1,6 +1,10 @@
 # run this with sudo, not su!
 # at first type: cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
  
+echo
+echo Configuration of vim...
+echo
+
 aptitude install vim curl exuberant-ctags
 
 mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
