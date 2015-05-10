@@ -1,3 +1,5 @@
+# run this with sudo, not su!
+
 aptitude install vim curl exuberant-ctags
 
 cd ~/tmp && \
