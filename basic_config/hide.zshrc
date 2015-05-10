@@ -139,4 +139,5 @@ extract () {
 
 # show which commands you use the most
 alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
-=========================
+
+#=========================
