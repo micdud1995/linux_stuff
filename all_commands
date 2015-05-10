@@ -23,6 +23,7 @@ aptitude show lxde (shows depends of package)
 ---------------------------------- sysadmin
 lsblk (shows mounted disks as a tree)
 uptime 
+hostname -I (shows IP address)
 w (uptime & who)
 free -h (free memory)
 htop (ram & cpu consumption)
