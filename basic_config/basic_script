@@ -10,9 +10,8 @@ aptitude install mc moc zsh
 mkdir ~/.moc
 cp ~/repo/linux_stuff/basic_config/config_moc ~/.moc/config
 
-mkdir ~/.mc
 mkdir ~/.local/share/mc/skins
-cp ~/repo/linux_stuff/basic_config/mc.ext ~/.mc/mc.ext
+cp ~/repo/linux_stuff/basic_config/mc.ext ~/.config/mc/mc.ext
 cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins/
 
 cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
