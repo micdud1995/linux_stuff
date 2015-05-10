@@ -1,0 +1,9 @@
+# run this with sudo, not su!
+# commands after cd ~/tmp && git clone https://github.com/micdud1995/linux_stuff.git
+
+echo Configuration conky...
+
+aptitude install conky
+
+cp ~/tmp/linux_stuff/conky/conky.conf ~/.conkyrc
+cp ~/tmp/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
