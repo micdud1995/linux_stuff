@@ -1,4 +1,4 @@
-aptitude install vim curl
+aptitude install vim curl exuberant-ctags
 
 mkdir -p ~/.vim/autoload ~/.vim/bundle
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -10,6 +10,7 @@ cd ~/.vim/bundle && \
 git clone git://github.com/majutsushi/tagbar
 cd ~/.vim/bundle && \
 git clone git://github.com/airblade/vim-gitgutter.git
-cd ~/.vim && \
+cd ~/tmp && \
 https://github.com/morhetz/gruvbox.git
+mv gruvbox/* /home/michal/.vim/
 mv ~/tmp/vim/hide.vimrc ~/.vimrc
