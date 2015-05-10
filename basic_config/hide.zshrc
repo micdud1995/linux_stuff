@@ -98,6 +98,45 @@ unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
 setxkbmap -option compose:ralt  # compose-key
 print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 
-# Aliases
+# ========Aliases========
+# ls with colors
 alias ls='ls --color'
+
+# shutdown the system
 alias off='systemctl poweroff'
+
+# show hidden files only
+alias l.='ls -d .* --color=auto'
+
+# list all folders
+alias lf='ls -Gl | grep ^d'
+alias lsd='ls -Gal | grep ^d'
+
+# system upgrade
+alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean'
+
+# USEFUL ALIAS FOR EXTRACT KNOW ARCHIVES
+extract () {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+# show which commands you use the most
+alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
+=========================
