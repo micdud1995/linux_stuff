@@ -72,6 +72,8 @@ g++ *.cpp -o bin
 
 javac program.java
 java program
+---------------------------------- mindnight commander
+Alt + . (Show/Hide hidden files)
 ---------------------------------- network
 ifconfig (with sudo - network interfaces)
 ifconfig -a (all interfaces, even disabled)
