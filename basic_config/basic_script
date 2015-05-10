@@ -7,7 +7,8 @@ aptitude install mc moc zsh
 
 mkdir ~/.moc
 cp ~/tmp/linux_stuff/basic_config/config_moc ~/.moc/config
-cp ~/tmp/linux_stuff/basic_config/mc.ext ~/.mc/mc.ext
+mkdir ~/.mc
+cp ~/tmp/linux_stuff/basic_config/mc.ext ~/.mc/
 
 cp ~/tmp/linux_stuff/basic_config/hide.zshrc ~/.zshrc
 chsh -s /bin/zsh
