@@ -1,16 +1,18 @@
 # run this with sudo, not su!
-# commands after cd ~/tmp && git clone https://github.com/micdud1995/linux_stuff.git
+# commands after cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
 
 echo Configuration moc player, midnight commander and zsh...
 
 aptitude install mc moc zsh
 
 mkdir ~/.moc
-cp ~/tmp/linux_stuff/basic_config/config_moc ~/.moc/config
+cp ~/repo/linux_stuff/basic_config/config_moc ~/.moc/config
+
 mkdir ~/.mc
-cp ~/tmp/linux_stuff/basic_config/mc.ext ~/.mc/
+mkdir ~/.local/share/mc/skins
+cp ~/repo/linux_stuff/basic_config/mc.ext ~/.mc/mc.ext
+cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins/
 
-cp ~/tmp/linux_stuff/basic_config/hide.zshrc ~/.zshrc
+cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
 chsh -s /bin/zsh
-
 

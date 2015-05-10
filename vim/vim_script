@@ -1,5 +1,5 @@
 # run this with sudo, not su!
-# commands after cd ~/tmp && git clone https://github.com/micdud1995/linux_stuff.git
+# at first type: cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
  
 aptitude install vim curl exuberant-ctags
 
@@ -18,4 +18,4 @@ git clone https://github.com/morhetz/gruvbox.git
 mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
 mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
 rm -rf ~/tmp/gruvbox
-mv ~/tmp/linux_stuff/vim/hide.vimrc ~/.vimrc
+mv ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
