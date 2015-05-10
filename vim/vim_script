@@ -1,8 +1,8 @@
 # run this with sudo, not su!
-
+# commands after cd ~/tmp && git clone https://github.com/micdud1995/linux_stuff.git
+ 
 aptitude install vim curl exuberant-ctags
 
-cd ~/tmp && \
 mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 cd ~/.vim/bundle && \
