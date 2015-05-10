@@ -1,6 +1,7 @@
 aptitude install vim curl exuberant-ctags
 
-mkdir -p ~/.vim/autoload ~/.vim/bundle
+cd ~/tmp && \
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 cd ~/.vim/bundle && \
 git clone https://github.com/scrooloose/nerdtree.git
@@ -11,6 +12,8 @@ git clone git://github.com/majutsushi/tagbar
 cd ~/.vim/bundle && \
 git clone git://github.com/airblade/vim-gitgutter.git
 cd ~/tmp && \
-https://github.com/morhetz/gruvbox.git
-mv gruvbox/* /home/michal/.vim/
-mv ~/tmp/vim/hide.vimrc ~/.vimrc
+git clone https://github.com/morhetz/gruvbox.git
+mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+rm -rf ~/tmp/gruvbox
+mv ~/tmp/linux_stuff/vim/hide.vimrc ~/.vimrc
