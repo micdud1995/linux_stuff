@@ -1,5 +1,6 @@
 syntax on 	"podswietlana skladnia
 filetype on
+filetype plugin on
 set number	"wyswietla numery linii
 set incsearch
 set autoindent	"automatyczne wciecia
