@@ -2,7 +2,7 @@
 # at first type: cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
 
 echo
-echo Configuration moc player, midnight commander and zsh...
+echo Configuration of moc player, midnight commander and zsh...
 echo
 
 aptitude install mc moc zsh
