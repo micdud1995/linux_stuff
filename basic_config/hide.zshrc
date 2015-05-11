@@ -1,8 +1,11 @@
+#=================================================================
 autoload -U colors zsh-mime-setup select-word-style
 colors          # colors
 zsh-mime-setup  # run everything as if it's an executable
 select-word-style bash # ctrl+w on words
+#=================================================================
 
+#=================================================================
 # Vcs info
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn hg
@@ -11,7 +14,9 @@ zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%c%{$fg[green]%}%u%{$reset_color%} 
 precmd() {  # run before each prompt
   vcs_info
 }
+#=================================================================
 
+#=================================================================
 # Prompt
 setopt PROMPT_SUBST     # allow funky stuff in prompt
 color="white"
@@ -21,7 +26,9 @@ fi;
 prompt="%{$fg[$color]%}%n%{$reset_color%}@%U%{$fg[green]%}%m%{$reset_color%}%~
  └──────> "
 RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
+#=================================================================
 
+#=================================================================
 # Completion
 autoload -U compinit
 compinit
@@ -32,21 +39,27 @@ setopt always_to_end            # when completing from the middle of a word, mov
 setopt complete_in_word         # allow completion from within a word/phrase
 setopt correct                  # spelling correction for commands
 setopt list_ambiguous           # complete as much of a completion until it gets ambiguous.
+#=================================================================
 
+#=================================================================
 zstyle ':completion::complete:*' use-cache on               # completion caching, use rehash to clear
 zstyle ':completion:*' cache-path ~/.zsh/cache              # cache path
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # ignore case
 zstyle ':completion:*' menu select=2                        # menu if nb items > 2
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}       # colorz !
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate # list of completers to use
+#=================================================================
 
+#=================================================================
 # sections completion
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format $'\e[00;34m%d'
 zstyle ':completion:*:messages' format $'\e[00;31m%d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:manuals' separate-sections true
+#=================================================================
 
+#=================================================================
 zstyle ':completion:*:processes' command 'ps -au$USER'
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
@@ -55,17 +68,23 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 users=(jvoisin root)           # because I don't care about others
 zstyle ':completion:*' users $users
+#=================================================================
 
+#=================================================================
 #generic completion with --help
 compdef _gnu_generic gcc
 compdef _gnu_generic gdb
+#=================================================================
 
+#=================================================================
 # Pushd
 setopt auto_pushd               # make cd push old dir in dir stack
 setopt pushd_ignore_dups        # no duplicates in dir stack
 setopt pushd_silent             # no dir stack after pushd or popd
 setopt pushd_to_home            # `pushd` = `pushd $HOME`
+#=================================================================
 
+#=================================================================
 # History
 HISTFILE=~/.zsh_history         # where to store zsh config
 HISTSIZE=1024                   # big history
@@ -78,7 +97,9 @@ setopt hist_verify              # show before executing history commands
 setopt inc_append_history       # add commands as they are typed, don't wait until shell exit 
 setopt share_history            # share hist between sessions
 setopt bang_hist                # !keyword
+#=================================================================
 
+#=================================================================
 # Various
 setopt auto_cd                  # if command is a path, cd into it
 setopt auto_remove_slash        # self explicit
@@ -97,25 +118,22 @@ unsetopt list_beep              # no bell on ambiguous completion
 unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
 setxkbmap -option compose:ralt  # compose-key
 print -Pn "\e]0; %n@%M: %~\a"   # terminal title
+#=================================================================
 
-# ========Aliases========
+#=================================================================
+# Aliases
 # ls with colors
-alias ls='ls --color'
-
+	alias ls='ls --color'
 # shutdown the system
-alias off='systemctl poweroff'
-
+	alias off='systemctl poweroff'
 # show hidden files only
-alias l.='ls -d .* --color=auto'
-
+	alias l.='ls -d .* --color=auto'
 # list all folders
-alias lf='ls -Gl | grep ^d'
-alias lsd='ls -Gal | grep ^d'
-
+	alias lf='ls -Gl | grep ^d'
+	alias lsd='ls -Gal | grep ^d'
 # system upgrade
-alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean'
-
-# USEFUL ALIAS FOR EXTRACT KNOW ARCHIVES
+	alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean'
+# Extract archives
 extract () {
     if [ -f $1 ] ; then
       case $1 in
@@ -136,8 +154,6 @@ extract () {
          echo "'$1' is not a valid file"
      fi
 }
-
 # show which commands you use the most
-alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
-
-#=========================
+	alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
+#=================================================================
