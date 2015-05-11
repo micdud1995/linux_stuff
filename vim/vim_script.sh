@@ -66,6 +66,7 @@ git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
 #==============================================================
 # Gruvbox theme
+mkdir ~/tmp
 cd ~/tmp && \
 git clone https://github.com/morhetz/gruvbox.git
 mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
