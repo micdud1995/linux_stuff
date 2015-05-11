@@ -1,6 +1,18 @@
 # run this with sudo, not su!
 # at first type: cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
- 
+
+#==============================================================
+# Plugin list:
+#	Pathogen
+#	Nerdtree
+#	Syntastic
+#	Tagbar
+#	GitGutter
+#	Nerdcommenter
+# 	Vim-airline
+#	Gruvbox theme
+#==============================================================
+
 echo
 echo Configuration of vim...
 echo
