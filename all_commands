@@ -46,6 +46,12 @@ making alias
 	alias cp='rsync -aP' (adds progress bar)
 	unalias cp
 chsh -s /bin/zsh (changes default shell)
+---------------------------------- counters
+wc -l (Prints the number of lines in a file; wc - word count)
+wc -w (prints the number of words in a file)
+wc -c (Displays the count of bytes in a file)
+wc -m (prints the count of characters from a file)
+wc -L (prints only the length of the longest line in a file)
 ---------------------------------- mount/formatting
 dd if=/path/to/iso of=/dev/sdb && sync (sdb without number)
 mkfs.ext4 /dev/sdb1 (formatting to ext4)
@@ -116,3 +122,7 @@ Examples:
 * * * * * echo "Hello World" >> ~/tmp/hello.txt (plik sam się utworzy)
 
 * * * * * tar -zcf /path/to/new/archive /path/to/file (tworzy archiwum z pliku/folderu)
+
+---------------------------------- vim
+:! command (run command without exiting from vim)
+:!! (run in vim last command)
