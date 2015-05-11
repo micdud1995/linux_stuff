@@ -1,4 +1,3 @@
-
 # Midnight Commander 3.0 extension file
 # Warning: Structure of this file has changed completely with version 3.0
 #
@@ -279,7 +278,7 @@ type/^ASCII\ mail\ text
 
 ### Sources ###
 
-regex/\.(C|cc|cpp|h|txt|rc)$
+regex/\.(C|cc|cpp|h|txt|rc|ini|ext)$
 	Open=%var{EDITOR:vim} %f
 
 # Fortran
