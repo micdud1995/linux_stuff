@@ -1,4 +1,5 @@
----------------------------------- basics
+#========================================================
+# Basics
 mkdir
 touch
 ls -a (with hidden files)
@@ -20,7 +21,10 @@ rm -rf /path/to/dir (remove directory)
 cal (shows calendar)
 date (shows date)
 aptitude show lxde (shows depends of package)
----------------------------------- sysadmin
+#========================================================
+
+#========================================================
+# Sysadmin
 lsblk (shows mounted disks as a tree)
 uptime 
 hostname -I (shows IP address)
@@ -46,13 +50,19 @@ making alias
 	alias cp='rsync -aP' (adds progress bar)
 	unalias cp
 chsh -s /bin/zsh (changes default shell)
----------------------------------- counters
+#========================================================
+
+#========================================================
+# Counters
 wc -l (Prints the number of lines in a file; wc - word count)
 wc -w (prints the number of words in a file)
 wc -c (Displays the count of bytes in a file)
 wc -m (prints the count of characters from a file)
 wc -L (prints only the length of the longest line in a file)
----------------------------------- mount/formatting
+#========================================================
+
+#========================================================
+# Mount/format
 dd if=/path/to/iso of=/dev/sdb && sync (sdb without number)
 mkfs.ext4 /dev/sdb1 (formatting to ext4)
 mounting usb
@@ -62,7 +72,7 @@ mounting usb
 	mkdir usb
 	mount /dev/sdb1 /dev/usb
 	umount /dev/usb
-----------------------------------
+#========================================================
 md5sum file - checksum
 reset (resets terminal)
 chmod 761 abc.sh (owner=all, group=read and write, world=only execute)
@@ -72,27 +82,42 @@ find -iname *.tXT (no difference small/big letters)
 find ~ -empty (finds empty files)
 grep word /path/to/file (finds word in file)
 grep -i wOrD /path/to/file (no difference small/big letters)
----------------------------------- programming
+#========================================================
+
+#========================================================
+# Programming
 g++ *.cpp -o bin
 ./bin
 
 javac program.java
 java program
----------------------------------- mindnight commander
+#========================================================
+
+#========================================================
+# Midnight Commander
 Alt + . (Show/Hide hidden files)
----------------------------------- network
+#========================================================
+
+#========================================================
+# Network
 ifconfig (with sudo - network interfaces)
 ifconfig -a (all interfaces, even disabled)
 
 ifconfig eth0 down (disable interface)
 ifconfig eth0 up (enable interface)
----------------------------------- output
+#========================================================
+
+#========================================================
+# Output
 xrandr (available outputs)
 xrandr --output HDMI1 --off (off HDMI1 output)
 xrandr --output HDMI1 --mode 1024x768 (changing resolution)
 xrandr --output HDMI1 --auto (default settings)
 xrandr --output HDMI1 --mode 1366x768
----------------------------------- crontab
+#========================================================
+
+#========================================================
+# Cron
 crontab -l (list of jobs)
 crontab -e (edit jobs of cron)
 crontab -r (delete all jobs of cron)
@@ -123,6 +148,9 @@ Examples:
 
 * * * * * tar -zcf /path/to/new/archive /path/to/file (tworzy archiwum z pliku/folderu)
 
----------------------------------- vim
+#========================================================
+
+#========================================================
+# Vim
 :! command (run command without exiting from vim)
 :!! (run in vim last command)
