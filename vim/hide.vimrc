@@ -34,7 +34,7 @@ autocmd VimEnter * nested :TagbarOpen
 "==================================================
 
 "==================================================
-" Better copy/paste, go to insert, press F2 and paste text
+" Better copy/paste (go to insert, press F2 and paste text)
 set pastetoggle=<F2>
 set clipboard=unnamed
 "==================================================
