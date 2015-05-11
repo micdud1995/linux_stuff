@@ -54,15 +54,6 @@ git clone git://github.com/airblade/vim-gitgutter.git
 #==============================================================
 
 #==============================================================
-# Gruvbox theme
-cd ~/tmp && \
-git clone https://github.com/morhetz/gruvbox.git
-mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-rm -rf ~/tmp/gruvbox
-#==============================================================
-
-#==============================================================
 # Nerdcommenter
 cd ~/.vim/bundle && \
 git clone https://github.com/scrooloose/nerdcommenter.git
@@ -71,6 +62,15 @@ git clone https://github.com/scrooloose/nerdcommenter.git
 #==============================================================
 # Vim-airline
 git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+#==============================================================
+
+#==============================================================
+# Gruvbox theme
+cd ~/tmp && \
+git clone https://github.com/morhetz/gruvbox.git
+mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+rm -rf ~/tmp/gruvbox
 #==============================================================
 
 #==============================================================
