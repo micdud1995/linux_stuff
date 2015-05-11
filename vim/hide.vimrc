@@ -40,7 +40,7 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
-" ctrl+n to off backlight while finding in text
+" ctrl+n to off backlight during search in text
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
 inoremap <C-n> :nohl<CR>
