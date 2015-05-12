@@ -154,3 +154,16 @@ Examples:
 # Vim
 :! command (run command without exiting from vim)
 :!! (run in vim last command)
+#========================================================
+
+#========================================================
+# SSH
+sudo aptitude install openssh-server
+sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+sudo /etc/init.d/ssh restart
+ssh user@ip_number
+export DISPLAY=:0 #if wanna to run GUI apps
+...
+exit
+#========================================================
+
