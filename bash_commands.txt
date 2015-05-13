@@ -256,3 +256,46 @@ do
 	read answer
 done
 =======================================
+
+=======================================
+# Break and Continue
+Break statement will cause the loop to immediately terminate.
+Goes to the next line after done.
+
+The continue statement will cause the loop to abandon the current iteration.
+=======================================
+
+=======================================
+# expr - for numerical calculations
+expr 3 + 2 (spaces around all of arguments!)
+
+e.g.
+a=15
+b=3
+c=`expr $a / $b`
+echo $c
+
+e.g.
+read count
+i = 1
+while [ $i -le $count ]
+do
+	echo This is loop $i of $count
+	i=`expr $i + 1`
+done
+=======================================
+
+=======================================
+# for loop
+
+for var1 in Bread Meat Dairy Vegetables Fruit
+do
+	echo One of the main food groups is $var1
+done
+
+# This loop copies all non-empty txt files to backups dir
+for fname in *.txt
+do
+	[ -s $fname ] && cp $fname backups
+done
+=======================================
