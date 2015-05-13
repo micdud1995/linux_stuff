@@ -49,5 +49,5 @@ cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins
 #=================================================================
 # Z-shell
 cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
-chsh -s /bin/zsh
+chsh -s /bin/zsh 	# makes zsh default shell
 #=================================================================
