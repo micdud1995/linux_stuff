@@ -20,6 +20,7 @@ rm /path/to/file (remove file)
 rm -rf /path/to/dir (remove directory)
 cal (shows calendar)
 date (shows date)
+aptitude (shows menu with packages in categories)
 aptitude show lxde (shows depends of package)
 #========================================================
 
