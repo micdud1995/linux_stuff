@@ -1,5 +1,4 @@
-# run this with sudo, not su!
-# at first type: cd ~/repo && git clone https://github.com/micdud1995/linux_stuff.git
+# run as a user!
 
 #==============================================================
 # Plugin list:
@@ -13,11 +12,38 @@
 #	Gruvbox theme
 #==============================================================
 
-echo
-echo Configuration of vim...
-echo
+clear
 
-aptitude install vim curl exuberant-ctags
+#=================================================================
+# Creating repo dir and cloning repository
+if [ ! -d ~/repo ] && [ ! -d ~/repo/linux_stuff ]; then
+	echo
+	echo =================================================================
+	echo Creating ~/repo/linux_stuff directory...
+	echo Cloning repository...
+	echo =================================================================
+	mkdir -p ~/repo
+	mkdir ~/repo/linux_stuff
+	cd ~/repo/linux_stuff
+	git clone https://github.com/micdud1995/linux_stuff.git
+else
+	echo
+	echo =================================================================
+	echo OK, ~/repo/linux_stuff already exists...
+	echo =================================================================
+fi
+#=================================================================
+
+#=================================================================
+echo
+echo =================================================================
+echo Configuration of vim...
+echo =================================================================
+echo
+#=================================================================
+
+sudo aptitude install vim curl exuberant-ctags
+exit
 
 #==============================================================
 # Making dirs
@@ -66,7 +92,7 @@ git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
 #==============================================================
 # Gruvbox theme
-mkdir ~/tmp
+mkdir -p ~/tmp
 cd ~/tmp && \
 git clone https://github.com/morhetz/gruvbox.git
 mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
