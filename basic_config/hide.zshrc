@@ -133,6 +133,8 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias lsd='ls -Gal | grep ^d'
 # system upgrade
 	alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean'
+# system cleaning
+	alias clean='sudo aptitude autoremove && sudo aptitude autoclean'
 # Extract archives
 extract () {
     if [ -f $1 ] ; then
