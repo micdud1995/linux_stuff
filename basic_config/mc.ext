@@ -278,7 +278,7 @@ type/^ASCII\ mail\ text
 
 ### Sources ###
 
-regex/\.(C|cc|cpp|h|txt|rc|ini|ext|sh|zshrc|conf|xml|md|o|vimrc|srt|log|html)$
+regex/\.(C|cc|cpp|h|txt|rc|ini|ext|sh|zshrc|conf|xml|md|o|vimrc|srt|log|html|cnf|cfg|asc|yaml|css)$
 	Open=%var{EDITOR:vim} %f
 
 # Fortran
