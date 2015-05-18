@@ -68,7 +68,7 @@ Esc
 
 #========================================================
 # packages
-gmtp feh ufw xfce4-screenshooter xfce4-appfinder brasero gimp slim mc moc conky vim chromium git tree htop gummi geeqie vlc alsa-utils
+gmtp feh nitrogen ufw scrot brasero gimp slim mc moc conky vim chromium git tree htop gummi geeqie vlc alsa-utils
 #========================================================
 
 #########################################################
