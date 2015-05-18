@@ -88,7 +88,7 @@ deb http://www.deb-multimedia.org/ testing main non-free
 deb-src http://www.deb-multimedia.org/ testing main non-free
 
 
-2) aptitude update && aptitude dist-upgrade (jeśli w virtualbox, to także aptitude install virtualbox-guest-x11)
+2) aptitude update && aptitude dist-upgrade
 
 3) aptitude install xserver-xorg xinit openbox slim
 4) startx
