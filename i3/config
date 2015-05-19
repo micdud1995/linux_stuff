@@ -16,7 +16,7 @@ floating_modifier $mod
 exec amixer sset Master 20%
 
 # Wallpaper restoring
-nitrogen --restore
+exec nitrogen --restore
 
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
@@ -146,7 +146,7 @@ bindsym $mod+r mode "resize"
 # Shutdown, reboot, lock screen
 
 #set $Locker i3lock -c 000000 && sleep 1
-set $Locker i3lock -i ~/Pobrane/i3lock.png --color=ff0000
+set $Locker i3lock -i ~/tmp/i3lock.png --color=ff0000
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
