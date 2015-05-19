@@ -31,9 +31,6 @@ bar {
 # =======================================================
 # Bindings
 
-# Switch back and forth between the last two workspaces
-bindsym $mod+z workspace back back_and_forth
- 
 # Start a terminal
 bindsym $mod+Return exec lxterminal
 
