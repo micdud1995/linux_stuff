@@ -15,6 +15,9 @@ floating_modifier $mod
 # Default volume
 exec amixer sset Master 20%
 
+# Wallpaper restoring
+nitrogen --restore
+
 # Bar
 bar {
 	status_command i3status
@@ -136,7 +139,8 @@ bindsym $mod+r mode "resize"
 # =======================================================
 # Shutdown, reboot, lock screen
 
-set $Locker i3lock -c 000000 && sleep 1
+#set $Locker i3lock -c 000000 && sleep 1
+set $Locker i3lock -i ~/Pobrane/i3lock.png --color=ff0000
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -161,13 +165,13 @@ mode "resize" {
 	bindsym l resize shrink height $Size px or $Size ppt
 	bindsym semicolon resize grow width $Size px or $Size ppt
 
-	# same bindings, but for the arrow keys
+	# Same bindings, but for the arrow keys
 	bindsym Left resize shrink width $Size px or $Size ppt
 	bindsym Down resize grow height $Size px or $Size ppt
 	bindsym Up resize shrink height $Size px or $Size ppt
 	bindsym Right resize grow width $Size px or $Size ppt
 
-	# back to normal: Enter or Escape
+	# Back to normal: Enter or Escape
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
