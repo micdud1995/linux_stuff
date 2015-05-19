@@ -50,3 +50,10 @@ cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins
 cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
 chsh -s /bin/zsh 	# makes zsh default shell
 #=================================================================
+
+#=================================================================
+# Others
+
+# Removing all console beeps while running X
+xset b off
+#=================================================================
