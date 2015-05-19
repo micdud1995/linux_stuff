@@ -28,7 +28,7 @@ echo =================================================================
 echo
 #=================================================================
 
-sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight xserver-xorg xinit
+sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen feh
 
 #==============================================================
 # Copying config files from repo 
