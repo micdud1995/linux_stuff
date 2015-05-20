@@ -13,16 +13,40 @@ for_window [class="^."] border pixel 3
 floating_modifier $mod
 
 # Default volume
-exec amixer sset Master 20%
+exec --no-startup-id amixer sset Master 20%
 
 # Wallpaper restoring
-exec nitrogen --restore
+exec --no-startup-id nitrogen --restore
 
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
 
+# Name the workspaces
+set $tag1 "1: Internet"
+set $tag2 "2: Files"
+set $tag3 "3: Terminals"
+set $tag4 "4: Other_stuff"
 # Bar
-bar {
+bar 
+{
+	colors 
+	{
+        	# Whole color settings
+        	background #000000
+        	statusline #ffffff
+        	separator  #666666
+
+        	# Type             border  background font
+        	focused_workspace  #008fff #007fff #ffffff
+        	active_workspace   #333333 #5f676a #ffffff
+        	inactive_workspace #333333 #222222 #888888
+        	urgent_workspace   #aa0000 #990000 #ffffff
+    }
+    
+	# i3bar position
+    #position top
+	position bottom
+
 	status_command i3status
 	font xtf:Cousine 8
 }
@@ -90,10 +114,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace $tag4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
