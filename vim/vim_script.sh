@@ -46,7 +46,7 @@ sudo aptitude install vim curl exuberant-ctags
 
 #==============================================================
 # Making dirs
-mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 #==============================================================
 
 #==============================================================
