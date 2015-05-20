@@ -12,6 +12,7 @@ set tabstop=4
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let g:tagbar_width = 30
 "==================================================
 
 "==================================================
@@ -32,8 +33,11 @@ let g:syntastic_check_on_wq = 0
 " Autostart
 execute pathogen#infect()
 autocmd VimEnter * wincmd p
-autocmd VimEnter * NERDTree
-autocmd VimEnter * nested :TagbarOpen
+
+" Open tagbar only with specific files
+autocmd FileType c,h,cpp,java nested :TagbarOpen
+" Open NERDTree only with specific files
+autocmd FileType c,h,cpp,java nested :NERDTree
 "==================================================
 
 "==================================================
@@ -55,3 +59,13 @@ set nobackup
 set nowritebackup
 set noswapfile
 "==================================================
+
+"==================================================
+" Keyboard commands
+
+" NerdTree 
+" i - open the selected file in a horizontal split window
+" s - open the selected file in a vertical split window
+" I - toggle hidden files
+" R - refresh the tree
+
