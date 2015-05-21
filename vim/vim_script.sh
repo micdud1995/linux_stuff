@@ -47,7 +47,7 @@ sudo aptitude install vim curl exuberant-ctags
 
 #==============================================================
 # Making dirs
-mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 #==============================================================
 
 #==============================================================
@@ -105,11 +105,11 @@ git clone git://github.com/jiangmiao/auto-pairs.git ~/.vim/bundle/auto-pairs
 #rm -rf ~/tmp/gruvbox
 
 # Sorcerer theme
-mkdir -p ~/tmp
 cd ~/tmp && \
-git clone https://github.com/vim-scripts/Sorcerer.git
-mv ~/tmp/Sorcerer/colors/sorcerer.vim ~/.vim/colors
-rm -rf ~/tmp/Sorcerer
+git clone https://github.com/adlawson/vim-sorcerer.git
+
+mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+rm -rf ~/tmp/vim-sorcerer
 #==============================================================
 
 #==============================================================
