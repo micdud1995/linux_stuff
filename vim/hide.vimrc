@@ -12,7 +12,9 @@ set tabstop=4
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:tagbar_width = 30
+let g:nerdtree_width = 30
+let g:NERDTreeWinSize = 20
+let Tlist_Use_Right_Window = 1
 "==================================================
 
 "==================================================
@@ -35,7 +37,7 @@ execute pathogen#infect()
 autocmd VimEnter * wincmd p
 
 " Open tagbar only with specific files
-autocmd FileType c,h,cpp,java nested :TagbarOpen
+autocmd FileType c,h,cpp,java nested :TlistToggle
 " Open NERDTree only with specific files
 autocmd FileType c,h,cpp,java nested :NERDTree
 "==================================================
