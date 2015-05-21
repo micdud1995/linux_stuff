@@ -5,7 +5,7 @@
 #	Pathogen
 #	Nerdtree
 #	Syntastic
-#	Tagbar
+#	Taglist
 #	GitGutter
 #	Nerdcommenter
 # 	Vim-airline
@@ -67,9 +67,9 @@ git clone https://github.com/scrooloose/syntastic.git
 #==============================================================
 
 #==============================================================
-# Tagbar
+# Taglist
 cd ~/.vim/bundle && \
-git clone git://github.com/majutsushi/tagbar
+git clone git://github.com/vim-scripts/taglist.vim.git
 #==============================================================
 
 #==============================================================
