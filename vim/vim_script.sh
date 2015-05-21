@@ -107,9 +107,9 @@ git clone git://github.com/jiangmiao/auto-pairs.git ~/.vim/bundle/auto-pairs
 # Sorcerer theme
 mkdir -p ~/tmp
 cd ~/tmp && \
-# git clone https://github.com/morhetz/gruvbox.git
-mv ~/tmp/sorcerer/colors/sorcerer.vim ~/.vim/colors
-rm -rf ~/tmp/sorcerer
+git clone https://github.com/vim-scripts/Sorcerer.git
+mv ~/tmp/Sorcerer/colors/sorcerer.vim ~/.vim/colors
+rm -rf ~/tmp/Sorcerer
 #==============================================================
 
 #==============================================================
