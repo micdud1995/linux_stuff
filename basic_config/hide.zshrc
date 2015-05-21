@@ -23,7 +23,7 @@ color="white"
 if [ "$USER" = "root" ]; then
     color="red"         
 fi;
-prompt="%{$fg[$color]%}%n%{$reset_color%}@%U%{$fg[green]%}%m%{$reset_color%}%~
+prompt="%{$fg[$color]%}[%n]──%{$reset_color%}[%U%{$fg[green]%}%m]%{$reset_color%}%~
  └──────> "
 RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
 #=================================================================
@@ -86,7 +86,7 @@ setopt pushd_to_home            # `pushd` = `pushd $HOME`
 
 #=================================================================
 # History
-HISTFILE=~/.zsh_history         # where to store zsh config
+HISTFILE=~/.zsh_history         # where to store zsh_history file
 HISTSIZE=1024                   # big history
 SAVEHIST=1024                   # big history
 setopt append_history           # append
@@ -124,6 +124,8 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # Aliases
 # ls with colors
 	alias ls='ls --color'
+# .. to back
+ 	alias ..='cd ..'
 # shutdown the system
 	alias off='systemctl poweroff'
 # show hidden files only
@@ -133,8 +135,6 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias lsd='ls -Gal | grep ^d'
 # system upgrade
 	alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean'
-# system cleaning
-	alias clean='sudo aptitude autoremove && sudo aptitude autoclean'
 # Extract archives
 extract () {
     if [ -f $1 ] ; then
