@@ -12,15 +12,12 @@ set tabstop=4
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:nerdtree_width = 30
-let g:NERDTreeWinSize = 20
-let Tlist_Use_Right_Window = 1
 "==================================================
 
 "==================================================
 " Look and themes
-colorscheme gruvbox
-set background=dark
+" colorscheme gruvbox
+colorscheme sorcerer
 "==================================================
 
 "==================================================
@@ -38,8 +35,13 @@ autocmd VimEnter * wincmd p
 
 " Open taglist only with specific files
 autocmd FileType c,h,cpp,java nested :TlistOpen
+" Taglist on the right side
+let Tlist_Use_Right_Window = 1
+
 " Open NERDTree only with specific files
 autocmd FileType c,h,cpp,java nested :NERDTree
+" Width of NERDTree section
+let g:NERDTreeWinSize = 20
 "==================================================
 
 "==================================================
