@@ -9,6 +9,7 @@
 #	GitGutter
 #	Nerdcommenter
 # 	Vim-airline
+#	Auto-pairs
 #	Gruvbox theme
 #==============================================================
 
@@ -90,13 +91,25 @@ git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 #==============================================================
 
 #==============================================================
+# Auto-pairs 
+git clone git://github.com/jiangmiao/auto-pairs.git ~/.vim/bundle/auto-pairs
+#==============================================================
+
+#==============================================================
 # Gruvbox theme
+#mkdir -p ~/tmp
+#cd ~/tmp && \
+#git clone https://github.com/morhetz/gruvbox.git
+#mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+#mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+#rm -rf ~/tmp/gruvbox
+
+# Sorcerer theme
 mkdir -p ~/tmp
 cd ~/tmp && \
-git clone https://github.com/morhetz/gruvbox.git
-mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-rm -rf ~/tmp/gruvbox
+# git clone https://github.com/morhetz/gruvbox.git
+mv ~/tmp/sorcerer/colors/sorcerer.vim ~/.vim/colors
+rm -rf ~/tmp/sorcerer
 #==============================================================
 
 #==============================================================
