@@ -5,7 +5,7 @@
 #	Pathogen
 #	Nerdtree
 #	Syntastic
-#	Taglist
+#	Tagbar / Taglist
 #	GitGutter
 #	Nerdcommenter
 # 	Vim-airline
@@ -44,7 +44,7 @@ echo =================================================================
 echo
 #=================================================================
 
-sudo aptitude install vim curl exuberant-ctags
+sudo aptitude install vim curl exuberant-ctags fonts-inconsolata
 
 #==============================================================
 # Making dirs
@@ -69,9 +69,10 @@ git clone https://github.com/scrooloose/syntastic.git
 #==============================================================
 
 #==============================================================
-# Taglist
+# Tagbar / Taglist
 cd ~/.vim/bundle && \
-git clone git://github.com/vim-scripts/taglist.vim.git
+#git clone git://github.com/vim-scripts/taglist.vim.git
+git clone https://github.com/vim-scripts/Tagbar.git
 #==============================================================
 
 #==============================================================
