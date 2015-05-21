@@ -36,8 +36,8 @@ let g:syntastic_check_on_wq = 0
 execute pathogen#infect()
 autocmd VimEnter * wincmd p
 
-" Open tagbar only with specific files
-autocmd FileType c,h,cpp,java nested :TlistToggle
+" Open taglist only with specific files
+autocmd FileType c,h,cpp,java nested :TlistOpen
 " Open NERDTree only with specific files
 autocmd FileType c,h,cpp,java nested :NERDTree
 "==================================================
