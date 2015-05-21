@@ -10,6 +10,7 @@
 #	Nerdcommenter
 # 	Vim-airline
 #	Auto-pairs
+# 	Supertab
 #	Gruvbox theme
 #==============================================================
 
@@ -92,7 +93,12 @@ git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
 #==============================================================
 # Auto-pairs 
-git clone git://github.com/jiangmiao/auto-pairs.git ~/.vim/bundle/auto-pairs
+cd ~/.vim/bundle && \
+git clone git://github.com/ervandew/supertab.git
+#==============================================================
+
+#==============================================================
+# Supertab
 #==============================================================
 
 #==============================================================
