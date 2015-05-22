@@ -13,7 +13,7 @@ for_window [class="^."] border pixel 3
 floating_modifier $mod
 
 # Default volume
-eexec amixer sset Master toggle
+exec amixer sset Master toggle
 exec --no-startup-id amixer sset Master 20%
 
 # Wallpaper restoring
