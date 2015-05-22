@@ -7,6 +7,8 @@ zsh-mime-setup
 select-word-style bash 
 # switching to vim mode
 bindkey -v 
+# Disabling Caps-Lock
+setxkbmap -option ctrl:nocaps
 #=================================================================
 
 #=================================================================
