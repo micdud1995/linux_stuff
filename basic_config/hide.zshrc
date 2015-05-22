@@ -3,8 +3,6 @@ autoload -U colors zsh-mime-setup select-word-style
 colors
 # run everything as if it's an executable
 zsh-mime-setup  
-# ctrl+w on words
-select-word-style bash 
 # switching to vim mode
 bindkey -v 
 # Disabling Caps-Lock
