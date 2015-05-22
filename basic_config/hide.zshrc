@@ -1,8 +1,12 @@
 #=================================================================
 autoload -U colors zsh-mime-setup select-word-style
-colors          # colors
-zsh-mime-setup  # run everything as if it's an executable
-select-word-style bash # ctrl+w on words
+colors
+# run everything as if it's an executable
+zsh-mime-setup  
+# ctrl+w on words
+select-word-style bash 
+# switching to vim mode
+bindkey -v 
 #=================================================================
 
 #=================================================================
