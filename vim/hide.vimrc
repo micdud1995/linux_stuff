@@ -35,11 +35,11 @@ autocmd VimEnter * wincmd p
 
 " Open Taglist only with specific files
 " autocmd FileType c,h,cpp,java nested :TlistOpen
+" Taglist on the right side
 " let Tlist_Use_Right_Window = 1
 "
 " Open Tagbar only with specific files
 autocmd FileType c,h,cpp,java nested :TagbarOpen
-" Taglist on the right side
 
 " Open NERDTree only with specific files
 autocmd FileType c,h,cpp,java nested :NERDTree
@@ -54,6 +54,8 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
+" jj instead od ESC
+inoremap jj <ESC> 
 " ctrl+n to off backlight during search in text
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
