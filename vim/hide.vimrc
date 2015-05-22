@@ -12,6 +12,8 @@ set tabstop=4
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+" Cursor stays in the middle of screen
+set scrolloff=999
 "==================================================
 
 "==================================================
@@ -60,6 +62,9 @@ set clipboard=unnamed
 " jk instead od ESC
 inoremap jk <ESC> 
 "
+" Space to enter insert mode
+vmap <Space> i
+
 " Disable the arrow keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
