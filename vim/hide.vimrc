@@ -45,6 +45,9 @@ autocmd FileType c,h,cpp,java nested :TagbarOpen
 autocmd FileType c,h,cpp,java nested :NERDTree
 " Width of NERDTree section
 let g:NERDTreeWinSize = 20
+
+" Kill the capslock when leaving insert mode.
+autocmd InsertLeave * set iminsert=0
 "==================================================
 
 "==================================================
@@ -54,8 +57,15 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
-" jj instead od ESC
-inoremap jj <ESC> 
+" jk instead od ESC
+inoremap jk <ESC> 
+"
+" Disable the arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 " ctrl+n to off backlight during search in text
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
