@@ -14,7 +14,7 @@ floating_modifier $mod
 
 # Default volume
 eexec amixer sset Master toggle
-xec --no-startup-id amixer sset Master 20%
+exec --no-startup-id amixer sset Master 20%
 
 # Wallpaper restoring
 exec --no-startup-id nitrogen --restore
