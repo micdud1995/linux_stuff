@@ -118,6 +118,19 @@ xrandr --output HDMI1 --mode 1366x768
 #========================================================
 
 #========================================================
+# Kernel compiling
+1) download sources from kernel.org
+2) unpack and cd into it
+3) make menuconfig and save .config file (requires libncurses5-dev)
+4) make
+5) make modules
+6) make modules_install
+7) make install
+8) reboot
+9) uname -r
+#========================================================
+
+#========================================================
 # Cron
 crontab -l (list of jobs)
 crontab -e (edit jobs of cron)
