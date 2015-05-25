@@ -121,14 +121,23 @@ xrandr --output HDMI1 --mode 1366x768
 # Kernel compiling
 1) download sources from kernel.org
 2) unpack and cd into it
-3) sudo aptitude install kernel-package libncurses5-dev fakeroot bzip2 build-essential
+3) sudo aptitude install kernel-package libncurses5-dev fakeroot bzip2 build-essential gcc
 4) cp /boot/config-`uname -r` .config
-5) make menuconfig and load .config file (requires libncurses5-dev)
+5) make menuconfig and load .config file and exit -  don't save(requires libncurses5-dev)
 6) make-kpkg clean
 7) fakeroot make-kpkg --initrd --append-to-version=-custom kernel_image kernel_headers
 8) dpkg -i *.deb
 9) reboot
 10) uname -r
+#========================================================
+
+#========================================================
+# Removing kernel installed from source
+sudo rm -rf /lib/modules/kernel_version
+sudo rm -f /boot/vmlinuz-kernel_version*
+sudo rm -f /boot/initrd.img-kernel_version*
+sudo rm -f /boot/config-kernel_version*
+sudo rm -f /boot/System.map-kernel_version*
 #========================================================
 
 #========================================================
