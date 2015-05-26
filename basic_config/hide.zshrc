@@ -126,6 +126,10 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 
 #=================================================================
 # Aliases
+# clear the screen
+	alias c='clear'
+# Add progress bar to cp command
+	alias cp='rsync -aP'
 # ls with colors
 	alias ls='ls --color'
 # shutdown the system
