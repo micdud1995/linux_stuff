@@ -128,8 +128,6 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # Aliases
 # ls with colors
 	alias ls='ls --color'
-# .. to back
- 	alias ..='cd ..'
 # shutdown the system
 	alias off='systemctl poweroff'
 # show hidden files only
@@ -163,7 +161,7 @@ extract () {
 # show which commands you use the most
 	alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
-	alias ..="cd.."
+	alias ..="cd .."
 	alias ...="cd ../.."
 	alias ....="cd ../../.."	
 	alias repo="cd ~/repo"
