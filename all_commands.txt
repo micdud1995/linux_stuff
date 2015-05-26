@@ -2,23 +2,25 @@
 # Basics
 mkdir
 touch
+cd - (back to previous folder)
 ls -a (with hidden files)
 ls -l (with files permissions)
+l. (show only hidden files
 cat a.txt b.txt c.txt >> abcd.txt - merge files
 cp /path/from/file /path/where
 mv /home/path/file /path/where
-pwd - prints working directory
+mv old_name new_name (changes name of file)
+mv *.txt *.cpp (changes all files extensions)
+pwd (prints working directory)
 less /path/to/file (opens large file)
 	arrows - moving
 	q - end
-mv old_name new_name (changes name of file)
-mv *.txt *.cpp (changes all files extensions)
 tar -zxvf abc.tar.gz (unpack)
 tar -jxvf abc.tar.bz2 (unpack)
 tar -cvf archieve.tar.gz /path/to/dir/abc (pack)
 rm /path/to/file (remove file)
 rm -rf /path/to/dir (remove directory)
-cal (shows calendar)
+ncal (shows calendar)
 date (shows date)
 aptitude (shows menu with packages in categories)
 aptitude show lxde (shows depends of package)
@@ -81,8 +83,24 @@ chmod 761 abc.sh (owner=all, group=read and write, world=only execute)
 find -name *.txt (always with -name - finds in folder and subfolders)
 find -iname *.tXT (no difference small/big letters)
 find ~ -empty (finds empty files)
+find / -type f -size +100M (show all files greater than 100Mb)
+find . -mtime +60 (show all files that are not modified int the last 60 days)
+find . -mtime -2 (show files that are modified in the last 2 days)
+
+find / -type f -name *.tar.gz -size +100M -exec ls -l ()\;
+find / -type f -name *.tar.gz -size +100M -exec rm -f ()\;
+(find, list, and delete all archives greater than 100M
+
+find /home/user -type f -mtime +60 | xargs tar -cvf /tmp/`date '+%d%m%Y'_archive.tar`
+(archive all the files that are not midified in the last 60 days)
+
 grep word /path/to/file (finds word in file)
 grep -i wOrD /path/to/file (no difference small/big letters)
+grep michal /etc/passwd (show all lines matching michal in file
+grep "^Nov 10" /.zsh_history (show all lines with this beginning)
+grep "terminating.$" file (show all lines with this matching in the end)
+grep -c "^$" file (show count of empty lines)
+grep ".ello" file (show words with ello and one sign at the beginning)
 #========================================================
 
 #========================================================
