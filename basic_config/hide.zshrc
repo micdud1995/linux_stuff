@@ -38,7 +38,7 @@ autoload -U compinit
 compinit
 zmodload -i zsh/complist        
 setopt hash_list_all            # hash everything before completion
-setopt completealiases          # complete alisases
+setopt completealiases          # complete aliases
 setopt always_to_end            # when completing from the middle of a word, move the cursor to the end of the word    
 setopt complete_in_word         # allow completion from within a word/phrase
 setopt correct                  # spelling correction for commands
@@ -162,7 +162,7 @@ extract () {
      fi
 }
 # show which commands you use the most
-	alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
+	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
 	alias ..="cd ..;ls"
 	alias ...="cd ../..;ls"
@@ -174,6 +174,7 @@ extract () {
 	alias ga="git add"
 	alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 	alias gp="git push"
+	alias gcl="git clone"
 	alias gc="git commit"
 	alias gcm="git commit -m"
 #=================================================================
