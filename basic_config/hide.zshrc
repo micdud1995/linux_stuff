@@ -169,11 +169,11 @@ extract () {
 	alias ....="cd ../../..;ls"	
 	alias repo="cd ~/repo"
 # Git aliases
-	alias git status="git status -sb"
-	alias gts="git status -sb"
-	alias git diff="git diff --word-diff --color"
-	alias gtd="git diff --word-diff --color"
-	alias gta="git add"
-	alias git log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-	alias gtl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	alias gs="git status -sb"
+	alias gd="git diff --word-diff --color"
+	alias ga="git add"
+	alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	alias gp="git push"
+	alias gc="git commit"
+	alias gcm="git commit -m"
 #=================================================================
