@@ -161,6 +161,10 @@ extract () {
          echo "'$1' is not a valid file"
      fi
 }
+# Xrandr aliases
+	alias hdmi="xrandr --output HDMI1 --mode 1366x768"
+	alias hdmi_auto="xrandr --output HDMI1 --auto"
+	alias hdmi_off="xrandr --off"
 # show which commands you use the most
 	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
