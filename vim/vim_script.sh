@@ -95,11 +95,12 @@ git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 #==============================================================
 # Auto-pairs 
 cd ~/.vim/bundle && \
-git clone git://github.com/ervandew/supertab.git
+git clone git://github.com/jiangmiao/auto-pairs.git
 #==============================================================
 
 #==============================================================
 # Supertab
+git clone git://github.com/ervandew/supertab.git
 #==============================================================
 
 #==============================================================
