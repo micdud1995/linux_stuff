@@ -138,7 +138,6 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias l.='ls -d .* --color=auto'
 # list all folders
 	alias lf='ls -Gl | grep ^d'
-	alias lsd='ls -Gal | grep ^d'
 # system upgrade
 	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
 # Extract archives
@@ -165,8 +164,14 @@ extract () {
 # show which commands you use the most
 	alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
-	alias ..="cd .."
-	alias ...="cd ../.."
-	alias ....="cd ../../.."	
+	alias ..="cd ..;ls"
+	alias ...="cd ../..;ls"
+	alias ....="cd ../../..;ls"	
 	alias repo="cd ~/repo"
+# Git aliases
+	alias git status="git status -sb"
+	alias gts="git status -sb"
+	alias git diff="git diff --word-diff --color"
+	alias gtd="git diff --word-diff --color"
+	alias gta="git add"
 #=================================================================
