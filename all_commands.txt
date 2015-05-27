@@ -152,10 +152,10 @@ xrandr --output HDMI1 --mode 1366x768
 #========================================================
 # Removing kernel installed from source
 sudo rm -rf /lib/modules/kernel_version
-sudo rm -f /boot/vmlinuz-kernel_version*
-sudo rm -f /boot/initrd.img-kernel_version*
-sudo rm -f /boot/config-kernel_version*
-sudo rm -f /boot/System.map-kernel_version*
+sudo rm -f /boot/vmlinuz-kernel_version
+sudo rm -f /boot/initrd.img-kernel_version
+sudo rm -f /boot/config-kernel_version
+sudo rm -f /boot/System.map-kernel_version
 #========================================================
 
 #========================================================
