@@ -174,4 +174,6 @@ extract () {
 	alias git diff="git diff --word-diff --color"
 	alias gtd="git diff --word-diff --color"
 	alias gta="git add"
+	alias git log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	alias gtl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 #=================================================================
