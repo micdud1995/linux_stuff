@@ -177,4 +177,5 @@ extract () {
 	alias gcl="git clone"
 	alias gc="git commit"
 	alias gcm="git commit -m"
+	alias gch="git checkout"
 #=================================================================
