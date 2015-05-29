@@ -11,6 +11,7 @@
 # 	Vim-airline
 #	Auto-pairs
 # 	Supertab
+#	SnipMate
 #	Gruvbox theme
 #==============================================================
 
@@ -71,8 +72,8 @@ git clone https://github.com/scrooloose/syntastic.git
 #==============================================================
 # Tagbar / Taglist
 cd ~/.vim/bundle && \
-#git clone git://github.com/vim-scripts/taglist.vim.git
-git clone https://github.com/vim-scripts/Tagbar.git
+git clone git://github.com/vim-scripts/taglist.vim.git
+#git clone https://github.com/vim-scripts/Tagbar.git
 #==============================================================
 
 #==============================================================
@@ -101,6 +102,15 @@ git clone git://github.com/jiangmiao/auto-pairs.git
 #==============================================================
 # Supertab
 git clone git://github.com/ervandew/supertab.git
+#==============================================================
+
+#==============================================================
+# SnipMate
+cd ~/.vim/bundle
+git clone https://github.com/tomtom/tlib_vim.git
+git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+git clone https://github.com/garbas/vim-snipmate.git
+git clone https://github.com/honza/vim-snippets.git
 #==============================================================
 
 #==============================================================
