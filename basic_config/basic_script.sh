@@ -30,7 +30,7 @@ echo =================================================================
 echo
 #=================================================================
 
-sudo aptitude install mc moc zsh tree scrot feh nitrogen slim git alsa-utils libncurses5-dev evince
+sudo aptitude install mc moc zsh tree scrot feh nitrogen slim git alsa-utils libncurses5-dev evince xzgv
 
 #=================================================================
 # MOC 
