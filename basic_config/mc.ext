@@ -373,22 +373,9 @@ shell/i/.chm
 ### Images ###
 
 regex/\.(png|jpg|gif)$
-	Open=%var{EDITOR:feh} %f
-
-type/^GIF
-	Include=image
-
-type/^JPEG
-	View=%view{ascii} /usr/lib/mc/ext.d/image.sh view jpeg
-	Include=image
+	Open=%var{EDITOR:xzgv} %f
 
 type/^PC\ bitmap
-	Include=image
-
-type/^PNG
-	Include=image
-
-type/^JNG
 	Include=image
 
 type/^MNG
