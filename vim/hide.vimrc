@@ -119,10 +119,14 @@ set clipboard=unnamed
 " jk instead od ESC
 inoremap jk <ESC> 
 
+" Easier split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Faster commands 
 noremap ; :
-" Space to enter insert mode
-vmap <Space> i
 
 " Disable the arrow keys
 noremap <Up> <NOP>
