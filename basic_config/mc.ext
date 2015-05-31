@@ -531,10 +531,8 @@ type/^PostScript
 	Open=/usr/lib/mc/ext.d/doc.sh open ps
 	View=%view{ascii} /usr/lib/mc/ext.d/doc.sh view ps
 
-# PDF
-type/^PDF
-	Open=/usr/lib/mc/ext.d/doc.sh open pdf
-	View=%view{ascii} /usr/lib/mc/ext.d/doc.sh view pdf
+regex/\.(pdf)$
+   Open=(evince %f &)
 
 # html
 regex/i/\.html?$
