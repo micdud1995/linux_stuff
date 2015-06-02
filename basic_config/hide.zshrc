@@ -140,6 +140,9 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias lf='ls -Gl | grep ^d'
 # system upgrade
 	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
+# aptitude alias
+	alias ai="sudo aptitude install"
+	alias as="aptitude search"
 # Extract archives
 extract () {
     if [ -f $1 ] ; then
