@@ -162,7 +162,7 @@ extract () {
      fi
 }
 # Xrandr aliases
-	alias hdmi_default="xrandr --output HDMI1 --mode 1366x768"
+	alias hdmi_1366x768="xrandr --output HDMI1 --mode 1366x768"
 	alias hdmi_auto="xrandr --output HDMI1 --auto"
 	alias hdmi_off="xrandr --off"
 # show which commands you use the most
