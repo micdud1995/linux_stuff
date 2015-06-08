@@ -129,11 +129,16 @@ git clonehttps://github.com/Yggdroot/indentLine.git
 #rm -rf ~/tmp/gruvbox
 
 # Sorcerer theme
-cd ~/tmp && \
-git clone https://github.com/adlawson/vim-sorcerer.git
+#cd ~/tmp && \
+#git clone https://github.com/adlawson/vim-sorcerer.git
+#mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+#rm -rf ~/tmp/vim-sorcerer
 
-mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-rm -rf ~/tmp/vim-sorcerer
+# Jellybeans theme
+cd ~/tmp && \
+git clone https://github.com/nanotech/jellybeans.vim.git
+mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+rm -rf ~/tmp/jellybeans.vim
 #==============================================================
 
 #==============================================================
