@@ -7,6 +7,8 @@ set smartindent
 set autoindent
 set showmatch
 set t_Co=256
+let mapleader = " "
+set background=dark
 "==================================================
 	
 "==================================================
@@ -25,12 +27,19 @@ set ignorecase
 " Remember more commands
 set history=1000
 
-" Use many muchos levels of undo
+" save undo's after file closes 
+set undofile
+" where to save undo history
+set undodir=~/.vim/undo
+" how many undos
 set undolevels=1000
-
+" numbers of lines to save for undo
+set undoreload=10000
+"
 " Don't beep
 set visualbell
 set noerrorbells
+set visualbell t_vb=
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -39,7 +48,7 @@ set statusline+=%*
 " Highlight current line and column
 au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
-set cursorline cursorcolumn
+set cursorline "cursorcolumn
 
 " Cursor stays in the middle of the screen
 set scrolloff=999
@@ -70,13 +79,19 @@ set wildmenu
 
 "Auto-completion menu
 set wildmode=list:longest
+
+" Open splits below and on the right
+set splitbelow
+set splitright
 "==================================================
 
 "==================================================
 " Look and themes
 " colorscheme gruvbox
 " colorscheme railscasts
-colorscheme sorcerer
+" colorscheme sorcerer
+colorscheme jellybeans
+" colorscheme zazen
 "==================================================
 
 "==================================================
@@ -90,10 +105,9 @@ let g:syntastic_check_on_wq = 0
 "==================================================
 " Autostart
 execute pathogen#infect()
-autocmd VimEnter * wincmd p
 
 " Open Taglist only with specific files
-autocmd FileType c,h,cpp,java nested :TlistOpen
+ autocmd FileType c,h,cpp,java nested :TlistOpen
 " Taglist on the right side
 let Tlist_Use_Right_Window = 1
 "
@@ -104,9 +118,12 @@ let Tlist_Use_Right_Window = 1
 autocmd FileType c,h,cpp,java nested :NERDTree
 " Width of NERDTree section
 let g:NERDTreeWinSize = 20
+" wincmd p puts the cursor in the main window
+autocmd VimEnter * wincmd p
 
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
+"
 "==================================================
 
 "==================================================
@@ -119,6 +136,9 @@ set clipboard=unnamed
 " jk instead od ESC
 inoremap jk <ESC> 
 
+" 
+nnoremap Y y$
+
 " Easier split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -127,6 +147,9 @@ nnoremap <C-H> <C-W><C-H>
 
 " Faster commands 
 noremap ; :
+
+" Move to the first non-blank character of the line
+noremap m ^
 
 " Disable the arrow keys
 noremap <Up> <NOP>
