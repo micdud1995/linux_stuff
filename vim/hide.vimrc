@@ -46,8 +46,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " Highlight current line and column
-au WinLeave * set nocursorline nocursorcolumn
-au WinEnter * set cursorline cursorcolumn
+" au WinLeave * set nocursorline nocursorcolumn
+" au WinEnter * set cursorline cursorcolumn
 set cursorline "cursorcolumn
 
 " Cursor stays in the middle of the screen
