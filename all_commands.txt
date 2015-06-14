@@ -1,4 +1,11 @@
 #========================================================
+# Sudo
+su
+adduser user sudo
+visudo
+and add below root ALL=(ALL:ALL) ALL
+foo ALL=(ALL:ALL) ALL
+#========================================================
 # Basics
 mkdir
 touch
