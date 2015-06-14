@@ -163,6 +163,11 @@ sudo rm -f /boot/vmlinuz-kernel_version
 sudo rm -f /boot/initrd.img-kernel_version
 sudo rm -f /boot/config-kernel_version
 sudo rm -f /boot/System.map-kernel_version
+
+# Removing kernel installed from repos
+dpkg --list | grep linux-image 
+sudo aptitude purge linux-image-x.x.x.x-generic 
+sudo update-grub
 #========================================================
 
 #========================================================
