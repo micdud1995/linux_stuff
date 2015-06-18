@@ -40,7 +40,7 @@ echo Configuration of vim...
 echo
 #=================================================================
 
-sudo pacman -S vim curl ttf-inconsolata
+sudo pacman -S vim curl ctags ttf-inconsolata
 
 #==============================================================
 # Making dirs
