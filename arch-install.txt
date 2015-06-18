@@ -109,4 +109,10 @@ sudo systemctl enable slim
 sudo vim /etc/slim.conf
 sudo vim /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo systemctl stop dhcpcd
+sudo systemctl disable dhcpcd 
+sudo systemctl stop netctl
+sudo systemctl disable netctl
+sudo systemctl start wicd
+sudo systemctl enable wicd
 setxkbmap pl 
