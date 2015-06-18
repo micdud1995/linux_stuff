@@ -1,6 +1,6 @@
 # =================================================
 # Bootable USB
-	dd count=1 bs=512 if=/dev/zero of=/dev/sdx && sync
+	dd count=1 bs=512 if=/path/to/iso of=/dev/sdx && sync
 # =================================================
 
 # =================================================
@@ -49,6 +49,7 @@
 
 # =================================================
 # Basic install
+	# Installing base system
 	pacstrap /mnt base base-devel
 	genfstab -p /mnt >> /mnt/etc/fstab
 	arch-chroot /mnt
@@ -120,3 +121,5 @@
 	sudo systemctl start wicd
 	sudo systemctl enable wicd
 	setxkbmap pl 
+	# Disable beep sound
+	sudo rmmod pcspkr
