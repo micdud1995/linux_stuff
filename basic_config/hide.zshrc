@@ -128,8 +128,6 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # Aliases
 # clear the screen
 	alias c='clear'
-# Add progress bar to cp command
-	alias cp='rsync -aP'
 # ls with colors
 	alias ls='ls --color'
 # shutdown the system
@@ -140,9 +138,17 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias lf='ls -Gl | grep ^d'
 # system upgrade
 	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
-# aptitude alias
+# aptitude aliases
 	alias ai="sudo aptitude install"
 	alias as="aptitude search"
+# pacman aliases
+	alias S="sudo pacman -S" # Install package
+	alias Ss="sudo pacman -Ss" # Search packages
+	alias Sy="sudo pacman -Sy" # Synchronize the repository databases
+	alias Syu="sudo pacman -Syu" # Synchronize the repository databases and update the system's packages
+	alias R="sudo pacman -Rs" # Remove package
+	alias U="sudo pacman -U" # Upgrade package
+	alias V="pacman -V" # Version of package
 # Extract archives
 extract () {
     if [ -f $1 ] ; then
