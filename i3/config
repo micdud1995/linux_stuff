@@ -13,8 +13,8 @@ for_window [class="^."] border pixel 3
 floating_modifier $mod
 
 # Default volume
-exec amixer sset Master unmute
-exec --no-startup-id amixer sset Master 20%
+exec amixer sset Master mute
+exec --no-startup-id amixer sset Master 60%
 
 # Wallpaper restoring
 exec --no-startup-id nitrogen --restore
