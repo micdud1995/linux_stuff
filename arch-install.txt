@@ -73,14 +73,12 @@
 	arch login: root
 	Password: you've typed this earlier
 	for wifi:
-		// to jednak nie - wifi-menu -o
-		iwconfig (check interfaces)
-		dhcpcd interface
+		wifi-menu -o
+		//iwconfig (check interfaces)
+		//dhcpcd interface
 	for wired:
 		cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/eth (enp0s3?)
 		nano /etc/netctl/eth0- change interface ?
-	netctl start interface (e.g. wlan0 or eth0) 
-	netctl enable interface (e.g. wlan0 or eth0) 
 # =================================================
 
 # =================================================
@@ -111,6 +109,7 @@
 # =================================================
 # Configuration
 	sudo systemctl enable slim
+	sudo systemctl enable slim.service
 	sudo vim /etc/slim.conf
 	sudo vim /etc/default/grub
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
