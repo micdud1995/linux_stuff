@@ -1,0 +1,112 @@
+# =================================================
+# Labels 
+if your label is GPT:
+	parted /dev/sda
+	mklabel msdos
+	quit
+# =================================================
+
+# =================================================
+# Wifi
+if wifi:
+	wifi-menu
+	iw dev - check your wifi interface
+	wifi-menu interface (e.g. wifi-menu wlan0)
+ping -c 3 www.google.pl
+nano /etc/pacman.d/mirrorlist
+	leave a few mirrors
+# =================================================
+
+# =================================================
+# Partitioning
+fdisk /dev/sda
+	# make mbr partition table (is for BIOS, GPT is for UEFI)
+	n - nowa partycja
+	p - primary
+	...
+	a - makes bootable
+	p - print all partitions
+	l - list of partition codes
+	t - change type of partitions
+		82 - swap
+		 - Linux
+	d - delete partitions
+	w - write changes
+mkswap /dev/sdaS (S - swap partition)
+swapon /dev/sdaS
+mkfs.ext4 /dev/sdaR (R - /root partition)
+mkfs.ext4 /dev/sdaH (H - /root partition)
+mount /dev/sdaR /mnt
+mkdir -p /mnt/boot
+mkdir -p /mnt/home
+mount /dev/sdaH /mnt/home (H - home partition)
+# =================================================
+
+# =================================================
+# Basic install
+pacstrap /mnt base base-devel
+genfstab -p /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+echo arch > /etc/hostname
+cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
+nano /etc/locale.gen
+	uncomment two lines with pl
+locale-gen
+mkinitcpio -p linux
+passwd
+pacman -S grub os-prober dialog iw wpa_supplicant wireless_tools
+grub-install /dev/sda
+# Generating grub file
+grub-mkconfig -o /boot/grub/grub.cfg
+exit
+umount -R /mnt
+reboot
+# =================================================
+
+# =================================================
+# Basic config
+arch login: root
+Password: you've typed this earlier
+for wifi:
+	// to jednak nie - wifi-menu -o
+	iwconfig (check interfaces)
+	dhcpcd interface
+for wired:
+	cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/eth (enp0s3?)
+	nano /etc/netctl/eth0- change interface ?
+netctl start interface (e.g. wlan0 or eth0) 
+netctl enable interface (e.g. wlan0 or eth0) 
+# =================================================
+
+# =================================================
+# Additional things
+nano /etc/pacman.conf
+	uncomment #Color
+	uncomment Multilib (if x64)
+pacman -Ss (video-drivers)
+pacman -S (video-drivers)
+pacman -S xorg-server xorg-server-utils xorg-apps xorg-xinit i3 slim lxterminal htop tree 
+echo "exec i3" > .xinitrc
+Xorg :0 -configure
+ls
+cp xorg.conf.new /etc/X11/xorg.conf
+useradd -m -g users -s /bin/bash michal
+chfn michal
+passwd michal 
+pacman -S sudo
+visudo
+(reboot, relogin)
+pacman -S xf86-video-vesa (if in virtualbox)
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+	remove lines with twm, clocks etc
+	add line: exec i3
+startx
+# =================================================
+
+# =================================================
+# Configuration
+sudo systemctl enable slim
+sudo vim /etc/slim.conf
+sudo vim /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+setxkbmap pl 
