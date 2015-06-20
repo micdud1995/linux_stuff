@@ -109,17 +109,23 @@
 
 # =================================================
 # Configuration
+	sudo vim /etc/slim.conf
 	sudo systemctl enable slim
 	sudo systemctl enable slim.service
-	sudo vim /etc/slim.conf
+
 	sudo vim /etc/default/grub
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
+
 	sudo systemctl stop dhcpcd
 	sudo systemctl disable dhcpcd 
 	sudo systemctl stop netctl
 	sudo systemctl disable netctl
-	sudo systemctl start wicd
-	sudo systemctl enable wicd
+	# if wifi-menu -o doesnt work:
+		ip link
+		sudo ip link set down interface
 	setxkbmap pl 
 	# Disable beep sound
 	sudo rmmod pcspkr
+
+	sudo pacman -S zathura zathura-pdf-poppler devmon gmtp ranger
+		sudo tlp start
