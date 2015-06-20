@@ -27,7 +27,7 @@ color="white"
 if [ "$USER" = "root" ]; then
     color="red"         
 fi;
-prompt="%{$fg[$color]%}[%n]──%{$reset_color%}[%U%{$fg[green]%}%m]%{$reset_color%}%~
+prompt="%{$fg[$color]%}[%n]──%{$reset_color%}[%U%{$fg[cyan]%}%m]%{$reset_color%}%~
  └──────> "
 RPROMPT='${vim_mode} ${vcs_info_msg_0_}'
 #=================================================================
@@ -143,7 +143,7 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias as="aptitude search"
 # pacman aliases
 	alias S="sudo pacman -S" # Install package
-	alias Ss="sudo pacman -Ss" # Search packages
+	alias Ss="pacman -Ss" # Search packages
 	alias Sy="sudo pacman -Sy" # Synchronize the repository databases
 	alias Syu="sudo pacman -Syu" # Synchronize the repository databases and update the system's packages
 	alias R="sudo pacman -Rs" # Remove package
