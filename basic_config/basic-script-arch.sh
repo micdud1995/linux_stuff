@@ -24,7 +24,7 @@ echo Configuration of moc player, midnight commander and zsh...
 echo
 #=================================================================
 
-sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses evince
+sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage
 
 #=================================================================
 # MOC 
