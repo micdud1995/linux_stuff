@@ -127,5 +127,5 @@
 	# Disable beep sound
 	sudo rmmod pcspkr
 
-	sudo pacman -S zathura zathura-pdf-poppler devmon gmtp ranger
+	sudo pacman -S zathura zathura-pdf-poppler devmon gmtp ranger lynx
 		sudo tlp start
