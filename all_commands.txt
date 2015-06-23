@@ -79,8 +79,8 @@ mounting usb
 	lsblk
 	su
 	cd /dev
-	mkdir usb
-	mount /dev/sdb1 /dev/usb
+	mkdir dysk 
+	mount /dev/sdb1 /dev/dysk
 	umount /dev/usb
 #========================================================
 md5sum file - checksum
