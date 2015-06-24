@@ -82,6 +82,9 @@ mounting usb
 	mkdir dysk 
 	mount /dev/sdb1 /dev/dysk
 	umount /dev/usb
+mounting ntfs with read/write access
+	sudo pacman -S fuse ntfs-3g
+	mount -t ntfs-3g /dev/sdb1 /dev/dysk
 #========================================================
 md5sum file - checksum
 reset (resets terminal)
