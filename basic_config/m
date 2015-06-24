@@ -1,0 +1,2 @@
+sudo mkdir -p /dev/dysk
+sudo mount -t ntfs-3g /dev/$1 /dev/dysk
