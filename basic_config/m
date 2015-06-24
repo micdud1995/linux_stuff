@@ -1,2 +1,14 @@
-sudo mkdir -p /dev/dysk
-sudo mount -t ntfs-3g /dev/$1 /dev/dysk
+#! /usr/bin/zsh
+
+DIR="/dev/dysk"
+
+if [ $# -eq 0  ] # If no argument
+  	then
+  		echo "No arguments supplied"
+	else
+		echo "Mounting $1..."
+		sudo mkdir -p $DIR 
+		sudo mount -t ntfs-3g /dev/$1 $DIR
+		cd /dev/dysk/
+fi
+
