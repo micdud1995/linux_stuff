@@ -1,17 +1,29 @@
 #!/usr/bin/zsh
 
-# using command "m arg" you can easily mount devices
-# e.g. m sdb1
+# using command "m arg" you can easily mount devices, for example:
+# 1) ntfs devices: m -n sdb1
+# 2) other devices: m sdb2
+# Depends to mount ntfs device: fuse, ntfs-3g
 
 DIR="/dev/dysk"
 
-if [ $# -eq 0  ] # If no argument
-  	then
-  		echo "No arguments supplied"
-	else
-		echo "Mounting $1..."
+if [ $# -eq 2  ]; then
+	if [ $1="-n" ]; then
+		echo "Mounting $2..."
 		sudo mkdir -p $DIR 
-		sudo mount -t ntfs-3g /dev/$1 $DIR
+		sudo mount -t ntfs-3g /dev/$2 $DIR
+		echo Mounted
 		cd /dev/dysk/
+	fi
+elif [ $# -eq 1  ]; then
+	echo "Mounting $1..."
+	sudo mkdir -p $DIR 
+	sudo mount -t /dev/$1 $DIR
+	echo Mounted
+else
+	echo "You did something wrong."
+	echo "Please read the help:"
+	echo
+	echo "m -n sdxX          mount ntfs device"
+	echo "m sdxX             mount other device"
 fi
-
