@@ -29,3 +29,4 @@ sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal nitrogen feh
 # Copying config files from repo 
 cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
 cp ~/repo/linux_stuff/i3/config ~/.i3/config
+cp ~/repo/linux_stuff/i3/i3lock.png ~/tmp/i3lock.png
