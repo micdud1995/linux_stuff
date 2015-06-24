@@ -48,7 +48,8 @@ chsh -s /bin/zsh 	# makes zsh default shell
 
 #=================================================================
 # Others
-
-# Removing all console beeps while running X
-xset b off
+sudo cp ~/repo/linux_stuff/basic_config/m /usr/bin/
+chmod +x /usr/bin/m
+sudo cp ~/repo/linux_stuff/basic_config/um /usr/bin/
+chmod +x /usr/bin/um
 #=================================================================
