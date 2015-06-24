@@ -1,1 +1,18 @@
-sudo umount /dev/dysk
+#! /usr/bin/zsh
+
+DIR="/dev/dysk"
+
+if [ -d $DIR  ] # if dir exist
+	then
+		if [ "$(ls -A $DIR)"  ] # if dir isn't empty
+			then
+				echo Unmounting /dev/dysk...
+				sudo umount $DIR 
+				echo Unmounted correctly.
+			else
+				echo "$DIR is empty"
+		fi
+	else
+		echo $DIR does not exist.
+fi
+
