@@ -1,3 +1,5 @@
+#!/bin/bash
+
 clear
 
 #=================================================================
@@ -23,7 +25,6 @@ echo
 #=================================================================
 
 sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal nitrogen feh 
-# and xbacklight from sources
 
 #==============================================================
 # Copying config files from repo 
