@@ -193,6 +193,8 @@ extract () {
 	alias gcm="git commit -m"
 	alias gch="git checkout"
 	alias gb="git branch"
+	alias gr="git reset" # e.g. git reset abc.txt
+	alias grc="git reset --hard HEAD~1" # git reset commit
 # Programs aliases
  	alias r="ranger"
 	alias v="vim"
