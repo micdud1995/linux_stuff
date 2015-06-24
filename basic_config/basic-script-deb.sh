@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # run as a user!
 
 clear
