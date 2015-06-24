@@ -1,5 +1,8 @@
 #!/usr/bin/zsh
 
+# using command "m arg" you can easily mount devices
+# e.g. m sdb1
+
 DIR="/dev/dysk"
 
 if [ $# -eq 0  ] # If no argument
