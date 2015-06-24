@@ -193,4 +193,8 @@ extract () {
 	alias gcm="git commit -m"
 	alias gch="git checkout"
 	alias gb="git branch"
+# Programs aliases
+ 	alias r="ranger"
+	alias v="vim"
+	alias w="sudo wifi-menu -o"
 #=================================================================
