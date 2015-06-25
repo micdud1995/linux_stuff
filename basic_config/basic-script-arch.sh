@@ -55,3 +55,8 @@ chmod +x /usr/bin/m
 sudo cp ~/repo/linux_stuff/basic_config/um /usr/bin/
 chmod +x /usr/bin/um
 #=================================================================
+
+#=================================================================
+# Polish letters
+sudo cp vconsole.conf /etc/vconsole.conf
+sudo cp 10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
