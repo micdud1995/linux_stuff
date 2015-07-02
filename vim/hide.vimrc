@@ -123,7 +123,11 @@ autocmd VimEnter * wincmd p
 
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
-"
+
+" Run indentLine
+let g:indentLine_enabled = 1
+let g:indentLine_char = '┆'
+let g:indentLine_color_term = 239
 "==================================================
 
 "==================================================
