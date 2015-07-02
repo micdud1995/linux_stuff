@@ -3,8 +3,8 @@ set nocompatible
 syntax on
 filetype on
 filetype plugin on
-set smartindent
 set autoindent
+filetype indent on
 set showmatch
 set t_Co=256
 let mapleader = " "
@@ -20,6 +20,15 @@ set hlsearch
 
 " A tab is 4 spaces
 set tabstop=4
+
+" Width of indent with shift
+set shiftwidth=4
+
+" Insert spaces instead of tabs
+set expandtab
+
+" See multiple space characters as tabstops
+set softtabstop=4
 
 " Ignore case when searching
 set ignorecase
@@ -128,6 +137,7 @@ autocmd InsertLeave * set iminsert=0
 let g:indentLine_enabled = 1
 let g:indentLine_char = '┆'
 let g:indentLine_color_term = 239
+
 "==================================================
 
 "==================================================
