@@ -112,7 +112,7 @@ git clone https://github.com/honza/vim-snippets.git
 
 #==============================================================
 cd ~/.vim/bundle
-git clonehttps://github.com/Yggdroot/indentLine.git
+git clone https://github.com/Yggdroot/indentLine.git
 #==============================================================
 
 #==============================================================
