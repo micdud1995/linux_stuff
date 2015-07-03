@@ -10,6 +10,7 @@ if [ -d $DIR  ] # if dir exist
 		if [ "$(ls -A $DIR)"  ] # if dir isn't empty
 			then
 				echo Unmounting /dev/dysk...
+                cd /home/michal
 				sudo umount $DIR 
 				echo Unmounted correctly.
 			else
