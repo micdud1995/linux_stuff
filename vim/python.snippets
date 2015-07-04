@@ -1,24 +1,67 @@
+# Basics
 snippet #!
 	#!/usr/bin/python
 	# -*- coding: utf-8 -*-
+
+	${1}
 snippet imp
 	import ${0:module}
+snippet os
+	import os
+	${1}
 snippet uni
 	def __unicode__(self):
 		${0:representation}
 snippet from
 	from ${1:package} import ${0:module}
-# Module Docstring
 snippet docs
 	"""
 	File: ${1:`vim_snippets#Filename('$1.py', 'foo.py')`}
-	Author: `Michal Dudek`
-	Email: `michal.dudek1995@gmail.com`
-	Github: `github.com/micdud1995`
+	Author: Michal Dudek
+	Email: michal.dudek1995@gmail.com
+	Github: github.com/micdud1995
 	Description: ${0}
 	"""
+# Printing
 snippet p
 	print ("${1}")
+snippet p.
+	print(${1}, end=' ')
+	${2}
+snippet pf # Print file
+	path = "${1}"
+	f = open(path)
+	f.seek(0)
+
+	# Print all lines from file
+	for line in f:
+		print(line)
+	f.close()
+	
+	${2}
+snippet in
+	input ("${1}")
+snippet intin
+	int(input("${1}"))
+snippet floin
+	float(input("${1}"))
+# Working with files
+snippet touch
+	f = open("${1}", 'w')
+	f.close()
+
+	${2}
+snippet rmf # Remove file if exist
+	myfile="${1}"
+
+	if os.path.isfile(myfile): # if file exist
+		os.remove(myfile)
+	else:
+		print("Error: " + myfile + " file not found")
+snippet rmd # Remove dir tree
+	import shutil
+	shutil.rmtree("${1}")
+# Loops
 snippet wh
 	while ${1:condition}:
 		${0}
@@ -30,6 +73,9 @@ snippet dowh
 			break
 snippet with
 	with ${1:expr} as ${2:var}:
+		${0}
+snippet for
+	for ${1:item} in ${2:items}:
 		${0}
 # New Class
 snippet cl
@@ -72,10 +118,6 @@ snippet el
 		${0}
 snippet ei
 	elif ${1:condition}:
-		${0}
-# For
-snippet for
-	for ${1:item} in ${2:items}:
 		${0}
 # Encodes
 snippet cutf8
