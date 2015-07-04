@@ -18,4 +18,5 @@ To run script:
 
 	chmod +x basic-script-arch.sh
 2) Run it, e.q.
+
 	./basic-script-arch.sh
