@@ -26,7 +26,7 @@ echo Configuration of moc player, midnight commander and zsh...
 echo
 #=================================================================
 
-sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage
+sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage mutt
 
 #=================================================================
 # MOC 
@@ -46,6 +46,11 @@ sudo cp ~/repo/linux_stuff/basic_config/mc.keymap /etc/mc/mc.keymap
 # Z-shell
 cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
 chsh -s /bin/zsh 	# makes zsh default shell
+#=================================================================
+
+#=================================================================
+# Mutt (text mail client)
+cp ~/repo/linux_stuff/basic_config/hide.muttrc ~/.muttrc
 #=================================================================
 
 #=================================================================
