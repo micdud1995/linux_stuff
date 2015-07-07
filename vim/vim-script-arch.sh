@@ -15,7 +15,8 @@
 # 	Supertab
 #	SnipMate
 #   indentLine
-#	Gruvbox theme
+#	SingleCompile
+#	Jellybeans theme
 #==============================================================
 
 clear
@@ -112,8 +113,15 @@ cp ~/repo/linux_stuff/vim/python-snippets ~/.vim/bundle/vim-snippets/snippets/
 #==============================================================
 
 #==============================================================
+#IndentLine
 cd ~/.vim/bundle
 git clone https://github.com/Yggdroot/indentLine.git
+#==============================================================
+
+#==============================================================
+#SingleCompile
+cd ~/.vim/bundle
+git clone https://github.com/xuhdev/SingleCompile.git
 #==============================================================
 
 #==============================================================
