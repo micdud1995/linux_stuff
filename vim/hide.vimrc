@@ -115,6 +115,9 @@ let g:syntastic_check_on_wq = 0
 " Autostart
 execute pathogen#infect()
 
+" wincmd p puts the cursor in the main window
+autocmd VimEnter * wincmd p
+
 " Open Taglist only with specific files
  autocmd FileType c,h,cpp,java nested :TlistOpen
 " Taglist on the right side
@@ -127,8 +130,6 @@ let Tlist_Use_Right_Window = 1
 autocmd FileType c,h,cpp,java nested :NERDTree
 " Width of NERDTree section
 let g:NERDTreeWinSize = 20
-" wincmd p puts the cursor in the main window
-autocmd VimEnter * wincmd p
 
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
@@ -184,6 +185,18 @@ set nowritebackup
 set noswapfile
 "==================================================
 
+"==================================================
+" Compiling directly in vim
+"au FileType c set makeprg=gcc\ %
+"au FileType cpp set makeprg=g++\ %
+"autocmd filetype c nnoremap <F4> :!gcc % -ggdb -o %:r <CR>
+"autocmd filetype c nnoremap<F5> :!gcc % -ggdb -o %:r && ./%:r <CR>
+
+nmap <F2> :SCCompile<cr>
+nmap <F3> :SCCompileRun<cr>
+
+"==================================================
+"
 "==================================================
 " Keyboard commands
 
