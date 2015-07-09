@@ -63,8 +63,8 @@ chmod +x /usr/bin/um
 
 #=================================================================
 # Polish letters
-sudo cp vconsole.conf /etc/vconsole.conf
-sudo cp 10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
+sudo cp ~/repo/linux_stuff/basic_config/vconsole.conf /etc/vconsole.conf
+sudo cp ~/repo/linux_stuff/basic_config/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
 
 #=================================================================
 # Cleaning script 
