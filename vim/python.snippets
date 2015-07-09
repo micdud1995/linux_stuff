@@ -1,6 +1,6 @@
 # Basics
 snippet #!
-	#!/usr/bin/python
+	#!/usr/bin/env python
 	# -*- coding: utf-8 -*-
 
 	${1}
@@ -25,10 +25,11 @@ snippet docs
 # Printing
 snippet p
 	print ("${1}")
+	${2}
 snippet p.
 	print(${1}, end=' ')
 	${2}
-snippet pf # Print file
+snippet pf
 	path = "${1}"
 	f = open(path)
 	f.seek(0)
@@ -79,24 +80,61 @@ snippet for
 		${0}
 # New Class
 snippet cl
-	class ${1:ClassName}(${2:object}):
+	class ${1:ClassName}(${2}):
 		"""${3:docstring for $1}"""
-		def __init__(self, ${4:arg}):
-			${5:super($1, self).__init__()}
-			self.$4 = $4
-			${0}
-# New Function
+		#---------------------------------------
+		def __init__(self, ${4:arg}=None${5}):
+			${6:super($1, self).__init__()}
+			if $4 is not None:
+				self.$4 = $4
+			else:
+				self.$4 = ${7}
+			${7}
+		#---------------------------------------
+		def __del__(self):
+			${9:pass}
+		#---------------------------------------
+		${10}
+# New Functions
 snippet def
+	#-------------------------------------------
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
 		"""${3:docstring for $1}"""
-		${0}
+		${4}
+	#-------------------------------------------
 snippet deff
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
 		${0}
-# New Method
+snippet rand
+	random.seed()
+	random.randint(${1}, ${2})
+	${3}
+# New methods
 snippet defm
 	def ${1:mname}(self, ${2:arg}):
 		${0}
+snippet defs
+	def ${1:mname}():
+		"""${3:docstring for $1}"""
+		$1 = staticmethod($1)
+	${2}
+snippet sup
+	super().__init__()
+snippet init
+	def __init__(self${1})
+		${2}
+snippet del
+	def __del__(self):
+		${1:pass}
+# Plot drawing
+snippet plot
+	x = ${1:arguments}
+	y = ${2:values}
+
+	pylab.plot(x, y)
+	pylab.title(${3:Title of plot})
+	pylab.grid(True)
+	pylab.show()
 # New Property
 snippet property
 	def ${1:foo}():
