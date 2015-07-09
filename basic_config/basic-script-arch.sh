@@ -26,7 +26,7 @@ echo Configuration of moc player, midnight commander and zsh...
 echo
 #=================================================================
 
-sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage mutt
+sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage mutt xf86-input-synaptics
 
 #=================================================================
 # MOC 
@@ -70,3 +70,9 @@ sudo cp ~/repo/linux_stuff/basic_config/10-evdev.conf /etc/X11/xorg.conf.d/10-ev
 # Cleaning script 
 sudo cp ~/repo/linux_stuff/basic_config/arch-clear /usr/bin/arch-clear
 sudo chmod +x /usr/bin/arch-clear
+#=================================================================
+
+#=================================================================
+# Enabling touchpad
+sudo cp /repo/linux_stuff/basic_config/50-synaptics.conf /etc/X11/xorg.conf.d/
+#=================================================================
