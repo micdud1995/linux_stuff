@@ -13,11 +13,10 @@
 
 # =================================================
 # Wifi
-	if wifi:
-		wifi-menu
-		iw dev - check your wifi interface
-		wifi-menu interface (e.g. wifi-menu wlan0)
 	ping -c 3 www.google.pl
+    sudo pacman -S wicd
+    systemctl start wicd
+    systemctl enable wicd
 	nano /etc/pacman.d/mirrorlist
 		leave a few mirrors
 # =================================================
@@ -73,13 +72,10 @@
 # Basic config
 	arch login: root
 	Password: you've typed this earlier
-	for wifi:
-		wifi-menu -o
-		//iwconfig (check interfaces)
-		//dhcpcd interface
-	for wired:
-		cp /etc/netctl/examples/ethernet-dhcp /etc/netctl/eth (enp0s3?)
-		nano /etc/netctl/eth0- change interface ?
+	for network:
+        sudo pacman -S wicd
+        systemctl start wicd
+        systemctl enable wicd
 # =================================================
 
 # =================================================
