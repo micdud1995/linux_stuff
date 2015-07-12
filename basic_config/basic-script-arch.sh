@@ -22,7 +22,7 @@ fi
 
 #=================================================================
 echo
-echo Configuration of moc player, midnight commander and zsh...
+echo Configuration of moc player, midnight commander, irssi, mutt and zsh...
 echo
 #=================================================================
 
@@ -51,6 +51,12 @@ chsh -s /bin/zsh 	# makes zsh default shell
 #=================================================================
 # Mutt (text mail client)
 cp ~/repo/linux_stuff/basic_config/hide.muttrc ~/.muttrc
+#=================================================================
+
+#=================================================================
+# Irssi
+cp ~/repo/linux_stuff/basic_config/config ~/.irssi/config
+cp ~/repo/linux_stuff/basic_config/industrial.theme ~/.irssi/
 #=================================================================
 
 #=================================================================
