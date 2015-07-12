@@ -130,6 +130,8 @@ let Tlist_Use_Right_Window = 1
 autocmd FileType c,h,cpp,java nested :NERDTree
 " Width of NERDTree section
 let g:NERDTreeWinSize = 20
+" Open/close NT with F4
+map <F4> :NERDTreeToggle<CR>
 
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
@@ -139,6 +141,11 @@ let g:indentLine_enabled = 1
 let g:indentLine_char = '┆'
 let g:indentLine_color_term = 239
 
+" Rainbow parantheses
+au VimEnter * RainbowParenthesesToggle
+au VimEnter * RainbowParenthesesLoadRound
+au VimEnter * RainbowParenthesesLoadSquare
+au VimEnter * RainbowParenthesesLoadBraces
 "==================================================
 
 "==================================================
@@ -187,16 +194,29 @@ set noswapfile
 
 "==================================================
 " Compiling directly in vim
-"au FileType c set makeprg=gcc\ %
-"au FileType cpp set makeprg=g++\ %
-"autocmd filetype c nnoremap <F4> :!gcc % -ggdb -o %:r <CR>
-"autocmd filetype c nnoremap<F5> :!gcc % -ggdb -o %:r && ./%:r <CR>
 
 nmap <F2> :SCCompile<cr>
 nmap <F3> :SCCompileRun<cr>
+"==================================================
 
 "==================================================
-"
+" Rainbow parantheses colors
+let g:rbpt_colorpairs = [
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+"==================================================
+
 "==================================================
 " Keyboard commands
 
@@ -205,4 +225,9 @@ nmap <F3> :SCCompileRun<cr>
 " s - open the selected file in a vertical split window
 " I - toggle hidden files
 " R - refresh the tree
+" m, a to create file
+" m, d to delete file
 
+" Vim-commentary
+" gc - comment/comment out selected text
+" gcc - comment/comment out a line
