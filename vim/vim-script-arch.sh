@@ -16,6 +16,8 @@
 #	SnipMate
 #   indentLine
 #	SingleCompile
+#	Rainbow parantheses
+#	Vim-commentary
 #	Jellybeans theme
 #==============================================================
 
@@ -122,6 +124,18 @@ git clone https://github.com/Yggdroot/indentLine.git
 #SingleCompile
 cd ~/.vim/bundle
 git clone https://github.com/xuhdev/SingleCompile.git
+#==============================================================
+
+#==============================================================
+# Rainbow parantheses
+cd ~/.vim/bundle
+git clone https://github.com/luochen1990/rainbow.git
+#==============================================================
+
+#==============================================================
+# Vim-commentary
+cd ~/.vim/bundle
+git clone https://github.com/tpope/vim-commentary.git
 #==============================================================
 
 #==============================================================
