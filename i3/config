@@ -7,13 +7,13 @@
 set $mod Mod1
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 3
+for_window [class="^."] border pixel 2
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # Default volume
-exec amixer sset Master mute
+#exec amixer sset Master mute
 exec --no-startup-id amixer sset Master 60%
 
 # Wallpaper restoring
@@ -28,6 +28,19 @@ workspace_auto_back_and_forth yes
 #set $tag3 "3: Terminals"
 #set $tag4 "4: Other_stuff"
 
+# basic colors=============================
+#
+# default blue
+set $de #00688B 
+# cool red
+set $cr #f7003a
+
+# # set some nice colors      border     background  text
+client.focused              $de        $de         $tx
+client.unfocused            $de        $bg         $ia
+client.focused_inactive     $de        $bg         $de
+client.urgent               $de        $rd         $tx
+
 # Bar
 bar 
 {
@@ -35,14 +48,14 @@ bar
 	{
         	# Whole color settings
         	background #000000
-        	statusline #39B94E
-        	separator  #39B94E
+            statusline #00688B
+        	separator  #0EBFE9
 
         	# Type             border  background font
-        	focused_workspace  #008fff #007fff #ffffff
-        	active_workspace   #333333 #5f676a #ffffff
+        	focused_workspace  #3e79d1 #00688B #ffffff
+        	active_workspace   #f7003a #5f676a #ffffff
         	inactive_workspace #333333 #222222 #888888
-        	urgent_workspace   #aa0000 #990000 #ffffff
+        	urgent_workspace   #f7003a #990000 #ffffff
     }
     
 	# i3bar position
@@ -53,7 +66,7 @@ bar
 	font xtf:Cousine 8
 }
 # =======================================================
-
+#
 # =======================================================
 # Bindings
 
@@ -169,7 +182,7 @@ bindsym $mod+r mode "resize"
 # Shutdown, reboot, lock screen
 
 #set $Locker i3lock -c 000000 && sleep 1
-set $Locker i3lock -i ~/tmp/i3lock.png --color=ff0000
+set $Locker i3lock -i ~/Pictures/i3lock.png --color=ff0000
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
