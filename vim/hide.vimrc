@@ -171,7 +171,7 @@ nnoremap <C-H> <C-W><C-H>
 noremap ; :
 
 " Move to the first non-blank character of the line
-noremap m ^
+nnoremap m ^
 
 " Disable the arrow keys
 noremap <Up> <NOP>
