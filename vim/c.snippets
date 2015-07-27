@@ -1,5 +1,15 @@
 # ##
 # ## BASICS
+# # Main template
+# snippet qq
+# 	#include <stdio.h>
+
+# 	int main(int argc, const char *argv[])
+# 	{
+# 		${0}
+
+# 		return 0;
+# 	}
 # snippet main
 # 	int main(int argc, const char *argv[])
 # 	{
@@ -7,6 +17,12 @@
 
 # 		return 0;
 # 	}
+# # comment
+# snippet com
+# 	/* ${1} */
+# # Size of array (number of elements)
+# snippet arrsize
+# 	(sizeof(${1:name of array})/sizeof(*$1));
 # snippet mainn
 # 	int main(void)
 # 	{

@@ -1,4 +1,3 @@
-##
 ## BASICS
 # Main template
 snippet qq
@@ -12,6 +11,12 @@ snippet qq
 
 		return 0;
 	}
+# comment
+snippet com
+	/* ${1} */
+# Size of array (number of elements)
+snippet arrsize
+	(sizeof(${1:name of array})/sizeof(*$1));
 snippet main
 	int main(int argc, const char *argv[])
 	{
@@ -21,12 +26,11 @@ snippet main
 	}
 # #include "..."
 snippet inc
-	#include "${1:<iostream>}"
+	#include <${1:iostream}>
 	${2}
 # using namespace std
 snippet std
 	using namespace std;
-extends c
 # std::array
 snippet arr
 	${1:int} ${2:array}[${3:SIZE}]
@@ -54,13 +58,12 @@ snippet el
 	{
 		${0}
 	}
-# else if
-snippet elif
-	else if (${0:true}) 
+# else if - ei
+snippet ei
+	else if (${1:true}) 
 	{
-		${1}
+		${2}
 	}
-	${3}
 # switch
 snippet switch
 	switch (${1:choice}) 
@@ -105,11 +108,38 @@ snippet do
 # std::cout
 snippet c
 	cout << ${1} << endl;
-	${2}
 # std::cin
 snippet ci
 	cin >> ${1};
 	${2}
+##
+# Working with files
+# fileO - file Output
+snippet fileO
+	const char *path="${1:path}";
+	ofstream fileOut;
+	fileOut.open(path, ios_base::out | ios_base::trunc);
+
+	fileOut << "Text to write\n";
+
+	fileOut.close();
+# fileI - file Input (read from file)
+snippet fileI
+	const char *path="${1:path}";
+	ifstream fileIn;
+	fileIn.open(path, ios_base::in);
+
+	if(fileIn.is_open())
+	{
+		string line;
+		while (getline(fileIn, line)) 
+		{
+		   cout << line << endl; 
+		}
+
+		fileIn.close();
+	}
+
 ##
 ## Functions
 snippet fun
@@ -120,6 +150,43 @@ snippet fun
 snippet fund
 	${1:void} ${2:function_name}(${3});
 	${4}
+## OPERATORS
+snippet op*
+	${1:type} operator*(const $1&);
+snippet op/
+	${1:type} operator/(const ${2:type}&);
+snippet op=
+	${1:type} operator=(const $1&);
+snippet op+=
+	${1:type} operator+=($1&)
+snippet op--
+	${1:type}& operator--();
+snippet op--int
+	${1:type} operator--(int);
+snippet op++
+	${1:type}& operator++();
+snippet op++int
+	${1:type} operator++(int);
+snippet op>
+	bool operator>(const ${1:type}&);
+snippet op<
+	bool operator<(const ${1:type}&);
+snippet op>=
+	bool operator>=(const ${1:type}&);
+snippet op<=
+	bool operator<=(const ${1:type}&);
+snippet op==
+	bool operator==(const ${1:type}&);
+snippet op!=
+	bool operator!=(const ${1:type}&);
+snippet op[]
+	${1:type}& operator[](int i);
+snippet opint
+	operator int();
+snippet op>>
+	friend istream& operator >> (istream& key, ${1:type}& ${2:variable});
+snippet op<<
+	friend ostream& operator << (ostream& screen, ${1:type}& ${2:variable});
 ## TYPES
 # std::vector
 snippet vector
@@ -237,3 +304,37 @@ snippet lld
 	[${1}](${2}){
 		${3}
 	}
+## MY FUNCTIONS
+# Move array left
+snippet movearrayleft
+	void moveArrayLeft(int *tab, const int SIZE, int positions)
+	{
+		for (positions; positions > 0; --positions) 
+		{
+			int tmp = tab[0];
+
+			for (short i = 0; i < SIZE-1; ++i) 
+			{
+				tab[i] = tab[i+1];
+			}
+
+			tab[SIZE-1] = tmp;
+		}
+	}
+# Move array right
+snippet movearrayright
+	void moveArrayRight(int *tab, const int SIZE, int positions)
+	{
+		for (positions; positions > 0; --positions) 
+		{
+			int tmp = tab[SIZE-1];
+
+			for (short i = SIZE-1; i > 0; --i) 
+			{
+				tab[i] = tab[i-1];
+			}
+
+			tab[0] = tmp;
+		}
+	}
+
