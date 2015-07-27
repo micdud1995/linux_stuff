@@ -26,7 +26,7 @@ echo Configuration of moc player, midnight commander and zsh...
 echo
 #=================================================================
 
-sudo aptitude install mc moc zsh tree scrot feh nitrogen slim git alsa-utils libncurses5-dev evince xzgv
+sudo aptitude install mc moc zsh tree scrot feh nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics vlc lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit
 
 #=================================================================
 # MOC 
@@ -46,6 +46,17 @@ sudo cp ~/repo/linux_stuff/basic_config/mc.keymap /etc/mc/mc.keymap
 # Z-shell
 cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
 chsh -s /bin/zsh 	# makes zsh default shell
+#=================================================================
+
+#=================================================================
+# Mutt (text mail client)
+cp ~/repo/linux_stuff/basic_config/hide.muttrc ~/.muttrc
+#=================================================================
+
+#=================================================================
+# Irssi
+cp ~/repo/linux_stuff/basic_config/config ~/.irssi/config
+cp ~/repo/linux_stuff/basic_config/industrial.theme ~/.irssi/
 #=================================================================
 
 #=================================================================

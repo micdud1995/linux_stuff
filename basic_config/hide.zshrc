@@ -199,4 +199,5 @@ extract () {
  	alias r="ranger"
 	alias v="vim"
 	alias w="sudo wifi-menu -o"
+    alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
 #=================================================================

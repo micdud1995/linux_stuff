@@ -1,5 +1,5 @@
 # Basics
-snippet #!
+snippet qq 
 	#!/usr/bin/env python
 	# -*- coding: utf-8 -*-
 
@@ -26,9 +26,11 @@ snippet docs
 snippet p
 	print ("${1}")
 	${2}
+# Print in one line with separrate char
 snippet p.
 	print(${1}, end=' ')
 	${2}
+# Print from file
 snippet pf
 	path = "${1}"
 	f = open(path)
