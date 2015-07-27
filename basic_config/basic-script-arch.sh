@@ -26,7 +26,7 @@ echo Configuration of moc player, midnight commander, irssi, mutt and zsh...
 echo
 #=================================================================
 
-sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage mutt xf86-input-synaptics
+sudo pacman -S mc moc zsh tree scrot feh nitrogen slim git alsa-utils ncurses mirage mutt xf86-input-synaptics expac zathura
 
 #=================================================================
 # MOC 

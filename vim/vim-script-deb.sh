@@ -15,6 +15,9 @@
 # 	Supertab
 #	SnipMate
 #   indentLine
+#   SingleCompile
+#   Rainbow parantheses
+#   Vim-commentary
 #	Gruvbox theme
 #==============================================================
 
@@ -111,8 +114,27 @@ git clone https://github.com/honza/vim-snippets.git
 #==============================================================
 
 #==============================================================
+#IndentLine
 cd ~/.vim/bundle
-git clonehttps://github.com/Yggdroot/indentLine.git
+git clone https://github.com/Yggdroot/indentLine.git
+#==============================================================
+
+#==============================================================
+#SingleCompile
+cd ~/.vim/bundle
+git clone https://github.com/xuhdev/SingleCompile.git
+#==============================================================
+
+#==============================================================
+# Rainbow parantheses
+cd ~/.vim/bundle
+git clone https://github.com/luochen1990/rainbow.git
+#==============================================================
+
+#==============================================================
+# Vim-commentary
+cd ~/.vim/bundle
+git clone https://github.com/tpope/vim-commentary.git
 #==============================================================
 
 #==============================================================
