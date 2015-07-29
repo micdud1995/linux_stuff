@@ -10,6 +10,7 @@ if [ ! -d ~/repo ] && [ ! -d ~/repo/linux_stuff ]; then
 	echo Cloning repository...
 	mkdir -p ~/repo
 	mkdir ~/repo/linux_stuff
+	mkdir ~/Pictures
 	cd ~/repo/linux_stuff
 	git clone https://github.com/micdud1995/linux_stuff.git
 else
@@ -24,10 +25,10 @@ echo Configuration of i3...
 echo
 #=================================================================
 
-sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen feh lmsensors
+sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen
 
 #==============================================================
 # Copying config files from repo 
 cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
 cp ~/repo/linux_stuff/i3/config ~/.i3/config
-cp ~/repo/linux_stuff/i3/i3lock.png ~/tmp/i3lock.png
+cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Pictures/i3lock-deb.png
