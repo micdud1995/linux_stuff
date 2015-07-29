@@ -26,7 +26,7 @@ echo Configuration of moc player, midnight commander and zsh...
 echo
 #=================================================================
 
-sudo aptitude install mc moc zsh tree scrot feh nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics vlc lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit
+sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics vlc lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit
 
 #=================================================================
 # MOC 
@@ -39,7 +39,6 @@ cp ~/repo/linux_stuff/basic_config/config_moc ~/.moc/config
 mkdir -p ~/.local/share/mc/skins
 cp ~/repo/linux_stuff/basic_config/mc.ext ~/.config/mc/mc.ext
 cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins/
-sudo cp ~/repo/linux_stuff/basic_config/mc.keymap /etc/mc/mc.keymap
 #=================================================================
 
 #=================================================================
