@@ -1,0 +1,24 @@
+#set defaultfont=Inconsolata
+#set sansfont=Inconsolata
+#set seriffont=Inconsolata
+#set status-ssl-font=Inconsolata
+#set status-font=Inconsolata
+
+#set home-page=http://google.com
+set home-page=http://blank.org
+set scrollstep=45
+set download-path=$HOME/Downloads
+set history-max-items=100
+set cookie-accept=origin
+set fullscreen=1
+
+set auto-shrink-images=1
+set smooth-scrolling=1
+set status-color-bg=black
+set status-color-fg=white
+set status-ssl-color-bg=black
+set status-ssl-color-fg=white
+set status-sslinvalid-color-bg=red
+set status-sslinvalid-color-fg=white
+set strict-ssl=0
+set stylesheet=1
