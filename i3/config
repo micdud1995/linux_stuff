@@ -182,7 +182,8 @@ bindsym $mod+r mode "resize"
 # Shutdown, reboot, lock screen
 
 #set $Locker i3lock -c 000000 && sleep 1
-set $Locker i3lock -i ~/Pictures/i3lock.png --color=ff0000
+# set $Locker i3lock -i ~/Pictures/i3lock-arch.png --color=ff0000
+set $Locker i3lock -i ~/Pictures/i3lock-deb.png --color=ff0000
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
