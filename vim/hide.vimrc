@@ -200,6 +200,13 @@ nmap <F3> :SCCompileRun<cr>
 "==================================================
 
 "==================================================
+" Public Accessors
+map <F6> :s/\(\(\w\)\(\w\+\)\).*/public function get\u\2\3(){\r\treturn \$this->\1;\r}/<CR>
+" Public Setters
+map <S-F6> :s/\(\(\w\)\(\w\+\)\).*/public function set\u\2\3(\$\1){\r\t\$this->\1 = \$\1;\r}/<CR>
+"==================================================
+
+"==================================================
 " Rainbow parantheses colors
 let g:rbpt_colorpairs = [
     \ ['darkgray',    'DarkOrchid3'],
