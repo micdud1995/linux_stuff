@@ -1,22 +1,23 @@
 #!/bin/bash
 
 # run as a user!
+# configure visudo before
 
 clear
 
 #=================================================================
 # Creating repo dir and cloning repository
-if [ ! -d ~/repo ] && [ ! -d ~/repo/linux_stuff ]; then
+if [ ! -d $HOME/repo ] && [ ! -d $HOME/repo/linux_stuff ]; then
 	echo
 	echo Creating ~/repo/linux_stuff directory...
 	echo Cloning repository...
-	mkdir -p ~/repo
-	mkdir ~/repo/linux_stuff
-	cd ~/repo/linux_stuff
+	mkdir -p $HOME/repo
+	mkdir $HOME/repo/linux_stuff
+	cd $HOME/repo/linux_stuff
 	git clone https://github.com/micdud1995/linux_stuff.git
 else
 	echo
-	echo OK, ~/repo/linux_stuff already exists...
+	echo OK, $HOME/repo/linux_stuff already exists...
 fi
 #=================================================================
 
@@ -30,50 +31,62 @@ sudo pacman -S mc moc zsh tree scrot nitrogen slim git alsa-utils ncurses mirage
 
 #=================================================================
 # MOC 
-mkdir -p ~/.moc
-cp ~/repo/linux_stuff/basic_config/config_moc ~/.moc/config
+mkdir -p $HOME/.moc
+cp $HOME/repo/linux_stuff/basic_config/config_moc $HOME/.moc/config
 #=================================================================
 
 #=================================================================
 # Midnight Commander
-mkdir -p ~/.local/share/mc/skins
-cp ~/repo/linux_stuff/basic_config/mc.ext ~/.config/mc/mc.ext
-cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins/
+mkdir -p $HOME/.local/share/mc/skins
+cp $HOME/repo/linux_stuff/basic_config/mc.ext $HOME/.config/mc/mc.ext
+cp $HOME/repo/linux_stuff/basic_config/darkcourses_green.ini $HOME/.local/share/mc/skins/
 #=================================================================
 
 #=================================================================
 # Z-shell
-cp ~/repo/linux_stuff/basic_config/hide.zshrc ~/.zshrc
+cp $HOME/repo/linux_stuff/basic_config/hide.zshrc $HOME/.zshrc
 chsh -s /bin/zsh 	# makes zsh default shell
 #=================================================================
 
 #=================================================================
 # Mutt (text mail client)
-cp ~/repo/linux_stuff/basic_config/hide.muttrc ~/.muttrc
+cp $HOME/repo/linux_stuff/basic_config/hide.muttrc $HOME/.muttrc
 #=================================================================
 
 #=================================================================
 # Irssi
-cp ~/repo/linux_stuff/basic_config/config ~/.irssi/config
-cp ~/repo/linux_stuff/basic_config/industrial.theme ~/.irssi/
+cp $HOME/repo/linux_stuff/basic_config/config-irssi.rc $HOME/.irssi/config
+cp $HOME/repo/linux_stuff/basic_config/industrial.theme $HOME/.irssi/
+#=================================================================
+
+#=================================================================
+# Vimb web browser
+sudo pacman -S libsoup webkitgtk2 
+cd $HOME/tmp
+git clone https://github.com/fanglingsu/vimb.git
+cd $HOME/tmp/vimb
+make clean
+make install
+cp $HOME/repo/linux_stuff/basic_config/config-vimb.rc $HOME/.config/vimb/config
+cp $HOME/repo/linux_stuff/basic_config/bookmark-vimb.rc $HOME/.config/vimb/bookmark
 #=================================================================
 
 #=================================================================
 # Others
-sudo cp ~/repo/linux_stuff/basic_config/m /usr/bin/
+sudo cp $HOME/repo/linux_stuff/basic_config/m /usr/bin/
 chmod +x /usr/bin/m
-sudo cp ~/repo/linux_stuff/basic_config/um /usr/bin/
+sudo cp $HOME/repo/linux_stuff/basic_config/um /usr/bin/
 chmod +x /usr/bin/um
 #=================================================================
 
 #=================================================================
 # Polish letters
-sudo cp ~/repo/linux_stuff/basic_config/vconsole.conf /etc/vconsole.conf
-sudo cp ~/repo/linux_stuff/basic_config/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
+sudo cp $HOME/repo/linux_stuff/basic_config/vconsole.conf /etc/vconsole.conf
+sudo cp $HOME/repo/linux_stuff/basic_config/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
 
 #=================================================================
 # Cleaning script 
-sudo cp ~/repo/linux_stuff/basic_config/arch-clear /usr/bin/arch-clear
+sudo cp $HOME/repo/linux_stuff/basic_config/arch-clear /usr/bin/arch-clear
 sudo chmod +x /usr/bin/arch-clear
 #=================================================================
 
