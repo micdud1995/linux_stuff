@@ -39,7 +39,6 @@ cp ~/repo/linux_stuff/basic_config/config_moc ~/.moc/config
 mkdir -p ~/.local/share/mc/skins
 cp ~/repo/linux_stuff/basic_config/mc.ext ~/.config/mc/mc.ext
 cp ~/repo/linux_stuff/basic_config/darkcourses_green.ini ~/.local/share/mc/skins/
-sudo cp ~/repo/linux_stuff/basic_config/mc.keymap /etc/mc/mc.keymap
 #=================================================================
 
 #=================================================================
