@@ -7,7 +7,7 @@
 #set home-page=http://google.com
 set home-page=http://blank.org
 set scrollstep=45
-set download-path=$HOME/Downloads
+set download-path=$HOME/Pobrane
 set history-max-items=100
 set cookie-accept=origin
 set fullscreen=1
