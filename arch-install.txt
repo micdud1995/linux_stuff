@@ -15,8 +15,8 @@
 # Wifi
 	ping -c 3 www.google.pl
     sudo pacman -S wicd
-    systemctl start wicd
-    systemctl enable wicd
+    sudo systemctl start wicd
+    sudo systemctl enable wicd
 	nano /etc/pacman.d/mirrorlist
 		leave a few mirrors
 # =================================================
