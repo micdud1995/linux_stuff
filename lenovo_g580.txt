@@ -6,19 +6,18 @@ synclient TapButton1=1
 #========================================================
 # wifi
 Add a "non-free" component to /etc/apt/sources.list
-aptitude update
-aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms
-modprobe -r b44 b43 b43legacy ssb brcmsmac
-modprobe wl
-aptitude update
-aptitude install wicd
+sudo aptitude update
+sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms
+sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
+sudo modprobe wl
+sudo aptitude update
+sudo aptitude install wicd
 Amend /etc/network/interfaces to contain only the following:
 	auto lo
 	iface lo inet loopback
-adduser yourusername netdev
-/etc/init.d/dbus reload
-/etc/init.d/wicd start
-exit
+sudo adduser yourusername netdev
+sudo /etc/init.d/dbus reload
+sudo /etc/init.d/wicd start
 wicd-client -n
 #========================================================
 
@@ -31,7 +30,7 @@ dpkg -i skype.deb
 
 #========================================================
 # microphone
-vim /etc/modprobe.d/alsa-base.conf
+sudo vim /etc/modprobe.d/alsa-base.conf
 type: options snd-hda-intel model=auto
 #========================================================
 
