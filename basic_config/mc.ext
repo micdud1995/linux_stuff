@@ -368,9 +368,6 @@ shell/i/.mkv
 regex/i/\.(mov|qt)$
 	Include=video
 
-regex/i/\.(mp4|m4v|mpe?g)$
-	Include=video
-
 # MPEG-2 TS container + H.264 codec
 shell/i/.mts
 	Include=video
