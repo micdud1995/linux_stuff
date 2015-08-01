@@ -130,6 +130,8 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 	alias c='clear'
 # ls with colors
 	alias ls='ls --color'
+# ls witch colors and screen cleaning
+    alias l="clear;ls --color"
 # shutdown the system
 	alias off='systemctl poweroff'
 # show hidden files only
@@ -139,8 +141,10 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # system upgrade
 	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
 # aptitude aliases
+    alias a="aptitude"
 	alias ai="sudo aptitude install"
 	alias as="aptitude search"
+    alias ar="sudo aptitude remove"
 # pacman aliases
 	alias S="sudo pacman -S" # Install package
 	alias Ss="pacman -Ss" # Search packages
@@ -198,6 +202,7 @@ extract () {
 # Programs aliases
  	alias r="ranger"
 	alias v="vim"
-	alias w="sudo wifi-menu -o"
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
+    alias x="chmod +x"
+    alias hist="cat ~/.zshr_history | grep"
 #=================================================================
