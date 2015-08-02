@@ -32,6 +32,7 @@ menu() {
     cecho g "7) Configure Vim\n"
     cecho g "8) Configure i3\n"
     cecho g "9) Configure conky\n"
+    cecho g "10) Change default python version to 3.4\n"
     cecho g "99) Exit\n"
     cecho g "==============================================================\n"
     read c
@@ -72,7 +73,7 @@ menu() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics vlc lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent
+        sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics vlc lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent youtube-dl
         # Depedencies for vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
         sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev
@@ -286,6 +287,13 @@ menu() {
         cp ~/repo/linux_stuff/i3/config ~/.i3/config
         cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
 
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
+    elif [ "$c" -eq "9" ] ; then
+        cecho c "=========================> Changing default python version to 3.4\n"
+        sudo rm /usr/bin/python
+        sudo ln -s /usr/bin/python3.4 /usr/bin/python
         cecho c "Done\n"
         read -p "Press any key..."
         menu
