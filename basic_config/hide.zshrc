@@ -205,4 +205,6 @@ extract () {
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
     alias x="chmod +x"
     alias hist="cat ~/.zshr_history | grep"
+    alias y="youtube-dl -f 135"
+    alias pyt="vim ~/.vim/bundle/vim-snippets/snippets/python.snippets"
 #=================================================================
