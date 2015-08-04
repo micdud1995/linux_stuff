@@ -33,6 +33,7 @@ menu() {
     cecho g "8) Configure i3\n"
     cecho g "9) Configure conky\n"
     cecho g "10) Change default python version to 3.4\n"
+    cecho g "11) Install from source and configure livestreamer\n"
     cecho g "99) Exit\n"
     cecho g "==============================================================\n"
     read c
@@ -290,10 +291,22 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "9" ] ; then
-        cecho c "=========================> Changing default python version to 3.4\n"
-        sudo rm /usr/bin/python
-        sudo ln -s /usr/bin/python3.4 /usr/bin/python
+    elif [ "$c" -eq "10" ] ; then
+        # cecho c "=========================> Changing default python version to 3.4\n"
+        # sudo rm /usr/bin/python
+        # sudo ln -s /usr/bin/python3.4 /usr/bin/python
+        # cecho c "Done\n"
+        # read -p "Press any key..."
+        menu
+    elif [ "$c" -eq "11" ] ; then
+        cecho c "=========================> Installing depedencies\n"
+        sudo aptitude install python python-requests python-setuptools python-singledispatch
+        cd $HOME/tmp
+        cecho c "=========================> Cloning repository\n"
+        git clone https://github.com/chrippa/livestreamer.git
+        cd $HOME/tmp/livestreamer
+        cecho c "=========================> Installing\n"
+        python setup.py install
         cecho c "Done\n"
         read -p "Press any key..."
         menu
