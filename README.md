@@ -1,12 +1,9 @@
-========================
-Linux_stuff
-========================
 
 Description
 =====================
 
 Config files with simple scripts that unpack/install all that stuff:
-Vim, file managers, z-shell and others.
+Vim, file managers, z-shell and many others.
 
 
 Running
@@ -16,7 +13,7 @@ To run script:
 
 1) Just make script executable, e.q.
 
-	chmod +x basic-script-arch.sh
+	chmod +x debian-config.sh
 2) Run it, e.q.
 
-	./basic-script-arch.sh
+	./debian-config.sh
