@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/bash
 
 # using command "m arg" you can easily mount devices, for example:
 # 1) ntfs devices: m -n sdb1
@@ -22,6 +22,7 @@ cecho() {
   printf "$text"
 }
 
+# destination dir
 DIR="/dev/dysk"
 
 if [ $# -eq 2  ]; then
