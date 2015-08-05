@@ -32,7 +32,7 @@ menu() {
     cecho g "7) Configure Vim\n"
     cecho g "8) Configure i3\n"
     cecho g "9) Configure conky\n"
-    cecho g "10) Change default python version to 3.4\n"
+    cecho g "10) Install and configure SSH with GUI\n"
     cecho g "11) Install from source and configure livestreamer\n"
     cecho g "99) Exit\n"
     cecho g "==============================================================\n"
@@ -292,11 +292,16 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "10" ] ; then
-        # cecho c "=========================> Changing default python version to 3.4\n"
-        # sudo rm /usr/bin/python
-        # sudo ln -s /usr/bin/python3.4 /usr/bin/python
-        # cecho c "Done\n"
-        # read -p "Press any key..."
+        cecho c "=========================> Installing SSH server\n"
+        sudo aptitude install openssh-server
+        sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+        cecho c "=========================> Restarting SSH server\n"
+        sudo /etc/init.d/ssh restart
+        # Accepting running gui programs
+        export DISPLAY=:0 
+        cecho y "=========================> To connect: ssh user@ip-number\n"
+        cecho c "Done\n"
+        read -p "Press any key..."
         menu
     elif [ "$c" -eq "11" ] ; then
         cecho c "=========================> Installing depedencies\n"
