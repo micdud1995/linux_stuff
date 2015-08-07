@@ -112,9 +112,10 @@ menu() {
         menu
     elif [ "$c" -eq "5" ] ; then
         cecho c "=========================> Disabling beep sound\n"
-        # Disable beep sound in X and console
-        sudo modprobe -r pcspkr 
-        sudo cp $HOME/repo/linux_stuff/basic_config/inputrc /etc/inputrc
+        # Disable beep sound in console
+        set bell-style none
+        # Disable beep sound in X
+        xset b off
         # Mount scripts
         cecho c "=========================> Copying mount scripts\n"
         sudo cp $HOME/repo/linux_stuff/basic_config/m /usr/bin/
