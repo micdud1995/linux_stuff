@@ -313,6 +313,9 @@ menu() {
         cd $HOME/tmp/livestreamer
         cecho c "=========================> Installing\n"
         python setup.py install
+        cecho c "=========================> Cleaning tmp files\n"
+        cd $Home/tmp
+        rm -rf livestreamer
         cecho c "Done\n"
         read -p "Press any key..."
         menu
