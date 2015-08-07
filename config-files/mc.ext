@@ -349,58 +349,38 @@ regex/i/\.(m3u|pls)$
 
 ### Video ###
 
-+ f \.avi$ | f \.mpg$ | f \.mpeg$ | f \.mkv$ | f \.ts$ | f \.rm$ | f \.vob$ | f \.rmvb$ | f \.flv$ | f \.wmv | f \.ram | f \.mp4 | f \.asf | f \.ogm | f \.m2v | f \.evo$ & t r & ! t t
-p       vlc
-        vlc %f
-
 shell/i/.avi
-	Include=video
+  Open=(vlc %f >/dev/null 2>&1 &)
 
-regex/i/\.as[fx]$
-	Include=video
+shell/i/.mp4
+  Open=(vlc %f >/dev/null 2>&1 &)
 
 shell/i/.divx
-	Include=video
+  Open=(vlc %f >/dev/null 2>&1 &)
+
+shell/i/.mpg
+  Open=(vlc %f >/dev/null 2>&1 &)
+
+shell/i/.mpeg
+  Open=(vlc %f >/dev/null 2>&1 &)
 
 shell/i/.mkv
-	Include=video
+  Open=(vlc %f >/dev/null 2>&1 &)
 
-regex/i/\.(mov|qt)$
-	Include=video
+shell/i/.rmvb
+  Open=(vlc %f >/dev/null 2>&1 &)
 
-# MPEG-2 TS container + H.264 codec
-shell/i/.mts
-	Include=video
-
-shell/i/.ts
-	Include=video
-
-shell/i/.vob
-	Include=video
+shell/i/.flv
+  Open=(vlc %f >/dev/null 2>&1 &)
 
 shell/i/.wmv
-	Include=video
+  Open=(vlc %f >/dev/null 2>&1 &)
 
-regex/i/\.fl[icv]$
-	Include=video
-
-shell/i/.ogv
-	Include=video
-
-regex/i/\.ra?m$
-	Open=/usr/lib/mc/ext.d/video.sh open ram
-
-# WebM
 shell/i/.webm
-    Include=video
-
-type/WebM
-    Include=video
+  Open=(vlc %f >/dev/null 2>&1 &)
 
 include/video
-	Open=/usr/lib/mc/ext.d/video.sh open ALL_FORMATS
-	View=%view{ascii} /usr/lib/mc/ext.d/video.sh view ALL_FORMATS
-
+    Open=(vlc -really-quiet -noconsolecontrols %f >/dev/null 2>&1 &)
 
 ### Documents ###
 
