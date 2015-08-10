@@ -22,12 +22,12 @@ cecho() {
 
 menu() {
     clear
-    cecho g "========================== CONFIG ============================\n"
+    cecho g "========================== CONFIG ==========================\n"
     cecho g "1) Install git\n"
     cecho g "2) Create dirs and clone repo\n"
     cecho g "3) Install basic packages\n"
-    cecho g "4) Configure moc, mc, zsh, mutt, irssi, vimb, rtorrent\n"
-    cecho g "5) Copy mount scripts and disable beep sound\n"
+    cecho g "4) Configure moc, mc, zsh, mutt, vimb, rtorrent\n"
+    cecho g "5) Copy own scripts and disable beep sound\n"
     cecho g "6) Configure Lenovo G580\n"
     cecho g "7) Configure Vim\n"
     cecho g "8) Configure i3\n"
@@ -35,14 +35,16 @@ menu() {
     cecho g "10) Install and configure SSH with GUI\n"
     cecho g "11) Install from source and configure livestreamer\n"
     cecho g "12) Install from source and configure youtube-dl\n"
+    cecho g "13) Install Virtualbox"
+    cecho g "14) Install and configure Irssi\n"
     cecho g "99) Exit\n"
-    cecho g "==============================================================\n"
+    cecho g "============================================================\n"
     read c
 
     if [ "$c" -eq "1" ] ; then
         # Installing git
         cecho c "=========================> Git installing\n"
-        sudo aptitude install git
+        sudo aptitude install git -y
         cecho c "=========================> Setting user name\n"
         git config --global user.name "Michal Dudek"
         cecho c "=========================> Setting user e-mail\n"
@@ -75,7 +77,7 @@ menu() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics vlc lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta
+        sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
         # Depedencies for vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
         sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev
@@ -83,30 +85,27 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "4" ] ; then
-        cecho c "=========================> Configuration of moc player, midnight commander, zsh, mutt, irssi...\n"
+        cecho c "=========================> Configuration of moc player, midnight commander, zsh, mutt...\n"
         # MOC 
-        cp $HOME/repo/linux_stuff/basic_config/config_moc $HOME/.moc/config
+        cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
         # Midnight Commander
-        cp $HOME/repo/linux_stuff/basic_config/mc.ext $HOME/.config/mc/mc.ext
-        cp $HOME/repo/linux_stuff/basic_config/darkcourses_green.ini $HOME/.local/share/mc/skins/
+        cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
+        cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
         # Z-shell
-        cp $HOME/repo/linux_stuff/basic_config/hide.zshrc $HOME/.zshrc
+        cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
         chsh -s /bin/zsh 	# makes zsh default shell
         # Mutt (text mail client)
-        cp $HOME/repo/linux_stuff/basic_config/hide.muttrc $HOME/.muttrc
-        # Irssi
-        cp $HOME/repo/linux_stuff/basic_config/config-irssi.rc $HOME/.irssi/config
-        cp $HOME/repo/linux_stuff/basic_config/industrial.theme $HOME/.irssi/
+        cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
         # Vimb web browser
         cd $HOME/tmp
         git clone https://github.com/fanglingsu/vimb.git
         cd $HOME/tmp/vimb
         make clean
         sudo make install
-        cp $HOME/repo/linux_stuff/basic_config/config-vimb.rc $HOME/.config/vimb/config
-        cp $HOME/repo/linux_stuff/basic_config/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+        cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
+        cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
         # Rtorrent
-        cp ~/repo/linux_stuff/basic_config/hide.rtorrent.rc ~/.rtorrent.rc
+        cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -118,32 +117,35 @@ menu() {
         xset b off
         # Mount scripts
         cecho c "=========================> Copying mount scripts\n"
-        sudo cp $HOME/repo/linux_stuff/basic_config/m /usr/bin/
+        sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
         sudo chmod +x /usr/bin/m
-        sudo cp $HOME/repo/linux_stuff/basic_config/um /usr/bin/
+        sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
         sudo chmod +x /usr/bin/um
+        cecho c "=========================> Copying live-usb script\n"
+        sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
+        sudo chmod +x /usr/bin/live-usb
         cecho c "Done\n"
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "6" ] ; then
         cecho c "=========================> Updating /etc/apt/sources.list\n"
-        sudo cp $HOME/repo/linux_stuff/basic_config/sources.list /etc/apt/sources.list
+        sudo cp $HOME/repo/linux_stuff/config-files/sources.list /etc/apt/sources.list
         cecho c "=========================> Update system\n"
         sudo aptitude update
         cecho c "=========================> Upgrade system\n"
         sudo aptitude upgrade
         cecho c "=========================> Copying slim.conf\n"
-        sudo cp $HOME/repo/linux_stuff/basic_config/slim.conf /etc/slim.conf
+        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
         cecho c "=========================> Remaking grub file\n"
-        sudo cp $HOME/repo/linux_stuff/basic_config/grub /etc/default/grub
+        sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
         sudo update-grub
         cecho c "=========================> Enabling microphone\n"
-        sudo cp $HOME/repo/linux_stuff/basic_config/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+        sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         cecho c "=========================> Enabling wifi\n"
         sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
         sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
         sudo modprobe wl
-        sudo cp $HOME/repo/linux_stuff/basic_config/interfaces /etc/network/interfaces
+        sudo cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
         sudo adduser michal netdev
         sudo /etc/init.d/dbus reload
         sudo /etc/init.d/wicd start
@@ -174,7 +176,7 @@ menu() {
         #==============================================================
 
         cecho c "=========================> Installing vim depedencies\n"
-        sudo aptitude install vim curl exuberant-ctags fonts-inconsolata
+        sudo aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
         cecho c "=========================> Making vim dirs\n"
         mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -283,7 +285,7 @@ menu() {
         menu
     elif [ "$c" -eq "9" ] ; then
         cecho c "=========================> Installing i3 depedencies\n"
-        sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen
+        sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen -y
 
         cecho c "=========================> Copying config files\n"
         cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -320,14 +322,23 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "11" ] ; then
-        cecho c "=========================> Downloading youtube-dl from Github\n"
+    elif [ "$c" -eq "12" ] ; then
+        cecho c "=========================> Downloading youtube-dl from webpage\n"
         sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         cecho c "=========================> Making file executable\n"
         sudo chmod a+rx /usr/local/bin/youtube-dl
         cecho c "Done\n"
         read -p "Press any key..."
         menu
+    elif [ "$c" -eq "13" ] ; then
+        cecho c "=========================> Installing depedencies\n"
+        sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils
+    elif [ "$c" -eq "14" ] ; then
+        cecho c "=========================> Installing irssi\n"
+        sudo aptitude install irssi -y
+        cecho c "=========================> Copying config files\n"
+        cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
+        cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
     elif [ "$c" -eq "99" ] ; then
         clear
         exit
