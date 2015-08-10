@@ -23,21 +23,21 @@ cecho() {
 menu() {
     clear
     cecho g "========================== CONFIG ==========================\n"
-    cecho g "1) Install git\n"
+    cecho g "1) Install - git\n"
     cecho g "2) Create dirs and clone repo\n"
-    cecho g "3) Install basic packages\n"
+    cecho g "3) Install - basic packages\n"
     cecho g "4) Configure moc, mc, zsh, mutt, rtorrent\n"
     cecho g "5) Copy own scripts and disable beep sound\n"
     cecho g "6) Configure Lenovo G580\n"
     cecho g "7) Configure Vim\n"
     cecho g "8) Configure conky\n"
     cecho g "9) Configure i3\n"
-    cecho g "10) Install and configure SSH with GUI\n"
-    cecho g "11) Install from source and configure livestreamer\n"
-    cecho g "12) Install from source and configure youtube-dl\n"
-    cecho g "13) Install Virtualbox\n"
-    cecho g "14) Install and configure Irssi\n"
-    cecho g "15) Install from source vimb web browser\n"
+    cecho g "10) Install - SSH \n"
+    cecho g "11) Install - livestreamer [source]\n"
+    cecho g "12) Install - youtube-dl [source]\n"
+    cecho g "13) Install - virtualbox\n"
+    cecho g "14) Install - irssi\n"
+    cecho g "15) Install - vimb\n"
     cecho g "99) Exit\n"
     cecho g "============================================================\n"
     read c
@@ -83,19 +83,18 @@ menu() {
         mkdir -p $HOME/.local/share/mc/skins
         mkdir -p $HOME/.rtorrent
         cecho c "=========================> Installing packages\n"
-        sudo aptitude install moc mc zsh mutt rtorrent
-        cecho c "=========================> Configuration of moc player, midnight commander, zsh, mutt, rtorrent...\n"
-        # MOC 
+        sudo aptitude install moc mc zsh mutt rtorrent -y
+        cecho c "=========================> Configuration moc player\n"
         cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
-        # Midnight Commander
+        cecho c "=========================> Configuration midnight commander\n"
         cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
         cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
-        # Z-shell
+        cecho c "=========================> Configuration zsh\n"
         cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
         chsh -s /bin/zsh 	# makes zsh default shell
-        # Mutt (text mail client)
+        cecho c "=========================> Configuration mutt\n"
         cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
-        # Rtorrent
+        cecho c "=========================> Configuration rtorrent\n"
         cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
         cecho c "Done\n"
         read -p "Press any key..."
@@ -142,7 +141,7 @@ menu() {
         sudo /etc/init.d/wicd start
         wicd-client -n
         cecho c "=========================> Enabling touchpad\n"
-        synclient TapButton1=1
+        echo synclient TapButton1=1 >> $HOME/.xinitrc
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -337,7 +336,7 @@ menu() {
         # Vimb web browser
         mkdir -p $HOME/.config/vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
-        sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev
+        sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
         cd $HOME/tmp
         git clone https://github.com/fanglingsu/vimb.git
         cd $HOME/tmp/vimb
@@ -345,6 +344,9 @@ menu() {
         sudo make install
         cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
         cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
     elif [ "$c" -eq "99" ] ; then
         clear
         exit
