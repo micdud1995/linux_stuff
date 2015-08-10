@@ -32,31 +32,31 @@ sudo pacman -S mc moc zsh tree scrot nitrogen slim git alsa-utils ncurses mirage
 #=================================================================
 # MOC 
 mkdir -p $HOME/.moc
-cp $HOME/repo/linux_stuff/basic_config/config_moc $HOME/.moc/config
+cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
 #=================================================================
 
 #=================================================================
 # Midnight Commander
 mkdir -p $HOME/.local/share/mc/skins
-cp $HOME/repo/linux_stuff/basic_config/mc.ext $HOME/.config/mc/mc.ext
-cp $HOME/repo/linux_stuff/basic_config/darkcourses_green.ini $HOME/.local/share/mc/skins/
+cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
+cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
 #=================================================================
 
 #=================================================================
 # Z-shell
-cp $HOME/repo/linux_stuff/basic_config/hide.zshrc $HOME/.zshrc
+cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
 chsh -s /bin/zsh 	# makes zsh default shell
 #=================================================================
 
 #=================================================================
 # Mutt (text mail client)
-cp $HOME/repo/linux_stuff/basic_config/hide.muttrc $HOME/.muttrc
+cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
 #=================================================================
 
 #=================================================================
 # Irssi
-cp $HOME/repo/linux_stuff/basic_config/config-irssi.rc $HOME/.irssi/config
-cp $HOME/repo/linux_stuff/basic_config/industrial.theme $HOME/.irssi/
+cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
+cp $HOME/repo/linux_stuff/config-files/industrial.theme $HOME/.irssi/
 #=================================================================
 
 #=================================================================
@@ -67,30 +67,30 @@ git clone https://github.com/fanglingsu/vimb.git
 cd $HOME/tmp/vimb
 make clean
 make install
-cp $HOME/repo/linux_stuff/basic_config/config-vimb.rc $HOME/.config/vimb/config
-cp $HOME/repo/linux_stuff/basic_config/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
+cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
 #=================================================================
 
 #=================================================================
 # Others
-sudo cp $HOME/repo/linux_stuff/basic_config/m /usr/bin/
+sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
 chmod +x /usr/bin/m
-sudo cp $HOME/repo/linux_stuff/basic_config/um /usr/bin/
+sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
 chmod +x /usr/bin/um
 #=================================================================
 
 #=================================================================
 # Polish letters
-sudo cp $HOME/repo/linux_stuff/basic_config/vconsole.conf /etc/vconsole.conf
-sudo cp $HOME/repo/linux_stuff/basic_config/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
+sudo cp $HOME/repo/linux_stuff/config-files/vconsole.conf /etc/vconsole.conf
+sudo cp $HOME/repo/linux_stuff/config-files/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
 
 #=================================================================
 # Cleaning script 
-sudo cp $HOME/repo/linux_stuff/basic_config/arch-clear /usr/bin/arch-clear
+sudo cp $HOME/repo/linux_stuff/config-files/arch-clear /usr/bin/arch-clear
 sudo chmod +x /usr/bin/arch-clear
 #=================================================================
 
 #=================================================================
 # Enabling touchpad
-sudo cp /repo/linux_stuff/basic_config/50-synaptics.conf /etc/X11/xorg.conf.d/
+sudo cp /repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
 #=================================================================
