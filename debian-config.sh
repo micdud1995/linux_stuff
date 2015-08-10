@@ -30,12 +30,12 @@ menu() {
     cecho g "5) Copy own scripts and disable beep sound\n"
     cecho g "6) Configure Lenovo G580\n"
     cecho g "7) Configure Vim\n"
-    cecho g "8) Configure i3\n"
-    cecho g "9) Configure conky\n"
+    cecho g "8) Configure conky\n"
+    cecho g "9) Configure i3\n"
     cecho g "10) Install and configure SSH with GUI\n"
     cecho g "11) Install from source and configure livestreamer\n"
     cecho g "12) Install from source and configure youtube-dl\n"
-    cecho g "13) Install Virtualbox"
+    cecho g "13) Install Virtualbox\n"
     cecho g "14) Install and configure Irssi\n"
     cecho g "99) Exit\n"
     cecho g "============================================================\n"
@@ -53,8 +53,11 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "2" ] ; then
+        cecho c "=========================> Creating dirs...\n"
+        mkdir -p $HOME/repo
+        mkdir -p $HOME/tmp
         # Creating repo dir and cloning repository
-        if [ ! -d $HOME/repo ] && [ ! -d $HOME/repo/linux_stuff ]; then
+        if [ ! -d $HOME/repo/linux_stuff ]; then
             cd $HOME/repo
             cecho c "=========================> Cloning repository...\n"
             git clone https://github.com/micdud1995/linux_stuff.git
@@ -62,15 +65,6 @@ menu() {
             cecho c "=========================> $HOME/repo/linux_stuff exists already...\n"
         fi
 
-        cecho c "=========================> Creating dirs...\n"
-        mkdir -p $HOME/repo
-        mkdir -p $HOME/.i3
-        mkdir -p $HOME/tmp
-        mkdir -p $HOME/.config/mc
-        mkdir -p $HOME/.config/vimb
-        mkdir -p $HOME/.moc
-        mkdir -p $HOME/.local/share/mc/skins
-        mkdir -p $HOME/.rtorrent
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -79,13 +73,20 @@ menu() {
         cecho c "=========================> Installing basic packages...\n"
         sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
         # Depedencies for vimb
+        cecho c "=========================> Creating folders\n"
+        mkdir -p $HOME/.config/vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
         sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev
         cecho c "Done\n"
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "4" ] ; then
-        cecho c "=========================> Configuration of moc player, midnight commander, zsh, mutt...\n"
+        cecho c "=========================> Creating dirs\n"
+        mkdir -p $HOME/.config/mc
+        mkdir -p $HOME/.moc
+        mkdir -p $HOME/.local/share/mc/skins
+        mkdir -p $HOME/.rtorrent
+        cecho c "=========================> Configuration of moc player, midnight commander, zsh, mutt, rtorrent...\n"
         # MOC 
         cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
         # Midnight Commander
@@ -284,6 +285,8 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "9" ] ; then
+        cecho c "=========================> Creating dirs\n"
+        mkdir -p $HOME/.i3
         cecho c "=========================> Installing i3 depedencies\n"
         sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen -y
 
@@ -309,16 +312,15 @@ menu() {
         menu
     elif [ "$c" -eq "11" ] ; then
         cecho c "=========================> Installing depedencies\n"
-        sudo aptitude install python python-requests python-setuptools python-singledispatch
+        sudo aptitude install python python-requests python-setuptools python-singledispatch -y
         cd $HOME/tmp
         cecho c "=========================> Cloning repository\n"
         git clone https://github.com/chrippa/livestreamer.git
         cd $HOME/tmp/livestreamer
         cecho c "=========================> Installing\n"
-        python setup.py install
+        sudo python setup.py install
         cecho c "=========================> Cleaning tmp files\n"
-        cd $Home/tmp
-        rm -rf livestreamer
+        rm -rf $HOME/tmp/livestreamer
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -334,6 +336,8 @@ menu() {
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils
     elif [ "$c" -eq "14" ] ; then
+        cecho c "=========================> Creating dirs\n"
+        mkdir $HOME/.irssi
         cecho c "=========================> Installing irssi\n"
         sudo aptitude install irssi -y
         cecho c "=========================> Copying config files\n"
