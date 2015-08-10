@@ -28,16 +28,17 @@ menu() {
     cecho g "3) Install - basic packages\n"
     cecho g "4) Configure moc, mc, zsh, mutt, rtorrent\n"
     cecho g "5) Copy own scripts and disable beep sound\n"
-    cecho g "6) Configure Lenovo G580\n"
-    cecho g "7) Configure Vim\n"
-    cecho g "8) Configure conky\n"
-    cecho g "9) Configure i3\n"
+    cecho g "6) Configure - Lenovo G580\n"
+    cecho g "7) Configure - vim\n"
+    cecho g "8) Configure - conky\n"
+    cecho g "9) Configure - i3\n"
     cecho g "10) Install - SSH \n"
     cecho g "11) Install - livestreamer [source]\n"
     cecho g "12) Install - youtube-dl [source]\n"
     cecho g "13) Install - virtualbox\n"
     cecho g "14) Install - irssi\n"
     cecho g "15) Install - vimb [source]\n"
+    cecho g "16) Configure slim and grub\n"
     cecho g "99) Exit\n"
     cecho g "============================================================\n"
     read c
@@ -72,7 +73,7 @@ menu() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
+        sudo aptitude install mc moc zsh mutt tree scrot nitrogen git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -124,11 +125,6 @@ menu() {
         sudo aptitude update
         cecho c "=========================> Upgrade system\n"
         sudo aptitude upgrade -y
-        cecho c "=========================> Copying slim.conf\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
-        cecho c "=========================> Remaking grub file\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
-        sudo update-grub
         cecho c "=========================> Enabling microphone\n"
         sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         cecho c "=========================> Enabling wifi\n"
@@ -328,7 +324,6 @@ menu() {
     elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils
-        cecho y "=========================> To 16:9 ratio enable 3D accelaration\n"
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -357,6 +352,20 @@ menu() {
         sudo make install
         cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
         cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
+    elif [ "$c" -eq "16" ] ; then
+        cecho c "=========================> Installing slim\n"
+        sudo aptitude install slim -y
+        cecho c "=========================> Copying slim.conf\n"
+        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
+        cecho c "=========================> Making slim default login manager\n"
+        sudo dpkg-reconfigure slim
+        cecho c "=========================> Remaking grub file\n"
+        sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
+        sudo update-grub
 
         cecho c "Done\n"
         read -p "Press any key..."
