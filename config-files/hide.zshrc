@@ -139,12 +139,13 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # list all folders
 	alias lf='ls -Gl | grep ^d'
 # system upgrade
-	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
+	alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean -y'
 # aptitude aliases
     alias a="aptitude"
 	alias ai="sudo aptitude install"
 	alias as="aptitude search"
     alias ar="sudo aptitude remove"
+    alias ap="sudo aptitude purge"
 # pacman aliases
 	alias S="sudo pacman -S" # Install package
 	alias Ss="pacman -Ss" # Search packages
