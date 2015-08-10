@@ -26,7 +26,7 @@ menu() {
     cecho g "1) Install git\n"
     cecho g "2) Create dirs and clone repo\n"
     cecho g "3) Install basic packages\n"
-    cecho g "4) Configure moc, mc, zsh, mutt, vimb, rtorrent\n"
+    cecho g "4) Configure moc, mc, zsh, mutt, rtorrent\n"
     cecho g "5) Copy own scripts and disable beep sound\n"
     cecho g "6) Configure Lenovo G580\n"
     cecho g "7) Configure Vim\n"
@@ -37,6 +37,7 @@ menu() {
     cecho g "12) Install from source and configure youtube-dl\n"
     cecho g "13) Install Virtualbox\n"
     cecho g "14) Install and configure Irssi\n"
+    cecho g "15) Install from source vimb web browser\n"
     cecho g "99) Exit\n"
     cecho g "============================================================\n"
     read c
@@ -72,11 +73,6 @@ menu() {
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
         sudo aptitude install mc moc zsh mutt tree scrot nitrogen slim git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
-        # Depedencies for vimb
-        cecho c "=========================> Creating folders\n"
-        mkdir -p $HOME/.config/vimb
-        cecho c "=========================> Installing depedencies for vimb...\n"
-        sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -86,6 +82,8 @@ menu() {
         mkdir -p $HOME/.moc
         mkdir -p $HOME/.local/share/mc/skins
         mkdir -p $HOME/.rtorrent
+        cecho c "=========================> Installing packages\n"
+        sudo aptitude install moc mc zsh mutt rtorrent
         cecho c "=========================> Configuration of moc player, midnight commander, zsh, mutt, rtorrent...\n"
         # MOC 
         cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
@@ -97,14 +95,6 @@ menu() {
         chsh -s /bin/zsh 	# makes zsh default shell
         # Mutt (text mail client)
         cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
-        # Vimb web browser
-        cd $HOME/tmp
-        git clone https://github.com/fanglingsu/vimb.git
-        cd $HOME/tmp/vimb
-        make clean
-        sudo make install
-        cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
-        cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
         # Rtorrent
         cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
         cecho c "Done\n"
@@ -343,6 +333,18 @@ menu() {
         cecho c "=========================> Copying config files\n"
         cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
         cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+    elif [ "$c" -eq "15" ] ; then
+        # Vimb web browser
+        mkdir -p $HOME/.config/vimb
+        cecho c "=========================> Installing depedencies for vimb...\n"
+        sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev
+        cd $HOME/tmp
+        git clone https://github.com/fanglingsu/vimb.git
+        cd $HOME/tmp/vimb
+        make clean
+        sudo make install
+        cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
+        cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
     elif [ "$c" -eq "99" ] ; then
         clear
         exit
