@@ -37,7 +37,7 @@ menu() {
     cecho g "12) Install - youtube-dl [source]\n"
     cecho g "13) Install - virtualbox\n"
     cecho g "14) Install - irssi\n"
-    cecho g "15) Install - vimb\n"
+    cecho g "15) Install - vimb [source]\n"
     cecho g "99) Exit\n"
     cecho g "============================================================\n"
     read c
@@ -123,7 +123,7 @@ menu() {
         cecho c "=========================> Update system\n"
         sudo aptitude update
         cecho c "=========================> Upgrade system\n"
-        sudo aptitude upgrade
+        sudo aptitude upgrade -y
         cecho c "=========================> Copying slim.conf\n"
         sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
         cecho c "=========================> Remaking grub file\n"
@@ -141,6 +141,7 @@ menu() {
         sudo /etc/init.d/wicd start
         wicd-client -n
         cecho c "=========================> Enabling touchpad\n"
+        synclient TapButton1=1
         echo synclient TapButton1=1 >> $HOME/.xinitrc
         cecho c "Done\n"
         read -p "Press any key..."
@@ -296,6 +297,7 @@ menu() {
         # Accepting running gui programs
         export DISPLAY=:0 
         cecho y "=========================> To connect: ssh user@ip-number\n"
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -310,6 +312,7 @@ menu() {
         sudo python setup.py install
         cecho c "=========================> Cleaning tmp files\n"
         rm -rf $HOME/tmp/livestreamer
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -318,12 +321,18 @@ menu() {
         sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         cecho c "=========================> Making file executable\n"
         sudo chmod a+rx /usr/local/bin/youtube-dl
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils
+        cecho y "=========================> To 16:9 ratio enable 3D accelaration\n"
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
     elif [ "$c" -eq "14" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir $HOME/.irssi
@@ -332,6 +341,10 @@ menu() {
         cecho c "=========================> Copying config files\n"
         cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
         cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
     elif [ "$c" -eq "15" ] ; then
         # Vimb web browser
         mkdir -p $HOME/.config/vimb
@@ -344,6 +357,7 @@ menu() {
         sudo make install
         cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
         cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
