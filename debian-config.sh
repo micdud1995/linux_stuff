@@ -179,15 +179,13 @@ menu() {
         read c2
 
         if [ "$c2" -eq "1" ] ; then
-            echo setxkbmap pl & > $HOME/.xinitrc
-            echo exec i3 >> $HOME/.xinitrc
+            echo "setxkbmap pl &" > $HOME/.xinitrc
+            echo "exec i3" >> $HOME/.xinitrc
         elif [ "$c2" -eq "2" ] ; then
-            echo setxkbmap pl & > $HOME/.xinitrc
-            echo exec startlxde >> $HOME/.xinitrc
+            echo "setxkbmap pl &" > $HOME/.xinitrc
+            echo "exec startlxde" >> $HOME/.xinitrc
         else
             cecho r "Bad number\n"
-            read -p "Press any key..."
-            menu
         fi
 
         cecho c "Done\n"
