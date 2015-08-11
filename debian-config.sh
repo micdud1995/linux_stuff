@@ -20,27 +20,34 @@ cecho() {
   printf "$text"
 }
 
+color0=g
+color1=g
+color2=r
+color3=gr
+color4=r
+
 menu() {
     clear
-    cecho g "========================== CONFIG ==========================\n"
-    cecho g "1) Install - git\n"
-    cecho g "2) Create dirs and clone repo\n"
-    cecho g "3) Install - basic packages\n"
-    cecho g "4) Configure moc, mc, zsh, mutt, rtorrent\n"
-    cecho g "5) Copy own scripts and disable beep sound\n"
-    cecho g "6) Configure - Lenovo G580\n"
-    cecho g "7) Configure - vim\n"
-    cecho g "8) Configure - conky\n"
-    cecho g "9) Configure - i3\n"
-    cecho g "10) Install - SSH \n"
-    cecho g "11) Install - livestreamer [source]\n"
-    cecho g "12) Install - youtube-dl [source]\n"
-    cecho g "13) Install - virtualbox\n"
-    cecho g "14) Install - irssi\n"
-    cecho g "15) Install - vimb [source]\n"
-    cecho g "16) Configure slim and grub\n"
-    cecho g "99) Exit\n"
-    cecho g "============================================================\n"
+    cecho $color0  "=================================== CONFIG ======================================\n"
+    cecho $color1 "1) Install - git\t\t\t\t"
+    cecho $color2 "9) Configure - vim\n"
+    cecho $color1 "2) Create dirs and clone repo\t\t\t"
+    cecho $color2 "10) Configure - conky\n"
+    cecho $color1 "3) Install - basic packages\t\t\t"
+    cecho $color2 "11) Configure - i3\n"
+    cecho $color1 "4) Configure moc, mc, zsh, mutt, rtorrent\t"
+    cecho $color2 "12) Install - SSH \n"
+    cecho $color1 "5) Copy own scripts and disable beep sound\t"
+    cecho $color2 "13) Install - livestreamer [source]\n"
+    cecho $color1 "6) Configure - Lenovo G580\t\t\t"
+    cecho $color2 "14) Install - youtube-dl [source]\n"
+    cecho $color3 "7) Configure slim \t\t\t\t"
+    cecho $color2 "15) Install - virtualbox\n"
+    cecho $color3 "8) Configure grub\t\t\t\t"
+    cecho $color2 "16) Install - irssi\n"
+    cecho $color4 "99) Exit\t\t\t\t\t"
+    cecho $color2 "17) Install - vimb [source]\n"
+    cecho $color0 "=================================================================================\n"
     read c
 
     if [ "$c" -eq "1" ] ; then
@@ -74,6 +81,7 @@ menu() {
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
         sudo aptitude install mc moc zsh mutt tree scrot nitrogen git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -115,6 +123,7 @@ menu() {
         cecho c "=========================> Copying live-usb script\n"
         sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
         sudo chmod +x /usr/bin/live-usb
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
@@ -139,10 +148,30 @@ menu() {
         cecho c "=========================> Enabling touchpad\n"
         synclient TapButton1=1
         echo synclient TapButton1=1 >> $HOME/.xinitrc
+
         cecho c "Done\n"
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "7" ] ; then
+        cecho c "=========================> Installing slim\n"
+        sudo aptitude install slim -y
+        cecho c "=========================> Copying slim.conf\n"
+        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
+        cecho c "=========================> Making slim default login manager\n"
+        sudo dpkg-reconfigure slim
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
+    elif [ "$c" -eq "8" ] ; then
+        cecho c "=========================> Remaking grub file\n"
+        sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
+        sudo update-grub
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
+    elif [ "$c" -eq "9" ] ; then
         #==============================================================
         # Plugin list:
         #	Pathogen
@@ -257,7 +286,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "8" ] ; then
+    elif [ "$c" -eq "10" ] ; then
         cecho c "=========================> Installing conky\n"
         sudo aptitude install conky
 
@@ -270,9 +299,10 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "9" ] ; then
+    elif [ "$c" -eq "11" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir -p $HOME/.i3
+        mkdir -p $HOME/Obrazy
         cecho c "=========================> Installing i3 depedencies\n"
         sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen -y
 
@@ -284,7 +314,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "10" ] ; then
+    elif [ "$c" -eq "12" ] ; then
         cecho c "=========================> Installing SSH server\n"
         sudo aptitude install openssh-server
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
@@ -297,7 +327,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "11" ] ; then
+    elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install python python-requests python-setuptools python-singledispatch -y
         cd $HOME/tmp
@@ -312,7 +342,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "12" ] ; then
+    elif [ "$c" -eq "14" ] ; then
         cecho c "=========================> Downloading youtube-dl from webpage\n"
         sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         cecho c "=========================> Making file executable\n"
@@ -321,14 +351,14 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "13" ] ; then
-        cecho c "=========================> Installing depedencies\n"
+    elif [ "$c" -eq "15" ] ; then
+        cecho c "=========================> Installing virtualbox depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "14" ] ; then
+    elif [ "$c" -eq "16" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir $HOME/.irssi
         cecho c "=========================> Installing irssi\n"
@@ -340,7 +370,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "15" ] ; then
+    elif [ "$c" -eq "17" ] ; then
         # Vimb web browser
         mkdir -p $HOME/.config/vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
@@ -352,20 +382,6 @@ menu() {
         sudo make install
         cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
         cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu
-    elif [ "$c" -eq "16" ] ; then
-        cecho c "=========================> Installing slim\n"
-        sudo aptitude install slim -y
-        cecho c "=========================> Copying slim.conf\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
-        cecho c "=========================> Making slim default login manager\n"
-        sudo dpkg-reconfigure slim
-        cecho c "=========================> Remaking grub file\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
-        sudo update-grub
 
         cecho c "Done\n"
         read -p "Press any key..."
