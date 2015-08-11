@@ -30,23 +30,24 @@ menu() {
     clear
     cecho $color0  "=================================== CONFIG ======================================\n"
     cecho $color1 "1) Install - git\t\t\t\t"
-    cecho $color2 "9) Configure - vim\n"
+    cecho $color2 "10) Configure - vim\n"
     cecho $color1 "2) Create dirs and clone repo\t\t\t"
-    cecho $color2 "10) Configure - conky\n"
+    cecho $color2 "11) Configure - conky\n"
     cecho $color1 "3) Install - basic packages\t\t\t"
-    cecho $color2 "11) Configure - i3\n"
+    cecho $color2 "12) Configure - i3\n"
     cecho $color1 "4) Configure moc, mc, zsh, mutt, rtorrent\t"
-    cecho $color2 "12) Install - SSH \n"
+    cecho $color2 "13) Install - SSH \n"
     cecho $color1 "5) Copy own scripts and disable beep sound\t"
-    cecho $color2 "13) Install - livestreamer [source]\n"
+    cecho $color2 "14) Install - livestreamer [source]\n"
     cecho $color1 "6) Configure - Lenovo G580\t\t\t"
-    cecho $color2 "14) Install - youtube-dl [source]\n"
-    cecho $color3 "7) Configure slim \t\t\t\t"
-    cecho $color2 "15) Install - virtualbox\n"
-    cecho $color3 "8) Configure grub\t\t\t\t"
-    cecho $color2 "16) Install - irssi\n"
-    cecho $color4 "99) Exit\t\t\t\t\t"
-    cecho $color2 "17) Install - vimb [source]\n"
+    cecho $color2 "15) Install - youtube-dl [source]\n"
+    cecho $color3 "7) Configure - slim \t\t\t\t"
+    cecho $color2 "16) Install - virtualbox\n"
+    cecho $color3 "8) Configure - grub\t\t\t\t"
+    cecho $color2 "17) Install - irssi\n"
+    cecho $color3 "9) Configure - .xinitrc\t\t\t\t"
+    cecho $color2 "18) Install - vimb [source]\n"
+    cecho $color4 "99) Exit\n"
     cecho $color0 "=================================================================================\n"
     read c
 
@@ -172,6 +173,28 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "9" ] ; then
+        cecho c "=========================> Choice your DE\n"
+        cecho c "1) i3\n"
+        cecho c "2) lxde\n"
+        read c2
+
+        if [ "$c2" -eq "1" ] ; then
+            echo setxkbmap pl & > $HOME/.xinitrc
+            echo exec i3 >> $HOME/.xinitrc
+        elif [ "$c2" -eq "2" ] ; then
+            echo setxkbmap pl & > $HOME/.xinitrc
+            echo exec startlxde >> $HOME/.xinitrc
+        else
+            cecho r "Bad number\n"
+            read -p "Press any key..."
+            menu
+        fi
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
+
+    elif [ "$c" -eq "10" ] ; then
         #==============================================================
         # Plugin list:
         #	Pathogen
@@ -286,20 +309,20 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "10" ] ; then
+    elif [ "$c" -eq "11" ] ; then
         cecho c "=========================> Installing conky\n"
-        sudo aptitude install conky
+        sudo aptitude install conky -y
 
         cecho c "=========================> Copying .conkyrc\n"
         cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
 
         cecho c "=========================> Copying fonts\n"
-        cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+        sudo cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "11" ] ; then
+    elif [ "$c" -eq "12" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir -p $HOME/.i3
         mkdir -p $HOME/Obrazy
@@ -314,7 +337,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "12" ] ; then
+    elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Installing SSH server\n"
         sudo aptitude install openssh-server
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
@@ -327,7 +350,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "13" ] ; then
+    elif [ "$c" -eq "14" ] ; then
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install python python-requests python-setuptools python-singledispatch -y
         cd $HOME/tmp
@@ -342,7 +365,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "14" ] ; then
+    elif [ "$c" -eq "15" ] ; then
         cecho c "=========================> Downloading youtube-dl from webpage\n"
         sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         cecho c "=========================> Making file executable\n"
@@ -353,12 +376,12 @@ menu() {
         menu
     elif [ "$c" -eq "15" ] ; then
         cecho c "=========================> Installing virtualbox depedencies\n"
-        sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils
+        sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "16" ] ; then
+    elif [ "$c" -eq "17" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir $HOME/.irssi
         cecho c "=========================> Installing irssi\n"
@@ -370,7 +393,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "17" ] ; then
+    elif [ "$c" -eq "18" ] ; then
         # Vimb web browser
         mkdir -p $HOME/.config/vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
