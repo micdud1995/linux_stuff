@@ -140,12 +140,6 @@ autocmd InsertLeave * set iminsert=0
 let g:indentLine_enabled = 1
 let g:indentLine_char = '┆'
 let g:indentLine_color_term = 239
-
-" Rainbow parantheses
-au VimEnter * RainbowParenthesesToggle
-au VimEnter * RainbowParenthesesLoadRound
-au VimEnter * RainbowParenthesesLoadSquare
-au VimEnter * RainbowParenthesesLoadBraces
 "==================================================
 
 "==================================================
@@ -204,24 +198,6 @@ nmap <F3> :SCCompileRun<cr>
 map <F6> :s/\(\(\w\)\(\w\+\)\).*/public function get\u\2\3(){\r\treturn \$this->\1;\r}/<CR>
 " Public Setters
 map <S-F6> :s/\(\(\w\)\(\w\+\)\).*/public function set\u\2\3(\$\1){\r\t\$this->\1 = \$\1;\r}/<CR>
-"==================================================
-
-"==================================================
-" Rainbow parantheses colors
-let g:rbpt_colorpairs = [
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
 "==================================================
 
 "==================================================
