@@ -207,7 +207,6 @@ menu() {
         #	SnipMate
         #   indentLine
         #   SingleCompile
-        #   Rainbow parantheses
         #   Vim-commentary
         #	Gruvbox theme
         #==============================================================
@@ -267,10 +266,6 @@ menu() {
         cecho c "=========================> Single-compile\n"
         cd ~/.vim/bundle
         git clone https://github.com/xuhdev/SingleCompile.git
-
-        cecho c "=========================> Rainbow paranthesis\n"
-        cd ~/.vim/bundle
-        git clone https://github.com/luochen1990/rainbow.git
 
         cecho c "=========================> Vim-commentary\n"
         cd ~/.vim/bundle
