@@ -22,28 +22,26 @@ cecho() {
   printf "$text"
 }
 
-# destination dir
 DIR="/dev/dysk"
 
 if [ $# -eq 2  ]; then
 	if [ $1="-n" ]; then
-        cecho c "=========================> Mounting $2...\n"
+		cecho c "=========================> Mounting $2...\n"
 		echo "Mounting $2..."
 		sudo mkdir -p $DIR 
 		sudo mount -t ntfs-3g /dev/$2 $DIR
-        cecho c "=========================> Mounted\n"
-		cd /dev/dysk/
+		cecho c "=========================> Mounted\n"
 	fi
 elif [ $# -eq 1  ]; then
-    cecho c "=========================> Mounting $1...\n"
+	cecho c "=========================> Mounting $1...\n"
 	sudo mkdir -p $DIR 
-	sudo mount -t /dev/$1 $DIR
-    cecho c "=========================> Mounted\n"
+	sudo mount /dev/$1 $DIR
+	cecho c "=========================> Mounted\n"
 else
 	echo "You did something wrong."
 	echo "Please read this help:"
 	echo
 	echo "m -n sdxX          mount ntfs device"
 	echo "m sdxX             mount other device"
-    echo "um"                umount mounted device
+	echo "um"                umount mounted device
 fi
