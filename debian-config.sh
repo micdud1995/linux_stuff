@@ -30,23 +30,24 @@ menu() {
     clear
     cecho $color0  "==================== CONFIG =======================\n"
     cecho $color1 "1) Git\t\t\t"
-    cecho $color2 "10) Vim\n"
+    cecho $color2 "11) Vim\n"
     cecho $color1 "2) Mkdirs/clone repo\t"
-    cecho $color2 "11) Conky\n"
+    cecho $color2 "12) Conky\n"
     cecho $color1 "3) Basic packages\t"
-    cecho $color2 "12) DE\n"
+    cecho $color2 "13) DE\n"
     cecho $color1 "4) Text apps + zsh\t"
-    cecho $color2 "13) SSH \n"
+    cecho $color2 "14) SSH \n"
     cecho $color1 "5) Scripts & beep\t"
-    cecho $color2 "14) Livestreamer [source]\n"
+    cecho $color2 "15) Livestreamer [source]\n"
     cecho $color1 "6) Lenovo G580\t\t"
-    cecho $color2 "15) Youtube-dl [source]\n"
-    cecho $color3 "7) Slim \t\t"
-    cecho $color2 "16) Virtualbox\n"
-    cecho $color3 "8) Grub\t\t\t"
-    cecho $color2 "17) Irssi\n"
-    cecho $color3 "9) .xinitrc\t\t"
-    cecho $color2 "18) Vimb [source]\n"
+    cecho $color2 "16) Youtube-dl [source]\n"
+    cecho $color3 "7) Sources.list\t\t"
+    cecho $color2 "17) Virtualbox\n"
+    cecho $color3 "8) Slim \t\t"
+    cecho $color2 "18) Irssi\n"
+    cecho $color3 "9) Grub\t\t\t"
+    cecho $color2 "19) Vimb [source]\n"
+    cecho $color3 "10) .xinitrc\n"
     cecho $color4 "99) Exit\n"
     cecho $color0 "===================================================\n"
     read c
@@ -154,6 +155,47 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "7" ] ; then
+        cecho c "=========================> Choice your version\n"
+        cecho c "1) stable\n"
+        cecho c "2) testing\n"
+        cecho c "3) unstable\n"
+        read c2
+
+        if [ "$c2" -eq "1" ] ; then
+            sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable-updates main' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable-updates main' >> /etc/apt/sources.list"
+
+        elif [ "$c2" -eq "2" ] ; then
+            sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+
+        elif [ "$c2" -eq "3" ] ; then
+            sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+            sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+        else
+            cecho r "Bad number\n"
+        fi
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu
+        
+    elif [ "$c" -eq "8" ] ; then
         cecho c "=========================> Installing slim\n"
         sudo aptitude install slim -y
         cecho c "=========================> Copying slim.conf\n"
@@ -164,7 +206,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "8" ] ; then
+    elif [ "$c" -eq "9" ] ; then
         cecho c "=========================> Remaking grub file\n"
         sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
         sudo update-grub
@@ -172,7 +214,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "9" ] ; then
+    elif [ "$c" -eq "10" ] ; then
         cecho c "=========================> Choice your DE\n"
         cecho c "1) i3\n"
         cecho c "2) lxde\n"
@@ -306,7 +348,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "11" ] ; then
+    elif [ "$c" -eq "12" ] ; then
         cecho c "=========================> Installing conky\n"
         sudo aptitude install conky -y
 
@@ -319,7 +361,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "12" ] ; then
+    elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Choice your DE\n"
         cecho c "1) i3\n"
         cecho c "2) lxde-core\n"
@@ -351,7 +393,7 @@ menu() {
         read -p "Press any key..."
         menu
 
-    elif [ "$c" -eq "13" ] ; then
+    elif [ "$c" -eq "14" ] ; then
         cecho c "=========================> Installing SSH server\n"
         sudo aptitude install openssh-server
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
@@ -363,7 +405,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "14" ] ; then
+    elif [ "$c" -eq "15" ] ; then
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install python python-requests python-setuptools python-singledispatch -y
         cd $HOME/tmp
@@ -378,7 +420,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "15" ] ; then
+    elif [ "$c" -eq "16" ] ; then
         cecho c "=========================> Downloading youtube-dl from webpage\n"
         sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         cecho c "=========================> Making file executable\n"
@@ -387,14 +429,14 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "16" ] ; then
+    elif [ "$c" -eq "17" ] ; then
         cecho c "=========================> Installing virtualbox depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "17" ] ; then
+    elif [ "$c" -eq "18" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir $HOME/.irssi
         cecho c "=========================> Installing irssi\n"
@@ -406,7 +448,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "18" ] ; then
+    elif [ "$c" -eq "19" ] ; then
         # Vimb web browser
         mkdir -p $HOME/.config/vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
