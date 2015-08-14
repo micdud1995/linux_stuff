@@ -34,7 +34,7 @@ menu() {
     cecho $color1 "2) Mkdirs/clone repo\t"
     cecho $color2 "11) Conky\n"
     cecho $color1 "3) Basic packages\t"
-    cecho $color2 "12) i3\n"
+    cecho $color2 "12) DE\n"
     cecho $color1 "4) Text apps + zsh\t"
     cecho $color2 "13) SSH \n"
     cecho $color1 "5) Scripts & beep\t"
@@ -176,6 +176,7 @@ menu() {
         cecho c "=========================> Choice your DE\n"
         cecho c "1) i3\n"
         cecho c "2) lxde\n"
+        cecho c "3) awesome\n"
         read c2
 
         if [ "$c2" -eq "1" ] ; then
@@ -184,6 +185,9 @@ menu() {
         elif [ "$c2" -eq "2" ] ; then
             echo "setxkbmap pl &" > $HOME/.xinitrc
             echo "exec startlxde" >> $HOME/.xinitrc
+        elif [ "$c2" -eq "3" ] ; then
+            echo "setxkbmap pl &" > $HOME/.xinitrc
+            echo "exec awesome" >> $HOME/.xinitrc
         else
             cecho r "Bad number\n"
         fi
@@ -316,20 +320,37 @@ menu() {
         read -p "Press any key..."
         menu
     elif [ "$c" -eq "12" ] ; then
-        cecho c "=========================> Creating dirs\n"
-        mkdir -p $HOME/.i3
-        mkdir -p $HOME/Obrazy
-        cecho c "=========================> Installing i3 depedencies\n"
-        sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen -y
+        cecho c "=========================> Choice your DE\n"
+        cecho c "1) i3\n"
+        cecho c "2) lxde-core\n"
+        cecho c "3) awesome\n"
+        read c2
 
-        cecho c "=========================> Copying config files\n"
-        cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-        cp ~/repo/linux_stuff/i3/config ~/.i3/config
-        cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+        if [ "$c2" -eq "1" ] ; then
+            cecho c "=========================> Creating dirs\n"
+            mkdir -p $HOME/.i3
+            mkdir -p $HOME/Obrazy
+            cecho c "=========================> Installing i3 depedencies\n"
+            sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen -y
+
+            cecho c "=========================> Copying config files\n"
+            cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
+            cp ~/repo/linux_stuff/i3/config ~/.i3/config
+            cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+        elif [ "$c2" -eq "2" ] ; then
+            cecho c "=========================> Installing lxde-core depedencies\n"
+            sudo aptitude install xserver-xorg xorg xinit lxde-core lxterminal pavucontrol xbacklight
+        elif [ "$c2" -eq "2" ] ; then
+            cecho c "=========================> Installing awesome depedencies\n"
+            sudo aptitude install xserver-xorg xorg xinit awesome lxterminal pavucontrol xbacklight
+        else
+            cecho r "Bad number\n"
+        fi
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu
+
     elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Installing SSH server\n"
         sudo aptitude install openssh-server
