@@ -350,37 +350,37 @@ regex/i/\.(m3u|pls)$
 ### Video ###
 
 shell/i/.avi
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.mp4
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.divx
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.mpg
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.mpeg
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.mkv
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.rmvb
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.flv
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.wmv
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 shell/i/.webm
-  Open=(vlc %f >/dev/null 2>&1 &)
+  Open=(mpv %f >/dev/null 2>&1 &)
 
 include/video
-    Open=(vlc -really-quiet -noconsolecontrols %f >/dev/null 2>&1 &)
+    Open=(mpv -really-quiet -noconsolecontrols %f >/dev/null 2>&1 &)
 
 ### Documents ###
 
@@ -390,7 +390,7 @@ type/^PostScript
 	View=%view{ascii} /usr/lib/mc/ext.d/doc.sh view ps
 
 regex/\.(pdf)$
-   Open=(evince %f &)
+   Open=(zathura %f &)
 
 # html
 regex/i/\.html?$
