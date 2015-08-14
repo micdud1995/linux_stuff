@@ -367,7 +367,7 @@ menu() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu
-    elif [ "$c" -eq "15" ] ; then
+    elif [ "$c" -eq "16" ] ; then
         cecho c "=========================> Installing virtualbox depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
 
