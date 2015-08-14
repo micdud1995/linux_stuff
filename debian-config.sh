@@ -336,9 +336,8 @@ menu() {
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
         cecho c "=========================> Restarting SSH server\n"
         sudo /etc/init.d/ssh restart
-        # Accepting running gui programs
-        export DISPLAY=:0 
         cecho y "=========================> To connect: ssh user@ip-number\n"
+        cecho y "=========================> To run GUI apps: export DISPLAY=:0\n"
 
         cecho c "Done\n"
         read -p "Press any key..."
