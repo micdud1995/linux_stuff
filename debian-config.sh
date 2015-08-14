@@ -340,7 +340,7 @@ menu() {
         elif [ "$c2" -eq "2" ] ; then
             cecho c "=========================> Installing lxde-core depedencies\n"
             sudo aptitude install xserver-xorg xorg xinit lxde-core lxterminal pavucontrol xbacklight
-        elif [ "$c2" -eq "2" ] ; then
+        elif [ "$c2" -eq "3" ] ; then
             cecho c "=========================> Installing awesome depedencies\n"
             sudo aptitude install xserver-xorg xorg xinit awesome lxterminal pavucontrol xbacklight
         else
