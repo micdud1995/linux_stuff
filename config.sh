@@ -548,7 +548,7 @@ menu-arch() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo pacman -S mc moc zsh mutt tree scrot nitrogen git alsa-utils ncurses zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi xf86-input-synaptics expac --noconfirm
+        sudo pacman -S mc moc zsh mutt tree scrot nitrogen git alsa-utils ncurses zathura mirage  mpv lxrandr pavucontrol lxterminal rtorrent pinta irssi xf86-input-synaptics expac --noconfirm
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -579,6 +579,7 @@ menu-arch() {
         menu-arch
     elif [ "$c" -eq "5" ] ; then
         cecho c "=========================> Setting polish letters\n"
+        sudo mkdir -p /etc/X11/xorg.conf.d
         sudo cp $HOME/repo/linux_stuff/config-files/vconsole.conf /etc/vconsole.conf
         sudo cp $HOME/repo/linux_stuff/config-files/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
         cecho c "=========================> Disabling beep sound\n"
@@ -598,8 +599,8 @@ menu-arch() {
         cecho c "=========================> Copying live-usb script\n"
         sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
         sudo chmod +x /usr/bin/live-usb
-        cecho c "=========================> Enabling touchpad\n"
-        sudo cp /repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
+        # cecho c "=========================> Enabling touchpad\n"
+        # sudo cp /repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -610,32 +611,30 @@ menu-arch() {
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "7" ] ; then
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
         
     elif [ "$c" -eq "8" ] ; then
         cecho c "=========================> Installing slim\n"
         sudo pacman -S slim --noconfirm
         cecho c "=========================> Copying slim.conf\n"
         sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
-        cecho c "=========================> Making slim default login manager\n"
-        sudo dpkg-reconfigure slim
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "9" ] ; then
         cecho c "=========================> Remaking grub file\n"
         sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
-        sudo update-grub
+        grub-mkconfig -o /boot/grub/grub.cfg
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "10" ] ; then
         cecho c "=========================> Choice your DE\n"
         cecho c "1) i3\n"
@@ -658,7 +657,7 @@ menu-arch() {
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
 
     elif [ "$c" -eq "11" ] ; then
         #==============================================================
@@ -680,7 +679,7 @@ menu-arch() {
         #==============================================================
 
         cecho c "=========================> Installing vim depedencies\n"
-        sudo pacman -S vim curl exuberant-ctags inconsolata --noconfirm
+        sudo pacman -S vim curl ctags ttf-inconsolata --noconfirm
 
         cecho c "=========================> Making vim dirs\n"
         mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -769,7 +768,7 @@ menu-arch() {
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "12" ] ; then
         cecho c "=========================> Installing conky\n"
         sudo aptitude install conky -y
@@ -795,7 +794,7 @@ menu-arch() {
             mkdir -p $HOME/.i3
             mkdir -p $HOME/Obrazy
             cecho c "=========================> Installing i3 depedencies\n"
-            sudo pacman -S i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen --noconfirm
+            sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal xorg nitrogen --noconfirm
 
             cecho c "=========================> Copying config files\n"
             cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -803,73 +802,61 @@ menu-arch() {
             cp ~/repo/linux_stuff/i3/i3lock-arch.png ~/Obrazy/i3lock-arch.png
         elif [ "$c2" -eq "2" ] ; then
             cecho c "=========================> Installing lxde-core depedencies\n"
-            sudo pacman -S xserver-xorg xorg xinit lxde-core lxterminal pavucontrol xbacklight
+            sudo pacman -S xserver-xorg xorg xinit lxde-core lxterminal pavucontrol 
         elif [ "$c2" -eq "3" ] ; then
             cecho c "=========================> Installing awesome depedencies\n"
-            sudo pacman -S xserver-xorg xorg xinit awesome lxterminal pavucontrol xbacklight
+            sudo pacman -S xserver-xorg xorg xinit awesome lxterminal pavucontrol 
         else
             cecho r "Bad number\n"
         fi
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
 
     elif [ "$c" -eq "14" ] ; then
         cecho c "=========================> Installing SSH server\n"
-        sudo pacman -S openssh-server --noconfirm
+        sudo pacman -S openssh --noconfirm
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-        cecho c "=========================> Restarting SSH server\n"
-        sudo /etc/init.d/ssh restart
         cecho y "=========================> To connect: ssh user@ip-number\n"
         cecho y "=========================> To run GUI apps: export DISPLAY=:0\n"
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "15" ] ; then
-        cecho c "=========================> Installing depedencies\n"
-        sudo pacman -S python python-requests python-setuptools python-singledispatch -y
-        cd $HOME/tmp
-        cecho c "=========================> Cloning repository\n"
-        git clone https://github.com/chrippa/livestreamer.git
-        cd $HOME/tmp/livestreamer
-        cecho c "=========================> Installing\n"
-        sudo python setup.py install
-        cecho c "=========================> Cleaning tmp files\n"
-        rm -rf $HOME/tmp/livestreamer
+        cecho c "=========================> Installing livestreamer\n"
+        sudo pacman -S livestreamer
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "16" ] ; then
-        cecho c "=========================> Downloading youtube-dl from webpage\n"
-        sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-        cecho c "=========================> Making file executable\n"
-        sudo chmod a+rx /usr/local/bin/youtube-dl
+        cecho c "=========================> Installing youtube-dl\n"
+        sudo pacman -S youtube-dl
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "17" ] ; then
         cecho c "=========================> Installing virtualbox depedencies\n"
-        sudo pacman -S virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+        sudo pacman -S virtualbox linux-headers virtualbox-guest-dkms virtualbox-guest-utils --noconfirm
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "18" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir $HOME/.irssi
         cecho c "=========================> Installing irssi\n"
-        sudo aptitude install irssi -y
+        sudo pacman -S install irssi --noconfirm
         cecho c "=========================> Copying config files\n"
         cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
         cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "19" ] ; then
         # Vimb web browser
         mkdir -p $HOME/.config/vimb
@@ -885,14 +872,14 @@ menu-arch() {
 
         cecho c "Done\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     elif [ "$c" -eq "99" ] ; then
         clear
         exit
     else
         cecho r "Bad number\n"
         read -p "Press any key..."
-        menu-deb
+        menu-arch
     fi
 }
 
