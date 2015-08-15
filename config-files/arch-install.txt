@@ -5,20 +5,10 @@
 
 # =================================================
 # Labels 
-	if your label is GPT:
-		parted /dev/sda
-		mklabel msdos
-		quit
-# =================================================
-
-# =================================================
-# Wifi
-	ping -c 3 www.google.pl
-    sudo pacman -S wicd
-    sudo systemctl start wicd
-    sudo systemctl enable wicd
-	nano /etc/pacman.d/mirrorlist
-		leave a few mirrors
+# if your label is GPT:
+#		parted /dev/sda
+#		mklabel msdos
+#		quit
 # =================================================
 
 # =================================================
@@ -26,20 +16,19 @@
 	fdisk /dev/sda
 		# make mbr partition table (is for BIOS, GPT is for UEFI)
 		n - nowa partycja
-		p - primary
 		...
 		a - makes bootable
 		p - print all partitions
 		l - list of partition codes
 		t - change type of partitions
 			82 - swap
-			 - Linux
+			83 - Linux
 		d - delete partitions
 		w - write changes
 	mkswap /dev/sdaS (S - swap partition)
 	swapon /dev/sdaS
 	mkfs.ext4 /dev/sdaR (R - /root partition)
-	mkfs.ext4 /dev/sdaH (H - /root partition)
+	mkfs.ext4 /dev/sdaH (H - /home partition)
 	mount /dev/sdaR /mnt
 	mkdir -p /mnt/boot
 	mkdir -p /mnt/home
@@ -49,79 +38,62 @@
 # =================================================
 # Basic install
 	# Installing base system
+    dhcpcd
 	pacstrap /mnt base base-devel
-	genfstab -p /mnt >> /mnt/etc/fstab
 	arch-chroot /mnt
 	echo arch > /etc/hostname
 	cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 	nano /etc/locale.gen
 		uncomment two lines with pl
 	locale-gen
-	mkinitcpio -p linux
 	passwd
-	pacman -S grub os-prober dialog iw wpa_supplicant wireless_tools
+	pacman -S grub
 	grub-install /dev/sda
+	mkinitcpio -p linux
 	# Generating grub file
 	grub-mkconfig -o /boot/grub/grub.cfg
+    ip link
+    systemctl enable dhcpcd@name-of-interface.service
 	exit
+	genfstab -p /mnt >> /mnt/etc/fstab
 	umount -R /mnt
 	reboot
+    # Boot existing OS
 # =================================================
 
 # =================================================
 # Basic config
+    virtualbox->network->bridged
 	arch login: root
 	Password: you've typed this earlier
-	for network:
-        sudo pacman -S wicd
-        systemctl start wicd
-        systemctl enable wicd
+	nano /etc/pacman.conf
+		uncomment #Color
+		uncomment Multilib (if x64)
+    pacman -Syy
 # =================================================
 
 # =================================================
 # Additional things
-	nano /etc/pacman.conf
-		uncomment #Color
-		uncomment Multilib (if x64)
-	pacman -Ss (video-drivers)
-	pacman -S (video-drivers)
-	pacman -S xorg-server xorg-server-utils xorg-apps xorg-xinit i3 slim lxterminal htop tree 
-	echo "exec i3" > .xinitrc
-	Xorg :0 -configure
-	ls
-	cp xorg.conf.new /etc/X11/xorg.conf
+    # Network
+    pacman -S wget net-tools wicd wireless_tools wpa_supplicant wpa_actiond
+
+    # X
+	pacman -S xorg-server xorg-server-utils xorg-apps xorg-xinit xf86-input-evdev xf86-input-mouse xf86-input-keyboard xf86-video-vesa xf86-input-synaptics mesa lib32-mesa-libgl i3 slim lxterminal htop tree 
+
+    # audio
+    pacman -S alsa-firmware alsa-lib alsa-plugins alsa-utils pulseaudio pulseaudio-alsa libcanberra libcanberra-pulse
+
+    # Services
+    systemctl disable dhcpcd
+    systemctl disable network-auto-wired.service
+    systemctl enable wicd
+    systemctl enable slim.service
+
+	echo "exec i3" > /home/michal/.xinitrc
 	useradd -m -g users -s /bin/bash michal
 	chfn michal
 	passwd michal 
 	pacman -S sudo
 	visudo
 	(reboot, relogin)
-	pacman -S xf86-video-vesa (if in virtualbox)
-	cp /etc/X11/xinit/xinitrc ~/.xinitrc
-		remove lines with twm, clocks etc
-		add line: exec i3
-	startx
 # =================================================
-
-# =================================================
-# Configuration
-	sudo vim /etc/slim.conf
-	sudo systemctl enable slim
-	sudo systemctl enable slim.service
-
-	sudo vim /etc/default/grub
-	sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-	sudo systemctl stop dhcpcd
-	sudo systemctl disable dhcpcd 
-	sudo systemctl stop netctl
-	sudo systemctl disable netctl
-	# if wifi-menu -o doesnt work:
-		ip link
-		sudo ip link set down interface
-	setxkbmap pl 
-	# Disable beep sound
-	sudo rmmod pcspkr
-
-	sudo pacman -S zathura zathura-pdf-poppler devmon gmtp ranger lynx
-		sudo tlp start
