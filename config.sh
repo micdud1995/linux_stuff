@@ -99,7 +99,7 @@ menu-deb() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo aptitude install mc moc zsh mutt tree scrot nitrogen git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
+        sudo aptitude install mc moc zsh mutt tree scrot feh git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -167,6 +167,10 @@ menu-deb() {
         cecho c "=========================> Enabling touchpad\n"
         synclient TapButton1=1
         echo synclient TapButton1=1 >> $HOME/.xinitrc
+        cecho c "=========================> Setting wallpaper\n"
+        mkdir -p $HOME/Obrazy
+        cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+        feh --bg-scale $HOME/Obrazy/wallpaper.jpg
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -390,7 +394,7 @@ menu-deb() {
             mkdir -p $HOME/.i3
             mkdir -p $HOME/Obrazy
             cecho c "=========================> Installing i3 depedencies\n"
-            sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit nitrogen -y
+            sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit feh -y
 
             cecho c "=========================> Copying config files\n"
             cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -503,9 +507,9 @@ menu-arch() {
     cecho $color1 "4) Text apps + zsh\t"
     cecho $color5 "14) SSH \n"
     cecho $color1 "5) Scripts & beep\t"
-    cecho $color5 "15) Livestreamer [source]\n"
+    cecho $color5 "15) Livestreamer\n"
     cecho $color1 "6) Lenovo G580\t\t"
-    cecho $color5 "16) Youtube-dl [source]\n"
+    cecho $color5 "16) Youtube-dl\n"
     cecho $color3 "7) xxxxxxxxxxxx\t\t"
     cecho $color5 "17) Virtualbox\n"
     cecho $color3 "8) Slim \t\t"
@@ -548,7 +552,7 @@ menu-arch() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo pacman -S mc moc zsh mutt tree scrot nitrogen git alsa-utils ncurses zathura mirage  mpv lxrandr pavucontrol lxterminal rtorrent pinta irssi xf86-input-synaptics expac --noconfirm
+        sudo pacman -S mc moc zsh mutt tree scrot feh git alsa-utils ncurses zathura mirage  mpv lxrandr pavucontrol lxterminal rtorrent pinta irssi xf86-input-synaptics expac --noconfirm
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -606,8 +610,14 @@ menu-arch() {
         read -p "Press any key..."
         menu-arch
     elif [ "$c" -eq "6" ] ; then
+        cecho c "=========================> Disabling beep sound\n"
+	    sudo rmmod pcspkr
         cecho c "=========================> Update & upgrade system\n"
         sudo pacman -Syyu --noconfirm
+        cecho c "=========================> Setting wallpaper\n"
+        mkdir -p $HOME/Obrazy
+        cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+        feh --bg-scale $HOME/Obrazy/wallpaper.jpg
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -630,7 +640,7 @@ menu-arch() {
     elif [ "$c" -eq "9" ] ; then
         cecho c "=========================> Remaking grub file\n"
         sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
-        grub-mkconfig -o /boot/grub/grub.cfg
+        sudo grub-mkconfig -o /boot/grub/grub.cfg
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -794,7 +804,7 @@ menu-arch() {
             mkdir -p $HOME/.i3
             mkdir -p $HOME/Obrazy
             cecho c "=========================> Installing i3 depedencies\n"
-            sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal xorg nitrogen --noconfirm
+            sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal xorg feh --noconfirm
 
             cecho c "=========================> Copying config files\n"
             cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
