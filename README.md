@@ -13,7 +13,7 @@ To run script:
 
 1) Just make script executable, e.q.
 
-	chmod +x debian-config.sh
+	chmod +x config.sh
 2) Run it, e.q.
 
-	./debian-config.sh
+	./config.sh
