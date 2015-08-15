@@ -12,7 +12,6 @@ if [ -d $DIR  ]; then
 		echo Unmounting /dev/dysk...
                 cd /home/michal
 		sudo umount $DIR 
-		echo Unmounted correctly.
 	else
 		echo "$DIR is empty"
 	fi

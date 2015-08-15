@@ -30,13 +30,11 @@ if [ $# -eq 2  ]; then
 		echo "Mounting $2..."
 		sudo mkdir -p $DIR 
 		sudo mount -t ntfs-3g /dev/$2 $DIR
-		cecho c "=========================> Mounted\n"
 	fi
 elif [ $# -eq 1  ]; then
 	cecho c "=========================> Mounting $1...\n"
 	sudo mkdir -p $DIR 
 	sudo mount /dev/$1 $DIR
-	cecho c "=========================> Mounted\n"
 else
 	echo "You did something wrong."
 	echo "Please read this help:"
