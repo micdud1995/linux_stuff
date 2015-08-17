@@ -99,7 +99,9 @@ menu-deb() {
     elif [ "$c" -eq "3" ] ; then
         # Basic packages
         cecho c "=========================> Installing basic packages...\n"
-        sudo aptitude install mc moc zsh mutt tree scrot feh git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit rtorrent pinta irssi -y
+        sudo aptitude install mc moc zsh mutt tree scrot feh git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xorg xbase-clients xfonts-base xinit rtorrent pinta irssi -y
+        cecho c "=========================> Reconfiguring xserver-xorg...\n"
+        sudo dpkg-reconfigure xserver-xorg
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -421,7 +423,7 @@ menu-deb() {
             mkdir -p $HOME/.i3
             mkdir -p $HOME/Obrazy
             cecho c "=========================> Installing i3 depedencies\n"
-            sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xinit feh -y
+            sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xorg xbase-clients xfonts-base xinit feh -y
 
             cecho c "=========================> Copying config files\n"
             cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -429,10 +431,10 @@ menu-deb() {
             cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
         elif [ "$c2" -eq "2" ] ; then
             cecho c "=========================> Installing lxde-core depedencies\n"
-            sudo aptitude install xserver-xorg xorg xinit lxde-core lxterminal pavucontrol xbacklight
+            sudo aptitude install xserver-xorg xorg xbase-clients xfonts-base xinit lxde-core lxterminal pavucontrol xbacklight
         elif [ "$c2" -eq "3" ] ; then
             cecho c "=========================> Installing awesome depedencies\n"
-            sudo aptitude install xserver-xorg xorg xinit awesome lxterminal pavucontrol xbacklight
+            sudo aptitude install xserver-xorg xorg xbase-clients xfonts-base xinit awesome lxterminal pavucontrol xbacklight
         else
             cecho r "Bad number\n"
         fi
