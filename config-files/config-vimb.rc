@@ -5,7 +5,8 @@
 #set status-font=Inconsolata
 
 #set home-page=http://google.com
-set home-page=http://blank.org
+# set home-page=http://blank.org
+set home-page=about:blank
 set scrollstep=45
 set download-path=$HOME/Pobrane
 set history-max-items=100
