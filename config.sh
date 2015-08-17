@@ -147,30 +147,57 @@ menu-deb() {
         read -p "Press any key..."
         menu-deb
     elif [ "$c" -eq "6" ] ; then
-        cecho c "=========================> Updating /etc/apt/sources.list\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/sources.list /etc/apt/sources.list
-        cecho c "=========================> Update system\n"
-        sudo aptitude update
-        cecho c "=========================> Upgrade system\n"
-        sudo aptitude upgrade -y
-        cecho c "=========================> Enabling microphone\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
-        cecho c "=========================> Enabling wifi\n"
-        sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
-        sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
-        sudo modprobe wl
-        sudo cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
-        sudo adduser michal netdev
-        sudo /etc/init.d/dbus reload
-        sudo /etc/init.d/wicd start
-        wicd-client -n
-        cecho c "=========================> Enabling touchpad\n"
-        synclient TapButton1=1
-        echo synclient TapButton1=1 >> $HOME/.xinitrc
-        cecho c "=========================> Setting wallpaper\n"
-        mkdir -p $HOME/Obrazy
-        cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
-        feh --bg-scale $HOME/Obrazy/wallpaper.jpg
+        cecho c "=========================> Choice what to do:\n"
+        cecho c "1) all\n"
+        cecho c "2) Set wallpaper\n"
+        cecho c "3) Enable touchpad\n"
+        cecho c "4) Don't suspend with lid closed\n"
+        read c2
+
+        if [ "$c2" -eq "1" ] ; then
+            cecho c "=========================> Updating /etc/apt/sources.list\n"
+            sudo cp $HOME/repo/linux_stuff/config-files/sources.list /etc/apt/sources.list
+            cecho c "=========================> Update system\n"
+            sudo aptitude update
+            cecho c "=========================> Upgrade system\n"
+            sudo aptitude upgrade -y
+            cecho c "=========================> Enabling microphone\n"
+            sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+            cecho c "=========================> Enabling wifi\n"
+            sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
+            sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
+            sudo modprobe wl
+            sudo cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
+            sudo adduser michal netdev
+            sudo /etc/init.d/dbus reload
+            sudo /etc/init.d/wicd start
+            wicd-client -n
+            cecho c "=========================> Enabling touchpad\n"
+            sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
+            echo synclient TapButton1=1 >> $HOME/.xinitrc
+            cecho c "=========================> Setting wallpaper\n"
+            sudo aptitude install feh
+            mkdir -p $HOME/Obrazy
+            cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+            feh --bg-scale $HOME/Obrazy/wallpaper.jpg
+            cecho c "=========================> Don't suspend when lid closed\n"
+            sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+        elif [ "$c2" -eq "2" ] ; then
+            cecho c "=========================> Setting wallpaper\n"
+            sudo aptitude install feh
+            mkdir -p $HOME/Obrazy
+            cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+        elif [ "$c2" -eq "3" ] ; then
+            cecho c "=========================> Enabling touchpad\n"
+            sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
+        elif [ "$c2" -eq "4" ] ; then
+            cecho c "=========================> Don't suspend when lid closed\n"
+            sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+        else
+            cecho r "Bad number\n"
+            read -p "Press any key..."
+            menu-deb
+        fi
 
         cecho c "Done\n"
         read -p "Press any key..."
@@ -851,6 +878,8 @@ menu-arch() {
     elif [ "$c" -eq "17" ] ; then
         cecho c "=========================> Installing virtualbox depedencies\n"
         sudo pacman -S virtualbox linux-headers virtualbox-guest-dkms virtualbox-guest-utils --noconfirm
+        cecho c "=========================> Adding modules\n"
+        sudo modprobe vboxdrv
 
         cecho c "Done\n"
         read -p "Press any key..."
