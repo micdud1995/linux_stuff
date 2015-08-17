@@ -73,7 +73,7 @@ bar
 # Bindings
 
 # Start a terminal
-bindsym $mod+Return exec lxterminal
+bindsym $mod+x exec lxterminal
 bindsym $mod+F5 exec amixer sset Master toggle
 # Kill focused window
 bindsym $mod+c kill
@@ -221,3 +221,4 @@ mode "resize" {
 	bindsym Escape mode "default"
 }
 
+setfont latarcyrheb-sun16
