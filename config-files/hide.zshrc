@@ -131,7 +131,7 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # ls with colors
 	alias ls='ls --color'
 # ls witch colors and screen cleaning
-    alias l="clear;ls --color"
+    alias l="ls --color -lg"
 # shutdown the system
 	alias off='systemctl poweroff'
 # show hidden files only
@@ -139,13 +139,12 @@ print -Pn "\e]0; %n@%M: %~\a"   # terminal title
 # list all folders
 	alias lf='ls -Gl | grep ^d'
 # system upgrade
-	alias upgrade='sudo aptitude update && sudo aptitude upgrade && sudo aptitude clean -y'
+	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
 # aptitude aliases
     alias a="aptitude"
 	alias ai="sudo aptitude install"
 	alias as="aptitude search"
     alias ar="sudo aptitude remove"
-    alias ap="sudo aptitude purge"
 # pacman aliases
 	alias S="sudo pacman -S" # Install package
 	alias Ss="pacman -Ss" # Search packages
@@ -201,11 +200,18 @@ extract () {
 	alias gr="git reset" # e.g. git reset abc.txt
 	alias grc="git reset --hard HEAD~1" # git reset commit
 # Programs aliases
+    alias config="vim ~/repo/linux_stuff/config.sh"
  	alias r="ranger"
 	alias v="vim"
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
     alias x="chmod +x"
     alias hist="cat ~/.zshr_history | grep"
-    alias y="youtube-dl -f 135"
+    alias y="youtube-dl -f 18"
+    alias yhd="youtube-dl -f 22"
     alias pyt="vim ~/.vim/bundle/vim-snippets/snippets/python.snippets"
+    # up wired connection
+    alias eth="sudo dhclient eth0"
+    alias izak="livestreamer -p mpv twitch.tv/izakooo "
+    alias pasha="livestreamer -p mpv twitch.tv/pashabiceps "
+    alias zdupy="livestreamer -p mpv twitch.tv/zdupy"
 #=================================================================
