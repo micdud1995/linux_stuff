@@ -47,24 +47,26 @@ menu-deb() {
     clear
     cecho $color0  "==================== CONFIG =======================\n"
     cecho $color1 "1) Git\t\t\t"
-    cecho $color2 "11) Vim\n"
+    cecho $color2 "12) Vim\n"
     cecho $color1 "2) Mkdirs/clone repo\t"
-    cecho $color2 "12) Conky\n"
+    cecho $color2 "13) Conky\n"
     cecho $color1 "3) Basic packages\t"
-    cecho $color2 "13) DE\n"
-    cecho $color1 "4) Text apps + zsh\t"
-    cecho $color2 "14) SSH \n"
+    cecho $color2 "14) DE\n"
+    cecho $color1 "4) Text apps\t\t"
+    cecho $color2 "15) SSH \n"
     cecho $color1 "5) Scripts & beep\t"
-    cecho $color2 "15) Livestreamer [source]\n"
+    cecho $color2 "16) Livestreamer [source]\n"
     cecho $color1 "6) Lenovo G580\t\t"
-    cecho $color2 "16) Youtube-dl [source]\n"
-    cecho $color3 "7) Sources.list\t\t"
-    cecho $color2 "17) Virtualbox\n"
-    cecho $color3 "8) Slim \t\t"
-    cecho $color2 "18) Irssi\n"
-    cecho $color3 "9) Grub\t\t\t"
-    cecho $color2 "19) Vimb [source]\n"
-    cecho $color3 "10) .xinitrc\n"
+    cecho $color2 "17) Youtube-dl [source]\n"
+    cecho $color1 "7) Shell\t\t"
+    cecho $color2 "18) Steam\n"
+    cecho $color3 "8) Sources.list\t\t"
+    cecho $color2 "19) Virtualbox\n"
+    cecho $color3 "9) Slim \t\t"
+    cecho $color2 "20) Irssi\n"
+    cecho $color3 "10) Grub\t\t"
+    cecho $color2 "21) Vimb [source]\n"
+    cecho $color3 "11) .xinitrc\n"
     cecho $color4 "99) Exit\n"
     cecho $color0 "===================================================\n"
     read c
@@ -205,6 +207,34 @@ menu-deb() {
         read -p "Press any key..."
         menu-deb
     elif [ "$c" -eq "7" ] ; then
+        cecho c "=========================> Choice shell: \n"
+        cecho c "1) bash\n"
+        cecho c "2) zsh\n"
+        read c2
+
+        if [ "$c2" -eq "1" ] ; then
+            cecho c "=========================> Configuration bash\n"
+            cp $HOME/repo/linux_stuff/config-files/hide.bashrc $HOME/.bashrc
+            cecho c "=========================> Making bash default shell\n"
+            chsh -s /bin/bash
+        elif [ "$c2" -eq "2" ] ; then
+            cecho c "=========================> Installing zsh\n"
+            sudo aptitude install zsh -y
+            cecho c "=========================> Configuration zsh\n"
+            cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
+            cecho c "=========================> Making zsh default shell\n"
+            chsh -s /bin/zsh
+
+        else
+            cecho r "Bad number\n"
+            read -p "Press any key..."
+            menu-deb
+        fi
+
+        cecho c "Done\n"
+        read -p "Press any key..."
+        menu-deb
+    elif [ "$c" -eq "8" ] ; then
         cecho c "=========================> Choice your version\n"
         cecho c "1) stable\n"
         cecho c "2) testing\n"
@@ -245,7 +275,7 @@ menu-deb() {
         read -p "Press any key..."
         menu-deb
         
-    elif [ "$c" -eq "8" ] ; then
+    elif [ "$c" -eq "9" ] ; then
         cecho c "=========================> Installing slim\n"
         sudo aptitude install slim -y
         cecho c "=========================> Copying slim.conf\n"
@@ -256,7 +286,7 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "9" ] ; then
+    elif [ "$c" -eq "10" ] ; then
         cecho c "=========================> Remaking grub file\n"
         sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
         sudo update-grub
@@ -264,7 +294,7 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "10" ] ; then
+    elif [ "$c" -eq "11" ] ; then
         cecho c "=========================> Choice your DE\n"
         cecho c "1) i3\n"
         cecho c "2) lxde\n"
@@ -288,7 +318,7 @@ menu-deb() {
         read -p "Press any key..."
         menu-deb
 
-    elif [ "$c" -eq "11" ] ; then
+    elif [ "$c" -eq "12" ] ; then
         #==============================================================
         # Plugin list:
         #	Pathogen
@@ -398,7 +428,7 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "12" ] ; then
+    elif [ "$c" -eq "13" ] ; then
         cecho c "=========================> Installing conky\n"
         sudo aptitude install conky -y
 
@@ -411,7 +441,7 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "13" ] ; then
+    elif [ "$c" -eq "14" ] ; then
         cecho c "=========================> Choice your DE\n"
         cecho c "1) i3\n"
         cecho c "2) lxde-core\n"
@@ -443,7 +473,7 @@ menu-deb() {
         read -p "Press any key..."
         menu-deb
 
-    elif [ "$c" -eq "14" ] ; then
+    elif [ "$c" -eq "15" ] ; then
         cecho c "=========================> Installing SSH server\n"
         sudo aptitude install openssh-server
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
@@ -455,7 +485,7 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "15" ] ; then
+    elif [ "$c" -eq "16" ] ; then
         cecho c "=========================> Installing depedencies\n"
         sudo aptitude install python python-requests python-setuptools python-singledispatch -y
         cd $HOME/tmp
@@ -465,12 +495,12 @@ menu-deb() {
         cecho c "=========================> Installing\n"
         sudo python setup.py install
         cecho c "=========================> Cleaning tmp files\n"
-        rm -rf $HOME/tmp/livestreamer
+        sudo rm -rf $HOME/tmp/livestreamer
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "16" ] ; then
+    elif [ "$c" -eq "17" ] ; then
         cecho c "=========================> Downloading youtube-dl from webpage\n"
         sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         cecho c "=========================> Making file executable\n"
@@ -479,14 +509,22 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "17" ] ; then
+    # elif [ "$c" -eq "18" ] ; then #steam
+    #     mkdir -p $HOME/tmp
+    #     cecho c "=========================> Installing steam depedencies...\n"
+    #     sudo aptitude install curl zenity -y
+    #     cecho c "=========================> Downloading .deb package...\n"
+    #     wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O $HOME/tmp/steam.deb
+    #     cecho c "=========================> Installing steam...\n"
+    #     sudo dpkg -i $HOME/tmp/steam.deb
+    elif [ "$c" -eq "19" ] ; then
         cecho c "=========================> Installing virtualbox depedencies\n"
         sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
 
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "18" ] ; then
+    elif [ "$c" -eq "20" ] ; then
         cecho c "=========================> Creating dirs\n"
         mkdir $HOME/.irssi
         cecho c "=========================> Installing irssi\n"
@@ -498,9 +536,11 @@ menu-deb() {
         cecho c "Done\n"
         read -p "Press any key..."
         menu-deb
-    elif [ "$c" -eq "19" ] ; then
+    elif [ "$c" -eq "21" ] ; then
         # Vimb web browser
-        mkdir -p $HOME/.config/vimb
+        mkdir -p $HOME/tmp
+	mkdir -p $HOME/tmp/vimb
+	mkdir -p $HOME/.config/vimb
         cecho c "=========================> Installing depedencies for vimb...\n"
         sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
         cd $HOME/tmp
