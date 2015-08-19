@@ -37,7 +37,6 @@
 
 # =================================================
 # Basic install
-	# Installing base system
     dhcpcd
 	pacstrap /mnt base base-devel
 	arch-chroot /mnt
@@ -53,7 +52,7 @@
 	# Generating grub file
 	grub-mkconfig -o /boot/grub/grub.cfg
     ip link
-    systemctl enable dhcpcd@name-of-interface.service
+    systemctl enable dhcpcd@name-of-wifi-interface.service
 	exit
 	genfstab -p /mnt >> /mnt/etc/fstab
 	umount -R /mnt
@@ -66,6 +65,13 @@
     virtualbox->network->bridged
 	arch login: root
 	Password: you've typed this earlier
+
+    mkdir repo
+    cd repo
+    ### SCRIPT NOW ###
+
+
+##########################################################################
 	nano /etc/pacman.conf
 		uncomment #Color
 		uncomment Multilib (if x64)
@@ -88,12 +94,12 @@
     systemctl disable network-auto-wired.service
     systemctl enable wicd
     systemctl enable slim.service
-
-	echo "exec i3" > /home/michal/.xinitrc
+ 
+    echo "exec i3" > ~/.xinitrc
 	useradd -m -g users -s /bin/bash michal
 	chfn michal
 	passwd michal 
 	pacman -S sudo
 	visudo
-	(reboot, relogin)
+    reboot
 # =================================================
