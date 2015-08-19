@@ -12,7 +12,7 @@ if [ "$color_prompt" = yes ]; then
     # Red
     # PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\u]—[\W]  \[$(tput sgr0)\]"
     # Green
-    PS1="\[$(tput bold)\]\[$(tput setaf 2)\][\u]—[\W]  \[$(tput sgr0)\]"
+    PS1="\[$(tput bold)\]\[$(tput setaf 2)\][\u]—[\W] \[$(tput sgr0)\]"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -220,4 +220,6 @@ fi
     alias izak="livestreamer -p mpv twitch.tv/izakooo "
     alias pasha="livestreamer -p mpv twitch.tv/pashabiceps "
     alias zdupy="livestreamer -p mpv twitch.tv/zdupy"
+    alias taz="livestreamer -p mpv twitch.tv/g5taz"
+    alias neo="livestreamer -p mpv twitch.tv/neog5"
 #=================================================================
