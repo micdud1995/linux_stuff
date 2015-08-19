@@ -35,6 +35,11 @@ elif [ $# -eq 1  ]; then
 	cecho c "=========================> Mounting $1...\n"
 	sudo mkdir -p $DIR 
 	sudo mount /dev/$1 $DIR
+    if [ "$?" -eq "0" ]; then
+        cecho c "=========================> Mounted correctly\n"
+    else
+        cecho r "=========================> ERROR\n"
+    fi
 else
 	echo "You did something wrong."
 	echo "Please read this help:"

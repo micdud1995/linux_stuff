@@ -12,6 +12,11 @@ if [ -d $DIR  ]; then
 		echo Unmounting /dev/dysk...
                 cd /home/michal
 		sudo umount $DIR 
+        if [ "$?" -eq "0" ]; then
+            cecho c "=========================> Unmounted correctly\n"
+        else
+            cecho r "=========================> ERROR\n"
+        fi
 	else
 		echo "$DIR is empty"
 	fi
