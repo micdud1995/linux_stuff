@@ -844,29 +844,38 @@ menu-arch()
 
 fun-install-arch()
 {
-    # pacman.conf and update
+    cecho r "==========> Pacman updating\n"
     fun-pacman
 
-    # Network
+    cecho r "==========> Installing network depedencies\n"
     pacman -S wget net-tools wicd wireless_tools wpa_supplicant wpa_actiond
 
-    # X
+    cecho r "==========> Installing xorg\n"
 	pacman -S xorg-server xorg-server-utils xorg-apps xorg-xinit xf86-input-evdev xf86-input-mouse xf86-input-keyboard xf86-video-vesa xf86-input-synaptics mesa lib32-mesa-libgl i3 slim lxterminal htop tree 
 
-    # audio
+    cecho r "==========> Installing audio depedencies\n"
     pacman -S alsa-firmware alsa-lib alsa-plugins alsa-utils pulseaudio pulseaudio-alsa libcanberra libcanberra-pulse
 
-    # Services
+    cecho r "==========> Language settings\n"
+    echo "LANG=pl_PL.UTF-8" > /etc/locale.conf
+    export LANG=pl_PL.UTF-8
+
+    cecho r "==========> Enabling services\n"
     systemctl disable dhcpcd
     systemctl disable network-auto-wired.service
     systemctl enable wicd
     systemctl enable slim.service
 
+    cecho r "==========> Adding michal user\n"
 	useradd -m -g users -s /bin/bash michal
 	chfn michal
 	passwd michal 
 	pacman -S sudo
 	visudo
+
+    cecho r "Bad number\n"
+    read -p "Press any key..."
+    menu-arch
 }
 fun-git-arch()
 {
@@ -935,9 +944,6 @@ fun-textapps-arch()
     cecho c "==========> Configuration midnight commander\n"
     cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
     cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
-    cecho c "==========> Configuration zsh\n"
-    cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
-    chsh -s /bin/zsh 	# makes zsh default shell
     cecho c "==========> Configuration mutt\n"
     cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
     cecho c "==========> Configuration rtorrent\n"
@@ -1006,6 +1012,8 @@ fun-shell-arch()
         cp $HOME/repo/linux_stuff/config-files/hide.bashrc $HOME/.bashrc
         cecho c "==========> Making bash default shell\n"
         chsh -s /bin/bash
+        cecho c "==========> Copying .bash_profile\n"
+        sudo cp $HOME/repo/linux_stuff/config-files/hide.bash_profile $HOME/.bash_profile
     elif [ "$c2" -eq "2" ] ; then
         cecho c "==========> Installing zsh and colordiff\n"
         sudo pacman -S zsh -y
@@ -1039,6 +1047,8 @@ fun-slim-arch()
     sudo pacman -S slim --noconfirm
     cecho c "==========> Copying slim.conf\n"
     sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
+    cecho c "==========> Enabling slim service\n"
+    sudo systemctl enable slim
 
     cecho c "Done\n"
     read -p "Press any key..."
@@ -1272,7 +1282,7 @@ fun-youtubedl-arch()
 fun-steam-arch()
 {
     cecho c "==========> Installing steam depedencies\n"
-    sudo pacman -S curl dbus desktop-file-utils freetype2 gdk-pixbuf2 hicolor-icon-theme lib32-gcc-libs lib32-mesa-libgl lib32-libx11 ttf-font zenity lib32-alsa-plugins lib32-catalyst-utils lib32-mesa-dri  
+    sudo pacman -S curl dbus desktop-file-utils freetype2 gdk-pixbuf2 hicolor-icon-theme lib32-gcc-libs lib32-mesa-libgl lib32-libx11 ttf-font zenity lib32-alsa-plugins lib32-mesa-dri  
     cecho c "==========> Installing steam\n"
     sudo pacman -S steam
 
@@ -1283,9 +1293,12 @@ fun-steam-arch()
 fun-virtualbox-arch()
 {
     cecho c "==========> Installing virtualbox depedencies\n"
-    sudo pacman -S virtualbox linux-headers virtualbox-guest-dkms virtualbox-guest-utils --noconfirm
+    sudo pacman -S virtualbox linux-headers virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-modules --noconfirm
     cecho c "==========> Adding modules\n"
     sudo modprobe vboxdrv
+    sudo modprobe -a vboxguest vboxsf vboxvideo
+    cecho c "==========> Adding michal to VB group\n"
+    sudo gpasswd -a michal vboxusers
 
     cecho c "Done\n"
     read -p "Press any key..."
@@ -1296,7 +1309,7 @@ fun-irssi-arch()
     cecho c "==========> Creating dirs\n"
     mkdir $HOME/.irssi
     cecho c "==========> Installing irssi\n"
-    sudo pacman -S install irssi --noconfirm
+    sudo pacman -S irssi --noconfirm
     cecho c "==========> Copying config files\n"
     cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
     cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
