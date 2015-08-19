@@ -193,7 +193,7 @@ fun-packages()
 
     if [ "$c2" -eq "1" ] ; then
         cecho c "==========> Installing basic packages...\n"
-        sudo aptitude install mc moc zsh mutt tree scrot feh git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xorg xbase-clients xfonts-base xinit rtorrent pinta irssi -y
+        sudo aptitude install mc moc mutt tree scrot feh git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xorg xbase-clients xfonts-base xinit rtorrent pinta irssi -y
         cecho c "==========> Reconfiguring xserver-xorg...\n"
         sudo dpkg-reconfigure xserver-xorg
     elif [ "$c2" -eq "2" ] ; then
@@ -223,9 +223,6 @@ fun-textapps()
     cecho c "==========> Configuration midnight commander\n"
     cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
     cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
-    cecho c "==========> Configuration zsh\n"
-    cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
-    chsh -s /bin/zsh 	# makes zsh default shell
     cecho c "==========> Configuration mutt\n"
     cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
     cecho c "==========> Configuration rtorrent\n"
@@ -394,6 +391,9 @@ fun-sources()
     else
         cecho r "Bad number\n"
     fi
+
+    sudo aptitude update 
+    sudo aptitude upgrade
 
     cecho c "Done\n"
     read -p "Press any key..."
@@ -708,27 +708,45 @@ fun-vimb()
 fun-all()
 {
     clear
-    sudo aptitude update
-    sudo aptitude upgrade
-    fun-git
-    fun-dirs
+    cecho r "==========> Step: 1/20\n"
     fun-sources
+    cecho r "==========> Step: 2/20\n"
+    fun-git
+    cecho r "==========> Step: 3/20\n"
+    fun-dirs
+    cecho r "==========> Step: 4/20\n"
     fun-packages
+    cecho r "==========> Step: 5/20\n"
     fun-textapps
+    cecho r "==========> Step: 6/20\n"
     fun-beepscripts
+    cecho r "==========> Step: 7/20\n"
     fun-lenovo
+    cecho r "==========> Step: 8/20\n"
     fun-shell
+    cecho r "==========> Step: 9/20\n"
     fun-slim
+    cecho r "==========> Step: 10/20\n"
     fun-grub
+    cecho r "==========> Step: 11/20\n"
     fun-xinit
+    cecho r "==========> Step: 12/20\n"
     fun-vim
+    cecho r "==========> Step: 13/20\n"
     fun-de
+    cecho r "==========> Step: 14/20\n"
     fun-ssh
+    cecho r "==========> Step: 15/20\n"
     fun-livestreamer
+    cecho r "==========> Step: 16/20\n"
     fun-youtubedl
+    cecho r "==========> Step: 17/20\n"
     fun-steam
+    cecho r "==========> Step: 18/20\n"
     fun-virtualbox
+    cecho r "==========> Step: 19/20\n"
     fun-irssi
+    cecho r "==========> Step: 20/20\n"
     fun-vimb
 }
 
@@ -978,6 +996,8 @@ fun-shell-arch()
 }
 fun-pacman()
 {
+    sudo pacman -Syyu
+
     cecho c "Done\n"
     read -p "Press any key..."
     clear
@@ -1274,26 +1294,45 @@ fun-vimb-arch()
 fun-all-arch()
 {
     clear
+    cecho r "==========> Step: 1/20\n"
     fun-pacman
-    sudo pacman -Syyu
+    cecho r "==========> Step: 2/20\n"
     fun-git-arch
+    cecho r "==========> Step: 3/20\n"
     fun-dirs-arch
+    cecho r "==========> Step: 4/20\n"
     fun-packages-arch
+    cecho r "==========> Step: 5/20\n"
     fun-textapps-arch
+    cecho r "==========> Step: 6/20\n"
     fun-beepscripts-arch
+    cecho r "==========> Step: 7/20\n"
     fun-lenovo-arch
+    cecho r "==========> Step: 8/20\n"
     fun-shell-arch
+    cecho r "==========> Step: 9/20\n"
     fun-slim-arch
+    cecho r "==========> Step: 10/20\n"
     fun-grub-arch
+    cecho r "==========> Step: 11/20\n"
     fun-xinit-arch
+    cecho r "==========> Step: 12/20\n"
     fun-vim-arch
+    cecho r "==========> Step: 13/20\n"
     fun-de-arch
+    cecho r "==========> Step: 14/20\n"
     fun-ssh-arch
+    cecho r "==========> Step: 15/20\n"
     fun-livestreamer-arch
+    cecho r "==========> Step: 16/20\n"
     fun-youtubedl-arch
+    cecho r "==========> Step: 17/20\n"
     fun-steam-arch
+    cecho r "==========> Step: 18/20\n"
     fun-virtualbox-arch
+    cecho r "==========> Step: 19/20\n"
     fun-irssi-arch
+    cecho r "==========> Step: 20/20\n"
     fun-vimb-arch
 }
 
