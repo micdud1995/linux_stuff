@@ -217,7 +217,7 @@ fun-textapps()
     mkdir -p $HOME/.local/share/mc/skins
     mkdir -p $HOME/.rtorrent
     cecho c "==========> Installing packages\n"
-    sudo aptitude install moc mc zsh mutt rtorrent -y
+    sudo aptitude install moc mc mutt rtorrent -y
     cecho c "==========> Configuration moc player\n"
     cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
     cecho c "==========> Configuration midnight commander\n"
@@ -235,10 +235,8 @@ fun-textapps()
 fun-beepscripts()
 {
     cecho c "==========> Disabling beep sound\n"
-    # Disable beep sound in console
-    set bell-style none
-    # Disable beep sound in X
-    xset b off
+    sudo rmmod pcspkr
+    sudo echo "blacklist pcspkr" > /etc/modprobe.d/blacklist
     # Mount scripts
     cecho c "==========> Copying mount scripts\n"
     sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
