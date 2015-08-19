@@ -3,6 +3,17 @@
 # run as a user!
 # configure visudo before
 
+#=================================
+# Colors
+color0=g
+color1=g
+color2=r
+color3=gr
+color4=r
+color5=b
+color6=y
+#=================================
+
 cecho() {
   local code="\033["
   case "$1" in
@@ -20,17 +31,10 @@ cecho() {
   printf "$text"
 }
 
-color0=g
-color1=g
-color2=r
-color3=gr
-color4=r
-color5=b
-
 menu() 
 {
     clear
-    cecho c "=========================> Choice your OS: \n"
+    cecho c "==========> Choice your OS: \n"
     cecho r "1) Debian\n"
     cecho b "2) Arch Linux\n"
     read c2
@@ -69,55 +73,79 @@ menu-deb()
     cecho $color3 "10) Grub\t\t"
     cecho $color2 "21) Vimb [source]\n"
     cecho $color3 "11) .xinitrc\n"
-    cecho $color4 "99) Exit\n"
+    cecho $color4 "99) Exit\t\t"
+    cecho $color6 "100) All\n"
     cecho $color0 "===================================================\n"
     read c
 
     if [ "$c" -eq "1" ] ; then
         fun-git
+        menu-deb
     elif [ "$c" -eq "2" ] ; then
         fun-dirs
+        menu-deb
     elif [ "$c" -eq "3" ] ; then
         fun-packages
+        menu-deb
     elif [ "$c" -eq "4" ] ; then
         fun-textapps
+        menu-deb
     elif [ "$c" -eq "5" ] ; then
         fun-beepscripts
+        menu-deb
     elif [ "$c" -eq "6" ] ; then
         fun-lenovo
+        menu-deb
     elif [ "$c" -eq "7" ] ; then
         fun-shell
+        menu-deb
     elif [ "$c" -eq "8" ] ; then
         fun-sources
+        menu-deb
     elif [ "$c" -eq "9" ] ; then
         fun-slim
+        menu-deb
     elif [ "$c" -eq "10" ] ; then
         fun-grub
+        menu-deb
     elif [ "$c" -eq "11" ] ; then
         fun-xinit
+        menu-deb
     elif [ "$c" -eq "12" ] ; then
         fun-vim
+        menu-deb
     elif [ "$c" -eq "13" ] ; then
         fun-conky
+        menu-deb
     elif [ "$c" -eq "14" ] ; then
         fun-de
+        menu-deb
     elif [ "$c" -eq "15" ] ; then
         fun-ssh
+        menu-deb
     elif [ "$c" -eq "16" ] ; then
         fun-livestreamer
+        menu-deb
     elif [ "$c" -eq "17" ] ; then
         fun-youtubedl
+        menu-deb
     elif [ "$c" -eq "18" ] ; then
         fun-steam
+        menu-deb
     elif [ "$c" -eq "19" ] ; then
         fun-virtualbox
+        menu-deb
     elif [ "$c" -eq "20" ] ; then
         fun-irssi
+        menu-deb
     elif [ "$c" -eq "21" ] ; then
         fun-vimb
+        menu-deb
     elif [ "$c" -eq "99" ] ; then
         clear
         exit
+    elif [ "$c" -eq "100" ] ; then
+        fun-all
     else
         cecho r "Bad number\n"
         read -p "Press any key..."
@@ -127,46 +155,46 @@ menu-deb()
 
 fun-git()
 {
-    cecho c "=========================> Git installing\n"
+    cecho c "==========> Git installing\n"
     sudo aptitude install git -y
-    cecho c "=========================> Setting user name\n"
+    cecho c "==========> Setting user name\n"
     git config --global user.name "Michal Dudek"
-    cecho c "=========================> Setting user e-mail\n"
+    cecho c "==========> Setting user e-mail\n"
     git config --global user.email michal.dudek1995@gmail.com
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-dirs()
 {
-    cecho c "=========================> Creating dirs...\n"
+    cecho c "==========> Creating dirs...\n"
     mkdir -p $HOME/repo
     mkdir -p $HOME/tmp
     # Creating repo dir and cloning repository
     if [ ! -d $HOME/repo/linux_stuff ]; then
         cd $HOME/repo
-        cecho c "=========================> Cloning repository...\n"
+        cecho c "==========> Cloning repository...\n"
         git clone https://github.com/micdud1995/linux_stuff.git
     else
-        cecho c "=========================> $HOME/repo/linux_stuff exists already...\n"
+        cecho c "==========> $HOME/repo/linux_stuff exists already...\n"
     fi
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-packages()
 {
-    cecho c "=========================> Choice packages: \n"
+    cecho c "==========> Choice packages: \n"
     cecho c "1) All\n"
     cecho c "2) X server\n"
     read c2
 
     if [ "$c2" -eq "1" ] ; then
-        cecho c "=========================> Installing basic packages...\n"
+        cecho c "==========> Installing basic packages...\n"
         sudo aptitude install mc moc zsh mutt tree scrot feh git alsa-utils libncurses5-dev zathura mirage xserver-xorg-input-synaptics mpv lxrandr pavucontrol xbacklight lxterminal xserver-xorg xorg xbase-clients xfonts-base xinit rtorrent pinta irssi -y
-        cecho c "=========================> Reconfiguring xserver-xorg...\n"
+        cecho c "==========> Reconfiguring xserver-xorg...\n"
         sudo dpkg-reconfigure xserver-xorg
     elif [ "$c2" -eq "2" ] ; then
         sudo aptitude install xserver-xorg-input-synaptics xserver-xorg xorg xbase-clients xfonts-base xinit
@@ -179,57 +207,58 @@ fun-packages()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-textapps()
 {
-    cecho c "=========================> Creating dirs\n"
+    cecho c "==========> Creating dirs\n"
     mkdir -p $HOME/.config/mc
     mkdir -p $HOME/.moc
     mkdir -p $HOME/.local/share/mc/skins
     mkdir -p $HOME/.rtorrent
-    cecho c "=========================> Installing packages\n"
+    cecho c "==========> Installing packages\n"
     sudo aptitude install moc mc zsh mutt rtorrent -y
-    cecho c "=========================> Configuration moc player\n"
+    cecho c "==========> Configuration moc player\n"
     cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
-    cecho c "=========================> Configuration midnight commander\n"
+    cecho c "==========> Configuration midnight commander\n"
     cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
     cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
-    cecho c "=========================> Configuration zsh\n"
+    cecho c "==========> Configuration zsh\n"
     cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
     chsh -s /bin/zsh 	# makes zsh default shell
-    cecho c "=========================> Configuration mutt\n"
+    cecho c "==========> Configuration mutt\n"
     cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
-    cecho c "=========================> Configuration rtorrent\n"
+    cecho c "==========> Configuration rtorrent\n"
     cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
+
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-beepscripts()
 {
-    cecho c "=========================> Disabling beep sound\n"
+    cecho c "==========> Disabling beep sound\n"
     # Disable beep sound in console
     set bell-style none
     # Disable beep sound in X
     xset b off
     # Mount scripts
-    cecho c "=========================> Copying mount scripts\n"
+    cecho c "==========> Copying mount scripts\n"
     sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
     sudo chmod +x /usr/bin/m
     sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
     sudo chmod +x /usr/bin/um
-    cecho c "=========================> Copying live-usb script\n"
+    cecho c "==========> Copying live-usb script\n"
     sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
     sudo chmod +x /usr/bin/live-usb
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-lenovo()
 {
-    cecho c "=========================> Choice what to do:\n"
+    cecho c "==========> Choice what to do:\n"
     cecho c "1) all\n"
     cecho c "2) Set wallpaper\n"
     cecho c "3) Enable touchpad\n"
@@ -238,15 +267,15 @@ fun-lenovo()
     read c2
 
     if [ "$c2" -eq "1" ] ; then
-        cecho c "=========================> Updating /etc/apt/sources.list\n"
+        cecho c "==========> Updating /etc/apt/sources.list\n"
         sudo cp $HOME/repo/linux_stuff/config-files/sources.list /etc/apt/sources.list
-        cecho c "=========================> Update system\n"
+        cecho c "==========> Update system\n"
         sudo aptitude update
-        cecho c "=========================> Upgrade system\n"
+        cecho c "==========> Upgrade system\n"
         sudo aptitude upgrade -y
-        cecho c "=========================> Enabling microphone\n"
+        cecho c "==========> Enabling microphone\n"
         sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
-        cecho c "=========================> Enabling wifi\n"
+        cecho c "==========> Enabling wifi\n"
         sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
         sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
         sudo modprobe wl
@@ -255,26 +284,26 @@ fun-lenovo()
         sudo /etc/init.d/dbus reload
         sudo /etc/init.d/wicd start
         wicd-client -n
-        cecho c "=========================> Enabling touchpad\n"
+        cecho c "==========> Enabling touchpad\n"
         sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
         echo synclient TapButton1=1 >> $HOME/.xinitrc
-        cecho c "=========================> Setting wallpaper\n"
+        cecho c "==========> Setting wallpaper\n"
         sudo aptitude install feh
         mkdir -p $HOME/Obrazy
         cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
         feh --bg-scale $HOME/Obrazy/wallpaper.jpg
-        cecho c "=========================> Don't suspend when lid closed\n"
+        cecho c "==========> Don't suspend when lid closed\n"
         sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
     elif [ "$c2" -eq "2" ] ; then
-        cecho c "=========================> Setting wallpaper\n"
+        cecho c "==========> Setting wallpaper\n"
         sudo aptitude install feh
         mkdir -p $HOME/Obrazy
         cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
     elif [ "$c2" -eq "3" ] ; then
-        cecho c "=========================> Enabling touchpad\n"
+        cecho c "==========> Enabling touchpad\n"
         sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
     elif [ "$c2" -eq "4" ] ; then
-        cecho c "=========================> Enabling wifi\n"
+        cecho c "==========> Enabling wifi\n"
         sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
         sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
         sudo modprobe wl
@@ -284,7 +313,7 @@ fun-lenovo()
         sudo /etc/init.d/wicd start
         wicd-client -n
     elif [ "$c2" -eq "5" ] ; then
-        cecho c "=========================> Don't suspend when lid closed\n"
+        cecho c "==========> Don't suspend when lid closed\n"
         sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
     else
         cecho r "Bad number\n"
@@ -294,28 +323,28 @@ fun-lenovo()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-shell()
 {
-    cecho c "=========================> Choice shell: \n"
+    cecho c "==========> Choice shell: \n"
     cecho c "1) bash\n"
     cecho c "2) zsh\n"
     read c2
 
     if [ "$c2" -eq "1" ] ; then
-        cecho c "=========================> Installing colordiff\n"
+        cecho c "==========> Installing colordiff\n"
         sudo aptitude install colordiff
-        cecho c "=========================> Configuration bash\n"
+        cecho c "==========> Configuration bash\n"
         cp $HOME/repo/linux_stuff/config-files/hide.bashrc $HOME/.bashrc
-        cecho c "=========================> Making bash default shell\n"
+        cecho c "==========> Making bash default shell\n"
         chsh -s /bin/bash
     elif [ "$c2" -eq "2" ] ; then
-        cecho c "=========================> Installing zsh\n"
+        cecho c "==========> Installing zsh\n"
         sudo aptitude install zsh -y
-        cecho c "=========================> Configuration zsh\n"
+        cecho c "==========> Configuration zsh\n"
         cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
-        cecho c "=========================> Making zsh default shell\n"
+        cecho c "==========> Making zsh default shell\n"
         chsh -s /bin/zsh
 
     else
@@ -326,11 +355,11 @@ fun-shell()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-sources()
 {
-    cecho c "=========================> Choice your version\n"
+    cecho c "==========> Choice your version\n"
     cecho c "1) stable\n"
     cecho c "2) testing\n"
     cecho c "3) unstable\n"
@@ -344,8 +373,8 @@ fun-sources()
         sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
         sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
         sudo sh -c "echo >> /etc/apt/sources.list"
-        sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable-updates main' >> /etc/apt/sources.list"
-        sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable-updates main' >> /etc/apt/sources.list"
+        sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+        sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
 
     elif [ "$c2" -eq "2" ] ; then
         sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
@@ -368,34 +397,34 @@ fun-sources()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-slim()
 {
-        cecho c "=========================> Installing slim\n"
-        sudo aptitude install slim -y
-        cecho c "=========================> Copying slim.conf\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
-        cecho c "=========================> Making slim default login manager\n"
-        sudo dpkg-reconfigure slim
+    cecho c "==========> Installing slim\n"
+    sudo aptitude install slim -y
+    cecho c "==========> Copying slim.conf\n"
+    sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
+    cecho c "==========> Making slim default login manager\n"
+    sudo dpkg-reconfigure slim
 
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-deb
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
 }
 fun-grub()
 {
-    cecho c "=========================> Remaking grub file\n"
+    cecho c "==========> Remaking grub file\n"
     sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
     sudo update-grub
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-xinit()
 {
-    cecho c "=========================> Choice your DE\n"
+    cecho c "==========> Choice your DE\n"
     cecho c "1) i3\n"
     cecho c "2) lxde\n"
     cecho c "3) awesome\n"
@@ -416,7 +445,7 @@ fun-xinit()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-vim()
 {
@@ -438,67 +467,67 @@ fun-vim()
     #	Gruvbox theme
     #==============================================================
 
-    cecho c "=========================> Installing vim depedencies\n"
+    cecho c "==========> Installing vim depedencies\n"
     sudo aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
-    cecho c "=========================> Making vim dirs\n"
+    cecho c "==========> Making vim dirs\n"
     mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-    cecho c "=========================> Pathogen\n"
+    cecho c "==========> Pathogen\n"
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-    cecho c "=========================> Nerdtree\n"
+    cecho c "==========> Nerdtree\n"
     cd ~/.vim/bundle && \
     git clone https://github.com/scrooloose/nerdtree.git
 
-    cecho c "=========================> Syntastic\n"
+    cecho c "==========> Syntastic\n"
     cd ~/.vim/bundle && \
     git clone https://github.com/scrooloose/syntastic.git
 
-    cecho c "=========================> Taglist/Tagbar\n"
+    cecho c "==========> Taglist/Tagbar\n"
     cd ~/.vim/bundle && \
     git clone git://github.com/vim-scripts/taglist.vim.git
     #git clone https://github.com/vim-scripts/Tagbar.git
 
-    cecho c "=========================> Git-gutter\n"
+    cecho c "==========> Git-gutter\n"
     cd ~/.vim/bundle && \
     git clone git://github.com/airblade/vim-gitgutter.git
 
-    cecho c "=========================> Nerd-commenter\n"
+    cecho c "==========> Nerd-commenter\n"
     cd ~/.vim/bundle && \
     git clone https://github.com/scrooloose/nerdcommenter.git
 
-    cecho c "=========================> Vim-airline\n"
+    cecho c "==========> Vim-airline\n"
     cd ~/.vim/bundle && \
     git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-    cecho c "=========================> Auto-pairs\n"
+    cecho c "==========> Auto-pairs\n"
     cd ~/.vim/bundle && \
     git clone git://github.com/jiangmiao/auto-pairs.git
 
-    cecho c "=========================> Supertab\n"
+    cecho c "==========> Supertab\n"
     git clone git://github.com/ervandew/supertab.git
 
-    cecho c "=========================> Snipmate\n"
+    cecho c "==========> Snipmate\n"
     cd ~/.vim/bundle
     git clone https://github.com/tomtom/tlib_vim.git
     git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
     git clone https://github.com/garbas/vim-snipmate.git
     git clone https://github.com/honza/vim-snippets.git
 
-    cecho c "=========================> Indent-line\n"
+    cecho c "==========> Indent-line\n"
     cd ~/.vim/bundle
     git clone https://github.com/Yggdroot/indentLine.git
 
-    cecho c "=========================> Single-compile\n"
+    cecho c "==========> Single-compile\n"
     cd ~/.vim/bundle
     git clone https://github.com/xuhdev/SingleCompile.git
 
-    cecho c "=========================> Vim-commentary\n"
+    cecho c "==========> Vim-commentary\n"
     cd ~/.vim/bundle
     git clone https://github.com/tpope/vim-commentary.git
 
-    #cecho c "=========================> Gruvbox theme\n"
+    #cecho c "==========> Gruvbox theme\n"
     #mkdir -p ~/tmp
     #cd ~/tmp && \
     #git clone https://github.com/morhetz/gruvbox.git
@@ -506,69 +535,69 @@ fun-vim()
     #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
     #rm -rf ~/tmp/gruvbox
 
-    #cecho c "=========================> Sorcerer theme\n"
+    #cecho c "==========> Sorcerer theme\n"
     #cd ~/tmp && \
     #git clone https://github.com/adlawson/vim-sorcerer.git
     #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
     #rm -rf ~/tmp/vim-sorcerer
 
-    cecho c "=========================> Jellybeans theme\n"
+    cecho c "==========> Jellybeans theme\n"
     cd ~/tmp && \
     git clone https://github.com/nanotech/jellybeans.vim.git
     mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
     rm -rf ~/tmp/jellybeans.vim
 
-    cecho c "=========================> Copying .vimrc\n"
+    cecho c "==========> Copying .vimrc\n"
     cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
     
-    cecho c "=========================> Copying own snippets\n"
+    cecho c "==========> Copying own snippets\n"
     cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
     cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
     cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-conky()
 {
-    cecho c "=========================> Installing conky\n"
+    cecho c "==========> Installing conky\n"
     sudo aptitude install conky -y
 
-    cecho c "=========================> Copying .conkyrc\n"
+    cecho c "==========> Copying .conkyrc\n"
     cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
 
-    cecho c "=========================> Copying fonts\n"
+    cecho c "==========> Copying fonts\n"
     sudo cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-de()
 {
-    cecho c "=========================> Choice your DE\n"
+    cecho c "==========> Choice your DE\n"
     cecho c "1) i3\n"
     cecho c "2) lxde-core\n"
     cecho c "3) awesome\n"
     read c2
 
     if [ "$c2" -eq "1" ] ; then
-        cecho c "=========================> Creating dirs\n"
+        cecho c "==========> Creating dirs\n"
         mkdir -p $HOME/.i3
         mkdir -p $HOME/Obrazy
-        cecho c "=========================> Installing i3 depedencies\n"
+        cecho c "==========> Installing i3 depedencies\n"
         sudo aptitude install i3 dmenu lxrandr pavucontrol xbacklight lxterminal xserver-xorg xorg xbase-clients xfonts-base xinit feh -y
 
-        cecho c "=========================> Copying config files\n"
+        cecho c "==========> Copying config files\n"
         cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
         cp ~/repo/linux_stuff/i3/config ~/.i3/config
         cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
     elif [ "$c2" -eq "2" ] ; then
-        cecho c "=========================> Installing lxde-core depedencies\n"
+        cecho c "==========> Installing lxde-core depedencies\n"
         sudo aptitude install xserver-xorg xorg xbase-clients xfonts-base xinit lxde-core lxterminal pavucontrol xbacklight
     elif [ "$c2" -eq "3" ] ; then
-        cecho c "=========================> Installing awesome depedencies\n"
+        cecho c "==========> Installing awesome depedencies\n"
         sudo aptitude install xserver-xorg xorg xbase-clients xfonts-base xinit awesome lxterminal pavucontrol xbacklight
     else
         cecho r "Bad number\n"
@@ -576,89 +605,93 @@ fun-de()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-ssh()
 {
-    cecho c "=========================> Installing SSH server\n"
+    cecho c "==========> Installing SSH server\n"
     sudo aptitude install openssh-server
     sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-    cecho c "=========================> Restarting SSH server\n"
+    cecho c "==========> Restarting SSH server\n"
     sudo /etc/init.d/ssh restart
-    cecho y "=========================> To connect: ssh user@ip-number\n"
-    cecho y "=========================> To run GUI apps: export DISPLAY=:0\n"
+    cecho y "==========> To connect: ssh user@ip-number\n"
+    cecho y "==========> To run GUI apps: export DISPLAY=:0\n"
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-livestreamer()
 {
-    cecho c "=========================> Installing depedencies\n"
+    cecho c "==========> Installing depedencies\n"
     sudo aptitude install python python-requests python-setuptools python-singledispatch -y
     cd $HOME/tmp
-    cecho c "=========================> Cloning repository\n"
+    cecho c "==========> Cloning repository\n"
     git clone https://github.com/chrippa/livestreamer.git
     cd $HOME/tmp/livestreamer
-    cecho c "=========================> Installing\n"
+    cecho c "==========> Installing\n"
     sudo python setup.py install
-    cecho c "=========================> Cleaning tmp files\n"
+    cecho c "==========> Cleaning tmp files\n"
     sudo rm -rf $HOME/tmp/livestreamer
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-youtubedl()
 {
-    cecho c "=========================> Downloading youtube-dl from webpage\n"
+    cecho c "==========> Downloading youtube-dl from webpage\n"
     sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-    cecho c "=========================> Making file executable\n"
+    cecho c "==========> Making file executable\n"
     sudo chmod a+rx /usr/local/bin/youtube-dl
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-steam()
 {
     mkdir -p $HOME/tmp
-    cecho c "=========================> Installing steam depedencies...\n"
+    cecho c "==========> Installing steam depedencies...\n"
     sudo aptitude install curl zenity -y
-    cecho c "=========================> Downloading .deb package...\n"
+    cecho c "==========> Downloading .deb package...\n"
     wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O $HOME/tmp/steam.deb
-    cecho c "=========================> Installing steam...\n"
+    cecho c "==========> Installing steam...\n"
     sudo dpkg -i $HOME/tmp/steam.deb
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
 }
 fun-virtualbox()
 {
-    cecho c "=========================> Installing virtualbox depedencies\n"
+    cecho c "==========> Installing virtualbox depedencies\n"
     sudo aptitude install virtualbox dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-irssi()
 {
-    cecho c "=========================> Creating dirs\n"
+    cecho c "==========> Creating dirs\n"
     mkdir $HOME/.irssi
-    cecho c "=========================> Installing irssi\n"
+    cecho c "==========> Installing irssi\n"
     sudo aptitude install irssi -y
-    cecho c "=========================> Copying config files\n"
+    cecho c "==========> Copying config files\n"
     cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
     cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
 }
 fun-vimb()
 {
     mkdir -p $HOME/tmp
     mkdir -p $HOME/tmp/vimb
     mkdir -p $HOME/.config/vimb
-    cecho c "=========================> Installing depedencies for vimb...\n"
+    cecho c "==========> Installing depedencies for vimb...\n"
     sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
     cd $HOME/tmp
     git clone https://github.com/fanglingsu/vimb.git
@@ -670,413 +703,595 @@ fun-vimb()
 
     cecho c "Done\n"
     read -p "Press any key..."
-    menu-deb
+    clear
+}
+fun-all()
+{
+    clear
+    fun-git
+    fun-dirs
+    fun-sources
+    fun-packages
+    fun-textapps
+    fun-beepscripts
+    fun-lenovo
+    fun-shell
+    fun-slim
+    fun-grub
+    fun-xinit
+    fun-vim
+    fun-de
+    fun-ssh
+    fun-livestreamer
+    fun-youtubedl
+    fun-steam
+    fun-virtualbox
+    fun-irssi
+    fun-vimb
 }
 
 
 ###############################################################################################
-###############################################################################################
+######################################  ARCH  #################################################
 ###############################################################################################
 
 menu-arch() 
 {
     clear
-    cecho $color0  "==================== CONFIG =======================\n"
+    cecho $color0  "================= CONFIG =================\n"
     cecho $color1 "1) Git\t\t\t"
-    cecho $color5 "11) Vim\n"
+    cecho $color5 "12) Vim\n"
     cecho $color1 "2) Mkdirs/clone repo\t"
-    cecho $color5 "12) Conky\n"
+    cecho $color5 "13) Conky\n"
     cecho $color1 "3) Basic packages\t"
-    cecho $color5 "13) DE\n"
-    cecho $color1 "4) Text apps + zsh\t"
-    cecho $color5 "14) SSH \n"
+    cecho $color5 "14) DE\n"
+    cecho $color1 "4) Text apps\t\t"
+    cecho $color5 "15) SSH \n"
     cecho $color1 "5) Scripts & beep\t"
-    cecho $color5 "15) Livestreamer\n"
+    cecho $color5 "16) Livestreamer\n"
     cecho $color1 "6) Lenovo G580\t\t"
-    cecho $color5 "16) Youtube-dl\n"
-    cecho $color3 "7) xxxxxxxxxxxx\t\t"
-    cecho $color5 "17) Virtualbox\n"
-    cecho $color3 "8) Slim \t\t"
-    cecho $color5 "18) Irssi\n"
-    cecho $color3 "9) Grub\t\t\t"
-    cecho $color5 "19) Vimb [source]\n"
-    cecho $color3 "10) .xinitrc\n"
-    cecho $color5 "99) Exit\n"
-    cecho $color0 "===================================================\n"
+    cecho $color5 "17) Youtube-dl\n"
+    cecho $color3 "7) Shell\t\t"
+    cecho $color5 "18) Steam\n"
+    cecho $color3 "8) Pacman\t\t"
+    cecho $color5 "19) Virtualbox\n"
+    cecho $color3 "9) Slim \t\t"
+    cecho $color5 "20) Irssi\n"
+    cecho $color3 "10) Grub\t\t"
+    cecho $color5 "21) Vimb [source]\n"
+    cecho $color3 "11) .xinitrc\n"
+    cecho $color5 "99) Exit\t\t"
+    cecho $color6 "100) All\n"
+    cecho $color0 "==========================================\n"
     read c
 
     if [ "$c" -eq "1" ] ; then
-        # Installing git
-        cecho c "=========================> Git installing\n"
-        sudo pacman -S git --noconfirm
-        cecho c "=========================> Setting user name\n"
-        git config --global user.name "Michal Dudek"
-        cecho c "=========================> Setting user e-mail\n"
-        git config --global user.email michal.dudek1995@gmail.com
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-git-arch
     elif [ "$c" -eq "2" ] ; then
-        cecho c "=========================> Creating dirs...\n"
-        mkdir -p $HOME/repo
-        mkdir -p $HOME/tmp
-        # Creating repo dir and cloning repository
-        if [ ! -d $HOME/repo/linux_stuff ]; then
-            cd $HOME/repo
-            cecho c "=========================> Cloning repository...\n"
-            git clone https://github.com/micdud1995/linux_stuff.git
-        else
-            cecho c "=========================> $HOME/repo/linux_stuff exists already...\n"
-        fi
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-dirs-arch 
     elif [ "$c" -eq "3" ] ; then
-        # Basic packages
-        cecho c "=========================> Installing basic packages...\n"
-        sudo pacman -S mc moc zsh mutt tree scrot feh git alsa-utils ncurses zathura mirage  mpv lxrandr pavucontrol lxterminal rtorrent pinta irssi xf86-input-synaptics expac --noconfirm
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-packages-arch
     elif [ "$c" -eq "4" ] ; then
-        cecho c "=========================> Creating dirs\n"
-        mkdir -p $HOME/.config/mc
-        mkdir -p $HOME/.moc
-        mkdir -p $HOME/.local/share/mc/skins
-        mkdir -p $HOME/.rtorrent
-        cecho c "=========================> Installing packages\n"
-        sudo pacman -S moc mc zsh mutt rtorrent --noconfirm
-        cecho c "=========================> Configuration moc player\n"
-        cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
-        cecho c "=========================> Configuration midnight commander\n"
-        cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
-        cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
-        cecho c "=========================> Configuration zsh\n"
-        cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
-        chsh -s /bin/zsh 	# makes zsh default shell
-        cecho c "=========================> Configuration mutt\n"
-        cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
-        cecho c "=========================> Configuration rtorrent\n"
-        cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-textapps-arch
     elif [ "$c" -eq "5" ] ; then
-        cecho c "=========================> Setting polish letters\n"
-        sudo mkdir -p /etc/X11/xorg.conf.d
-        sudo cp $HOME/repo/linux_stuff/config-files/vconsole.conf /etc/vconsole.conf
-        sudo cp $HOME/repo/linux_stuff/config-files/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
-        cecho c "=========================> Disabling beep sound\n"
-        # Disable beep sound in console
-        set bell-style none
-        # Disable beep sound in X
-        xset b off
-        # Cleaning script 
-        sudo cp $HOME/repo/linux_stuff/config-files/arch-clear /usr/bin/arch-clear
-        sudo chmod +x /usr/bin/arch-clear
-        # Mount scripts
-        cecho c "=========================> Copying mount scripts\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
-        sudo chmod +x /usr/bin/m
-        sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
-        sudo chmod +x /usr/bin/um
-        cecho c "=========================> Copying live-usb script\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
-        sudo chmod +x /usr/bin/live-usb
-        # cecho c "=========================> Enabling touchpad\n"
-        # sudo cp /repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-beepscripts-arch
     elif [ "$c" -eq "6" ] ; then
-        cecho c "=========================> Disabling beep sound\n"
-	    sudo rmmod pcspkr
-        cecho c "=========================> Update & upgrade system\n"
-        sudo pacman -Syyu --noconfirm
-        cecho c "=========================> Setting wallpaper\n"
-        mkdir -p $HOME/Obrazy
-        cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
-        feh --bg-scale $HOME/Obrazy/wallpaper.jpg
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-lenovo-arch
     elif [ "$c" -eq "7" ] ; then
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
-        
+        fun-shell-arch
     elif [ "$c" -eq "8" ] ; then
-        cecho c "=========================> Installing slim\n"
-        sudo pacman -S slim --noconfirm
-        cecho c "=========================> Copying slim.conf\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-pacman
     elif [ "$c" -eq "9" ] ; then
-        cecho c "=========================> Remaking grub file\n"
-        sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
-        sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-slim-arch
     elif [ "$c" -eq "10" ] ; then
-        cecho c "=========================> Choice your DE\n"
-        cecho c "1) i3\n"
-        cecho c "2) lxde\n"
-        cecho c "3) awesome\n"
-        read c2
-
-        if [ "$c2" -eq "1" ] ; then
-            echo "setxkbmap pl &" > $HOME/.xinitrc
-            echo "exec i3" >> $HOME/.xinitrc
-        elif [ "$c2" -eq "2" ] ; then
-            echo "setxkbmap pl &" > $HOME/.xinitrc
-            echo "exec startlxde" >> $HOME/.xinitrc
-        elif [ "$c2" -eq "3" ] ; then
-            echo "setxkbmap pl &" > $HOME/.xinitrc
-            echo "exec awesome" >> $HOME/.xinitrc
-        else
-            cecho r "Bad number\n"
-        fi
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
-
+        fun-grub-arch
     elif [ "$c" -eq "11" ] ; then
-        #==============================================================
-        # Plugin list:
-        #	Pathogen
-        #	Nerdtree
-        #	Syntastic
-        #	Tagbar / Taglist
-        #	GitGutter
-        #	Nerdcommenter
-        # 	Vim-airline
-        #	Auto-pairs
-        # 	Supertab
-        #	SnipMate
-        #   indentLine
-        #   SingleCompile
-        #   Vim-commentary
-        #	Gruvbox theme
-        #==============================================================
-
-        cecho c "=========================> Installing vim depedencies\n"
-        sudo pacman -S vim curl ctags ttf-inconsolata --noconfirm
-
-        cecho c "=========================> Making vim dirs\n"
-        mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
-
-        cecho c "=========================> Pathogen\n"
-        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-        cecho c "=========================> Nerdtree\n"
-        cd ~/.vim/bundle && \
-        git clone https://github.com/scrooloose/nerdtree.git
-
-        cecho c "=========================> Syntastic\n"
-        cd ~/.vim/bundle && \
-        git clone https://github.com/scrooloose/syntastic.git
-
-        cecho c "=========================> Taglist/Tagbar\n"
-        cd ~/.vim/bundle && \
-        git clone git://github.com/vim-scripts/taglist.vim.git
-        #git clone https://github.com/vim-scripts/Tagbar.git
-
-        cecho c "=========================> Git-gutter\n"
-        cd ~/.vim/bundle && \
-        git clone git://github.com/airblade/vim-gitgutter.git
-
-        cecho c "=========================> Nerd-commenter\n"
-        cd ~/.vim/bundle && \
-        git clone https://github.com/scrooloose/nerdcommenter.git
-
-        cecho c "=========================> Vim-airline\n"
-        cd ~/.vim/bundle && \
-        git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
-
-        cecho c "=========================> Auto-pairs\n"
-        cd ~/.vim/bundle && \
-        git clone git://github.com/jiangmiao/auto-pairs.git
-
-        cecho c "=========================> Supertab\n"
-        git clone git://github.com/ervandew/supertab.git
-
-        cecho c "=========================> Snipmate\n"
-        cd ~/.vim/bundle
-        git clone https://github.com/tomtom/tlib_vim.git
-        git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-        git clone https://github.com/garbas/vim-snipmate.git
-        git clone https://github.com/honza/vim-snippets.git
-
-        cecho c "=========================> Indent-line\n"
-        cd ~/.vim/bundle
-        git clone https://github.com/Yggdroot/indentLine.git
-
-        cecho c "=========================> Single-compile\n"
-        cd ~/.vim/bundle
-        git clone https://github.com/xuhdev/SingleCompile.git
-
-        cecho c "=========================> Vim-commentary\n"
-        cd ~/.vim/bundle
-        git clone https://github.com/tpope/vim-commentary.git
-
-        #cecho c "=========================> Gruvbox theme\n"
-        #mkdir -p ~/tmp
-        #cd ~/tmp && \
-        #git clone https://github.com/morhetz/gruvbox.git
-        #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-        #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-        #rm -rf ~/tmp/gruvbox
-
-        #cecho c "=========================> Sorcerer theme\n"
-        #cd ~/tmp && \
-        #git clone https://github.com/adlawson/vim-sorcerer.git
-        #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-        #rm -rf ~/tmp/vim-sorcerer
-
-        cecho c "=========================> Jellybeans theme\n"
-        cd ~/tmp && \
-        git clone https://github.com/nanotech/jellybeans.vim.git
-        mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-        rm -rf ~/tmp/jellybeans.vim
-
-        cecho c "=========================> Copying .vimrc\n"
-        cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-        
-        cecho c "=========================> Copying own snippets\n"
-        cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-        cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-        cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-xinit-arch
     elif [ "$c" -eq "12" ] ; then
-        cecho c "=========================> Installing conky\n"
-        sudo aptitude install conky -y
-
-        cecho c "=========================> Copying .conkyrc\n"
-        cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
-
-        cecho c "=========================> Copying fonts\n"
-        sudo cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-deb
+        fun-vim-arch
     elif [ "$c" -eq "13" ] ; then
-        cecho c "=========================> Choice your DE\n"
-        cecho c "1) i3\n"
-        cecho c "2) lxde-core\n"
-        cecho c "3) awesome\n"
-        read c2
-
-        if [ "$c2" -eq "1" ] ; then
-            cecho c "=========================> Creating dirs\n"
-            mkdir -p $HOME/.i3
-            mkdir -p $HOME/Obrazy
-            cecho c "=========================> Installing i3 depedencies\n"
-            sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal xorg feh --noconfirm
-
-            cecho c "=========================> Copying config files\n"
-            cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-            cp ~/repo/linux_stuff/i3/config ~/.i3/config
-            cp ~/repo/linux_stuff/i3/i3lock-arch.png ~/Obrazy/i3lock-arch.png
-        elif [ "$c2" -eq "2" ] ; then
-            cecho c "=========================> Installing lxde-core depedencies\n"
-            sudo pacman -S xserver-xorg xorg xinit lxde-core lxterminal pavucontrol 
-        elif [ "$c2" -eq "3" ] ; then
-            cecho c "=========================> Installing awesome depedencies\n"
-            sudo pacman -S xserver-xorg xorg xinit awesome lxterminal pavucontrol 
-        else
-            cecho r "Bad number\n"
-        fi
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
-
+        fun-conky-arch
     elif [ "$c" -eq "14" ] ; then
-        cecho c "=========================> Installing SSH server\n"
-        sudo pacman -S openssh --noconfirm
-        sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-        cecho y "=========================> To connect: ssh user@ip-number\n"
-        cecho y "=========================> To run GUI apps: export DISPLAY=:0\n"
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-de-arch
     elif [ "$c" -eq "15" ] ; then
-        cecho c "=========================> Installing livestreamer\n"
-        sudo pacman -S livestreamer
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-ssh-arch
     elif [ "$c" -eq "16" ] ; then
-        cecho c "=========================> Installing youtube-dl\n"
-        sudo pacman -S youtube-dl
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-livestreamer-arch
     elif [ "$c" -eq "17" ] ; then
-        cecho c "=========================> Installing virtualbox depedencies\n"
-        sudo pacman -S virtualbox linux-headers virtualbox-guest-dkms virtualbox-guest-utils --noconfirm
-        cecho c "=========================> Adding modules\n"
-        sudo modprobe vboxdrv
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-youtubedl-arch
     elif [ "$c" -eq "18" ] ; then
-        cecho c "=========================> Creating dirs\n"
-        mkdir $HOME/.irssi
-        cecho c "=========================> Installing irssi\n"
-        sudo pacman -S install irssi --noconfirm
-        cecho c "=========================> Copying config files\n"
-        cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
-        cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-steam-arch
     elif [ "$c" -eq "19" ] ; then
-        # Vimb web browser
-        mkdir -p $HOME/.config/vimb
-        cecho c "=========================> Installing depedencies for vimb...\n"
-        sudo pacman -S libsoup webkitgtk2 --noconfirm
-        cd $HOME/tmp
-        git clone https://github.com/fanglingsu/vimb.git
-        cd $HOME/tmp/vimb
-        make clean
-        sudo make install
-        cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
-        cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
-
-        cecho c "Done\n"
-        read -p "Press any key..."
-        menu-arch
+        fun-virtualbox-arch
+    elif [ "$c" -eq "20" ] ; then
+        fun-irssi-arch
+    elif [ "$c" -eq "21" ] ; then
+        fun-vimb-arch
     elif [ "$c" -eq "99" ] ; then
         clear
         exit
+    elif [ "$c" -eq "100" ] ; then
+        fun-all-arch
     else
         cecho r "Bad number\n"
         read -p "Press any key..."
         menu-arch
     fi
+}
+
+fun-git-arch()
+{
+    cecho c "==========> Git installing\n"
+    sudo pacman -S git --noconfirm
+    cecho c "==========> Setting user name\n"
+    git config --global user.name "Michal Dudek"
+    cecho c "==========> Setting user e-mail\n"
+    git config --global user.email michal.dudek1995@gmail.com
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-dirs-arch()
+{
+    cecho c "==========> Creating dirs...\n"
+    mkdir -p $HOME/repo
+    mkdir -p $HOME/tmp
+    # Creating repo dir and cloning repository
+    if [ ! -d $HOME/repo/linux_stuff ]; then
+        cd $HOME/repo
+        cecho c "==========> Cloning repository...\n"
+        git clone https://github.com/micdud1995/linux_stuff.git
+    else
+        cecho c "==========> $HOME/repo/linux_stuff exists already...\n"
+    fi
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-packages-arch()
+{
+    cecho c "==========> Choice packages: \n"
+    cecho c "1) All\n"
+    cecho c "2) Xorg\n"
+    read c2
+
+    if [ "$c2" -eq "1" ] ; then
+        cecho c "==========> Installing basic packages...\n"
+        sudo pacman -S mc moc mutt tree scrot feh git alsa-utils ncurses zathura mirage  mpv lxrandr pavucontrol lxterminal rtorrent pinta irssi xf86-input-synaptics expac lib32-mesa-libgl xorg-server xf86-input-evdev xf86-input-mouse xf86-input-keyboard xorg --noconfirm 
+    elif [ "$c2" -eq "2" ] ; then
+        sudo pacman -S xorg xf86-input-synaptics lib32-mesa-libgl xorg-server xf86-input-evdev xf86-input-mouse xf86-input-keyboard 
+    else
+        cecho r "Bad number\n"
+        read -p "Press any key..."
+        menu-arch
+    fi
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-textapps-arch()
+{
+    cecho c "==========> Creating dirs\n"
+    mkdir -p $HOME/.config/mc
+    mkdir -p $HOME/.moc
+    mkdir -p $HOME/.local/share/mc/skins
+    mkdir -p $HOME/.rtorrent
+    cecho c "==========> Installing packages\n"
+    sudo pacman -S moc mc mutt rtorrent --noconfirm
+    cecho c "==========> Configuration moc player\n"
+    cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
+    cecho c "==========> Configuration midnight commander\n"
+    cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
+    cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
+    cecho c "==========> Configuration zsh\n"
+    cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
+    chsh -s /bin/zsh 	# makes zsh default shell
+    cecho c "==========> Configuration mutt\n"
+    cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
+    cecho c "==========> Configuration rtorrent\n"
+    cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-beepscripts-arch()
+{
+    cecho c "==========> Setting polish letters\n"
+    sudo mkdir -p /etc/X11/xorg.conf.d
+    sudo cp $HOME/repo/linux_stuff/config-files/vconsole.conf /etc/vconsole.conf
+    sudo cp $HOME/repo/linux_stuff/config-files/10-evdev.conf /etc/X11/xorg.conf.d/10-evdev.conf
+    cecho c "==========> Disabling beep sound\n"
+    # Disable beep sound in console
+    set bell-style none
+    # Disable beep sound in X
+    xset b off
+    # Cleaning script 
+    sudo cp $HOME/repo/linux_stuff/config-files/arch-clear /usr/bin/arch-clear
+    sudo chmod +x /usr/bin/arch-clear
+    # Mount scripts
+    cecho c "==========> Copying mount scripts\n"
+    sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
+    sudo chmod +x /usr/bin/m
+    sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
+    sudo chmod +x /usr/bin/um
+    cecho c "==========> Copying live-usb script\n"
+    sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
+    sudo chmod +x /usr/bin/live-usb
+    # cecho c "==========> Enabling touchpad\n"
+    # sudo cp /repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-lenovo-arch()
+{
+    cecho c "==========> Disabling beep sound\n"
+    sudo rmmod pcspkr
+    cecho c "==========> Update & upgrade system\n"
+    sudo pacman -Syyu --noconfirm
+    cecho c "==========> Setting wallpaper\n"
+    mkdir -p $HOME/Obrazy
+    cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+    feh --bg-scale $HOME/Obrazy/wallpaper.jpg
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-shell-arch()
+{
+    cecho c "==========> Choice shell: \n"
+    cecho c "1) bash\n"
+    cecho c "2) zsh\n"
+    read c2
+
+    if [ "$c2" -eq "1" ] ; then
+        cecho c "==========> Installing bash and colordiff\n"
+        sudo pacman -S bash colordiff
+        cecho c "==========> Configuration bash\n"
+        cp $HOME/repo/linux_stuff/config-files/hide.bashrc $HOME/.bashrc
+        cecho c "==========> Making bash default shell\n"
+        chsh -s /bin/bash
+    elif [ "$c2" -eq "2" ] ; then
+        cecho c "==========> Installing zsh and colordiff\n"
+        sudo pacman -S zsh -y
+        cecho c "==========> Configuration zsh\n"
+        cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
+        cecho c "==========> Making zsh default shell\n"
+        chsh -s /bin/zsh
+    else
+        cecho r "Bad number\n"
+        read -p "Press any key..."
+        menu-arch
+    fi
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-pacman()
+{
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-slim-arch()
+{
+    cecho c "==========> Installing slim\n"
+    sudo pacman -S slim --noconfirm
+    cecho c "==========> Copying slim.conf\n"
+    sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-grub-arch()
+{
+    cecho c "==========> Remaking grub file\n"
+    sudo cp $HOME/repo/linux_stuff/config-files/grub /etc/default/grub
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-xinit-arch()
+{
+    cecho c "==========> Choice your DE\n"
+    cecho c "1) i3\n"
+    cecho c "2) lxde\n"
+    cecho c "3) awesome\n"
+    read c2
+
+    if [ "$c2" -eq "1" ] ; then
+        echo "setxkbmap pl &" > $HOME/.xinitrc
+        echo "exec i3" >> $HOME/.xinitrc
+    elif [ "$c2" -eq "2" ] ; then
+        echo "setxkbmap pl &" > $HOME/.xinitrc
+        echo "exec startlxde" >> $HOME/.xinitrc
+    elif [ "$c2" -eq "3" ] ; then
+        echo "setxkbmap pl &" > $HOME/.xinitrc
+        echo "exec awesome" >> $HOME/.xinitrc
+    else
+        cecho r "Bad number\n"
+    fi
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-vim-arch()
+{
+    #==============================================================
+    # Plugin list:
+    #	Pathogen
+    #	Nerdtree
+    #	Syntastic
+    #	Tagbar / Taglist
+    #	GitGutter
+    #	Nerdcommenter
+    # 	Vim-airline
+    #	Auto-pairs
+    # 	Supertab
+    #	SnipMate
+    #   indentLine
+    #   SingleCompile
+    #   Vim-commentary
+    #	Gruvbox theme
+    #==============================================================
+
+    cecho c "==========> Installing vim depedencies\n"
+    sudo pacman -S vim curl ctags ttf-inconsolata --noconfirm
+
+    cecho c "==========> Making vim dirs\n"
+    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+
+    cecho c "==========> Pathogen\n"
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+    cecho c "==========> Nerdtree\n"
+    cd ~/.vim/bundle && \
+    git clone https://github.com/scrooloose/nerdtree.git
+
+    cecho c "==========> Syntastic\n"
+    cd ~/.vim/bundle && \
+    git clone https://github.com/scrooloose/syntastic.git
+
+    cecho c "==========> Taglist/Tagbar\n"
+    cd ~/.vim/bundle && \
+    git clone git://github.com/vim-scripts/taglist.vim.git
+    #git clone https://github.com/vim-scripts/Tagbar.git
+
+    cecho c "==========> Git-gutter\n"
+    cd ~/.vim/bundle && \
+    git clone git://github.com/airblade/vim-gitgutter.git
+
+    cecho c "==========> Nerd-commenter\n"
+    cd ~/.vim/bundle && \
+    git clone https://github.com/scrooloose/nerdcommenter.git
+
+    cecho c "==========> Vim-airline\n"
+    cd ~/.vim/bundle && \
+    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+
+    cecho c "==========> Auto-pairs\n"
+    cd ~/.vim/bundle && \
+    git clone git://github.com/jiangmiao/auto-pairs.git
+
+    cecho c "==========> Supertab\n"
+    git clone git://github.com/ervandew/supertab.git
+
+    cecho c "==========> Snipmate\n"
+    cd ~/.vim/bundle
+    git clone https://github.com/tomtom/tlib_vim.git
+    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+    git clone https://github.com/garbas/vim-snipmate.git
+    git clone https://github.com/honza/vim-snippets.git
+
+    cecho c "==========> Indent-line\n"
+    cd ~/.vim/bundle
+    git clone https://github.com/Yggdroot/indentLine.git
+
+    cecho c "==========> Single-compile\n"
+    cd ~/.vim/bundle
+    git clone https://github.com/xuhdev/SingleCompile.git
+
+    cecho c "==========> Vim-commentary\n"
+    cd ~/.vim/bundle
+    git clone https://github.com/tpope/vim-commentary.git
+
+    #cecho c "==========> Gruvbox theme\n"
+    #mkdir -p ~/tmp
+    #cd ~/tmp && \
+    #git clone https://github.com/morhetz/gruvbox.git
+    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+    #rm -rf ~/tmp/gruvbox
+
+    #cecho c "==========> Sorcerer theme\n"
+    #cd ~/tmp && \
+    #git clone https://github.com/adlawson/vim-sorcerer.git
+    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+    #rm -rf ~/tmp/vim-sorcerer
+
+    cecho c "==========> Jellybeans theme\n"
+    cd ~/tmp && \
+    git clone https://github.com/nanotech/jellybeans.vim.git
+    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+    rm -rf ~/tmp/jellybeans.vim
+
+    cecho c "==========> Copying .vimrc\n"
+    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+    
+    cecho c "==========> Copying own snippets\n"
+    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-conky-arch()
+{
+    cecho c "==========> Installing conky\n"
+    sudo pacman -S conky --noconfirm
+
+    cecho c "==========> Copying .conkyrc\n"
+    cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
+
+    cecho c "==========> Copying fonts\n"
+    sudo cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-de-arch()
+{
+    cecho c "==========> Choice your DE\n"
+    cecho c "1) i3\n"
+    cecho c "2) lxde-core\n"
+    cecho c "3) awesome\n"
+    read c2
+
+    if [ "$c2" -eq "1" ] ; then
+        cecho c "==========> Creating dirs\n"
+        mkdir -p $HOME/.i3
+        mkdir -p $HOME/Obrazy
+        cecho c "==========> Installing i3 depedencies\n"
+        sudo pacman -S i3 dmenu lxrandr pavucontrol lxterminal xorg xinit feh xf86-input-synaptics lib32-mesa-libgl xorg-server xf86-input-evdev xf86-input-mouse xf86-input-keyboard --noconfirm
+
+        cecho c "==========> Copying config files\n"
+        cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
+        cp ~/repo/linux_stuff/i3/config ~/.i3/config
+        cp ~/repo/linux_stuff/i3/i3lock-arch.png ~/Obrazy/i3lock-arch.png
+    elif [ "$c2" -eq "2" ] ; then
+        cecho c "==========> Installing lxde-core depedencies\n"
+        sudo pacman -S xserver-xorg xorg xinit lxde-core lxterminal pavucontrol xf86-input-synaptics lib32-mesa-libgl xf86-input-evdev xf86-input-mouse xf86-input-keyboard --noconfirm
+    elif [ "$c2" -eq "3" ] ; then
+        cecho c "==========> Installing awesome depedencies\n"
+        sudo pacman -S xserver-xorg xorg xinit awesome lxterminal pavucontrol xf86-input-synaptics lib32-mesa-libgl xf86-input-evdev xf86-input-mouse xf86-input-keyboard --noconfirm
+    else
+        cecho r "Bad number\n"
+    fi
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-ssh-arch()
+{
+    cecho c "==========> Installing SSH server\n"
+    sudo pacman -S openssh --noconfirm
+    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+    cecho y "==========> To connect: ssh user@ip-number\n"
+    cecho y "==========> To run GUI apps: export DISPLAY=:0\n"
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-livestreamer-arch()
+{
+    cecho c "==========> Installing livestreamer\n"
+    sudo pacman -S livestreamer --noconfirm
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-youtubedl-arch()
+{
+    cecho c "==========> Installing youtube-dl\n"
+    sudo pacman -S youtube-dl --noconfirm
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-steam-arch()
+{
+    cecho c "==========> Installing steam depedencies\n"
+    sudo pacman -S curl dbus desktop-file-utils freetype2 gdk-pixbuf2 hicolor-icon-theme lib32-gcc-libs lib32-mesa-libgl lib32-libx11 ttf-font zenity lib32-alsa-plugins lib32-catalyst-utils lib32-mesa-dri  
+    cecho c "==========> Installing steam\n"
+    sudo pacman -S steam
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-virtualbox-arch()
+{
+    cecho c "==========> Installing virtualbox depedencies\n"
+    sudo pacman -S virtualbox linux-headers virtualbox-guest-dkms virtualbox-guest-utils --noconfirm
+    cecho c "==========> Adding modules\n"
+    sudo modprobe vboxdrv
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-irssi-arch()
+{
+    cecho c "==========> Creating dirs\n"
+    mkdir $HOME/.irssi
+    cecho c "==========> Installing irssi\n"
+    sudo pacman -S install irssi --noconfirm
+    cecho c "==========> Copying config files\n"
+    cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
+    cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-vimb-arch()
+{
+    mkdir -p $HOME/.config/vimb
+    cecho c "==========> Installing depedencies for vimb...\n"
+    sudo pacman -S libsoup webkitgtk2 --noconfirm
+    cd $HOME/tmp
+    git clone https://github.com/fanglingsu/vimb.git
+    cd $HOME/tmp/vimb
+    make clean
+    sudo make install
+    cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
+    cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+
+    cecho c "Done\n"
+    read -p "Press any key..."
+    clear
+}
+fun-all-arch()
+{
+    clear
+    fun-git-arch
+    fun-dirs-arch
+    fun-packages-arch
+    fun-textapps-arch
+    fun-beepscripts-arch
+    fun-lenovo-arch
+    fun-shell-arch
+    fun-pacman
+    fun-slim-arch
+    fun-grub-arch
+    fun-xinit-arch
+    fun-vim-arch
+    fun-de-arch
+    fun-ssh-arch
+    fun-livestreamer-arch
+    fun-youtubedl-arch
+    fun-steam-arch
+    fun-virtualbox-arch
+    fun-irssi-arch
+    fun-vimb-arch
 }
 
 menu
