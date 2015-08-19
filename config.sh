@@ -779,13 +779,16 @@ menu-arch()
     cecho $color5 "20) Irssi\n"
     cecho $color3 "10) Grub\t\t"
     cecho $color5 "21) Vimb [source]\n"
-    cecho $color3 "11) .xinitrc\n"
+    cecho $color3 "11) .xinitrc\t\t"
+    cecho $color6 "0) Inst. ending\n"
     cecho $color5 "99) Exit\t\t"
     cecho $color6 "100) All\n"
     cecho $color0 "==========================================\n"
     read c
 
-    if [ "$c" -eq "1" ] ; then
+    if [ "$c" -eq "0" ] ; then
+        fun-install-arch
+    elif [ "$c" -eq "1" ] ; then
         fun-git-arch
     elif [ "$c" -eq "2" ] ; then
         fun-dirs-arch 
@@ -839,6 +842,32 @@ menu-arch()
     fi
 }
 
+fun-install-arch()
+{
+    # pacman.conf and update
+    fun-pacman
+
+    # Network
+    pacman -S wget net-tools wicd wireless_tools wpa_supplicant wpa_actiond
+
+    # X
+	pacman -S xorg-server xorg-server-utils xorg-apps xorg-xinit xf86-input-evdev xf86-input-mouse xf86-input-keyboard xf86-video-vesa xf86-input-synaptics mesa lib32-mesa-libgl i3 slim lxterminal htop tree 
+
+    # audio
+    pacman -S alsa-firmware alsa-lib alsa-plugins alsa-utils pulseaudio pulseaudio-alsa libcanberra libcanberra-pulse
+
+    # Services
+    systemctl disable dhcpcd
+    systemctl disable network-auto-wired.service
+    systemctl enable wicd
+    systemctl enable slim.service
+
+	useradd -m -g users -s /bin/bash michal
+	chfn michal
+	passwd michal 
+	pacman -S sudo
+	visudo
+}
 fun-git-arch()
 {
     cecho c "==========> Git installing\n"
