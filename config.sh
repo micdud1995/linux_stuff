@@ -996,6 +996,8 @@ fun-shell-arch()
 }
 fun-pacman()
 {
+    cecho c "==========> Copying pacman.conf: \n"
+    sudo cp $HOME/repo/linux_stuff/config-files/pacman.conf /etc/pacman.conf
     sudo pacman -Syyu
 
     cecho c "Done\n"
