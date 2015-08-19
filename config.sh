@@ -708,6 +708,8 @@ fun-vimb()
 fun-all()
 {
     clear
+    sudo aptitude update
+    sudo aptitude upgrade
     fun-git
     fun-dirs
     fun-sources
@@ -1272,6 +1274,8 @@ fun-vimb-arch()
 fun-all-arch()
 {
     clear
+    fun-pacman
+    sudo pacman -Syyu
     fun-git-arch
     fun-dirs-arch
     fun-packages-arch
@@ -1279,7 +1283,6 @@ fun-all-arch()
     fun-beepscripts-arch
     fun-lenovo-arch
     fun-shell-arch
-    fun-pacman
     fun-slim-arch
     fun-grub-arch
     fun-xinit-arch
