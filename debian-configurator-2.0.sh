@@ -5,7 +5,7 @@
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michał Dudek 
 # Date              21-08-2015
-# Version           1.0
+# Version           2.0
 # Notes             Run as a user, configure sudo before
 # Bash_version      4.3-11+b1
 # License           GNU General Public License v3.0
