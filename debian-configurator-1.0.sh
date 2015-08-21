@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# run as a user!
-# configure visudo before
+#==============================================================================
+# Title             debian-configurator.sh 
+# Description       This script will config installed Debian GNU/Linux system 
+# Author            Michał Dudek 
+# Date              13-07-2015
+# Version           1.0
+# Notes             Run as a user, configure sudo before
+# Bash_version      4.3-11+b1
+# License           GNU General Public License v3.0
+#==============================================================================
 
 #=================================
 # Colors
@@ -336,7 +344,7 @@ fun-shell()
         chsh -s /bin/bash
     elif [ "$c2" -eq "2" ] ; then
         cecho c "==========> Installing zsh\n"
-        sudo aptitude install zsh -y
+        sudo aptitude colordiff install zsh -y
         cecho c "==========> Configuration zsh\n"
         cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
         cecho c "==========> Making zsh default shell\n"
