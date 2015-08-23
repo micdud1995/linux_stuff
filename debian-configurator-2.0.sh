@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #==============================================================================
-# Title             post-config.sh
+# Title             debian-configurator-2.0.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michał Dudek 
 # Date              21-08-2015
@@ -13,7 +13,7 @@
 
 info(){
     whiptail --title "Debian config" --msgbox \
-    "At first:\n\n1. Install sudo\n2. adduser foo sudo\n3. run visudo" 20 60
+    "At first:\n\n1. Install sudo\n2. adduser username sudo\n3. run visudo" 20 60
 
     main_menu
 }
@@ -34,8 +34,9 @@ select_system() {
 }
 
 repo_dirs() {
-    if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yes-button "Yes" --no-button "No" --yesno \
+    if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --no-button "No" --yesno \
         "Do you want to clone repo?\nThere are important config files\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 60) then
+
         mkdir -p $HOME/repo
         mkdir -p $HOME/tmp
         # Creating repo dir and cloning repository
@@ -54,15 +55,49 @@ repo_dirs() {
 
 config_sources() {
     if (whiptail --title "Updating sources" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources." 20 60) then
+        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\nContrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 60) then
 
-        VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select your OS" 20 60 10 \
+        VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select version of repositories" 20 60 10 \
         "Stable"    "" \
         "Testing"   "" \
-        "Sid"       "" 3>&1 1>&2 2>&3)
+        "Sid"       "" \
+        "Stable_contrib_non-free"    "" \
+        "Testing_contrib_non-free"   "" \
+        "Sid_contrib_non-free"       "" 3>&1 1>&2 2>&3)
 
         case "$VERSION" in
             "Stable")
+                NONFREE=0
+                sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+            ;;
+            "Testing")
+                NONFREE=0
+                sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+            ;;
+            "Sid")
+                NONFREE=0
+                sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+            ;;
+            "Stable_contrib_non-free")
+                NONFREE=1
                 sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
@@ -73,7 +108,8 @@ config_sources() {
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
-            "Testing")
+            "Testing_contrib_non-free")
+                NONFREE=1
                 sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
@@ -81,7 +117,8 @@ config_sources() {
                 sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
-            "Sid")
+            "Sid_contrib_non-free")
+                NONFREE=1
                 sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
@@ -105,6 +142,7 @@ config_sources() {
 config_shell() {
     if (whiptail --title "Shell" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to config shell?\n\nYou can choose between zsh and bash.\nScript will unpack fancy config file for it." 20 60) then
+
         SHELL=$(whiptail --nocancel --title "Select shell" --menu "Select your shell:" 20 60 10 \
         "Bash"  "" \
         "Zsh"   "" 3>&1 1>&2 2>&3)
@@ -216,14 +254,17 @@ config_packages() {
             "pinta"                         "Image Editor" ON \
             "rtorrent"                      "Torrent Client" ON \
             "screenfetch"                   "System Info" ON \
+            "slim"                          "Login Manager" ON \
             "scrot"                         "Screenshots" ON \
             "steam"                         "Steam Client" ON \
             "tree"                          "Tree of dirs" ON \
             "ufw"                           "Firewall" OFF \
-            "vim" 	  	                    "Text Editor" ON \
+            "vim" 	  	                    "Text Editor" OFF \
+            "vim-nox" 	  	                "Vim with script support" ON \
             "vimb"                          "Web Browser" ON \
             "virtualbox"                    "Virtual Machines" ON \
             "xbacklight"                    "Screen brightness" ON \
+            "xboxdrv"                       "Xbox pad driver" OFF \
             "xorg" 	  	                    "X Server" ON \
             "xserver-xorg-input-synaptics"  "Touchpad" ON \
             "youtube-dl"                    "YT Download" ON \
@@ -233,59 +274,62 @@ config_packages() {
         download=$(echo "$software" | sed 's/\"//g')
         sudo aptitude install $download -y
 
-        if [[ $download == *"conky"* ]] ; then
-            sudo aptitude install conky -y
+        if [[ $download == *" conky "* ]] ; then
             cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
             sudo cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
         fi
 
-        if [[ $download == *"git"* ]] ; then
-            sudo aptitude install git -y
+        if [[ $download == *" xboxdrv "* ]] ; then
+            sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+            sudo rmmod xpad
+        fi
+
+        if [[ $download == *" git "* ]] ; then
             name=$(whiptail --nocancel --inputbox "Set git username:" 20 60 "Michał Dudek" 3>&1 1>&2 2>&3)
             git config --global user.name "$name"
             mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 60 "michal.dudek1995@gmail.com" 3>&1 1>&2 2>&3)
             git config --global user.email $mail
         fi
 
-        if [[ $download == *"openssh"* ]] ; then
+        if [[ $download == *" openssh "* ]] ; then
             sudo aptitude install openssh-server -y
             sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
             sudo /etc/init.d/ssh restart
             export DISPLAY=:0
         fi
 
-        if [[ $download == *"mc"* ]] ; then
+        if [[ $download == *" mc "* ]] ; then
             mkdir -p $HOME/.config/mc
             mkdir -p $HOME/.local/share/mc/skins
             cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
             cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
         fi
 
-        if [[ $download == *"moc"* ]] ; then
+        if [[ $download == *" moc "* ]] ; then
             mkdir -p $HOME/.moc
             cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
         fi
         
-        if [[ $download == *"mutt"* ]] ; then
+        if [[ $download == *" mutt "* ]] ; then
             cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
         fi
 
-        if [[ $download == *"irssi"* ]] ; then
+        if [[ $download == *" irssi "* ]] ; then
             mkdir $HOME/.irssi
             cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
             cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
         fi
 
-        if [[ $download == *"irssi"* ]] ; then
+        if [[ $download == *" irssi "* ]] ; then
             mkdir -p $HOME/.rtorrent
             cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
         fi
 
-        if [[ $download == *"virtualbox"* ]] ; then
+        if [[ $download == *" virtualbox "* ]] ; then
             sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
         fi
 
-        if [[ $download == *"livestreamer"* ]] ; then
+        if [[ $download == *" livestreamer "* ]] ; then
             sudo aptitude install python python-requests python-setuptools python-singledispatch -y
             cd $HOME/tmp
             git clone https://github.com/chrippa/livestreamer.git
@@ -294,12 +338,12 @@ config_packages() {
             sudo rm -rf $HOME/tmp/livestreamer
         fi
 
-        if [[ $download == *"youtube-dl"* ]] ; then
+        if [[ $download == *" youtube-dl "* ]] ; then
             sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
             sudo chmod a+rx /usr/local/bin/youtube-dl
         fi
 
-        if [[ $download == *"vimb"* ]] ; then
+        if [[ $download == *" vimb "* ]] ; then
             mkdir -p $HOME/tmp
             mkdir -p $HOME/tmp/vimb
             mkdir -p $HOME/.config/vimb
@@ -313,14 +357,18 @@ config_packages() {
             cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
         fi
 
-        if [[ $download == *"steam"* ]] ; then
+        if [[ $download == *" steam "* ]] ; then
             mkdir -p $HOME/tmp
-            sudo aptitude install curl zenity -y
-            wget https://steamcdn-a.akamaihd.net/client/installer/steam.deb -O $HOME/tmp/steam.deb
-            sudo dpkg -i $HOME/tmp/steam.deb
+            sudo aptitude install curl zenity steam -y
         fi
 
-        if [[ $download == *"vim"* ]] ; then
+        if [[ $download == *" slim "* ]] ; then
+            sudo aptitude install slim -y
+            sudo cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
+            sudo dpkg-reconfigure slim
+        fi
+
+        if [[ $download == *" vim "* ]] ; then
             #==============================================================
             # Plugin list:
             #	Pathogen
@@ -426,24 +474,143 @@ config_packages() {
             cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
             cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
         fi
+
+        if [[ $download == *" vim-nox "* ]] ; then
+            #==============================================================
+            # Plugin list:
+            #	Pathogen
+            #	Nerdtree
+            #	Syntastic
+            #	Tagbar / Taglist
+            #	GitGutter
+            #	Nerdcommenter
+            # 	Vim-airline
+            #	Auto-pairs
+            # 	Supertab
+            #	SnipMate
+            #   indentLine
+            #   SingleCompile
+            #   Vim-commentary
+            #   YouCompleteMe
+            #	Gruvbox theme
+            #==============================================================
+
+            sudo aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
+
+            # Making dirs
+            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+
+            # Pathogen
+            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+            # Nerdtree
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdtree.git
+
+            # Syntastic
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/syntastic.git
+
+            # Taglist/Tagbar
+            cd ~/.vim/bundle && \
+            git clone git://github.com/vim-scripts/taglist.vim.git
+            #git clone https://github.com/vim-scripts/Tagbar.git
+
+            # Git-gutter
+            cd ~/.vim/bundle && \
+            git clone git://github.com/airblade/vim-gitgutter.git
+
+            # Nerd-commenter
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdcommenter.git
+
+            # Vim-airline
+            cd ~/.vim/bundle && \
+            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+
+            # Auto-pairs
+            cd ~/.vim/bundle && \
+            git clone git://github.com/jiangmiao/auto-pairs.git
+
+            # Supertab
+            git clone git://github.com/ervandew/supertab.git
+
+            # Snipmate
+            cd ~/.vim/bundle
+            git clone https://github.com/tomtom/tlib_vim.git
+            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+            git clone https://github.com/garbas/vim-snipmate.git
+            git clone https://github.com/honza/vim-snippets.git
+
+            # Indent-line
+            cd ~/.vim/bundle
+            git clone https://github.com/Yggdroot/indentLine.git
+
+            # Single-compile
+            cd ~/.vim/bundle
+            git clone https://github.com/xuhdev/SingleCompile.git
+
+            # Vim-commentary
+            cd ~/.vim/bundle
+            git clone https://github.com/tpope/vim-commentary.git
+
+            # YouCompleteMe
+            cd ~/.vim/bundle/
+            git clone https://github.com/Valloric/YouCompleteMe.git
+            cd YouCompleteMe/
+            git submodule update --init --recursive
+            ./install.sh
+            
+            # Gruvbox theme
+            #mkdir -p ~/tmp
+            #cd ~/tmp && \
+            #git clone https://github.com/morhetz/gruvbox.git
+            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+            #rm -rf ~/tmp/gruvbox
+
+            # Sorcerer theme
+            #cd ~/tmp && \
+            #git clone https://github.com/adlawson/vim-sorcerer.git
+            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+            #rm -rf ~/tmp/vim-sorcerer
+
+            # Jellybeans theme
+            cd ~/tmp && \
+            git clone https://github.com/nanotech/jellybeans.vim.git
+            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+            rm -rf ~/tmp/jellybeans.vim
+
+            # Copying .vimrc
+            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+            
+            # Copying snippets
+            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+        fi
     fi
 
     config_scripts
 }
 
 config_scripts() {
-    if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno "Do you want to copy useful scripts?\n\n - Mounting\n - Creating live-usb" 20 60) then
+    if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to copy useful scripts?\n\n - Mounting [m command]\n - Unmounting [um command]\n - Creating live-usb [live-usb command]" 20 60) then
+
         scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \npress enter when finished" 20 60 10 \
             "m"                    "Mount script" ON \
             "um"                    "Umount script" ON \
             "live-usb"     	        "Live-USB script" ON 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *"m"* ]] ; then
+            sudo aptitude install fuse ntfs-3g -y
             sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
             sudo chmod +x /usr/bin/m
         fi
 
         if [[ $scripts == *"um"* ]] ; then
+            sudo aptitude install fuse ntfs-3g -y
             sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
             sudo chmod +x /usr/bin/um
         fi
@@ -460,6 +627,7 @@ config_scripts() {
 config_beep() {
     if (whiptail --title "Beep sound" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 60) then
+
         sudo rmmod pcspkr
         sudo sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
     fi
@@ -502,7 +670,7 @@ config_pc() {
             wicd-client -n
         fi
 
-        if [[ $scripts == *"WiFi"* ]] ; then
+        if [[ $scripts == *"Microphone"* ]] ; then
             sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         fi
 
@@ -525,7 +693,7 @@ main_menu() {
 		"Install packages"      "-" \
 		"Copy scripts"          "-" \
 		"Disable beep"          "-" \
-		"Config PC things"  "-" \
+		"Config PC things"      "-" \
 		"Exit Installer"        "-" 3>&1 1>&2 2>&3)
 
 	case "$menu_item" in
