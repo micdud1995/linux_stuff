@@ -47,10 +47,9 @@ repo_dirs() {
         else
             whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 60
         fi
-        config_sources
-    else
-        config_sources
     fi
+
+    config_sources
 }
 
 config_sources() {
@@ -61,9 +60,9 @@ config_sources() {
         "Stable"    "" \
         "Testing"   "" \
         "Sid"       "" \
-        "Stable_contrib_non-free"    "" \
-        "Testing_contrib_non-free"   "" \
-        "Sid_contrib_non-free"       "" 3>&1 1>&2 2>&3)
+        "Stable contrib non-free"    "" \
+        "Testing contrib non-free"   "" \
+        "Sid contrib non-free"       "" 3>&1 1>&2 2>&3)
 
         case "$VERSION" in
             "Stable")
@@ -96,7 +95,7 @@ config_sources() {
                 sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
             ;;
-            "Stable_contrib_non-free")
+            "Stable contrib non-free")
                 NONFREE=1
                 sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
@@ -108,7 +107,7 @@ config_sources() {
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
-            "Testing_contrib_non-free")
+            "Testing contrib non-free")
                 NONFREE=1
                 sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
@@ -117,7 +116,7 @@ config_sources() {
                 sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
-            "Sid_contrib_non-free")
+            "Sid contrib non-free")
                 NONFREE=1
                 sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
@@ -181,7 +180,6 @@ config_gui() {
             ;;
             "Intel")
                 sudo aptitude install xserver-xorg-video-intel -y
-                main_menu
             ;;
             "Nvidia")
                 whiptail --title "Error" --msgbox "Not supported yet" 20 60
@@ -189,7 +187,6 @@ config_gui() {
             ;;
             "VBOX")
                 sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
-                main_menu
             ;;
         esac
     fi
@@ -316,11 +313,15 @@ config_packages() {
 
         if [[ $download == *" irssi "* ]] ; then
             mkdir $HOME/.irssi
-            cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
-            cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+            if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
+                "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 60) then
+
+                cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
+                cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+            fi
         fi
 
-        if [[ $download == *" irssi "* ]] ; then
+        if [[ $download == *" rtorrent "* ]] ; then
             mkdir -p $HOME/.rtorrent
             cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
         fi
@@ -598,24 +599,24 @@ config_scripts() {
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to copy useful scripts?\n\n - Mounting [m command]\n - Unmounting [um command]\n - Creating live-usb [live-usb command]" 20 60) then
 
-        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \npress enter when finished" 20 60 10 \
+        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \nPress enter when finished" 20 60 10 \
             "m"                    "Mount script" ON \
             "um"                    "Umount script" ON \
             "live-usb"     	        "Live-USB script" ON 3>&1 1>&2 2>&3)
 
-        if [[ $scripts == *"m"* ]] ; then
+        if [[ $scripts == *" m "* ]] ; then
             sudo aptitude install fuse ntfs-3g -y
             sudo cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
             sudo chmod +x /usr/bin/m
         fi
 
-        if [[ $scripts == *"um"* ]] ; then
+        if [[ $scripts == *" um "* ]] ; then
             sudo aptitude install fuse ntfs-3g -y
             sudo cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
             sudo chmod +x /usr/bin/um
         fi
 
-        if [[ $scripts == *"live-usb"* ]] ; then
+        if [[ $scripts == *" live-usb "* ]] ; then
             sudo cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
             sudo chmod +x /usr/bin/live-usb
         fi
@@ -646,20 +647,20 @@ config_pc() {
             "Microphone"    "Enable Lenovo G580 microphone" ON \
             "Lid"     	    "Don't suspend laptop when lid closed" ON 3>&1 1>&2 2>&3)
 
-        if [[ $scripts == *"Wallpaper"* ]] ; then
+        if [[ $scripts == *" Wallpaper "* ]] ; then
             sudo aptitude install feh
             mkdir -p $HOME/Obrazy
             cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
         fi
 
-        if [[ $scripts == *"Touchpad"* ]] ; then
+        if [[ $scripts == *" Touchpad "* ]] ; then
             sudo mkdir -p /etc/X11/xorg.conf.d
             sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
             echo synclient TapButton1=1 >> $HOME/.xinitrc
         fi
 
-        if [[ $scripts == *"WiFi"* ]] ; then
+        if [[ $scripts == *" WiFi "* ]] ; then
             sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
             sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
             sudo modprobe wl
@@ -670,11 +671,11 @@ config_pc() {
             wicd-client -n
         fi
 
-        if [[ $scripts == *"Microphone"* ]] ; then
+        if [[ $scripts == *" Microphone "* ]] ; then
             sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         fi
 
-        if [[ $scripts == *"Lid"* ]] ; then
+        if [[ $scripts == *" Lid "* ]] ; then
             sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
         fi
     fi 
