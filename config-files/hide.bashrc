@@ -222,4 +222,7 @@ fi
     alias zdupy="livestreamer -p mpv twitch.tv/zdupy"
     alias taz="livestreamer -p mpv twitch.tv/g5taz"
     alias neo="livestreamer -p mpv twitch.tv/neog5"
+    alias esl="livestreamer -p mpv twitch.tv/esl_csgo"
+    alias eslpl="livestreamer -p mpv twitch.tv/esl_csgo_pl"
+    alias cfg="vim /home/michal/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/autoexec.cfg"
 #=================================================================
