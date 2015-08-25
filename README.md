@@ -16,4 +16,4 @@ To run script:
 	chmod +x debian-configurator-2.0.sh
 2) Run it, e.q.
 
-	./debian-configurator-2.0.sh
+	sudo ./debian-configurator-2.0.sh
