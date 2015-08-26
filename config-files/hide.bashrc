@@ -10,9 +10,9 @@ color_prompt=yes
 
 if [ "$color_prompt" = yes ]; then
     # Red
-    # PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\u]—[\W]  \[$(tput sgr0)\]"
+    PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\u]—[\W]  \[$(tput sgr0)\]"
     # Green
-    PS1="\[$(tput bold)\]\[$(tput setaf 2)\][\u]—[\W] \[$(tput sgr0)\]"
+    # PS1="\[$(tput bold)\]\[$(tput setaf 2)\][\u]—[\W] \[$(tput sgr0)\]"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
