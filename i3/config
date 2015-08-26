@@ -7,14 +7,14 @@
 set $mod Mod1
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 2
+for_window [class="^."] border pixel 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # Default volume
 #exec amixer sset Master mute
-# exec amixer sset Master unmute
+exec amixer sset Master unmute
 exec --no-startup-id amixer sset Master 60%
 
 # Wallpaper restoring
@@ -31,44 +31,44 @@ workspace_auto_back_and_forth yes
 #set $tag4 "4: Other_stuff"
 
 # basic colors=============================
-#
-# default blue
-set $de #00688B 
-# cool red
-set $cr #f7003a
 
-# # set some nice colors      border     background  text
-client.focused              $de        $de         $tx
-client.unfocused            $de        $bg         $ia
-client.focused_inactive     $de        $bg         $de
-client.urgent               $de        $rd         $tx
+# color red
+set $re #C01414
+# color second (grey)
+set $se #666666
+
+# # set some nice colors    border  backgr.     text    indicator
+client.focused              $se     $re         $se     $re
+client.unfocused            $se     $se         $se     $se
+client.focused_inactive     $se     $se         $se     $se
+client.urgent               $se     $se         $se     $se
 
 # Bar
 bar 
 {
 	colors 
 	{
-        	# Whole color settings
-        	background #000000
-            statusline #00688B
-        	separator  #0EBFE9
+        # Whole color settings
+        background #000000
+        statusline #666666
+        separator  #959595
 
-        	# Type             border  background font
-        	focused_workspace  #3e79d1 #00688B #ffffff
-        	active_workspace   #f7003a #5f676a #ffffff
-        	inactive_workspace #333333 #222222 #888888
-        	urgent_workspace   #f7003a #990000 #ffffff
+        # Type             border  background font
+        focused_workspace  #FFFFFF #525555 #ffffff
+        active_workspace   #f7003a #5f676a #ffffff
+        inactive_workspace #333333 #222222 #888888
+        urgent_workspace   #f7003a #990000 #ffffff
     }
     
 	# i3bar position
-    #position top
+    # position top
 	position bottom
 
 	status_command i3status
 	font xtf:Cousine 8
 }
 # =======================================================
-#
+
 # =======================================================
 # Bindings
 
@@ -98,10 +98,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 							
 # Move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 # Or, with the arrow keys
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -122,7 +122,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
