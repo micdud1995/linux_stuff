@@ -78,7 +78,10 @@ set textwidth=79
 set formatoptions=qrn1
 
 "Enable code folding
-" set foldenable
+set foldenable
+
+" How to fold
+set foldmethod=indent
 
 "Hide mouse when typing
 set mousehide
