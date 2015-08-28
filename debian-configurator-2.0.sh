@@ -14,14 +14,14 @@
 info(){
     if [[ $UID != 0  ]]; then
         whiptail --title "Debian config" --msgbox \
-        "Please run this script with sudo" 20 60
+        "Please run this script with sudo" 20 70
     else
         main_menu
     fi
 }
 
 select_system() {
-	OS=$(whiptail --nocancel --title "Select OS" --menu "Select your OS" 20 60 10 \
+	OS=$(whiptail --nocancel --title "Select OS" --menu "Select your OS" 20 70 10 \
 	"Debian_8" "" 3>&1 1>&2 2>&3)
 
     case "$OS" in
@@ -29,15 +29,15 @@ select_system() {
             repo_dirs
         ;;
         "*")
-            whiptail --title "Debian config" --msgbox "Wrong OS" 20 60
+            whiptail --title "Debian config" --msgbox "Wrong OS" 20 70
             main_menu
         ;;
     esac
 }
 
 repo_dirs() {
-    if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --no-button "No" --yesno \
-        "Do you want to clone repo?\nThere are important config files\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 60) then
+    if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to clone repo?\nThere are important config files\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
         mkdir -p $HOME/repo
         mkdir -p $HOME/tmp
@@ -47,7 +47,7 @@ repo_dirs() {
             aptitude install git -y
             git clone https://github.com/micdud1995/linux_stuff.git
         else
-            whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 60
+            whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 70
         fi
     fi
 
@@ -56,9 +56,9 @@ repo_dirs() {
 
 config_sources() {
     if (whiptail --title "Updating sources" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\nContrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 60) then
+        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\nContrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
 
-        VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select version of repositories" 20 60 10 \
+        VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select version of repositories" 20 70 10 \
         "Stable"    "" \
         "Testing"   "" \
         "Sid"       "" \
@@ -128,7 +128,7 @@ config_sources() {
                 sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
             "*")
-                whiptail --title "Debian config" --msgbox "Wrong version" 20 60
+                whiptail --title "Debian config" --msgbox "Wrong version" 20 70
                 main_menu
             ;;
         esac
@@ -142,9 +142,9 @@ config_sources() {
 
 config_shell() {
     if (whiptail --title "Shell" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to config shell?\n\nYou can choose between zsh and bash.\nScript will unpack fancy config file for it." 20 60) then
+        "Do you want to config shell?\n\nYou can choose between zsh and bash.\nScript will unpack fancy config file for it." 20 70) then
 
-        SHELL=$(whiptail --nocancel --title "Select shell" --menu "Select your shell:" 20 60 10 \
+        SHELL=$(whiptail --nocancel --title "Select shell" --menu "Select your shell:" 20 70 10 \
         "Bash"  "" \
         "Zsh"   "" 3>&1 1>&2 2>&3)
 
@@ -167,9 +167,9 @@ config_shell() {
 
 config_gui() {
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Install graphics drivers now? \nDrivers for NVIDIA, AMD, Intel, and Virtual Box guests" 20 60) then
+        "Install graphics drivers now? \nDrivers for NVIDIA, AMD, Intel, and Virtual Box guests" 20 70) then
 
-        GPU=$(whiptail --title "Debian config" --menu "Select your GPU" 20 60 10 \
+        GPU=$(whiptail --title "Debian config" --menu "Select your GPU" 20 70 10 \
             "AMD"     "AMD/ATI Graphics" \
             "Intel"   "Intel Graphics" \
             "Nvidia"  "NVIDIA Graphics" \
@@ -177,14 +177,14 @@ config_gui() {
 
         case "$GPU" in
             "AMD")
-                whiptail --title "Error" --msgbox "Not supported yet" 20 60
+                whiptail --title "Error" --msgbox "Not supported yet" 20 70
                 main_menu
             ;;
             "Intel")
                 aptitude install xserver-xorg-video-intel -y
             ;;
             "Nvidia")
-                whiptail --title "Error" --msgbox "Not supported yet" 20 60
+                whiptail --title "Error" --msgbox "Not supported yet" 20 70
                 main_menu
             ;;
             "VBOX")
@@ -194,9 +194,9 @@ config_gui() {
     fi
 
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install a DE or WM?\n\n\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 60) then
+        "Do you want to install a DE or WM?\n\n\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
 
-        DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 60 10 \
+        DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
         "i3"            "i3 tiling WM" \
         "lxde-core"     "fast DE"   3>&1 1>&2 2>&3)
 
@@ -226,49 +226,50 @@ config_gui() {
 
 config_packages() {
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install some common software?\n\nPackages demanding configuration will be configured automatically." 20 60) then
+        "Do you want to install some common software?\n\nPackages demanding configuration will be configured automatically." 20 70) then
 
-        software=$(whiptail --title "Additional software" --checklist "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 60 14 \
-            "alsa-utils"                    "Sound" ON \
+        software=$(whiptail --title "Additional software" --checklist "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
+            "alsa-utils"                    "Sound" OFF \
             "apache"  	                    "Web Server" OFF \
-            "bash"                          "Shell" ON \
+            "bash"                          "Shell" OFF \
             "conky"                         "System Info" OFF \
             "faenza-icon-theme"             "Icon Theme" OFF \
-            "feh"                           "Image Viewer" ON \
-            "htop"                          "Process Info" ON \
-            "irssi"                         "IRC Client" ON \
-            "iceweasel"                     "Web Browser" ON \
-            "libncurses5-dev"               "ncurses" ON \
-            "livestreamer"                  "Stream Tool" ON \
-            "lxrandr"                       "Output manager" ON \
-            "lxterminal"                    "Light terminal" ON \
-            "lynx"                          "Web Browser" ON \
-            "mc"                            "Midnight Commander" ON \
-            "mirage"                        "Image Viewer" ON \
-            "moc"                           "Music Player" ON \
-            "mpv"                           "Video Player" ON \
-            "mutt"                          "Mail Client" ON \
-            "openssh"                       "Secure Shell" ON \
-            "pavucontrol"                   "Sound output" ON \
-            "pinta"                         "Image Editor" ON \
-            "rtorrent"                      "Torrent Client" ON \
-            "screenfetch"                   "System Info" ON \
-            "slim"                          "Login Manager" ON \
-            "scrot"                         "Screenshots" ON \
-            "steam"                         "Steam Client" ON \
-            "tree"                          "Tree of dirs" ON \
+            "feh"                           "Image Viewer" OFF \
+            "htop"                          "Process Info" OFF \
+            "irssi"                         "IRC Client" OFF \
+            "iceweasel"                     "Web Browser" OFF \
+            "libncurses5-dev"               "ncurses" OFF \
+            "libreoffice"                   "Libre Office" OFF \
+            "livestreamer"                  "Stream Tool" OFF \
+            "lxrandr"                       "Output manager" OFF \
+            "lxterminal"                    "Light terminal" OFF \
+            "lynx"                          "Web Browser" OFF \
+            "mc"                            "Midnight Commander" OFF \
+            "mirage"                        "Image Viewer" OFF \
+            "moc"                           "Music Player" OFF \
+            "mpv"                           "Video Player" OFF \
+            "mutt"                          "Mail Client" OFF \
+            "openssh"                       "Secure Shell" OFF \
+            "pavucontrol"                   "Sound output" OFF \
+            "pinta"                         "Image Editor" OFF \
+            "rtorrent"                      "Torrent Client" OFF \
+            "screenfetch"                   "System Info" OFF \
+            "slim"                          "Login Manager" OFF \
+            "scrot"                         "Screenshots" OFF \
+            "steam"                         "Steam Client" OFF \
+            "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
             "vim" 	  	                    "Text Editor" OFF \
-            "vim-nox" 	  	                "Vim with script support" ON \
-            "vimb"                          "Web Browser" ON \
-            "virtualbox"                    "Virtual Machines" ON \
-            "xbacklight"                    "Screen brightness" ON \
+            "vim-nox" 	  	                "Vim with script support" OFF \
+            "vimb"                          "Web Browser" OFF \
+            "virtualbox"                    "Virtual Machines" OFF \
+            "xbacklight"                    "Screen brightness" OFF \
             "xboxdrv"                       "Xbox pad driver" OFF \
-            "xorg" 	  	                    "X Server" ON \
-            "xserver-xorg-input-synaptics"  "Touchpad" ON \
-            "youtube-dl"                    "YT Download" ON \
-            "zathura"                       "PDF Viewer" ON \
-            "zsh"     	                    "The Z shell" OFF 3>&1 1>&2 2>&3)
+            "xorg" 	  	                    "X Server" OFF \
+            "xserver-xorg-input-synaptics"  "Touchpad" OFF \
+            "youtube-dl"                    "YT Download" OFF \
+            "zathura"                       "PDF Viewer" OFF \
+            "zsh"     	                    "Z-shell" OFF 3>&1 1>&2 2>&3)
 
         download=$(echo "$software" | sed 's/\"//g')
         aptitude install $download -y
@@ -284,9 +285,9 @@ config_packages() {
         fi
 
         if [[ $download == *" git "* ]] ; then
-            name=$(whiptail --nocancel --inputbox "Set git username:" 20 60 "Michał Dudek" 3>&1 1>&2 2>&3)
+            name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
             git config --global user.name "$name"
-            mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 60 "michal.dudek1995@gmail.com" 3>&1 1>&2 2>&3)
+            mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "michal.dudek1995@gmail.com" 3>&1 1>&2 2>&3)
             git config --global user.email $mail
         fi
 
@@ -307,6 +308,34 @@ config_packages() {
         if [[ $download == *" moc "* ]] ; then
             mkdir -p $HOME/.moc
             cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
+            cp $HOME/repo/linux_stuff/config-files/red_theme /usr/share/moc/themes/
+        fi
+
+        if [[ $download == *"libreoffice"* ]] ; then
+            language=$(whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
+            "Polski"        "Polish" \
+            "Deutsch"       "German" \
+            "British"       "English_british" \
+            "American"      "English_american" \
+            "Espanol"       "Spanish" 3>&1 1>&2 2>&3)
+
+            case "$language" in
+                "Polski")
+                    aptitude install libreoffice-l10n-pl -y
+                ;;
+                "Deutsch")
+                    aptitude install libreoffice-l10n-de -y
+                ;;
+                "British")
+                    aptitude install libreoffice-l10n-en-gb -y
+                ;;
+                "American")
+                    aptitude install libreoffice-l10n-en-us -y
+                ;;
+                "Espanol")
+                    aptitude install libreoffice-l10n-es -y
+                ;;
+            esac
         fi
         
         if [[ $download == *" mutt "* ]] ; then
@@ -316,7 +345,7 @@ config_packages() {
         if [[ $download == *" irssi "* ]] ; then
             mkdir $HOME/.irssi
             if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
-                "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 60) then
+                "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
 
                 cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
                 cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
@@ -476,6 +505,7 @@ config_packages() {
             cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
             cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
             cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
         fi
 
         if [[ $download == *" vim-nox "* ]] ; then
@@ -599,9 +629,9 @@ config_packages() {
 
 config_scripts() {
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to copy useful scripts?\n\n - Mounting [m command]\n - Unmounting [um command]\n - Creating live-usb [live-usb command]" 20 60) then
+        "Do you want to copy useful scripts?\n\n - Mounting [m command]\n - Unmounting [um command]\n - Creating live-usb [live-usb command]" 20 70) then
 
-        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \nPress enter when finished" 20 60 10 \
+        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \nPress enter when finished" 20 70 10 \
             "m"                    "Mount script" ON \
             "um"                    "Umount script" ON \
             "live-usb"     	        "Live-USB script" ON 3>&1 1>&2 2>&3)
@@ -629,7 +659,7 @@ config_scripts() {
 
 config_beep() {
     if (whiptail --title "Beep sound" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 60) then
+        "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 70) then
 
         rmmod pcspkr
         sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
@@ -640,9 +670,9 @@ config_beep() {
 
 config_pc() {
     if (whiptail --title "Additional settings" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 60) then
+        "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
-        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished" 20 60 10 \
+        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished" 20 70 10 \
             "Wallpaper"     "Set wallpaper" ON \
             "Touchpad"      "Enable touchpad" ON \
             "WiFi"          "Enable Lenovo G580 net. card" ON \
@@ -682,7 +712,7 @@ config_pc() {
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
                 cp $HOME/repo/linux_stuff/config-files/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
-                whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 60
+                whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi
         fi
 
@@ -691,12 +721,12 @@ config_pc() {
         fi
     fi 
 
-    whiptail --title "Debian config" --msgbox "System configured." 20 60
+    whiptail --title "Debian config" --msgbox "System configured." 20 70
     exit
 }
 
 main_menu() {
-	menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 60 10 \
+	menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 70 10 \
 		"Select OS"             "-" \
 		"Clone repo"            "-" \
 		"Config sources"        "-" \
@@ -740,7 +770,7 @@ main_menu() {
             reboot
 		;;
 		"Exit Installer")
-            whiptail --title "Debian config" --msgbox "System configured." 20 60
+            whiptail --title "Debian config" --msgbox "System configured." 20 70
             exit
 		;;
 	esac
