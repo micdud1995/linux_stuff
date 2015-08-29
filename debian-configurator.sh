@@ -6,7 +6,7 @@
 # Author            Michał Dudek 
 # Date              21-08-2015
 # Version           2.0.1
-# Notes             Run as a user, configure before
+# Notes             Run with sudo
 # License           GNU General Public License v3.0
 #==============================================================================
 
