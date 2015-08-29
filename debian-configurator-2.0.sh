@@ -7,7 +7,6 @@
 # Date              21-08-2015
 # Version           2.0
 # Notes             Run as a user, configure before
-# Bash_version      4.3-11+b1
 # License           GNU General Public License v3.0
 #==============================================================================
 
@@ -441,8 +440,8 @@ config_packages() {
             #git clone https://github.com/vim-scripts/Tagbar.git
 
             # Git-gutter
-            cd ~/.vim/bundle && \
-            git clone git://github.com/airblade/vim-gitgutter.git
+            # cd ~/.vim/bundle && \
+            # git clone git://github.com/airblade/vim-gitgutter.git
 
             # Nerd-commenter
             cd ~/.vim/bundle && \
@@ -550,8 +549,8 @@ config_packages() {
             #git clone https://github.com/vim-scripts/Tagbar.git
 
             # Git-gutter
-            cd ~/.vim/bundle && \
-            git clone git://github.com/airblade/vim-gitgutter.git
+            # cd ~/.vim/bundle && \
+            # git clone git://github.com/airblade/vim-gitgutter.git
 
             # Nerd-commenter
             cd ~/.vim/bundle && \
