@@ -173,7 +173,7 @@ settings = {
     nick = "Dudi879";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { autolog = "yes"; theme = "cyanic"; };
+  "fe-common/core" = { autolog = "no"; theme = "cyanic"; };
 };
 hilights = ( { text = "Dudi879"; nick = "yes"; word = "yes"; } );
 ignores = ( { level = "JOINS PARTS QUITS"; } );
