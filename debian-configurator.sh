@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #==============================================================================
-# Title             debian-configurator-2.0.sh
+# Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michał Dudek 
 # Date              21-08-2015
-# Version           2.0
+# Version           2.0.1
 # Notes             Run as a user, configure before
 # License           GNU General Public License v3.0
 #==============================================================================
