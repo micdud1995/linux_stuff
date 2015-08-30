@@ -239,6 +239,7 @@ config_packages() {
             "iceweasel"                     "Web Browser" OFF \
             "libncurses5-dev"               "ncurses" OFF \
             "libreoffice"                   "Libre Office" OFF \
+            "lightdm"                       "Login Manager" OFF \
             "livestreamer"                  "Stream Tool" OFF \
             "lxrandr"                       "Output manager" OFF \
             "lxterminal"                    "Light terminal" OFF \
@@ -394,9 +395,13 @@ config_packages() {
         fi
 
         if [[ $download == *" slim "* ]] ; then
-            aptitude install slim -y
             cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
             dpkg-reconfigure slim
+        fi
+
+        if [[ $download == *" lightdm "* ]] ; then
+            cp $HOME/repo/linux_stuff/config-files/lightdm.conf /etc/ligthdm/lightdm.conf
+            dpkg-reconfigure lightdm
         fi
 
         if [[ $download == *" vim "* ]] ; then
