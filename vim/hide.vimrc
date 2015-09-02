@@ -134,7 +134,8 @@ autocmd FileType c,h,cpp,java nested :NERDTree
 " Width of NERDTree section
 let g:NERDTreeWinSize = 20
 " Open/close NT with F4
-map <F4> :NERDTreeToggle<CR>
+map <F3> :NERDTreeToggle<CR>
+map <F4> :TlistToggle<CR>
 
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
@@ -193,7 +194,7 @@ set noswapfile
 " Compiling directly in vim
 
 nmap <F2> :SCCompile<cr>
-nmap <F3> :SCCompileRun<cr>
+nmap <F1> :SCCompileRun<cr>
 "==================================================
 
 "==================================================
