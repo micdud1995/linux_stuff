@@ -27,7 +27,8 @@ if [ -d $DIR  ]; then
 	# if dir isn't empty
 	if [ "$(ls -A $DIR)"  ]; then 
 		echo Unmounting /dev/dysk...
-        cd /home/michal
+	        cd /home/michal
+		sudo umount /dev/dysk
 	else
 		echo "$DIR is empty"
 	fi
