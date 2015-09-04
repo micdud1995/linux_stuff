@@ -193,18 +193,26 @@ config_gui() {
     fi
 
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install a DE or WM?\n\n\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
+        "Do you want to install a DE or WM?\n\n\n\n*awesome is beautiful tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
+        "awesome"       "beautiful tiling WM" \
         "i3"            "i3 tiling WM" \
         "lxde-core"     "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
+            "awesome")
+                mkdir -p $HOME/.config/awesome
+                mkdir -p ~/.config/awesome/themes/
+                mkdir -p ~/.config/awesome/themes/my
+
+                
+            ;;
             "i3")
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
 
-                aptitude install i3 dmenu -y
+                aptitude install i3 dmenu fonts-font-awesome -y
 
                 cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
                 cp ~/repo/linux_stuff/i3/config ~/.i3/config
@@ -220,6 +228,13 @@ config_gui() {
         esac
     fi
 
+    if (whiptail --title "Making Esc from Caps Lock" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to use Caps Lock as a additional Escape?" 20 70) then
+        setxkbmap -option caps:escape &
+        echo "setxkbmap -option caps:escape &" >> $HOME/.xinitrc
+    fi
+
+
     config_packages
 }
 
@@ -232,6 +247,7 @@ config_packages() {
             "apache"  	                    "Web Server" OFF \
             "bash"                          "Shell" OFF \
             "conky"                         "System Info" OFF \
+            "dwb"                           "Web Browser" OFF \
             "faenza-icon-theme"             "Icon Theme" OFF \
             "feh"                           "Image Viewer" OFF \
             "htop"                          "Process Info" OFF \
@@ -257,6 +273,8 @@ config_packages() {
             "slim"                          "Login Manager" OFF \
             "scrot"                         "Screenshots" OFF \
             "steam"                         "Steam Client" OFF \
+            "tor"                           "Communication System" OFF \
+            "torbrowser-launcher"           "Web Browser" OFF \
             "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
             "vim" 	  	                    "Text Editor" OFF \
@@ -277,6 +295,10 @@ config_packages() {
         if [[ $download == *" conky "* ]] ; then
             cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
             cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+        fi
+
+        if [[ $download == *" dwb "* ]] ; then
+            cp ~/repo/linux_stuff/config-files/bookmarks-dwb.txt ~/.config/dwb/default/bookmarks
         fi
 
         if [[ $download == *" xboxdrv "* ]] ; then
