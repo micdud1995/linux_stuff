@@ -1,30 +1,50 @@
+# =================================================
 auto-reload yes
-browser dwb 
-cleanup-on-quit yes
+refresh-on-startup yes
+datetime-format "%b %d %R"
 download-path "$HOME/Pobrane/"
 feed-sort-order title-dec
 max-downloads 4
-datetime-format "%b %d %R"
-mark-as-read-on-hover yes
+show-read-feeds no
 notify-always yes
+cleanup-on-quit no
+mark-as-read-on-hover no
+always-display-description no
 notify-program notify-send
 notify-xterm yes
 notify-screen yes
-player mpv
-refresh-on-startup yes
-reload-time 20
+delete-read-articles-on-quit no
+display-article-progress yes
+keep-articles-days 4
+reload-time 60
 reload-threads 2
+browser dwb
+macro d set ; open-in-browser ;
+player mpv
+macro y set browser "mpv %u"; open-in-browser ; set browser "dwb %u"
+# =================================================
 
+# =================================================
 # Theme
-color background            white color8
-color listnormal             white black 
-color listfocus              red black reverse
-color info                   red black 
-color article                white black
-color listnormal_unread      white black bold 
-color listfocus_unread       magenta black bold
+color background            white       color232
+color listnormal            white       color232
+color listfocus             color93     black       reverse
+color info                  white       black 
+color article               white       black
+color listnormal_unread     white       black       bold 
+color listfocus_unread      color93     white       bold        reverse
+# =================================================
 
+# =================================================
 #highlights
-highlight article "^(Title):.*$" green default
-highlight article "https?://[^ ]+" green default
-highlight article "\\[image\\ [0-9]+\\]" green default
+
+highlight feedlist    "^  *[0-9]+  *N  "    color156 default
+highlight articlelist "^  *[0-9]+  *N  "    color156 default
+
+highlight   article "^Kanał:"       color164    default     bold 
+highlight   article "^Tytuł:"       color129    default     bold
+highlight   article "^Autor:"       color93     default     bold
+highlight   article "^Odsyłacz:"    color57     default     bold
+highlight   article "^Data:"        color21     default     bold    underline
+highlight   article "^Odsyłacze:"   color21     default     bold
+# =================================================
