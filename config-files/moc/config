@@ -24,8 +24,7 @@ MusicDir = /home/michal/Muzyka
 # ~/.moc/themes/ .
 #
 # Theme = darkdot_theme
-# Theme = red_theme
-Theme = purple_theme
+Theme = red_theme
 #=================================================================
 
 #=================================================================
