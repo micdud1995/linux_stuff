@@ -10,12 +10,6 @@
 # License           GNU General Public License v3.0
 #==============================================================================
 
-#==============================================================================
-# GLOBAL
-OS=Debian_8
-CONFIG=YES
-#==============================================================================
-
 info(){
     if [[ $UID != 0  ]]; then
         whiptail --title "Debian config" --msgbox \
@@ -41,37 +35,21 @@ select_system() {
 }
 
 repo_dirs() {
-    if (whiptail --title "Config files" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to use config files of author?\nConfigs: DE, WM, conky, autostart, wallpaper etc.\n\nDon't worry - you can change all later" 20 70) then
+    if [[ ! -d $HOME/repo/linux_stuff ]]; then
+        if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
+            "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
-        CONFIG=YES
-        mkdir -p $HOME/repo
-        mkdir -p $HOME/tmp
-        # Creating repo dir and cloning repository
-        if [[ ! -d $HOME/repo/linux_stuff ]]; then
-            cd $HOME/repo
-            aptitude install git -y
-            git clone https://github.com/micdud1995/linux_stuff.git
-        else
-            whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 70
-        fi
-
-    elif (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
-
-        CONFIG=NO
-        mkdir -p $HOME/repo
-        mkdir -p $HOME/tmp
-        # Creating repo dir and cloning repository
-        if [[ ! -d $HOME/repo/linux_stuff ]]; then
-            cd $HOME/repo
-            aptitude install git -y
-            git clone https://github.com/micdud1995/linux_stuff.git
-        else
-            whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 70
+            mkdir -p $HOME/repo
+            mkdir -p $HOME/tmp
+            # Creating repo dir and cloning repository
+            if [[ ! -d $HOME/repo/linux_stuff ]]; then
+                cd $HOME/repo
+                aptitude install git -y
+                git clone https://github.com/micdud1995/linux_stuff.git
+            fi
         fi
     else
-        CONFIG=NO
+        whiptail --title "Debian config" --msgbox "OK, $HOME/repo/linux_stuff exists already" 20 70
     fi
 
     config_sources
@@ -174,20 +152,12 @@ config_shell() {
         case "$SHELL" in
             "Bash")
                 aptitude install colordiff bash -y
-
-                if [ "$CONFIG" == "YES" ]; then
-                    cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
-                fi
-
+                cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
                 chsh -s /bin/bash
             ;;
             "Zsh")
                 aptitude install colordiff zsh -y
-
-                if [ "$CONFIG" == "YES" ]; then
-                    cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
-                fi
-
+                cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
                 chsh -s /bin/zsh
             ;;
         esac
@@ -226,47 +196,37 @@ config_gui() {
         "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
-        "awesome"       "configurable tiling WM" \
-        "i3"            "i3 tiling WM" \
-        "lxde-core"     "fast DE"   3>&1 1>&2 2>&3)
+        "awesome"           "configurable tiling WM" \
+        "i3"                "i3 tiling WM" \
+        "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "awesome")
                 aptitude install awesome
-
-                if [ "$CONFIG" == "YES" ]; then
-                    mkdir -p $HOME/.config/awesome
-                    mkdir -p ~/.config/awesome/themes/
-                    mkdir -p ~/.config/awesome/themes/my
-                    cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
-                fi
-
+                mkdir -p $HOME/.config/awesome
+                mkdir -p ~/.config/awesome/themes/
+                mkdir -p ~/.config/awesome/themes/my
+                cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
                 aptitude install i3 dmenu fonts-font-awesome -y
-
-                if [ "$CONFIG" == "YES" ]; then
-                    mkdir -p $HOME/.i3
-                    mkdir -p $HOME/Obrazy
-                    cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                    cp $HOME/repo/linux_stuff/i3/config ~/.i3/config
-                    cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
-                    cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
-                    chmod +x $HOME/.i3/load_workspaces.sh
-                    cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
-                fi
-
+                mkdir -p $HOME/.i3
+                mkdir -p $HOME/Obrazy
+                cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
+                cp $HOME/repo/linux_stuff/i3/config ~/.i3/config
+                cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
+                cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
+                chmod +x $HOME/.i3/load_workspaces.sh
+                cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde-core")
                 aptitude install lxde-core -y
-
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
                 aptitude install xfce4 -y
-
                 echo "startxfce4" > ~/.xinitrc
             ;;
         esac
@@ -377,9 +337,7 @@ config_packages() {
         fi
 
         if [[ $download == *" cmus "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
-            fi
+            cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
         fi
 
         if [[ $download == *" xterm "* ]] ; then
@@ -387,33 +345,25 @@ config_packages() {
         fi
 
         if [[ $download == *" weechat "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                mkdir -p $HOME/.weechat
-                cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
-            fi
+            mkdir -p $HOME/.weechat
+            cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
             rm -f $HOME/.weechat/weechat.log
             ln -s /dev/null weechat.log
         fi
 
         if [[ $download == *" newsbeuter "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                mkdir -p $HOME/.config/newsbeuter
-                cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
-                cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
-            fi
+            mkdir -p $HOME/.config/newsbeuter
+            cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
+            cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
         fi
 
         if [[ $download == *" conky "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
-                cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
-            fi
+            cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
+            cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
         fi
 
         if [[ $download == *" dwb "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
-            fi
+            cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
         fi
 
         if [[ $download == *" xboxdrv "* ]] ; then
@@ -436,20 +386,16 @@ config_packages() {
         fi
 
         if [[ $download == *" mc "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                mkdir -p $HOME/.config/mc
-                mkdir -p $HOME/.local/share/mc/skins
-                cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
-                cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
-            fi
+            mkdir -p $HOME/.config/mc
+            mkdir -p $HOME/.local/share/mc/skins
+            cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+            cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
         fi
 
         if [[ $download == *" moc "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                mkdir -p $HOME/.moc
-                cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
-                cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
-            fi
+            mkdir -p $HOME/.moc
+            cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
+            cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
         fi
 
         if [[ $download == *"libreoffice"* ]] ; then
@@ -480,9 +426,7 @@ config_packages() {
         fi
         
         if [[ $download == *" mutt "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
-            fi
+            cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
         fi
 
         if [[ $download == *" irssi "* ]] ; then
@@ -496,10 +440,8 @@ config_packages() {
         fi
 
         if [[ $download == *" rtorrent "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                mkdir -p $HOME/.rtorrent
-                cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
-            fi
+            mkdir -p $HOME/.rtorrent
+            cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
         fi
 
         if [[ $download == *" virtualbox "* ]] ; then
@@ -531,10 +473,8 @@ config_packages() {
             make clean
             make install
 
-            if [ "$CONFIG" == "YES" ]; then
-                cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
-                cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
-            fi
+            cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
+            cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
         fi
 
         if [[ $download == *" steam "* ]] ; then
@@ -543,17 +483,13 @@ config_packages() {
         fi
 
         if [[ $download == *" slim "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-                dpkg-reconfigure slim
-            fi
+            cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
+            dpkg-reconfigure slim
         fi
 
         if [[ $download == *" lightdm "* ]] ; then
-            if [ "$CONFIG" == "YES" ]; then
-                cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-                dpkg-reconfigure lightdm
-            fi
+            cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+            dpkg-reconfigure lightdm
         fi
 
         if [[ $download == *" vim "* ]] ; then
@@ -577,93 +513,91 @@ config_packages() {
 
             aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
-            if [ "$CONFIG" == "YES" ]; then
-                # Making dirs
-                mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+            # Making dirs
+            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-                # Pathogen
-                curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+            # Pathogen
+            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-                # Nerdtree
-                cd ~/.vim/bundle && \
-                git clone https://github.com/scrooloose/nerdtree.git
+            # Nerdtree
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdtree.git
 
-                # Syntastic
-                cd ~/.vim/bundle && \
-                git clone https://github.com/scrooloose/syntastic.git
+            # Syntastic
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/syntastic.git
 
-                # Taglist/Tagbar
-                cd ~/.vim/bundle && \
-                git clone git://github.com/vim-scripts/taglist.vim.git
-                #git clone https://github.com/vim-scripts/Tagbar.git
+            # Taglist/Tagbar
+            cd ~/.vim/bundle && \
+            git clone git://github.com/vim-scripts/taglist.vim.git
+            #git clone https://github.com/vim-scripts/Tagbar.git
 
-                # Git-gutter
-                cd ~/.vim/bundle && \
-                git clone git://github.com/airblade/vim-gitgutter.git
+            # Git-gutter
+            cd ~/.vim/bundle && \
+            git clone git://github.com/airblade/vim-gitgutter.git
 
-                # Nerd-commenter
-                cd ~/.vim/bundle && \
-                git clone https://github.com/scrooloose/nerdcommenter.git
+            # Nerd-commenter
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdcommenter.git
 
-                # Vim-airline
-                cd ~/.vim/bundle && \
-                git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+            # Vim-airline
+            cd ~/.vim/bundle && \
+            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-                # Auto-pairs
-                cd ~/.vim/bundle && \
-                git clone git://github.com/jiangmiao/auto-pairs.git
+            # Auto-pairs
+            cd ~/.vim/bundle && \
+            git clone git://github.com/jiangmiao/auto-pairs.git
 
-                # Supertab
-                git clone git://github.com/ervandew/supertab.git
+            # Supertab
+            git clone git://github.com/ervandew/supertab.git
 
-                # Snipmate
-                cd ~/.vim/bundle
-                git clone https://github.com/tomtom/tlib_vim.git
-                git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-                git clone https://github.com/garbas/vim-snipmate.git
-                git clone https://github.com/honza/vim-snippets.git
+            # Snipmate
+            cd ~/.vim/bundle
+            git clone https://github.com/tomtom/tlib_vim.git
+            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+            git clone https://github.com/garbas/vim-snipmate.git
+            git clone https://github.com/honza/vim-snippets.git
 
-                # Indent-line
-                cd ~/.vim/bundle
-                git clone https://github.com/Yggdroot/indentLine.git
+            # Indent-line
+            cd ~/.vim/bundle
+            git clone https://github.com/Yggdroot/indentLine.git
 
-                # Single-compile
-                cd ~/.vim/bundle
-                git clone https://github.com/xuhdev/SingleCompile.git
+            # Single-compile
+            cd ~/.vim/bundle
+            git clone https://github.com/xuhdev/SingleCompile.git
 
-                # Vim-commentary
-                cd ~/.vim/bundle
-                git clone https://github.com/tpope/vim-commentary.git
+            # Vim-commentary
+            cd ~/.vim/bundle
+            git clone https://github.com/tpope/vim-commentary.git
 
-                # Gruvbox theme
-                #mkdir -p ~/tmp
-                #cd ~/tmp && \
-                #git clone https://github.com/morhetz/gruvbox.git
-                #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-                #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-                #rm -rf ~/tmp/gruvbox
+            # Gruvbox theme
+            #mkdir -p ~/tmp
+            #cd ~/tmp && \
+            #git clone https://github.com/morhetz/gruvbox.git
+            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+            #rm -rf ~/tmp/gruvbox
 
-                # Sorcerer theme
-                #cd ~/tmp && \
-                #git clone https://github.com/adlawson/vim-sorcerer.git
-                #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-                #rm -rf ~/tmp/vim-sorcerer
+            # Sorcerer theme
+            #cd ~/tmp && \
+            #git clone https://github.com/adlawson/vim-sorcerer.git
+            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+            #rm -rf ~/tmp/vim-sorcerer
 
-                # Jellybeans theme
-                cd ~/tmp && \
-                git clone https://github.com/nanotech/jellybeans.vim.git
-                mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-                rm -rf ~/tmp/jellybeans.vim
+            # Jellybeans theme
+            cd ~/tmp && \
+            git clone https://github.com/nanotech/jellybeans.vim.git
+            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+            rm -rf ~/tmp/jellybeans.vim
 
-                # Copying .vimrc
-                cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-                
-                # Copying snippets
-                cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-                cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-                cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-                cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            fi
+            # Copying .vimrc
+            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+            
+            # Copying snippets
+            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
         fi 
 
         if [[ $download == *" vim-nox "* ]] ; then
@@ -688,99 +622,97 @@ config_packages() {
 
             aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
-            if [ "$CONFIG" == "YES" ]; then
-                # Making dirs
-                mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+            # Making dirs
+            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-                # Pathogen
-                curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+            # Pathogen
+            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-                # Nerdtree
-                cd ~/.vim/bundle && \
-                git clone https://github.com/scrooloose/nerdtree.git
+            # Nerdtree
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdtree.git
 
-                # Syntastic
-                cd ~/.vim/bundle && \
-                git clone https://github.com/scrooloose/syntastic.git
+            # Syntastic
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/syntastic.git
 
-                # Taglist/Tagbar
-                cd ~/.vim/bundle && \
-                git clone git://github.com/vim-scripts/taglist.vim.git
-                #git clone https://github.com/vim-scripts/Tagbar.git
+            # Taglist/Tagbar
+            cd ~/.vim/bundle && \
+            git clone git://github.com/vim-scripts/taglist.vim.git
+            #git clone https://github.com/vim-scripts/Tagbar.git
 
-                # Git-gutter
-                cd ~/.vim/bundle && \
-                git clone git://github.com/airblade/vim-gitgutter.git
+            # Git-gutter
+            cd ~/.vim/bundle && \
+            git clone git://github.com/airblade/vim-gitgutter.git
 
-                # Nerd-commenter
-                cd ~/.vim/bundle && \
-                git clone https://github.com/scrooloose/nerdcommenter.git
+            # Nerd-commenter
+            cd ~/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdcommenter.git
 
-                # Vim-airline
-                cd ~/.vim/bundle && \
-                git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+            # Vim-airline
+            cd ~/.vim/bundle && \
+            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-                # Auto-pairs
-                cd ~/.vim/bundle && \
-                git clone git://github.com/jiangmiao/auto-pairs.git
+            # Auto-pairs
+            cd ~/.vim/bundle && \
+            git clone git://github.com/jiangmiao/auto-pairs.git
 
-                # Supertab
-                git clone git://github.com/ervandew/supertab.git
+            # Supertab
+            git clone git://github.com/ervandew/supertab.git
 
-                # Snipmate
-                cd ~/.vim/bundle
-                git clone https://github.com/tomtom/tlib_vim.git
-                git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-                git clone https://github.com/garbas/vim-snipmate.git
-                git clone https://github.com/honza/vim-snippets.git
+            # Snipmate
+            cd ~/.vim/bundle
+            git clone https://github.com/tomtom/tlib_vim.git
+            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+            git clone https://github.com/garbas/vim-snipmate.git
+            git clone https://github.com/honza/vim-snippets.git
 
-                # Indent-line
-                cd ~/.vim/bundle
-                git clone https://github.com/Yggdroot/indentLine.git
+            # Indent-line
+            cd ~/.vim/bundle
+            git clone https://github.com/Yggdroot/indentLine.git
 
-                # Single-compile
-                cd ~/.vim/bundle
-                git clone https://github.com/xuhdev/SingleCompile.git
+            # Single-compile
+            cd ~/.vim/bundle
+            git clone https://github.com/xuhdev/SingleCompile.git
 
-                # Vim-commentary
-                cd ~/.vim/bundle
-                git clone https://github.com/tpope/vim-commentary.git
+            # Vim-commentary
+            cd ~/.vim/bundle
+            git clone https://github.com/tpope/vim-commentary.git
 
-                # YouCompleteMe
-                cd ~/.vim/bundle/
-                git clone https://github.com/Valloric/YouCompleteMe.git
-                cd YouCompleteMe/
-                git submodule update --init --recursive
-                ./install.sh
-                
-                # Gruvbox theme
-                #mkdir -p ~/tmp
-                #cd ~/tmp && \
-                #git clone https://github.com/morhetz/gruvbox.git
-                #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-                #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-                #rm -rf ~/tmp/gruvbox
+            # YouCompleteMe
+            cd ~/.vim/bundle/
+            git clone https://github.com/Valloric/YouCompleteMe.git
+            cd YouCompleteMe/
+            git submodule update --init --recursive
+            ./install.sh
+            
+            # Gruvbox theme
+            #mkdir -p ~/tmp
+            #cd ~/tmp && \
+            #git clone https://github.com/morhetz/gruvbox.git
+            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+            #rm -rf ~/tmp/gruvbox
 
-                # Sorcerer theme
-                #cd ~/tmp && \
-                #git clone https://github.com/adlawson/vim-sorcerer.git
-                #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-                #rm -rf ~/tmp/vim-sorcerer
+            # Sorcerer theme
+            #cd ~/tmp && \
+            #git clone https://github.com/adlawson/vim-sorcerer.git
+            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+            #rm -rf ~/tmp/vim-sorcerer
 
-                # Jellybeans theme
-                cd ~/tmp && \
-                git clone https://github.com/nanotech/jellybeans.vim.git
-                mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-                rm -rf ~/tmp/jellybeans.vim
+            # Jellybeans theme
+            cd ~/tmp && \
+            git clone https://github.com/nanotech/jellybeans.vim.git
+            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+            rm -rf ~/tmp/jellybeans.vim
 
-                # Copying .vimrc
-                cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-                
-                # Copying snippets
-                cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-                cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-                cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            fi
+            # Copying .vimrc
+            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+            
+            # Copying snippets
+            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
         fi
     fi
 
