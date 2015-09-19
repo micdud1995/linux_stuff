@@ -288,6 +288,7 @@ config_packages() {
             "dwb"                           "Web Browser" OFF \
             "faenza-icon-theme"             "Icon Theme" OFF \
             "feh"                           "Image Viewer" OFF \
+            "fuck"                          "Command correcting" OFF \
             "htop"                          "Process Info" OFF \
             "irssi"                         "IRC Client" OFF \
             "iceweasel"                     "Web Browser" OFF \
@@ -336,6 +337,11 @@ config_packages() {
 
         download=$(echo "$software" | sed 's/\"//g')
         aptitude install $download -y
+
+        if [[ $download == *" fuck "* ]] ; then
+            cd $HOME/tmp
+            wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
+        fi
 
         if [[ $download == *" dictd "* ]] ; then
             language=$(whiptail --title "DIctionary languages" --menu "Choose your dictionary" 20 70 11 \
