@@ -1,11 +1,18 @@
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# =======================================================
+set $tag1 "1: Desktop"
+# set $tag1 "1"
+set $tag2 "2: Web"
+set $tag3 "3: Code"
+set $tag4 "4: Terminal"
+set $tag5 "5: IRC"
+set $tag6 "6: Other"
+# =======================================================
 
 # =======================================================
-# Replace Caps Lock with Escape key
-setxkbmap -option caps:escape &
-
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
+
+font pango:FontAwesome 8
 
 # Really small borders and no title for windows
 for_window [class="^."] border pixel 1
@@ -13,10 +20,13 @@ for_window [class="^."] border pixel 1
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Basic layout
+exec --no-startup-id exec $HOME/.i3/load_workspaces.sh
+
 # Default volume
-#exec amixer sset Master mute
-exec amixer sset Master unmute
-exec --no-startup-id amixer sset Master 60%
+exec --no-startup-id amixer sset Master 20%
+exec amixer sset Master mute
+# exec amixer sset Master unmute
 
 # Wallpaper restoring
 #exec --no-startup-id nitrogen --restore
@@ -25,21 +35,18 @@ exec feh --bg-scale /home/michal/Obrazy/wallpaper.jpg
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
 
-# Name the workspaces
-#set $tag1 "1: Internet"
-#set $tag2 "2: Files"
-#set $tag3 "3: Terminals"
-#set $tag4 "4: Other_stuff"
-
-# basic colors=============================
-
-# color red
-set $re #C01414
-# color second (grey)
+# BORDERS ======================
+# purple
+# set $bo #8A00B8
+# green
+# set $bo #00FF00
+# red
+set $bo #CC0000
+# 2nd color - gray
 set $se #666666
 
 # # set some nice colors    border  backgr.     text    indicator
-client.focused              $se     $re         $se     $re
+client.focused              $bo     $bo         $bo     $bo
 client.unfocused            $se     $se         $se     $se
 client.focused_inactive     $se     $se         $se     $se
 client.urgent               $se     $se         $se     $se
@@ -75,6 +82,28 @@ bar
 
 # Start a terminal
 bindsym $mod+x exec lxterminal
+# bindsym $mod+x exec xterm
+
+# Start some programs
+bindsym KP_7 exec lxterminal -e mc
+bindsym KP_8 exec lxterminal -e vim
+bindsym KP_9 exec dwb
+
+#Assings
+assign [class="^Lxterminal$" instance="^mocp$"] → $tag1
+assign [class="^Lxterminal$" instance="^newsbeuter$"] → $tag1
+assign [class="^Dwb$"] → $tag2
+assign [class="^Iceweasel$"] → $tag2
+assign [class="^Lxterminal$" instance="^links$"] → $tag3
+assign [class="^Lxterminal$" instance="^vim$"] → $tag3
+assign [class="^Leafpad$"] → $tag3
+# assign [class="^Lxterminal$"] → $tag4
+assign [class="^Mpv$"] → $tag6
+assign [class="^Lxrandr$"] → $tag6
+assign [class="^Lxterminal$" instance="^irssi$"] → $tag5
+assign [class="^Lxterminal$" instance="^weechat$"] → $tag5
+assign [class="^Steam$"] → $tag6
+
 bindsym $mod+F5 exec amixer sset Master toggle
 # Kill focused window
 bindsym $mod+c kill
@@ -133,35 +162,41 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace $tag4
+bindsym $mod+5 workspace $tag5
+bindsym $mod+6 workspace $tag6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+# and with KP
+# bindsym KP_1 workspace $tag1
+# bindsym KP_2 workspace $tag2
+# bindsym KP_3 workspace $tag3
+# bindsym KP_4 workspace $tag4
+# bindsym KP_5 workspace $tag5
+# bindsym KP_6 workspace $tag6
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+1 move container to workspace $tag1
+bindsym $mod+Shift+2 move container to workspace $tag2
+bindsym $mod+Shift+3 move container to workspace $tag3
+bindsym $mod+Shift+4 move container to workspace $tag4
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+6 move container to workspace $tag6
+bindsym $mod+Shift+7 move container to workspace $tag7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+0 move container to $tag10
 
 # Volume control
-bindsym $mod+F11 exec amixer set Master 5%-
-bindsym $mod+F12 exec amixer set Master 5%+
+bindsym $mod+F11 exec amixer set Master 4%-
+bindsym $mod+F12 exec amixer set Master 4%+
 # Brightness control
-bindsym $mod+F9 exec xbacklight  -dec 5
-bindsym $mod+F10 exec xbacklight  -inc 5
+bindsym $mod+F9 exec xbacklight  -dec 3
+bindsym $mod+F10 exec xbacklight  -inc 3
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -171,7 +206,7 @@ bindsym $mod+Shift+c reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to end your X session?' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -222,3 +257,4 @@ mode "resize" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
+

@@ -35,9 +35,10 @@ select_system() {
 }
 
 repo_dirs() {
-    if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to clone repo?\nThere are important config files\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
+    if (whiptail --title "Config files" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to use config files of author?\nConfigs: DE, WM, conky, autostart, wallpaper etc.\n\nDon't worry - you can change all later" 20 70) then
 
+        CONFIG=YES
         mkdir -p $HOME/repo
         mkdir -p $HOME/tmp
         # Creating repo dir and cloning repository
@@ -48,6 +49,23 @@ repo_dirs() {
         else
             whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 70
         fi
+
+    elif (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
+
+        CONFIG=NO
+        mkdir -p $HOME/repo
+        mkdir -p $HOME/tmp
+        # Creating repo dir and cloning repository
+        if [[ ! -d $HOME/repo/linux_stuff ]]; then
+            cd $HOME/repo
+            aptitude install git -y
+            git clone https://github.com/micdud1995/linux_stuff.git
+        else
+            whiptail --title "Debian config" --msgbox "$HOME/repo/linux_stuff exists already" 20 70
+        fi
+    else
+        CONFIG=NO
     fi
 
     config_sources
@@ -150,12 +168,20 @@ config_shell() {
         case "$SHELL" in
             "Bash")
                 aptitude install colordiff bash -y
-                cp $HOME/repo/linux_stuff/config-files/hide.bashrc $HOME/.bashrc
+
+                if [ "$CONFIG" == "YES" ]; then
+                    cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
+                fi
+
                 chsh -s /bin/bash
             ;;
             "Zsh")
                 aptitude install colordiff zsh -y
-                cp $HOME/repo/linux_stuff/config-files/hide.zshrc $HOME/.zshrc
+
+                if [ "$CONFIG" == "YES" ]; then
+                    cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                fi
+
                 chsh -s /bin/zsh
             ;;
         esac
@@ -166,12 +192,10 @@ config_shell() {
 
 config_gui() {
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Install graphics drivers now? \nDrivers for NVIDIA, AMD, Intel, and Virtual Box guests" 20 70) then
+        "Install graphics drivers now? \nDrivers for Intel, and Virtual Box guests" 20 70) then
 
         GPU=$(whiptail --title "Debian config" --menu "Select your GPU" 20 70 10 \
-            "AMD"     "AMD/ATI Graphics" \
             "Intel"   "Intel Graphics" \
-            "Nvidia"  "NVIDIA Graphics" \
             "VBOX"    "VirtualBox Guest" 3>&1 1>&2 2>&3)
 
         case "$GPU" in
@@ -193,30 +217,39 @@ config_gui() {
     fi
 
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install a DE or WM?\n\n\n\n*awesome is beautiful tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
+        "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
-        "awesome"       "beautiful tiling WM" \
+        "awesome"       "configurable tiling WM" \
         "i3"            "i3 tiling WM" \
         "lxde-core"     "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "awesome")
-                mkdir -p $HOME/.config/awesome
-                mkdir -p ~/.config/awesome/themes/
-                mkdir -p ~/.config/awesome/themes/my
+                aptitude install awesome
 
-                
+                if [ "$CONFIG" == "YES" ]; then
+                    mkdir -p $HOME/.config/awesome
+                    mkdir -p ~/.config/awesome/themes/
+                    mkdir -p ~/.config/awesome/themes/my
+                    cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
+                fi
+
+                echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                mkdir -p $HOME/.i3
-                mkdir -p $HOME/Obrazy
-
                 aptitude install i3 dmenu fonts-font-awesome -y
 
-                cp ~/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                cp ~/repo/linux_stuff/i3/config ~/.i3/config
-                cp ~/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                if [ "$CONFIG" == "YES" ]; then
+                    mkdir -p $HOME/.i3
+                    mkdir -p $HOME/Obrazy
+                    cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
+                    cp $HOME/repo/linux_stuff/i3/config ~/.i3/config
+                    cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
+                    cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
+                    chmod +x $HOME/.i3/load_workspaces.sh
+                    cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                fi
 
                 echo "exec i3" > ~/.xinitrc
             ;;
@@ -225,15 +258,18 @@ config_gui() {
 
                 echo "startlxde" > ~/.xinitrc
             ;;
+            "xfce")
+                aptitude install xfce4 -y
+
+                echo "startxfce4" > ~/.xinitrc
+            ;;
         esac
     fi
 
     if (whiptail --title "Making Esc from Caps Lock" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to use Caps Lock as a additional Escape?" 20 70) then
         setxkbmap -option caps:escape &
-        echo "setxkbmap -option caps:escape &" >> $HOME/.xinitrc
     fi
-
 
     config_packages
 }
@@ -246,7 +282,9 @@ config_packages() {
             "alsa-utils"                    "Sound" OFF \
             "apache"  	                    "Web Server" OFF \
             "bash"                          "Shell" OFF \
+            "cmus"                          "Music player" OFF \
             "conky"                         "System Info" OFF \
+            "dictd"                         "Offline dictionary" OFF \
             "dwb"                           "Web Browser" OFF \
             "faenza-icon-theme"             "Icon Theme" OFF \
             "feh"                           "Image Viewer" OFF \
@@ -256,18 +294,21 @@ config_packages() {
             "libncurses5-dev"               "ncurses" OFF \
             "libreoffice"                   "Libre Office" OFF \
             "lightdm"                       "Login Manager" OFF \
+            "links"                         "Web Browser" OFF \
             "livestreamer"                  "Stream Tool" OFF \
             "lxrandr"                       "Output manager" OFF \
             "lxterminal"                    "Light terminal" OFF \
-            "lynx"                          "Web Browser" OFF \
             "mc"                            "Midnight Commander" OFF \
             "mirage"                        "Image Viewer" OFF \
             "moc"                           "Music Player" OFF \
             "mpv"                           "Video Player" OFF \
             "mutt"                          "Mail Client" OFF \
+            "nethack"                       "Roguelike game" OFF \
+            "newsbeuter"                    "RSS feed reader" OFF \
             "openssh"                       "Secure Shell" OFF \
             "pavucontrol"                   "Sound output" OFF \
             "pinta"                         "Image Editor" OFF \
+            "ranger"                        "File manager" OFF \
             "rtorrent"                      "Torrent Client" OFF \
             "screenfetch"                   "System Info" OFF \
             "slim"                          "Login Manager" OFF \
@@ -277,28 +318,90 @@ config_packages() {
             "torbrowser-launcher"           "Web Browser" OFF \
             "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
+            "unzip"                         "Unpack zip archives" OFF \
             "vim" 	  	                    "Text Editor" OFF \
             "vim-nox" 	  	                "Vim with script support" OFF \
             "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
+            "weechat"                       "IRC Client" OFF \
             "xbacklight"                    "Screen brightness" OFF \
             "xboxdrv"                       "Xbox pad driver" OFF \
+            "xterm"                         "Terminal emulator" OFF \
             "xorg" 	  	                    "X Server" OFF \
             "xserver-xorg-input-synaptics"  "Touchpad" OFF \
             "youtube-dl"                    "YT Download" OFF \
             "zathura"                       "PDF Viewer" OFF \
+            "zip"                           "Files archiver" OFF \
             "zsh"     	                    "Z-shell" OFF 3>&1 1>&2 2>&3)
 
         download=$(echo "$software" | sed 's/\"//g')
         aptitude install $download -y
 
+        if [[ $download == *" dictd "* ]] ; then
+            language=$(whiptail --title "DIctionary languages" --menu "Choose your dictionary" 20 70 11 \
+            "eng-pol" \
+            "eng-deu" \
+            "eng-fra" \
+            "eng-rus" \
+            "eng-spa" 3>&1 1>&2 2>&3)
+
+            case "$language" in
+                "eng-pol")
+                    aptitude install dict-freedict-eng-pol -y
+                ;;
+                "eng-deu")
+                    aptitude install dict-freedict-eng-deu -y
+                ;;
+                "eng-fra")
+                    aptitude install dict-freedict-eng-fra -y
+                ;;
+                "eng-rus")
+                    aptitude install dict-freedict-eng-rus -y
+                ;;
+                "eng-spa")
+                    aptitude install dict-freedict-eng-spa -y
+                ;;
+            esac
+        fi
+
+        if [[ $download == *" cmus "* ]] ; then
+            if [ "$CONFIG" == "YES" ]; then
+                cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
+            fi
+        fi
+
+        if [[ $download == *" xterm "* ]] ; then
+            echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
+        fi
+
+        if [[ $download == *" weechat "* ]] ; then
+            if [ "$CONFIG" == "YES" ]; then
+                mkdir -p $HOME/.weechat
+                cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
+            fi
+            rm -f $HOME/.weechat/weechat.log
+            ln -s /dev/null weechat.log
+        fi
+
+        if [[ $download == *" newsbeuter "* ]] ; then
+            if [ "$CONFIG" == "YES" ]; then
+                mkdir -p $HOME/.config/newsbeuter
+                cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
+                cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
+            fi
+        fi
+
         if [[ $download == *" conky "* ]] ; then
-            cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
-            cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+            if [ "$CONFIG" == "YES" ]; then
+                cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
+                cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+            fi
         fi
 
         if [[ $download == *" dwb "* ]] ; then
-            cp ~/repo/linux_stuff/config-files/bookmarks-dwb.txt ~/.config/dwb/default/bookmarks
+            if [ "$CONFIG" == "YES" ]; then
+                cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
+            fi
         fi
 
         if [[ $download == *" xboxdrv "* ]] ; then
@@ -309,7 +412,7 @@ config_packages() {
         if [[ $download == *" git "* ]] ; then
             name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
             git config --global user.name "$name"
-            mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "michal.dudek1995@gmail.com" 3>&1 1>&2 2>&3)
+            mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
             git config --global user.email $mail
         fi
 
@@ -321,16 +424,20 @@ config_packages() {
         fi
 
         if [[ $download == *" mc "* ]] ; then
-            mkdir -p $HOME/.config/mc
-            mkdir -p $HOME/.local/share/mc/skins
-            cp $HOME/repo/linux_stuff/config-files/mc.ext $HOME/.config/mc/mc.ext
-            cp $HOME/repo/linux_stuff/config-files/darkcourses_green.ini $HOME/.local/share/mc/skins/
+            if [ "$CONFIG" == "YES" ]; then
+                mkdir -p $HOME/.config/mc
+                mkdir -p $HOME/.local/share/mc/skins
+                cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+                cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+            fi
         fi
 
         if [[ $download == *" moc "* ]] ; then
-            mkdir -p $HOME/.moc
-            cp $HOME/repo/linux_stuff/config-files/config_moc $HOME/.moc/config
-            cp $HOME/repo/linux_stuff/config-files/red_theme /usr/share/moc/themes/
+            if [ "$CONFIG" == "YES" ]; then
+                mkdir -p $HOME/.moc
+                cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
+                cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+            fi
         fi
 
         if [[ $download == *"libreoffice"* ]] ; then
@@ -361,7 +468,9 @@ config_packages() {
         fi
         
         if [[ $download == *" mutt "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/hide.muttrc $HOME/.muttrc
+            if [ "$CONFIG" == "YES" ]; then
+                cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+            fi
         fi
 
         if [[ $download == *" irssi "* ]] ; then
@@ -369,14 +478,16 @@ config_packages() {
             if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
                 "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
 
-                cp $HOME/repo/linux_stuff/config-files/config-irssi.rc $HOME/.irssi/config
+                cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
                 cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
             fi
         fi
 
         if [[ $download == *" rtorrent "* ]] ; then
-            mkdir -p $HOME/.rtorrent
-            cp ~/repo/linux_stuff/config-files/hide.rtorrent.rc ~/.rtorrent.rc
+            if [ "$CONFIG" == "YES" ]; then
+                mkdir -p $HOME/.rtorrent
+                cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
+            fi
         fi
 
         if [[ $download == *" virtualbox "* ]] ; then
@@ -398,17 +509,20 @@ config_packages() {
         fi
 
         if [[ $download == *" vimb "* ]] ; then
+            aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
             mkdir -p $HOME/tmp
             mkdir -p $HOME/tmp/vimb
             mkdir -p $HOME/.config/vimb
-            aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
             cd $HOME/tmp
             git clone https://github.com/fanglingsu/vimb.git
             cd $HOME/tmp/vimb
             make clean
             make install
-            cp $HOME/repo/linux_stuff/config-files/config-vimb.rc $HOME/.config/vimb/config
-            cp $HOME/repo/linux_stuff/config-files/bookmark-vimb.rc $HOME/.config/vimb/bookmark
+
+            if [ "$CONFIG" == "YES" ]; then
+                cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
+                cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
+            fi
         fi
 
         if [[ $download == *" steam "* ]] ; then
@@ -417,13 +531,17 @@ config_packages() {
         fi
 
         if [[ $download == *" slim "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/slim.conf /etc/slim.conf
-            dpkg-reconfigure slim
+            if [ "$CONFIG" == "YES" ]; then
+                cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
+                dpkg-reconfigure slim
+            fi
         fi
 
         if [[ $download == *" lightdm "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/lightdm.conf /etc/ligthdm/lightdm.conf
-            dpkg-reconfigure lightdm
+            if [ "$CONFIG" == "YES" ]; then
+                cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+                dpkg-reconfigure lightdm
+            fi
         fi
 
         if [[ $download == *" vim "* ]] ; then
@@ -447,92 +565,94 @@ config_packages() {
 
             aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
-            # Making dirs
-            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+            if [ "$CONFIG" == "YES" ]; then
+                # Making dirs
+                mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-            # Pathogen
-            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                # Pathogen
+                curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-            # Nerdtree
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdtree.git
+                # Nerdtree
+                cd ~/.vim/bundle && \
+                git clone https://github.com/scrooloose/nerdtree.git
 
-            # Syntastic
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/syntastic.git
+                # Syntastic
+                cd ~/.vim/bundle && \
+                git clone https://github.com/scrooloose/syntastic.git
 
-            # Taglist/Tagbar
-            cd ~/.vim/bundle && \
-            git clone git://github.com/vim-scripts/taglist.vim.git
-            #git clone https://github.com/vim-scripts/Tagbar.git
+                # Taglist/Tagbar
+                cd ~/.vim/bundle && \
+                git clone git://github.com/vim-scripts/taglist.vim.git
+                #git clone https://github.com/vim-scripts/Tagbar.git
 
-            # Git-gutter
-            # cd ~/.vim/bundle && \
-            # git clone git://github.com/airblade/vim-gitgutter.git
+                # Git-gutter
+                cd ~/.vim/bundle && \
+                git clone git://github.com/airblade/vim-gitgutter.git
 
-            # Nerd-commenter
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdcommenter.git
+                # Nerd-commenter
+                cd ~/.vim/bundle && \
+                git clone https://github.com/scrooloose/nerdcommenter.git
 
-            # Vim-airline
-            cd ~/.vim/bundle && \
-            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                # Vim-airline
+                cd ~/.vim/bundle && \
+                git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-            # Auto-pairs
-            cd ~/.vim/bundle && \
-            git clone git://github.com/jiangmiao/auto-pairs.git
+                # Auto-pairs
+                cd ~/.vim/bundle && \
+                git clone git://github.com/jiangmiao/auto-pairs.git
 
-            # Supertab
-            git clone git://github.com/ervandew/supertab.git
+                # Supertab
+                git clone git://github.com/ervandew/supertab.git
 
-            # Snipmate
-            cd ~/.vim/bundle
-            git clone https://github.com/tomtom/tlib_vim.git
-            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-            git clone https://github.com/garbas/vim-snipmate.git
-            git clone https://github.com/honza/vim-snippets.git
+                # Snipmate
+                cd ~/.vim/bundle
+                git clone https://github.com/tomtom/tlib_vim.git
+                git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+                git clone https://github.com/garbas/vim-snipmate.git
+                git clone https://github.com/honza/vim-snippets.git
 
-            # Indent-line
-            cd ~/.vim/bundle
-            git clone https://github.com/Yggdroot/indentLine.git
+                # Indent-line
+                cd ~/.vim/bundle
+                git clone https://github.com/Yggdroot/indentLine.git
 
-            # Single-compile
-            cd ~/.vim/bundle
-            git clone https://github.com/xuhdev/SingleCompile.git
+                # Single-compile
+                cd ~/.vim/bundle
+                git clone https://github.com/xuhdev/SingleCompile.git
 
-            # Vim-commentary
-            cd ~/.vim/bundle
-            git clone https://github.com/tpope/vim-commentary.git
+                # Vim-commentary
+                cd ~/.vim/bundle
+                git clone https://github.com/tpope/vim-commentary.git
 
-            # Gruvbox theme
-            #mkdir -p ~/tmp
-            #cd ~/tmp && \
-            #git clone https://github.com/morhetz/gruvbox.git
-            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-            #rm -rf ~/tmp/gruvbox
+                # Gruvbox theme
+                #mkdir -p ~/tmp
+                #cd ~/tmp && \
+                #git clone https://github.com/morhetz/gruvbox.git
+                #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+                #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+                #rm -rf ~/tmp/gruvbox
 
-            # Sorcerer theme
-            #cd ~/tmp && \
-            #git clone https://github.com/adlawson/vim-sorcerer.git
-            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-            #rm -rf ~/tmp/vim-sorcerer
+                # Sorcerer theme
+                #cd ~/tmp && \
+                #git clone https://github.com/adlawson/vim-sorcerer.git
+                #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+                #rm -rf ~/tmp/vim-sorcerer
 
-            # Jellybeans theme
-            cd ~/tmp && \
-            git clone https://github.com/nanotech/jellybeans.vim.git
-            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-            rm -rf ~/tmp/jellybeans.vim
+                # Jellybeans theme
+                cd ~/tmp && \
+                git clone https://github.com/nanotech/jellybeans.vim.git
+                mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+                rm -rf ~/tmp/jellybeans.vim
 
-            # Copying .vimrc
-            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-            
-            # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-        fi
+                # Copying .vimrc
+                cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                
+                # Copying snippets
+                cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+                cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+                cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+                cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            fi
+        fi 
 
         if [[ $download == *" vim-nox "* ]] ; then
             #==============================================================
@@ -556,126 +676,128 @@ config_packages() {
 
             aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
-            # Making dirs
-            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+            if [ "$CONFIG" == "YES" ]; then
+                # Making dirs
+                mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-            # Pathogen
-            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                # Pathogen
+                curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-            # Nerdtree
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdtree.git
+                # Nerdtree
+                cd ~/.vim/bundle && \
+                git clone https://github.com/scrooloose/nerdtree.git
 
-            # Syntastic
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/syntastic.git
+                # Syntastic
+                cd ~/.vim/bundle && \
+                git clone https://github.com/scrooloose/syntastic.git
 
-            # Taglist/Tagbar
-            cd ~/.vim/bundle && \
-            git clone git://github.com/vim-scripts/taglist.vim.git
-            #git clone https://github.com/vim-scripts/Tagbar.git
+                # Taglist/Tagbar
+                cd ~/.vim/bundle && \
+                git clone git://github.com/vim-scripts/taglist.vim.git
+                #git clone https://github.com/vim-scripts/Tagbar.git
 
-            # Git-gutter
-            # cd ~/.vim/bundle && \
-            # git clone git://github.com/airblade/vim-gitgutter.git
+                # Git-gutter
+                cd ~/.vim/bundle && \
+                git clone git://github.com/airblade/vim-gitgutter.git
 
-            # Nerd-commenter
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdcommenter.git
+                # Nerd-commenter
+                cd ~/.vim/bundle && \
+                git clone https://github.com/scrooloose/nerdcommenter.git
 
-            # Vim-airline
-            cd ~/.vim/bundle && \
-            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                # Vim-airline
+                cd ~/.vim/bundle && \
+                git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-            # Auto-pairs
-            cd ~/.vim/bundle && \
-            git clone git://github.com/jiangmiao/auto-pairs.git
+                # Auto-pairs
+                cd ~/.vim/bundle && \
+                git clone git://github.com/jiangmiao/auto-pairs.git
 
-            # Supertab
-            git clone git://github.com/ervandew/supertab.git
+                # Supertab
+                git clone git://github.com/ervandew/supertab.git
 
-            # Snipmate
-            cd ~/.vim/bundle
-            git clone https://github.com/tomtom/tlib_vim.git
-            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-            git clone https://github.com/garbas/vim-snipmate.git
-            git clone https://github.com/honza/vim-snippets.git
+                # Snipmate
+                cd ~/.vim/bundle
+                git clone https://github.com/tomtom/tlib_vim.git
+                git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+                git clone https://github.com/garbas/vim-snipmate.git
+                git clone https://github.com/honza/vim-snippets.git
 
-            # Indent-line
-            cd ~/.vim/bundle
-            git clone https://github.com/Yggdroot/indentLine.git
+                # Indent-line
+                cd ~/.vim/bundle
+                git clone https://github.com/Yggdroot/indentLine.git
 
-            # Single-compile
-            cd ~/.vim/bundle
-            git clone https://github.com/xuhdev/SingleCompile.git
+                # Single-compile
+                cd ~/.vim/bundle
+                git clone https://github.com/xuhdev/SingleCompile.git
 
-            # Vim-commentary
-            cd ~/.vim/bundle
-            git clone https://github.com/tpope/vim-commentary.git
+                # Vim-commentary
+                cd ~/.vim/bundle
+                git clone https://github.com/tpope/vim-commentary.git
 
-            # YouCompleteMe
-            cd ~/.vim/bundle/
-            git clone https://github.com/Valloric/YouCompleteMe.git
-            cd YouCompleteMe/
-            git submodule update --init --recursive
-            ./install.sh
-            
-            # Gruvbox theme
-            #mkdir -p ~/tmp
-            #cd ~/tmp && \
-            #git clone https://github.com/morhetz/gruvbox.git
-            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-            #rm -rf ~/tmp/gruvbox
+                # YouCompleteMe
+                cd ~/.vim/bundle/
+                git clone https://github.com/Valloric/YouCompleteMe.git
+                cd YouCompleteMe/
+                git submodule update --init --recursive
+                ./install.sh
+                
+                # Gruvbox theme
+                #mkdir -p ~/tmp
+                #cd ~/tmp && \
+                #git clone https://github.com/morhetz/gruvbox.git
+                #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+                #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+                #rm -rf ~/tmp/gruvbox
 
-            # Sorcerer theme
-            #cd ~/tmp && \
-            #git clone https://github.com/adlawson/vim-sorcerer.git
-            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-            #rm -rf ~/tmp/vim-sorcerer
+                # Sorcerer theme
+                #cd ~/tmp && \
+                #git clone https://github.com/adlawson/vim-sorcerer.git
+                #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+                #rm -rf ~/tmp/vim-sorcerer
 
-            # Jellybeans theme
-            cd ~/tmp && \
-            git clone https://github.com/nanotech/jellybeans.vim.git
-            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-            rm -rf ~/tmp/jellybeans.vim
+                # Jellybeans theme
+                cd ~/tmp && \
+                git clone https://github.com/nanotech/jellybeans.vim.git
+                mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+                rm -rf ~/tmp/jellybeans.vim
 
-            # Copying .vimrc
-            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-            
-            # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+                # Copying .vimrc
+                cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                
+                # Copying snippets
+                cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+                cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+                cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            fi
         fi
     fi
 
     config_scripts
-}
+} 
 
 config_scripts() {
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to copy useful scripts?\n\n - Mounting [m command]\n - Unmounting [um command]\n - Creating live-usb [live-usb command]" 20 70) then
 
         scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \nPress enter when finished" 20 70 10 \
-            "m"                    "Mount script" ON \
-            "um"                    "Umount script" ON \
-            "live-usb"     	        "Live-USB script" ON 3>&1 1>&2 2>&3)
+            "m"             "Mount script" ON \
+            "um"            "Umount script" ON \
+            "live-usb"     	"Live-USB script" ON 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *" m "* ]] ; then
             aptitude install fuse ntfs-3g -y
-            cp $HOME/repo/linux_stuff/config-files/m /usr/bin/
+            cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/bin/
             chmod +x /usr/bin/m
         fi
 
         if [[ $scripts == *" um "* ]] ; then
             aptitude install fuse ntfs-3g -y
-            cp $HOME/repo/linux_stuff/config-files/um /usr/bin/
+            cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/bin/
             chmod +x /usr/bin/um
         fi
 
         if [[ $scripts == *" live-usb "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/live-usb /usr/bin/
+            cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
             chmod +x /usr/bin/live-usb
         fi
     fi 
@@ -699,12 +821,12 @@ config_pc() {
         "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
         scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished" 20 70 10 \
-            "Wallpaper"     "Set wallpaper" ON \
-            "Touchpad"      "Enable touchpad" ON \
-            "WiFi"          "Enable Lenovo G580 net. card" ON \
-            "Microphone"    "Enable Lenovo G580 microphone" ON \
+            "Wallpaper"     "Set wallpaper" OFF \
+            "Touchpad"      "Enable touchpad" OFF \
+            "WiFi"          "Enable Lenovo G580 net. card" OFF \
+            "Microphone"    "Enable Lenovo G580 microphone" OFF \
             "CS:GO config"  "Global Offensive config file" OFF \
-            "Lid"     	    "Don't suspend laptop when lid closed" ON 3>&1 1>&2 2>&3)
+            "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *" Wallpaper "* ]] ; then
             aptitude install feh
@@ -736,7 +858,7 @@ config_pc() {
 
         if [[ $scripts == *" CS:GO config "* ]] ; then
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
-                cp $HOME/repo/linux_stuff/config-files/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
+                cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
                 whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi

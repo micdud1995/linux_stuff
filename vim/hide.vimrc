@@ -122,7 +122,7 @@ execute pathogen#infect()
 autocmd VimEnter * wincmd p
 
 " Open Taglist only with specific files
- autocmd FileType c,h,cpp,java nested :TlistOpen
+ autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
 " Taglist on the right side
 let Tlist_Use_Right_Window = 1
 "
@@ -130,7 +130,7 @@ let Tlist_Use_Right_Window = 1
 " autocmd FileType c,h,cpp,java nested :TagbarOpen
 
 " Open NERDTree only with specific files
-autocmd FileType c,h,cpp,java nested :NERDTree
+autocmd FileType c,h,cpp,java,sh,py nested :NERDTree
 " Width of NERDTree section
 let g:NERDTreeWinSize = 20
 " Open/close NT with F4
