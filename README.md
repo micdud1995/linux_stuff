@@ -20,5 +20,5 @@ To run script:
 
 i3 window manager config:
 =====================
-![i3 wm autostart layout](https://github.com/micdud1995/linux_stuff/img/screenshot-i3.png)
+![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/img/screenshot-i3.png)
 
