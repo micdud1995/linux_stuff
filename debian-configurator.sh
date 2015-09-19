@@ -6,14 +6,14 @@
 # Author            Michał Dudek 
 # Date              21-08-2015
 # Version           2.0.1
-# Notes             Run with sudo
+# Notes             Run as a user 
 # License           GNU General Public License v3.0
 #==============================================================================
 
 info(){
-    if [[ $UID != 0  ]]; then
+    if [[ $UID == 0  ]]; then
         whiptail --title "Debian config" --msgbox \
-        "Please run this script with sudo" 20 70
+        "Please run this script as a user" 20 70
     else
         main_menu
     fi
@@ -35,21 +35,21 @@ select_system() {
 }
 
 repo_dirs() {
-    if [[ ! -d $HOMEDIR/repo/linux_stuff ]]; then
+    if [[ ! -d $HOME/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
             "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
-            mkdir -p $HOMEDIR/repo
-            mkdir -p $HOMEDIR/tmp
+            mkdir -p $HOME/repo
+            mkdir -p $HOME/tmp
             # Creating repo dir and cloning repository
-            if [[ ! -d $HOMEDIR/repo/linux_stuff ]]; then
-                cd $HOMEDIR/repo
-                aptitude install git -y
+            if [[ ! -d $HOME/repo/linux_stuff ]]; then
+                cd $HOME/repo
+                sudo aptitude install git -y
                 git clone https://github.com/micdud1995/linux_stuff.git
             fi
         fi
     else
-        whiptail --title "Debian config" --msgbox "OK, $HOMEDIR/repo/linux_stuff exists already" 20 70
+        whiptail --title "Debian config" --msgbox "OK, $HOME/repo/linux_stuff exists already" 20 70
     fi
 
     config_sources
@@ -70,63 +70,63 @@ config_sources() {
         case "$VERSION" in
             "Stable")
                 NONFREE=0
-                sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
             "Testing")
                 NONFREE=0
-                sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
             ;;
             "Sid")
                 NONFREE=0
-                sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
             ;;
             "Stable contrib non-free")
                 NONFREE=1
-                sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
             "Testing contrib non-free")
                 NONFREE=1
-                sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
             "Sid contrib non-free")
                 NONFREE=1
-                sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
             "*")
                 whiptail --title "Debian config" --msgbox "Wrong version" 20 70
@@ -134,8 +134,8 @@ config_sources() {
             ;;
         esac
 
-        aptitude update
-        aptitude upgrade -y
+        sudo aptitude update
+        sudo aptitude upgrade -y
     fi
 
     config_shell
@@ -151,14 +151,14 @@ config_shell() {
 
         case "$SHELL" in
             "Bash")
-                aptitude install colordiff bash -y
-                cp $HOMEDIR/repo/linux_stuff/config-files/bash/hide.bashrc $HOMEDIR/.bashrc
-                chsh -s /bin/bash
+                sudo aptitude install colordiff bash -y
+                cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
+                sudo chsh -s /bin/bash
             ;;
             "Zsh")
-                aptitude install colordiff zsh -y
-                cp $HOMEDIR/repo/linux_stuff/config-files/zsh/hide.zshrc $HOMEDIR/.zshrc
-                chsh -s /bin/zsh
+                sudo aptitude install colordiff zsh -y
+                cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                sudo chsh -s /bin/zsh
             ;;
         esac
     fi
@@ -180,14 +180,14 @@ config_gui() {
                 main_menu
             ;;
             "Intel")
-                aptitude install xserver-xorg-video-intel -y
+                sudo aptitude install xserver-xorg-video-intel -y
             ;;
             "Nvidia")
                 whiptail --title "Error" --msgbox "Not supported yet" 20 70
                 main_menu
             ;;
             "VBOX")
-                aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+                sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
             ;;
         esac
     fi
@@ -202,31 +202,31 @@ config_gui() {
 
         case "$DE" in
             "awesome")
-                aptitude install awesome
-                mkdir -p $HOMEDIR/.config/awesome
+                sudo aptitude install awesome
+                mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
-                cp $HOMEDIR/repo/linux_stuff/config-files/rc.lua $HOMEDIR/.config/awesome/rc.lua
+                cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                aptitude install xorg xinit i3 dmenu fonts-font-awesome -y
-                mkdir -p $HOMEDIR/.i3
-                mkdir -p $HOMEDIR/Obrazy
-                cp $HOMEDIR/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                cp $HOMEDIR/repo/linux_stuff/i3/config ~/.i3/config
-                cp $HOMEDIR/repo/linux_stuff/i3/workspace* ~/.i3/
-                cp $HOMEDIR/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
-                chmod +x $HOMEDIR/.i3/load_workspaces.sh
-                cp $HOMEDIR/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome -y
+                mkdir -p $HOME/.i3
+                mkdir -p $HOME/Obrazy
+                cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
+                cp $HOME/repo/linux_stuff/i3/config ~/.i3/config
+                cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
+                cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
+                chmod +x $HOME/.i3/load_workspaces.sh
+                cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde-core")
-                aptitude install lxde-core -y
+                sudo aptitude install lxde-core -y
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
-                aptitude install xfce4 -y
+                sudo aptitude install xfce4 -y
                 echo "startxfce4" > ~/.xinitrc
             ;;
         esac
@@ -234,7 +234,7 @@ config_gui() {
 
     if (whiptail --title "Making Esc from Caps Lock" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to use Caps Lock as a additional Escape?" 20 70) then
-        setxkbmap -option caps:escape &
+        sudo setxkbmap -option caps:escape &
     fi
 
     config_packages
@@ -302,10 +302,10 @@ config_packages() {
             "zsh"     	                    "Z-shell" OFF 3>&1 1>&2 2>&3)
 
         download=$(echo "$software" | sed 's/\"//g')
-        aptitude install $download -y
+        sudo aptitude install $download -y
 
         if [[ $download == *" fuck "* ]] ; then
-            cd $HOMEDIR/tmp
+            cd $HOME/tmp
             wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
         fi
 
@@ -319,42 +319,42 @@ config_packages() {
 
             case "$language" in
                 "eng-pol")
-                    aptitude install dict-freedict-eng-pol -y
+                    sudo aptitude install dict-freedict-eng-pol -y
                 ;;
                 "eng-deu")
-                    aptitude install dict-freedict-eng-deu -y
+                    sudo aptitude install dict-freedict-eng-deu -y
                 ;;
                 "eng-fra")
-                    aptitude install dict-freedict-eng-fra -y
+                    sudo aptitude install dict-freedict-eng-fra -y
                 ;;
                 "eng-rus")
-                    aptitude install dict-freedict-eng-rus -y
+                    sudo aptitude install dict-freedict-eng-rus -y
                 ;;
                 "eng-spa")
-                    aptitude install dict-freedict-eng-spa -y
+                    sudo aptitude install dict-freedict-eng-spa -y
                 ;;
             esac
         fi
 
         if [[ $download == *" cmus "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
+            cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
         fi
 
         if [[ $download == *" xterm "* ]] ; then
-            echo "XTerm*selectToClipboard: true" >> $HOMEDIR/.Xdefaults
+            echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
         fi
 
         if [[ $download == *" weechat "* ]] ; then
-            mkdir -p $HOMEDIR/.weechat
-            cp $HOMEDIR/repo/linux_stuff/config-files/weechat/* $HOMEDIR/.weechat/
-            rm -f $HOMEDIR/.weechat/weechat.log
+            mkdir -p $HOME/.weechat
+            cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
+            rm -f $HOME/.weechat/weechat.log
             ln -s /dev/null weechat.log
         fi
 
         if [[ $download == *" newsbeuter "* ]] ; then
-            mkdir -p $HOMEDIR/.config/newsbeuter
-            cp $HOMEDIR/repo/linux_stuff/config-files/newsbeuter/urls $HOMEDIR/.config/newsbeuter/urls
-            cp $HOMEDIR/repo/linux_stuff/config-files/newsbeuter/config $HOMEDIR/.config/newsbeuter/config
+            mkdir -p $HOME/.config/newsbeuter
+            cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
+            cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
         fi
 
         if [[ $download == *" conky "* ]] ; then
@@ -367,7 +367,7 @@ config_packages() {
         fi
 
         if [[ $download == *" xboxdrv "* ]] ; then
-            sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+            sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
             rmmod xpad
         fi
 
@@ -379,23 +379,23 @@ config_packages() {
         fi
 
         if [[ $download == *" openssh "* ]] ; then
-            aptitude install openssh-server -y
-            iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-            /etc/init.d/ssh restart
-            export DISPLAY=:0
+            sudo aptitude install openssh-server -y
+            sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+            sudo /etc/init.d/ssh restart
+            sudo export DISPLAY=:0
         fi
 
         if [[ $download == *" mc "* ]] ; then
-            mkdir -p $HOMEDIR/.config/mc
-            mkdir -p $HOMEDIR/.local/share/mc/skins
-            cp $HOMEDIR/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOMEDIR/.config/mc/mc.ext
-            cp $HOMEDIR/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOMEDIR/.local/share/mc/skins/
+            mkdir -p $HOME/.config/mc
+            mkdir -p $HOME/.local/share/mc/skins
+            cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+            cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
         fi
 
         if [[ $download == *" moc "* ]] ; then
-            mkdir -p $HOMEDIR/.moc
-            cp $HOMEDIR/repo/linux_stuff/config-files/moc/config $HOMEDIR/.moc/config
-            cp $HOMEDIR/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+            mkdir -p $HOME/.moc
+            cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
+            cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
         fi
 
         if [[ $download == *"libreoffice"* ]] ; then
@@ -408,53 +408,53 @@ config_packages() {
 
             case "$language" in
                 "Polski")
-                    aptitude install libreoffice-l10n-pl -y
+                    sudo aptitude install libreoffice-l10n-pl -y
                 ;;
                 "Deutsch")
-                    aptitude install libreoffice-l10n-de -y
+                    sudo aptitude install libreoffice-l10n-de -y
                 ;;
                 "British")
-                    aptitude install libreoffice-l10n-en-gb -y
+                    sudo aptitude install libreoffice-l10n-en-gb -y
                 ;;
                 "American")
-                    aptitude install libreoffice-l10n-en-us -y
+                    sudo aptitude install libreoffice-l10n-en-us -y
                 ;;
                 "Espanol")
-                    aptitude install libreoffice-l10n-es -y
+                    sudo aptitude install libreoffice-l10n-es -y
                 ;;
             esac
         fi
         
         if [[ $download == *" mutt "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/mutt/hide.muttrc $HOMEDIR/.muttrc
+            cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
         fi
 
         if [[ $download == *" irssi "* ]] ; then
-            mkdir $HOMEDIR/.irssi
+            mkdir $HOME/.irssi
             if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
                 "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
 
-                cp $HOMEDIR/repo/linux_stuff/config-files/irssi/config $HOMEDIR/.irssi/config
-                cp $HOMEDIR/repo/linux_stuff/config-files/cyanic.theme $HOMEDIR/.irssi/
+                cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
+                cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
             fi
         fi
 
         if [[ $download == *" rtorrent "* ]] ; then
-            mkdir -p $HOMEDIR/.rtorrent
+            mkdir -p $HOME/.rtorrent
             cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
         fi
 
         if [[ $download == *" virtualbox "* ]] ; then
-            aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+            sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
         fi
 
         if [[ $download == *" livestreamer "* ]] ; then
-            aptitude install python python-requests python-setuptools python-singledispatch -y
-            cd $HOMEDIR/tmp
+            sudo aptitude install python python-requests python-setuptools python-singledispatch -y
+            cd $HOME/tmp
             git clone https://github.com/chrippa/livestreamer.git
-            cd $HOMEDIR/tmp/livestreamer
+            cd $HOME/tmp/livestreamer
             python setup.py install
-            rm -rf $HOMEDIR/tmp/livestreamer
+            rm -rf $HOME/tmp/livestreamer
         fi
 
         if [[ $download == *" youtube-dl "* ]] ; then
@@ -463,33 +463,33 @@ config_packages() {
         fi
 
         if [[ $download == *" vimb "* ]] ; then
-            aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
-            mkdir -p $HOMEDIR/tmp
-            mkdir -p $HOMEDIR/tmp/vimb
-            mkdir -p $HOMEDIR/.config/vimb
-            cd $HOMEDIR/tmp
+            sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
+            mkdir -p $HOME/tmp
+            mkdir -p $HOME/tmp/vimb
+            mkdir -p $HOME/.config/vimb
+            cd $HOME/tmp
             git clone https://github.com/fanglingsu/vimb.git
-            cd $HOMEDIR/tmp/vimb
+            cd $HOME/tmp/vimb
             make clean
             make install
 
-            cp $HOMEDIR/repo/linux_stuff/config-files/vimb/config $HOMEDIR/.config/vimb/config
-            cp $HOMEDIR/repo/linux_stuff/config-files/dwb/bookmarks $HOMEDIR/.config/vimb/bookmark
+            cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
+            cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
         fi
 
         if [[ $download == *" steam "* ]] ; then
-            mkdir -p $HOMEDIR/tmp
-            aptitude install curl zenity steam -y
+            mkdir -p $HOME/tmp
+            sudo aptitude install curl zenity steam -y
         fi
 
         if [[ $download == *" slim "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-            dpkg-reconfigure slim
+            cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
+            sudo dpkg-reconfigure slim
         fi
 
         if [[ $download == *" lightdm "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-            dpkg-reconfigure lightdm
+            cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+            sudo dpkg-reconfigure lightdm
         fi
 
         if [[ $download == *" vim "* ]] ; then
@@ -511,7 +511,7 @@ config_packages() {
             #	Gruvbox theme
             #==============================================================
 
-            aptitude install vim curl exuberant-ctags fonts-inconsolata -y
+            sudo aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
             # Making dirs
             mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -594,10 +594,10 @@ config_packages() {
             cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
             
             # Copying snippets
-            cp $HOMEDIR/repo/linux_stuff/vim/cpp.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
-            cp $HOMEDIR/repo/linux_stuff/vim/c.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
-            cp $HOMEDIR/repo/linux_stuff/vim/python.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
-            cp $HOMEDIR/repo/linux_stuff/vim/sh.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
         fi 
 
         if [[ $download == *" vim-nox "* ]] ; then
@@ -620,7 +620,7 @@ config_packages() {
             #	Gruvbox theme
             #==============================================================
 
-            aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
+            sudo aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
             # Making dirs
             mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -710,9 +710,9 @@ config_packages() {
             cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
             
             # Copying snippets
-            cp $HOMEDIR/repo/linux_stuff/vim/cpp.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
-            cp $HOMEDIR/repo/linux_stuff/vim/c.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
-            cp $HOMEDIR/repo/linux_stuff/vim/python.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
         fi
     fi
 
@@ -729,20 +729,20 @@ config_scripts() {
             "live-usb"     	"Live-USB script" ON 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *" m "* ]] ; then
-            aptitude install fuse ntfs-3g -y
-            cp $HOMEDIR/repo/linux_stuff/config-files/scripts/m /usr/bin/
-            chmod +x /usr/bin/m
+            sudo aptitude install fuse ntfs-3g -y
+            cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/bin/
+            sudo chmod +x /usr/bin/m
         fi
 
         if [[ $scripts == *" um "* ]] ; then
-            aptitude install fuse ntfs-3g -y
-            cp $HOMEDIR/repo/linux_stuff/config-files/scripts/um /usr/bin/
+            sudo aptitude install fuse ntfs-3g -y
+            cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/bin/
             chmod +x /usr/bin/um
         fi
 
         if [[ $scripts == *" live-usb "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
-            chmod +x /usr/bin/live-usb
+            cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
+            sudo chmod +x /usr/bin/live-usb
         fi
     fi 
 
@@ -753,8 +753,8 @@ config_beep() {
     if (whiptail --title "Beep sound" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 70) then
 
-        rmmod pcspkr
-        sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
+        sudo rmmod pcspkr
+        sudo sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
     fi
 
     config_pc
@@ -773,43 +773,43 @@ config_pc() {
             "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *" Wallpaper "* ]] ; then
-            aptitude install feh
-            mkdir -p $HOMEDIR/Obrazy
-            cp $HOMEDIR/repo/linux_stuff/config-files/wallpaper.jpg $HOMEDIR/Obrazy/wallpaper.jpg
-            feh --bg-scale $HOMEDIR/Obrazy/wallpaper.jpg
+            sudo aptitude install feh
+            mkdir -p $HOME/Obrazy
+            cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+            feh --bg-scale $HOME/Obrazy/wallpaper.jpg
         fi
 
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
-            cp $HOMEDIR/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-            echo synclient TapButton1=1 >> $HOMEDIR/.xinitrc
+            cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            echo synclient TapButton1=1 >> $HOME/.xinitrc
         fi
 
         if [[ $scripts == *" WiFi "* ]] ; then
-            aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
-            modprobe -r b44 b43 b43legacy ssb brcmsmac
-            modprobe wl
-            cp $HOMEDIR/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
-            adduser michal netdev
-            /etc/init.d/dbus reload
-            /etc/init.d/wicd start
+            sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
+            sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
+            sudo modprobe wl
+            cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
+            sudo adduser michal netdev
+            sudo /etc/init.d/dbus reload
+            sudo /etc/init.d/wicd start
             wicd-client -n
         fi
 
         if [[ $scripts == *" Microphone "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+            cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         fi
 
         if [[ $scripts == *" CS:GO config "* ]] ; then
-            if [[ -d $HOMEDIR/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
-                cp $HOMEDIR/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOMEDIR/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
+            if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
+                cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
                 whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi
         fi
 
         if [[ $scripts == *" Lid "* ]] ; then
-            cp $HOMEDIR/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+            cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
         fi
     fi 
 
@@ -868,5 +868,4 @@ main_menu() {
 	esac
 }
 
-HOMEDIR=$(whiptail --nocancel --inputbox "Your home path:" 20 70 "/home/michal" 3>&1 1>&2 2>&3)
 info
