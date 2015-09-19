@@ -16,7 +16,7 @@ To run script:
 	chmod +x debian-configurator.sh
 2) Run it, e.q.
 
-	sudo ./debian-configurator.sh
+	./debian-configurator.sh
 
 i3 window manager config:
 =====================
