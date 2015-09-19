@@ -35,21 +35,21 @@ select_system() {
 }
 
 repo_dirs() {
-    if [[ ! -d $HOME/repo/linux_stuff ]]; then
+    if [[ ! -d $HOMEDIR/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
             "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
-            mkdir -p $HOME/repo
-            mkdir -p $HOME/tmp
+            mkdir -p $HOMEDIR/repo
+            mkdir -p $HOMEDIR/tmp
             # Creating repo dir and cloning repository
-            if [[ ! -d $HOME/repo/linux_stuff ]]; then
-                cd $HOME/repo
+            if [[ ! -d $HOMEDIR/repo/linux_stuff ]]; then
+                cd $HOMEDIR/repo
                 aptitude install git -y
                 git clone https://github.com/micdud1995/linux_stuff.git
             fi
         fi
     else
-        whiptail --title "Debian config" --msgbox "OK, $HOME/repo/linux_stuff exists already" 20 70
+        whiptail --title "Debian config" --msgbox "OK, $HOMEDIR/repo/linux_stuff exists already" 20 70
     fi
 
     config_sources
@@ -152,12 +152,12 @@ config_shell() {
         case "$SHELL" in
             "Bash")
                 aptitude install colordiff bash -y
-                cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
+                cp $HOMEDIR/repo/linux_stuff/config-files/bash/hide.bashrc $HOMEDIR/.bashrc
                 chsh -s /bin/bash
             ;;
             "Zsh")
                 aptitude install colordiff zsh -y
-                cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                cp $HOMEDIR/repo/linux_stuff/config-files/zsh/hide.zshrc $HOMEDIR/.zshrc
                 chsh -s /bin/zsh
             ;;
         esac
@@ -196,29 +196,29 @@ config_gui() {
         "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
-        "awesome"           "configurable tiling WM" \
-        "i3"                "i3 tiling WM" \
-        "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
+        "awesome    "           "configurable tiling WM" \
+        "i3     "               "i3 tiling WM" \
+        "lxde-core  "           "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "awesome")
                 aptitude install awesome
-                mkdir -p $HOME/.config/awesome
+                mkdir -p $HOMEDIR/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
-                cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
+                cp $HOMEDIR/repo/linux_stuff/config-files/rc.lua $HOMEDIR/.config/awesome/rc.lua
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                aptitude install i3 dmenu fonts-font-awesome -y
-                mkdir -p $HOME/.i3
-                mkdir -p $HOME/Obrazy
-                cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                cp $HOME/repo/linux_stuff/i3/config ~/.i3/config
-                cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
-                cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
-                chmod +x $HOME/.i3/load_workspaces.sh
-                cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                aptitude install xorg xinit i3 dmenu fonts-font-awesome -y
+                mkdir -p $HOMEDIR/.i3
+                mkdir -p $HOMEDIR/Obrazy
+                cp $HOMEDIR/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
+                cp $HOMEDIR/repo/linux_stuff/i3/config ~/.i3/config
+                cp $HOMEDIR/repo/linux_stuff/i3/workspace* ~/.i3/
+                cp $HOMEDIR/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
+                chmod +x $HOMEDIR/.i3/load_workspaces.sh
+                cp $HOMEDIR/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde-core")
@@ -305,7 +305,7 @@ config_packages() {
         aptitude install $download -y
 
         if [[ $download == *" fuck "* ]] ; then
-            cd $HOME/tmp
+            cd $HOMEDIR/tmp
             wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
         fi
 
@@ -337,24 +337,24 @@ config_packages() {
         fi
 
         if [[ $download == *" cmus "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
+            cp $HOMEDIR/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
         fi
 
         if [[ $download == *" xterm "* ]] ; then
-            echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
+            echo "XTerm*selectToClipboard: true" >> $HOMEDIR/.Xdefaults
         fi
 
         if [[ $download == *" weechat "* ]] ; then
-            mkdir -p $HOME/.weechat
-            cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
-            rm -f $HOME/.weechat/weechat.log
+            mkdir -p $HOMEDIR/.weechat
+            cp $HOMEDIR/repo/linux_stuff/config-files/weechat/* $HOMEDIR/.weechat/
+            rm -f $HOMEDIR/.weechat/weechat.log
             ln -s /dev/null weechat.log
         fi
 
         if [[ $download == *" newsbeuter "* ]] ; then
-            mkdir -p $HOME/.config/newsbeuter
-            cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
-            cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
+            mkdir -p $HOMEDIR/.config/newsbeuter
+            cp $HOMEDIR/repo/linux_stuff/config-files/newsbeuter/urls $HOMEDIR/.config/newsbeuter/urls
+            cp $HOMEDIR/repo/linux_stuff/config-files/newsbeuter/config $HOMEDIR/.config/newsbeuter/config
         fi
 
         if [[ $download == *" conky "* ]] ; then
@@ -386,16 +386,16 @@ config_packages() {
         fi
 
         if [[ $download == *" mc "* ]] ; then
-            mkdir -p $HOME/.config/mc
-            mkdir -p $HOME/.local/share/mc/skins
-            cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
-            cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+            mkdir -p $HOMEDIR/.config/mc
+            mkdir -p $HOMEDIR/.local/share/mc/skins
+            cp $HOMEDIR/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOMEDIR/.config/mc/mc.ext
+            cp $HOMEDIR/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOMEDIR/.local/share/mc/skins/
         fi
 
         if [[ $download == *" moc "* ]] ; then
-            mkdir -p $HOME/.moc
-            cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
-            cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+            mkdir -p $HOMEDIR/.moc
+            cp $HOMEDIR/repo/linux_stuff/config-files/moc/config $HOMEDIR/.moc/config
+            cp $HOMEDIR/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
         fi
 
         if [[ $download == *"libreoffice"* ]] ; then
@@ -426,21 +426,21 @@ config_packages() {
         fi
         
         if [[ $download == *" mutt "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+            cp $HOMEDIR/repo/linux_stuff/config-files/mutt/hide.muttrc $HOMEDIR/.muttrc
         fi
 
         if [[ $download == *" irssi "* ]] ; then
-            mkdir $HOME/.irssi
+            mkdir $HOMEDIR/.irssi
             if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
                 "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
 
-                cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
-                cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+                cp $HOMEDIR/repo/linux_stuff/config-files/irssi/config $HOMEDIR/.irssi/config
+                cp $HOMEDIR/repo/linux_stuff/config-files/cyanic.theme $HOMEDIR/.irssi/
             fi
         fi
 
         if [[ $download == *" rtorrent "* ]] ; then
-            mkdir -p $HOME/.rtorrent
+            mkdir -p $HOMEDIR/.rtorrent
             cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
         fi
 
@@ -450,11 +450,11 @@ config_packages() {
 
         if [[ $download == *" livestreamer "* ]] ; then
             aptitude install python python-requests python-setuptools python-singledispatch -y
-            cd $HOME/tmp
+            cd $HOMEDIR/tmp
             git clone https://github.com/chrippa/livestreamer.git
-            cd $HOME/tmp/livestreamer
+            cd $HOMEDIR/tmp/livestreamer
             python setup.py install
-            rm -rf $HOME/tmp/livestreamer
+            rm -rf $HOMEDIR/tmp/livestreamer
         fi
 
         if [[ $download == *" youtube-dl "* ]] ; then
@@ -464,31 +464,31 @@ config_packages() {
 
         if [[ $download == *" vimb "* ]] ; then
             aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
-            mkdir -p $HOME/tmp
-            mkdir -p $HOME/tmp/vimb
-            mkdir -p $HOME/.config/vimb
-            cd $HOME/tmp
+            mkdir -p $HOMEDIR/tmp
+            mkdir -p $HOMEDIR/tmp/vimb
+            mkdir -p $HOMEDIR/.config/vimb
+            cd $HOMEDIR/tmp
             git clone https://github.com/fanglingsu/vimb.git
-            cd $HOME/tmp/vimb
+            cd $HOMEDIR/tmp/vimb
             make clean
             make install
 
-            cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
-            cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
+            cp $HOMEDIR/repo/linux_stuff/config-files/vimb/config $HOMEDIR/.config/vimb/config
+            cp $HOMEDIR/repo/linux_stuff/config-files/dwb/bookmarks $HOMEDIR/.config/vimb/bookmark
         fi
 
         if [[ $download == *" steam "* ]] ; then
-            mkdir -p $HOME/tmp
+            mkdir -p $HOMEDIR/tmp
             aptitude install curl zenity steam -y
         fi
 
         if [[ $download == *" slim "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
+            cp $HOMEDIR/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
             dpkg-reconfigure slim
         fi
 
         if [[ $download == *" lightdm "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+            cp $HOMEDIR/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
             dpkg-reconfigure lightdm
         fi
 
@@ -594,10 +594,10 @@ config_packages() {
             cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
             
             # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/cpp.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/c.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/python.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/sh.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
         fi 
 
         if [[ $download == *" vim-nox "* ]] ; then
@@ -710,9 +710,9 @@ config_packages() {
             cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
             
             # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/cpp.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/c.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
+            cp $HOMEDIR/repo/linux_stuff/vim/python.snippets $HOMEDIR/.vim/bundle/vim-snippets/snippets/
         fi
     fi
 
@@ -730,18 +730,18 @@ config_scripts() {
 
         if [[ $scripts == *" m "* ]] ; then
             aptitude install fuse ntfs-3g -y
-            cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/bin/
+            cp $HOMEDIR/repo/linux_stuff/config-files/scripts/m /usr/bin/
             chmod +x /usr/bin/m
         fi
 
         if [[ $scripts == *" um "* ]] ; then
             aptitude install fuse ntfs-3g -y
-            cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/bin/
+            cp $HOMEDIR/repo/linux_stuff/config-files/scripts/um /usr/bin/
             chmod +x /usr/bin/um
         fi
 
         if [[ $scripts == *" live-usb "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
+            cp $HOMEDIR/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
             chmod +x /usr/bin/live-usb
         fi
     fi 
@@ -774,22 +774,22 @@ config_pc() {
 
         if [[ $scripts == *" Wallpaper "* ]] ; then
             aptitude install feh
-            mkdir -p $HOME/Obrazy
-            cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
-            feh --bg-scale $HOME/Obrazy/wallpaper.jpg
+            mkdir -p $HOMEDIR/Obrazy
+            cp $HOMEDIR/repo/linux_stuff/config-files/wallpaper.jpg $HOMEDIR/Obrazy/wallpaper.jpg
+            feh --bg-scale $HOMEDIR/Obrazy/wallpaper.jpg
         fi
 
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
-            cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-            echo synclient TapButton1=1 >> $HOME/.xinitrc
+            cp $HOMEDIR/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            echo synclient TapButton1=1 >> $HOMEDIR/.xinitrc
         fi
 
         if [[ $scripts == *" WiFi "* ]] ; then
             aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
             modprobe -r b44 b43 b43legacy ssb brcmsmac
             modprobe wl
-            cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
+            cp $HOMEDIR/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
             adduser michal netdev
             /etc/init.d/dbus reload
             /etc/init.d/wicd start
@@ -797,19 +797,19 @@ config_pc() {
         fi
 
         if [[ $scripts == *" Microphone "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+            cp $HOMEDIR/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         fi
 
         if [[ $scripts == *" CS:GO config "* ]] ; then
-            if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
-                cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
+            if [[ -d $HOMEDIR/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
+                cp $HOMEDIR/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOMEDIR/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
                 whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi
         fi
 
         if [[ $scripts == *" Lid "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+            cp $HOMEDIR/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
         fi
     fi 
 
@@ -868,4 +868,5 @@ main_menu() {
 	esac
 }
 
+HOMEDIR=$(whiptail --nocancel --inputbox "Your home path:" 20 70 "/home/michal" 3>&1 1>&2 2>&3)
 info
