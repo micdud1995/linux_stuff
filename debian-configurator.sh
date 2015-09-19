@@ -4,8 +4,8 @@
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michał Dudek 
-# Date              21-08-2015
-# Version           2.0.1
+# Date              20-09-2015
+# Version           2.0.2
 # Notes             Run as a user 
 # License           GNU General Public License v3.0
 #==============================================================================
@@ -69,7 +69,6 @@ config_sources() {
 
         case "$VERSION" in
             "Stable")
-                NONFREE=0
                 sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
@@ -81,7 +80,6 @@ config_sources() {
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
             "Testing")
-                NONFREE=0
                 sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
@@ -90,7 +88,6 @@ config_sources() {
                 sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
             ;;
             "Sid")
-                NONFREE=0
                 sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
@@ -99,7 +96,6 @@ config_sources() {
                 sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
             ;;
             "Stable contrib non-free")
-                NONFREE=1
                 sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
@@ -111,7 +107,6 @@ config_sources() {
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
             "Testing contrib non-free")
-                NONFREE=1
                 sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
@@ -120,7 +115,6 @@ config_sources() {
                 sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
             "Sid contrib non-free")
-                NONFREE=1
                 sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
                 sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
                 sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
@@ -134,7 +128,7 @@ config_sources() {
             ;;
         esac
 
-        sudo aptitude update
+        sudo aptitude update 
         sudo aptitude upgrade -y
     fi
 
@@ -196,13 +190,14 @@ config_gui() {
         "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
-        "awesome    "           "configurable tiling WM" \
-        "i3     "               "i3 tiling WM" \
-        "lxde-core  "           "fast DE"   3>&1 1>&2 2>&3)
+        "awesome"           "configurable tiling WM" \
+        "i3"                "i3 tiling WM" \
+        "xfce"              "lightweight DE" \
+        "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "awesome")
-                sudo aptitude install awesome
+                sudo aptitude install xorg xinit awesome -y
                 mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
@@ -210,7 +205,7 @@ config_gui() {
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome -y
+                sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -222,11 +217,11 @@ config_gui() {
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde-core")
-                sudo aptitude install lxde-core -y
+                sudo aptitude install xorg xinit lxde-core -y
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
-                sudo aptitude install xfce4 -y
+                sudo aptitude install xorg xinit xfce4 -y
                 echo "startxfce4" > ~/.xinitrc
             ;;
         esac
@@ -396,6 +391,7 @@ config_packages() {
             mkdir -p $HOME/.moc
             cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
             cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+            cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
         fi
 
         if [[ $download == *"libreoffice"* ]] ; then
@@ -773,7 +769,7 @@ config_pc() {
             "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *" Wallpaper "* ]] ; then
-            sudo aptitude install feh
+            sudo aptitude install feh -y
             mkdir -p $HOME/Obrazy
             cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
