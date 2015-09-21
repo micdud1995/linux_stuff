@@ -121,26 +121,34 @@ execute pathogen#infect()
 " wincmd p puts the cursor in the main window
 autocmd VimEnter * wincmd p
 
-" Open Taglist only with specific files
- autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
-" Taglist on the right side
+" =================================================
+" Taglist
+ " autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
 let Tlist_Use_Right_Window = 1
-"
+let Tlist_Auto_Open = 1
+map <F4> :TlistToggle<CR>
+" =================================================
+
+" =================================================
+" Tagbar
 " Open Tagbar only with specific files
 " autocmd FileType c,h,cpp,java nested :TagbarOpen
+" =================================================
 
-" Open NERDTree only with specific files
-autocmd FileType c,h,cpp,java,sh,py nested :NERDTree
-" Width of NERDTree section
+" =================================================
+" NERDTree
+" autocmd FileType c,h,cpp,java,sh,py nested :NERDTree
+autocmd VimEnter * NERDTree | wincmd p
 let g:NERDTreeWinSize = 20
-" Open/close NT with F4
 map <F3> :NERDTreeToggle<CR>
-map <F4> :TlistToggle<CR>
+let NERDTreeShowHidden=1
+" =================================================
 
+" =================================================
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
 
-" Run indentLine
+" IndentLine
 let g:indentLine_enabled = 1
 let g:indentLine_char = '┆'
 let g:indentLine_color_term = 239
