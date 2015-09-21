@@ -250,6 +250,7 @@ config_packages() {
             "faenza-icon-theme"             "Icon Theme" OFF \
             "feh"                           "Image Viewer" OFF \
             "fuck"                          "Command correcting" OFF \
+            "git"                           "Content tracker" OFF \
             "htop"                          "Process Info" OFF \
             "irssi"                         "IRC Client" OFF \
             "iceweasel"                     "Web Browser" OFF \
@@ -268,6 +269,7 @@ config_packages() {
             "nethack"                       "Roguelike game" OFF \
             "newsbeuter"                    "RSS feed reader" OFF \
             "openssh"                       "Secure Shell" OFF \
+            "p7zip"                         "File archiver" OFF \
             "pavucontrol"                   "Sound output" OFF \
             "pinta"                         "Image Editor" OFF \
             "ranger"                        "File manager" OFF \
@@ -280,8 +282,9 @@ config_packages() {
             "torbrowser-launcher"           "Web Browser" OFF \
             "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
+            "unrar"                         "File archiver" OFF \
             "unzip"                         "Unpack zip archives" OFF \
-            "vim" 	  	                    "Text Editor" OFF \
+            "vim-clear" 	  	                    "Text Editor" OFF \
             "vim-nox" 	  	                "Vim with script support" OFF \
             "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
@@ -297,419 +300,405 @@ config_packages() {
             "zsh"     	                    "Z-shell" OFF 3>&1 1>&2 2>&3)
 
         download=$(echo "$software" | sed 's/\"//g')
-        sudo aptitude install $download -y
-
-        if [[ $download == *" fuck "* ]] ; then
-            cd $HOME/tmp
-            wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
-        fi
-
-        if [[ $download == *" dictd "* ]] ; then
-            language=$(whiptail --title "DIctionary languages" --menu "Choose your dictionary" 20 70 11 \
-            "eng-pol" \
-            "eng-deu" \
-            "eng-fra" \
-            "eng-rus" \
-            "eng-spa" 3>&1 1>&2 2>&3)
-
-            case "$language" in
-                "eng-pol")
-                    sudo aptitude install dict-freedict-eng-pol -y
-                ;;
-                "eng-deu")
-                    sudo aptitude install dict-freedict-eng-deu -y
-                ;;
-                "eng-fra")
-                    sudo aptitude install dict-freedict-eng-fra -y
-                ;;
-                "eng-rus")
-                    sudo aptitude install dict-freedict-eng-rus -y
-                ;;
-                "eng-spa")
-                    sudo aptitude install dict-freedict-eng-spa -y
-                ;;
-            esac
-        fi
-
-        if [[ $download == *" cmus "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
-        fi
-
-        if [[ $download == *" xterm "* ]] ; then
-            echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
-        fi
-
-        if [[ $download == *" weechat "* ]] ; then
-            mkdir -p $HOME/.weechat
-            cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
-            rm -f $HOME/.weechat/weechat.log
-            ln -s /dev/null weechat.log
-        fi
-
-        if [[ $download == *" newsbeuter "* ]] ; then
-            mkdir -p $HOME/.config/newsbeuter
-            cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
-            cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
-        fi
-
-        if [[ $download == *" conky "* ]] ; then
-            cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
-            cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
-        fi
-
-        if [[ $download == *" dwb "* ]] ; then
-            cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
-        fi
-
-        if [[ $download == *" xboxdrv "* ]] ; then
-            sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
-            rmmod xpad
-        fi
-
-        if [[ $download == *" git "* ]] ; then
-            name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
-            git config --global user.name "$name"
-            mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
-            git config --global user.email $mail
-        fi
-
-        if [[ $download == *" openssh "* ]] ; then
-            sudo aptitude install openssh-server -y
-            sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-            sudo /etc/init.d/ssh restart
-            sudo export DISPLAY=:0
-        fi
-
-        if [[ $download == *" mc "* ]] ; then
-            mkdir -p $HOME/.config/mc
-            mkdir -p $HOME/.local/share/mc/skins
-            cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
-            cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
-        fi
-
-        if [[ $download == *" moc "* ]] ; then
-            mkdir -p $HOME/.moc
-            cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
-            cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
-            cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
-        fi
-
-        if [[ $download == *"libreoffice"* ]] ; then
-            language=$(whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
-            "Polski"        "Polish" \
-            "Deutsch"       "German" \
-            "British"       "English_british" \
-            "American"      "English_american" \
-            "Espanol"       "Spanish" 3>&1 1>&2 2>&3)
-
-            case "$language" in
-                "Polski")
-                    sudo aptitude install libreoffice-l10n-pl -y
-                ;;
-                "Deutsch")
-                    sudo aptitude install libreoffice-l10n-de -y
-                ;;
-                "British")
-                    sudo aptitude install libreoffice-l10n-en-gb -y
-                ;;
-                "American")
-                    sudo aptitude install libreoffice-l10n-en-us -y
-                ;;
-                "Espanol")
-                    sudo aptitude install libreoffice-l10n-es -y
-                ;;
-            esac
-        fi
-        
-        if [[ $download == *" mutt "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
-        fi
-
-        if [[ $download == *" irssi "* ]] ; then
-            mkdir $HOME/.irssi
-            if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
-                "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
-
-                cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
-                cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
-            fi
-        fi
-
-        if [[ $download == *" rtorrent "* ]] ; then
-            mkdir -p $HOME/.rtorrent
-            cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
-        fi
-
-        if [[ $download == *" virtualbox "* ]] ; then
-            sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
-        fi
-
-        if [[ $download == *" livestreamer "* ]] ; then
-            sudo aptitude install python python-requests python-setuptools python-singledispatch -y
-            cd $HOME/tmp
-            git clone https://github.com/chrippa/livestreamer.git
-            cd $HOME/tmp/livestreamer
-            python setup.py install
-            rm -rf $HOME/tmp/livestreamer
-        fi
-
-        if [[ $download == *" youtube-dl "* ]] ; then
-            wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-            chmod a+rx /usr/local/bin/youtube-dl
-        fi
-
-        if [[ $download == *" vimb "* ]] ; then
-            sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
-            mkdir -p $HOME/tmp
-            mkdir -p $HOME/tmp/vimb
-            mkdir -p $HOME/.config/vimb
-            cd $HOME/tmp
-            git clone https://github.com/fanglingsu/vimb.git
-            cd $HOME/tmp/vimb
-            make clean
-            make install
-
-            cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
-            cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
-        fi
-
-        if [[ $download == *" steam "* ]] ; then
-            mkdir -p $HOME/tmp
-            sudo aptitude install curl zenity steam -y
-        fi
-
-        if [[ $download == *" slim "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-            sudo dpkg-reconfigure slim
-        fi
-
-        if [[ $download == *" lightdm "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-            sudo dpkg-reconfigure lightdm
-        fi
-
-        if [[ $download == *" vim "* ]] ; then
-            #==============================================================
-            # Plugin list:
-            #	Pathogen
-            #	Nerdtree
-            #	Syntastic
-            #	Tagbar / Taglist
-            #	GitGutter
-            #	Nerdcommenter
-            # 	Vim-airline
-            #	Auto-pairs
-            # 	Supertab
-            #	SnipMate
-            #   indentLine
-            #   SingleCompile
-            #   Vim-commentary
-            #	Gruvbox theme
-            #==============================================================
-
-            sudo aptitude install vim curl exuberant-ctags fonts-inconsolata -y
-
-            # Making dirs
-            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
-
-            # Pathogen
-            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-            # Nerdtree
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdtree.git
-
-            # Syntastic
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/syntastic.git
-
-            # Taglist/Tagbar
-            cd ~/.vim/bundle && \
-            git clone git://github.com/vim-scripts/taglist.vim.git
-            #git clone https://github.com/vim-scripts/Tagbar.git
-
-            # Git-gutter
-            cd ~/.vim/bundle && \
-            git clone git://github.com/airblade/vim-gitgutter.git
-
-            # Nerd-commenter
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdcommenter.git
-
-            # Vim-airline
-            cd ~/.vim/bundle && \
-            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
-
-            # Auto-pairs
-            cd ~/.vim/bundle && \
-            git clone git://github.com/jiangmiao/auto-pairs.git
-
-            # Supertab
-            git clone git://github.com/ervandew/supertab.git
-
-            # Snipmate
-            cd ~/.vim/bundle
-            git clone https://github.com/tomtom/tlib_vim.git
-            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-            git clone https://github.com/garbas/vim-snipmate.git
-            git clone https://github.com/honza/vim-snippets.git
-
-            # Indent-line
-            cd ~/.vim/bundle
-            git clone https://github.com/Yggdroot/indentLine.git
-
-            # Single-compile
-            cd ~/.vim/bundle
-            git clone https://github.com/xuhdev/SingleCompile.git
-
-            # Vim-commentary
-            cd ~/.vim/bundle
-            git clone https://github.com/tpope/vim-commentary.git
-
-            # Gruvbox theme
-            #mkdir -p ~/tmp
-            #cd ~/tmp && \
-            #git clone https://github.com/morhetz/gruvbox.git
-            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-            #rm -rf ~/tmp/gruvbox
-
-            # Sorcerer theme
-            #cd ~/tmp && \
-            #git clone https://github.com/adlawson/vim-sorcerer.git
-            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-            #rm -rf ~/tmp/vim-sorcerer
-
-            # Jellybeans theme
-            cd ~/tmp && \
-            git clone https://github.com/nanotech/jellybeans.vim.git
-            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-            rm -rf ~/tmp/jellybeans.vim
-
-            # Copying .vimrc
-            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-            
-            # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-        fi 
-
-        if [[ $download == *" vim-nox "* ]] ; then
-            #==============================================================
-            # Plugin list:
-            #	Pathogen
-            #	Nerdtree
-            #	Syntastic
-            #	Tagbar / Taglist
-            #	GitGutter
-            #	Nerdcommenter
-            # 	Vim-airline
-            #	Auto-pairs
-            # 	Supertab
-            #	SnipMate
-            #   indentLine
-            #   SingleCompile
-            #   Vim-commentary
-            #   YouCompleteMe
-            #	Gruvbox theme
-            #==============================================================
-
-            sudo aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
-
-            # Making dirs
-            mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
-
-            # Pathogen
-            curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-            # Nerdtree
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdtree.git
-
-            # Syntastic
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/syntastic.git
-
-            # Taglist/Tagbar
-            cd ~/.vim/bundle && \
-            git clone git://github.com/vim-scripts/taglist.vim.git
-            #git clone https://github.com/vim-scripts/Tagbar.git
-
-            # Git-gutter
-            cd ~/.vim/bundle && \
-            git clone git://github.com/airblade/vim-gitgutter.git
-
-            # Nerd-commenter
-            cd ~/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdcommenter.git
-
-            # Vim-airline
-            cd ~/.vim/bundle && \
-            git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
-
-            # Auto-pairs
-            cd ~/.vim/bundle && \
-            git clone git://github.com/jiangmiao/auto-pairs.git
-
-            # Supertab
-            git clone git://github.com/ervandew/supertab.git
-
-            # Snipmate
-            cd ~/.vim/bundle
-            git clone https://github.com/tomtom/tlib_vim.git
-            git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-            git clone https://github.com/garbas/vim-snipmate.git
-            git clone https://github.com/honza/vim-snippets.git
-
-            # Indent-line
-            cd ~/.vim/bundle
-            git clone https://github.com/Yggdroot/indentLine.git
-
-            # Single-compile
-            cd ~/.vim/bundle
-            git clone https://github.com/xuhdev/SingleCompile.git
-
-            # Vim-commentary
-            cd ~/.vim/bundle
-            git clone https://github.com/tpope/vim-commentary.git
-
-            # YouCompleteMe
-            cd ~/.vim/bundle/
-            git clone https://github.com/Valloric/YouCompleteMe.git
-            cd YouCompleteMe/
-            git submodule update --init --recursive
-            ./install.sh
-            
-            # Gruvbox theme
-            #mkdir -p ~/tmp
-            #cd ~/tmp && \
-            #git clone https://github.com/morhetz/gruvbox.git
-            #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-            #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-            #rm -rf ~/tmp/gruvbox
-
-            # Sorcerer theme
-            #cd ~/tmp && \
-            #git clone https://github.com/adlawson/vim-sorcerer.git
-            #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-            #rm -rf ~/tmp/vim-sorcerer
-
-            # Jellybeans theme
-            cd ~/tmp && \
-            git clone https://github.com/nanotech/jellybeans.vim.git
-            mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-            rm -rf ~/tmp/jellybeans.vim
-
-            # Copying .vimrc
-            cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-            
-            # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-            cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-        fi
+        sudo aptitude install "$download" -y
+
+	case "$download" in 
+		*vim-nox*)
+            mkdir -p ~/.vim ~/.vim/bundle
+			cd ~/.vim/bundle/
+			git clone https://github.com/Valloric/YouCompleteMe.git
+			cd YouCompleteMe/
+			git submodule update --init --recursive
+			./install.sh
+		;;
+		*fuck*)
+		    cd $HOME/tmp
+		    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
+		;;
+		*dictd*)
+		    language=$(whiptail --title "Dictionary languages" --menu "Choose your dictionary" 20 70 11 \
+		    "eng-pol" \
+		    "eng-deu" \
+		    "eng-fra" \
+		    "eng-rus" \
+		    "eng-spa" 3>&1 1>&2 2>&3)
+
+		    case "$language" in
+			"eng-pol")
+			    sudo aptitude install dict-freedict-eng-pol -y
+			;;
+			"eng-deu")
+			    sudo aptitude install dict-freedict-eng-deu -y
+			;;
+			"eng-fra")
+			    sudo aptitude install dict-freedict-eng-fra -y
+			;;
+			"eng-rus")
+			    sudo aptitude install dict-freedict-eng-rus -y
+			;;
+			"eng-spa")
+			    sudo aptitude install dict-freedict-eng-spa -y
+			;;
+		    esac
+		;;
+		*cmus*)
+		    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
+		;;
+		*xterm*)
+		    echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
+		;;
+		*weechat*)
+		    mkdir -p $HOME/.weechat
+		    cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
+		    rm -f $HOME/.weechat/weechat.log
+		    ln -s /dev/null weechat.log
+		;;
+		*newsbeuter*)
+		    mkdir -p $HOME/.config/newsbeuter
+		    cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
+		    cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
+		;;
+		*conky*)
+		    cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
+		    cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+		;;
+		*dwb*)
+		    cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
+		;;
+		*xboxdrv*)
+		    sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+		    rmmod xpad
+		;;
+		*git*)
+		    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
+		    git config --global user.name "$name"
+		    mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
+		    git config --global user.email $mail
+		;;
+		*openssh*)
+		    sudo aptitude install openssh-server -y
+		    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+		    sudo /etc/init.d/ssh restart
+		    sudo export DISPLAY=:0
+		;;
+		*mc*)
+		    mkdir -p $HOME/.config/mc
+		    mkdir -p $HOME/.local/share/mc/skins
+		    cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+		    cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+		;;
+		*moc*)
+		    mkdir -p $HOME/.moc
+		    cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
+		    cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+		    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
+		;;
+		*libreoffice*)
+		    language=$(whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
+		    "Polski"        "Polish" \
+		    "Deutsch"       "German" \
+		    "British"       "English_british" \
+		    "American"      "English_american" \
+		    "Espanol"       "Spanish" 3>&1 1>&2 2>&3)
+
+		    case "$language" in
+			"Polski")
+			    sudo aptitude install libreoffice-l10n-pl -y
+			;;
+			"Deutsch")
+			    sudo aptitude install libreoffice-l10n-de -y
+			;;
+			"British")
+			    sudo aptitude install libreoffice-l10n-en-gb -y
+			;;
+			"American")
+			    sudo aptitude install libreoffice-l10n-en-us -y
+			;;
+			"Espanol")
+			    sudo aptitude install libreoffice-l10n-es -y
+			;;
+		    esac
+		;;
+		*mutt*)
+		    cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+		;;
+		*irssi*)
+		    mkdir $HOME/.irssi
+		    if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
+			"Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
+
+			cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
+			cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+		    fi
+		;;
+		*rtorrent*)
+		    mkdir -p $HOME/.rtorrent
+		    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
+		;;
+		*virtualbox*)
+		    sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+		;;
+		*livestreamer*)
+		    sudo aptitude install python python-requests python-setuptools python-singledispatch -y
+		    cd $HOME/tmp
+		    git clone https://github.com/chrippa/livestreamer.git
+		    cd $HOME/tmp/livestreamer
+		    python setup.py install
+		    rm -rf $HOME/tmp/livestreamer
+		;;
+		*youtube-dl*)
+		    wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+		    chmod a+rx /usr/local/bin/youtube-dl
+		;;
+		*vimb*)
+		    sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
+		    mkdir -p $HOME/tmp
+		    mkdir -p $HOME/tmp/vimb
+		    mkdir -p $HOME/.config/vimb
+		    cd $HOME/tmp
+		    git clone https://github.com/fanglingsu/vimb.git
+		    cd $HOME/tmp/vimb
+		    make clean
+		    make install
+
+		    cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
+		    cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
+		;;
+		*steam*)
+		    mkdir -p $HOME/tmp
+		    sudo aptitude install curl zenity steam -y
+		;;
+		*slim*)
+		    cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
+		    sudo dpkg-reconfigure slim
+		;;
+		*lightdm*)
+		    cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+		    sudo dpkg-reconfigure lightdm
+		;;
+		*vim-clear*)
+		    #==============================================================
+		    # Plugin list:
+		    #	Pathogen
+		    #	Nerdtree
+		    #	Syntastic
+		    #	Tagbar / Taglist
+		    #	GitGutter
+		    #	Nerdcommenter
+		    # 	Vim-airline
+		    #	Auto-pairs
+		    # 	Supertab
+		    #	SnipMate
+		    #   indentLine
+		    #   SingleCompile
+		    #   Vim-commentary
+		    #	Gruvbox theme
+		    #==============================================================
+
+		    sudo aptitude install vim curl exuberant-ctags fonts-inconsolata -y
+
+		    # Making dirs
+		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+
+		    # Pathogen
+		    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+		    # Nerdtree
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/scrooloose/nerdtree.git
+
+		    # Syntastic
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/scrooloose/syntastic.git
+
+		    # Taglist/Tagbar
+		    cd ~/.vim/bundle && \
+		    git clone git://github.com/vim-scripts/taglist.vim.git
+		    #git clone https://github.com/vim-scripts/Tagbar.git
+
+		    # Git-gutter
+		    cd ~/.vim/bundle && \
+		    git clone git://github.com/airblade/vim-gitgutter.git
+
+		    # Nerd-commenter
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/scrooloose/nerdcommenter.git
+
+		    # Vim-airline
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+
+		    # Auto-pairs
+		    cd ~/.vim/bundle && \
+		    git clone git://github.com/jiangmiao/auto-pairs.git
+
+		    # Supertab
+		    git clone git://github.com/ervandew/supertab.git
+
+		    # Snipmate
+		    cd ~/.vim/bundle
+		    git clone https://github.com/tomtom/tlib_vim.git
+		    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+		    git clone https://github.com/garbas/vim-snipmate.git
+		    git clone https://github.com/honza/vim-snippets.git
+
+		    # Indent-line
+		    cd ~/.vim/bundle
+		    git clone https://github.com/Yggdroot/indentLine.git
+
+		    # Single-compile
+		    cd ~/.vim/bundle
+		    git clone https://github.com/xuhdev/SingleCompile.git
+
+		    # Vim-commentary
+		    cd ~/.vim/bundle
+		    git clone https://github.com/tpope/vim-commentary.git
+
+		    # Gruvbox theme
+		    #mkdir -p ~/tmp
+		    #cd ~/tmp && \
+		    #git clone https://github.com/morhetz/gruvbox.git
+		    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+		    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+		    #rm -rf ~/tmp/gruvbox
+
+		    # Sorcerer theme
+		    #cd ~/tmp && \
+		    #git clone https://github.com/adlawson/vim-sorcerer.git
+		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+		    #rm -rf ~/tmp/vim-sorcerer
+
+		    # Jellybeans theme
+		    cd ~/tmp && \
+		    git clone https://github.com/nanotech/jellybeans.vim.git
+		    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+		    rm -rf ~/tmp/jellybeans.vim
+
+		    # Copying .vimrc
+		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+		    
+		    # Copying snippets
+		    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+		    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+		    cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+		;;
+		*vim-nox*)
+		    #==============================================================
+		    # Plugin list:
+		    #	Pathogen
+		    #	Nerdtree
+		    #	Syntastic
+		    #	Tagbar / Taglist
+		    #	GitGutter
+		    #	Nerdcommenter
+		    # 	Vim-airline
+		    #	Auto-pairs
+		    # 	Supertab
+		    #	SnipMate
+		    #   indentLine
+		    #   SingleCompile
+		    #   Vim-commentary
+		    #   YouCompleteMe
+		    #	Gruvbox theme
+		    #==============================================================
+
+		    sudo aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
+
+		    # Making dirs
+		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+
+		    # Pathogen
+		    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+		    # Nerdtree
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/scrooloose/nerdtree.git
+
+		    # Syntastic
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/scrooloose/syntastic.git
+
+		    # Taglist/Tagbar
+		    cd ~/.vim/bundle && \
+		    git clone git://github.com/vim-scripts/taglist.vim.git
+		    #git clone https://github.com/vim-scripts/Tagbar.git
+
+		    # Git-gutter
+		    cd ~/.vim/bundle && \
+		    git clone git://github.com/airblade/vim-gitgutter.git
+
+		    # Nerd-commenter
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/scrooloose/nerdcommenter.git
+
+		    # Vim-airline
+		    cd ~/.vim/bundle && \
+		    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+
+		    # Auto-pairs
+		    cd ~/.vim/bundle && \
+		    git clone git://github.com/jiangmiao/auto-pairs.git
+
+		    # Supertab
+		    git clone git://github.com/ervandew/supertab.git
+
+		    # Snipmate
+		    cd ~/.vim/bundle
+		    git clone https://github.com/tomtom/tlib_vim.git
+		    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+		    git clone https://github.com/garbas/vim-snipmate.git
+		    git clone https://github.com/honza/vim-snippets.git
+
+		    # Indent-line
+		    cd ~/.vim/bundle
+		    git clone https://github.com/Yggdroot/indentLine.git
+
+		    # Single-compile
+		    cd ~/.vim/bundle
+		    git clone https://github.com/xuhdev/SingleCompile.git
+
+		    # Vim-commentary
+		    cd ~/.vim/bundle
+		    git clone https://github.com/tpope/vim-commentary.git
+
+		    # Gruvbox theme
+		    #mkdir -p ~/tmp
+		    #cd ~/tmp && \
+		    #git clone https://github.com/morhetz/gruvbox.git
+		    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
+		    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
+		    #rm -rf ~/tmp/gruvbox
+
+		    # Sorcerer theme
+		    #cd ~/tmp && \
+		    #git clone https://github.com/adlawson/vim-sorcerer.git
+		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
+		    #rm -rf ~/tmp/vim-sorcerer
+
+		    # Jellybeans theme
+		    cd ~/tmp && \
+		    git clone https://github.com/nanotech/jellybeans.vim.git
+		    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+		    rm -rf ~/tmp/jellybeans.vim
+
+		    # Copying .vimrc
+		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+		    
+		    # Copying snippets
+		    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+		    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+
+		    # YouCompleteMe
+		    cd ~/.vim/bundle/
+		    git clone https://github.com/Valloric/YouCompleteMe.git
+		    cd YouCompleteMe/
+		    git submodule update --init --recursive
+		    ./install.sh
+		;;
+
+	esac
     fi
 
     config_scripts
