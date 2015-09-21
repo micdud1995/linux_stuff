@@ -300,17 +300,9 @@ config_packages() {
             "zsh"     	                    "Z-shell" OFF 3>&1 1>&2 2>&3)
 
         download=$(echo "$software" | sed 's/\"//g')
-        sudo aptitude install "$download" -y
+        sudo aptitude install $download -y
 
 	case "$download" in 
-		*vim-nox*)
-            mkdir -p ~/.vim ~/.vim/bundle
-			cd ~/.vim/bundle/
-			git clone https://github.com/Valloric/YouCompleteMe.git
-			cd YouCompleteMe/
-			git submodule update --init --recursive
-			./install.sh
-		;;
 		*fuck*)
 		    cd $HOME/tmp
 		    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
