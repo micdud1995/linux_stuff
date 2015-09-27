@@ -164,6 +164,7 @@ config_packages() {
             "openssh"                       "Secure Shell" OFF \
             "p7zip"                         "File archiver" OFF \
             "pavucontrol"                   "Sound output" OFF \
+            "pcmanfm"                       "File manager" OFF \
             "pinta"                         "Image Editor" OFF \
             "ranger"                        "File manager" OFF \
             "rtorrent"                      "Torrent Client" OFF \
