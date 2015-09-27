@@ -243,6 +243,7 @@ config_packages() {
             "alsa-utils"                    "Sound" OFF \
             "apache"  	                    "Web Server" OFF \
             "bash"                          "Shell" OFF \
+            "brasero"                       "Burning app" OFF \
             "cmus"                          "Music player" OFF \
             "conky"                         "System Info" OFF \
             "dictd"                         "Offline dictionary" OFF \
