@@ -141,7 +141,7 @@ map <F4> :TlistToggle<CR>
 autocmd VimEnter * NERDTree | wincmd p
 let g:NERDTreeWinSize = 20
 map <F3> :NERDTreeToggle<CR>
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden=0
 " =================================================
 
 " =================================================
