@@ -142,6 +142,7 @@ autocmd VimEnter * NERDTree | wincmd p
 let g:NERDTreeWinSize = 20
 map <F3> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
+let g:NERDTreeDirArrows=0
 " =================================================
 
 " =================================================
@@ -150,7 +151,7 @@ autocmd InsertLeave * set iminsert=0
 
 " IndentLine
 let g:indentLine_enabled = 1
-let g:indentLine_char = '┆'
+let g:indentLine_char = '|'
 let g:indentLine_color_term = 239
 "==================================================
 
