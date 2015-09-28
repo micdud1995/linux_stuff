@@ -23,8 +23,7 @@ MusicDir = /home/michal/Muzyka
 # /usr/share/moc/themes/ (depends on installation prefix) or
 # ~/.moc/themes/ .
 #
-# Theme = darkdot_theme
-Theme = red_theme
+Theme = cyanic_theme 
 #=================================================================
 
 #=================================================================
