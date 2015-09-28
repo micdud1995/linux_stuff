@@ -4,7 +4,7 @@
 # Title             arch-configurator.sh
 # Description       This script will config installed Arch GNU/Linux system 
 # Author            Michał Dudek 
-# Date              27-09-2015
+# Date              28-09-2015
 # Version           1.0
 # Notes             Run as a user 
 # License           GNU General Public License v3.0
@@ -47,6 +47,9 @@ config_pacman() {
         sudo cp $HOME/repo/linux_stuff/config-files/pacman/pacman.conf /etc/pacman.conf
 
         sudo pacman -Syu
+        sudo pacman -S yaourt 
+        yaourt -S ttf-font-awesome
+        yaourt -S xcalib
     fi
 
     config_shell
@@ -55,6 +58,8 @@ config_pacman() {
 config_shell() {
     if (whiptail --title "Shell" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to config shell?\n\nYou can choose between zsh and bash.\nScript will unpack fancy config file for it." 20 70) then
+
+        sudo pacman -S ttf-inconsolata
 
         SHELL=$(whiptail --nocancel --title "Select shell" --menu "Select your shell:" 20 70 10 \
         "Bash"  "" \
@@ -89,7 +94,7 @@ config_gui() {
 
         case "$DE" in
             "awesome")
-                sudo pacman -S xorg xinit awesome
+                sudo pacman -S xorg-xinit awesome
                 mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
@@ -97,8 +102,7 @@ config_gui() {
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                sudo pacman -S xorg xinit i3 dmenu feh weechat vim lxterminal ranger moc
-                sudo yaourt -S ttf-font-awesome
+                sudo pacman -S xorg-xinit lxterminal i3 dmenu i3status feh xterm
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -110,11 +114,11 @@ config_gui() {
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde-core")
-                sudo pacman -S xorg xinit lxde-core lxterminal
+                sudo pacman -S xorg-xinit lxde-core lxterminal
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
-                sudo pacman -S xorg xinit xfce4
+                sudo pacman -S xorg-xinit xfce4
                 echo "startxfce4" > ~/.xinitrc
             ;;
         esac
@@ -143,7 +147,6 @@ config_packages() {
             "dwb"                           "Web Browser" OFF \
             "faenza-icon-theme"             "Icon Theme" OFF \
             "feh"                           "Image Viewer" OFF \
-            "fuck"                          "Command correcting" OFF \
             "git"                           "Content tracker" OFF \
             "htop"                          "Process Info" OFF \
             "irssi"                         "IRC Client" OFF \
@@ -172,14 +175,15 @@ config_packages() {
             "slim"                          "Login Manager" OFF \
             "scrot"                         "Screenshots" OFF \
             "steam"                         "Steam Client" OFF \
+            "thefuck"                       "Command correcting" OFF \
             "tor"                           "Communication System" OFF \
             "torbrowser-launcher"           "Web Browser" OFF \
             "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
             "unrar"                         "File archiver" OFF \
             "unzip"                         "Unpack zip archives" OFF \
-            "vim-minimal" 	  	                    "Text Editor" OFF \
-            "vim" 	  	                "Vim with script support" OFF \
+            "vim-minimal" 	  	            "Text Editor" OFF \
+            "vim" 	  	                    "Vim with script support" OFF \
             "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
             "weechat"                       "IRC Client" OFF \
@@ -195,7 +199,7 @@ config_packages() {
         sudo pacman -S $download
 
 	case "$download" in 
-		*fuck*)
+		*thefuck*)
 		    cd $HOME/tmp
 		    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
 		;;
@@ -225,6 +229,12 @@ config_packages() {
 			;;
 		    esac
 		;;
+        *ranger*)
+            mkdir -p $HOME/.config/ranger
+            mkdir -p $HOME/.config/ranger/colorschemes
+            cp $HOME/repo/linux_stuff/config-files/ranger/solarized.py $HOME/.config/ranger/colorschemes/
+            cp $HOME/repo/linux_stuff/config-files/ranger/rc.conf $HOME/.config/ranger/
+        ;;
 		*cmus*)
 		    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
 		;;
@@ -379,7 +389,7 @@ config_packages() {
 		    #	Gruvbox theme
 		    #==============================================================
 
-		    sudo pacman -S vim-minimal curl exuberant-ctags ttf-inconsolata 
+		    sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
 
 		    # Making dirs
 		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -487,7 +497,7 @@ config_packages() {
 		    #	Gruvbox theme
 		    #==============================================================
 
-		    sudo pacman -S vim build-essential cmake python-dev curl exuberant-ctags ttf-inconsolata 
+		    sudo pacman -S vim build-essential cmake python-dev curl ctags ttf-inconsolata 
 
 		    # Making dirs
 		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -643,30 +653,30 @@ config_pc() {
         if [[ $scripts == *" Wallpaper "* ]] ; then
             sudo pacman -S feh 
             mkdir -p $HOME/Obrazy
-            cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+            sudo cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
         fi
 
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
-            cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
             echo synclient TapButton1=1 >> $HOME/.xinitrc
         fi
 
         if [[ $scripts == *" Microphone "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         fi
 
         if [[ $scripts == *" CS:GO config "* ]] ; then
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
-                cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
+                sudo cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
                 whiptail --title "Arch config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi
         fi
 
         if [[ $scripts == *" Lid "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
         fi
     fi 
 
