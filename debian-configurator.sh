@@ -290,7 +290,7 @@ config_packages() {
             "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
             "weechat"                       "IRC Client" OFF \
-            "xbacklight"                    "Screen brightness" OFF \
+            "xcalib"                        "Screen brightness" OFF \
             "xboxdrv"                       "Xbox pad driver" OFF \
             "xterm"                         "Terminal emulator" OFF \
             "xorg" 	  	                    "X Server" OFF \
@@ -759,7 +759,7 @@ config_pc() {
 
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
-            cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
             echo synclient TapButton1=1 >> $HOME/.xinitrc
         fi
 
@@ -767,7 +767,7 @@ config_pc() {
             sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
             sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
             sudo modprobe wl
-            cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
+            sudo cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
             sudo adduser michal netdev
             sudo /etc/init.d/dbus reload
             sudo /etc/init.d/wicd start
@@ -787,7 +787,7 @@ config_pc() {
         fi
 
         if [[ $scripts == *" Lid "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
         fi
     fi 
 
