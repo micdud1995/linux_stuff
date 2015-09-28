@@ -1,36 +1,36 @@
-# rednblack theme by yyz
+# cyannblack theme by yyz
 # works good on a light term
 
 #property		fg	bg	fx
 background =		default	default
-frame =			red 	default
+frame =			cyan 	default
 window_title =		white 	default
 directory =		white 	default
-selected_directory =	red 	default	bold
+selected_directory =	cyan 	default	bold
 playlist =		white 	default
 selected_playlist =	white 	default	bold
 file =			white 	default
 selected_file =		white 	default bold
-marked_file =		red	default underline
+marked_file =		cyan	default underline
 marked_selected_file =  white 	default	bold
-info =			red	default
+info =			cyan	default
 status =		white 	default
 title =			white 	default
 state =			black	default
 current_time =		black	default
 time_left =		white 	default
-total_time =		white 	red
+total_time =		white 	cyan
 time_total_frames =	white 	default
-sound_parameters =	red 	default
+sound_parameters =	cyan 	default
 legend =		white 	default
 disabled =		white	default
-enabled =		red 	default
+enabled =		cyan 	default
 empty_mixer_bar =	black	default
-filled_mixer_bar =	black	red
+filled_mixer_bar =	black	cyan
 empty_time_bar =	black	default
-filled_time_bar =	black	red
+filled_time_bar =	black	cyan
 entry =			black	default
-entry_title =		red	default
-error =			red	default
+entry_title =		cyan	default
+error =			cyan	default
 message =		white 	default
 plist_time =		white 	default
