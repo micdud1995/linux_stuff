@@ -92,6 +92,7 @@
     # Services
     systemctl disable dhcpcd
     systemctl disable network-auto-wired.service
+    systemctl start wicd
     systemctl enable wicd
     systemctl enable slim.service
  
