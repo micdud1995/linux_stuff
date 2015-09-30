@@ -330,7 +330,8 @@ config_packages() {
 		    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
 		;;
 		*virtualbox*)
-		    sudo pacman -S dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils 
+		    sudo pacman -S virtualbox linux-headers qt4 virtualbox-host-modules virtualbox-guest-iso
+            sudo dkms autoinstall
 		;;
 		*livestreamer*)
 		    sudo pacman -S python python-requests python-setuptools python-singledispatch 
@@ -608,13 +609,13 @@ config_scripts() {
             "live-usb"     	"Live-USB script" ON 3>&1 1>&2 2>&3)
 
         if [[ $scripts == *" m "* ]] ; then
-            sudo pacman -S fuse ntfs-3g 
+            sudo pacman -S fuse ntfs-3g udisks2
             cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/bin/
             sudo chmod +x /usr/bin/m
         fi
 
         if [[ $scripts == *" um "* ]] ; then
-            sudo pacman -S fuse ntfs-3g 
+            sudo pacman -S fuse ntfs-3g udisks2
             cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/bin/
             chmod +x /usr/bin/um
         fi
