@@ -199,10 +199,6 @@ config_packages() {
         sudo pacman -S $download
 
 	case "$download" in 
-		*thefuck*)
-		    cd $HOME/tmp
-		    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
-		;;
 		*dictd*)
 		    language=$(whiptail --title "Dictionary languages" --menu "Choose your dictionary" 20 70 11 \
 		    "eng-deu" \
@@ -229,9 +225,6 @@ config_packages() {
         ;;
 		*cmus*)
 		    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
-		;;
-		*xterm*)
-		    echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
 		;;
 		*weechat*)
 		    mkdir -p $HOME/.weechat
@@ -262,10 +255,9 @@ config_packages() {
 		    git config --global user.email $mail
 		;;
 		*openssh*)
-		    sudo pacman -S openssh-server
+		    sudo pacman -S openssh
 		    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-		    sudo /etc/init.d/ssh restart
-		    sudo export DISPLAY=:0
+            sudo systemctl restart sshd
 		;;
 		*mc*)
 		    mkdir -p $HOME/.config/mc
