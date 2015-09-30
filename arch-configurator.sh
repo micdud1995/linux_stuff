@@ -327,7 +327,7 @@ config_packages() {
 		;;
 		*rtorrent*)
 		    mkdir -p $HOME/.rtorrent
-		    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
+		    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent-arch.rc ~/.rtorrent.rc
 		;;
 		*virtualbox*)
             sudo pacman -S virtualbox virtualbox-host-modules virtualbox-guest-iso
