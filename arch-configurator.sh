@@ -151,7 +151,7 @@ config_packages() {
             "htop"                          "Process Info" OFF \
             "irssi"                         "IRC Client" OFF \
             "libncurses5-dev"               "ncurses" OFF \
-            "libreoffice"                   "Libre Office" OFF \
+            "libreoffice-still"             "Libre Office" OFF \
             "lightdm"                       "Login Manager" OFF \
             "links"                         "Web Browser" OFF \
             "livestreamer"                  "Stream Tool" OFF \
@@ -271,29 +271,25 @@ config_packages() {
 		    cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
 		    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
 		;;
-		*libreoffice*)
+		*libreoffice-still*)
 		    language=$(whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
 		    "Polski"        "Polish" \
 		    "Deutsch"       "German" \
 		    "British"       "English_british" \
-		    "American"      "English_american" \
 		    "Espanol"       "Spanish" 3>&1 1>&2 2>&3)
 
 		    case "$language" in
 			"Polski")
-			    sudo pacman -S libreoffice-l10n-pl
+			    sudo pacman -S libreoffice-still-pl
 			;;
 			"Deutsch")
-			    sudo pacman -S libreoffice-l10n-de
+			    sudo pacman -S libreoffice-still-de
 			;;
 			"British")
-			    sudo pacman -S libreoffice-l10n-en-gb 
-			;;
-			"American")
-			    sudo pacman -S libreoffice-l10n-en-us 
+			    sudo pacman -S libreoffice-still-en-GB
 			;;
 			"Espanol")
-			    sudo pacman -S libreoffice-l10n-es 
+			    sudo pacman -S libreoffice-still-es 
 			;;
 		    esac
 		;;
