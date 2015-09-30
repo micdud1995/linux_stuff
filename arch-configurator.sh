@@ -330,8 +330,10 @@ config_packages() {
 		    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
 		;;
 		*virtualbox*)
-		    sudo pacman -S virtualbox linux-headers qt4 virtualbox-host-modules virtualbox-guest-iso
-            sudo dkms autoinstall
+            sudo pacman -S virtualbox virtualbox-host-modules virtualbox-guest-iso
+            sudo modprobe vboxdrv
+            sudo cp $HOME/repo/linux_stuff/config-files/virtualbox/virtualbox.conf /etc/modules-load.d/virtualbox.conf
+            sudo gpasswd -a $USER vboxusers
 		;;
 		*livestreamer*)
 		    sudo pacman -S python python-requests python-setuptools python-singledispatch 
