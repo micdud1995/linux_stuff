@@ -184,7 +184,6 @@ config_packages() {
             "unzip"                         "Unpack zip archives" OFF \
             "vim-minimal" 	  	            "Text Editor" OFF \
             "vim" 	  	                    "Vim with script support" OFF \
-            "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
             "weechat"                       "IRC Client" OFF \
             "xbacklight"                    "Screen brightness" OFF \
@@ -315,43 +314,16 @@ config_packages() {
             sudo cp $HOME/repo/linux_stuff/config-files/virtualbox/virtualbox.conf /etc/modules-load.d/virtualbox.conf
             sudo gpasswd -a $USER vboxusers
 		;;
-		*livestreamer*)
-		    sudo pacman -S python python-requests python-setuptools python-singledispatch 
-		    cd $HOME/tmp
-		    git clone https://github.com/chrippa/livestreamer.git
-		    cd $HOME/tmp/livestreamer
-		    python setup.py install
-		    rm -rf $HOME/tmp/livestreamer
-		;;
-		*youtube-dl*)
-		    wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-		    chmod a+rx /usr/local/bin/youtube-dl
-		;;
-		*vimb*)
-		    sudo pacman -S libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev 
-		    mkdir -p $HOME/tmp
-		    mkdir -p $HOME/tmp/vimb
-		    mkdir -p $HOME/.config/vimb
-		    cd $HOME/tmp
-		    git clone https://github.com/fanglingsu/vimb.git
-		    cd $HOME/tmp/vimb
-		    make clean
-		    make install
-
-		    cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
-		    cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
-		;;
 		*steam*)
-		    mkdir -p $HOME/tmp
 		    sudo pacman -S curl zenity steam 
 		;;
 		*slim*)
+            sudo systemctl enable slim.service
 		    cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-		    sudo dpkg-reconfigure slim
 		;;
 		*lightdm*)
+            sudo systemctl enable lightdm.service 
 		    cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-		    sudo dpkg-reconfigure lightdm
 		;;
 		*vim-minimal*)
 		    #==============================================================
@@ -616,7 +588,7 @@ config_beep() {
         "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 70) then
 
         sudo rmmod pcspkr
-        sudo sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
+        sudo echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
     fi
 
     config_pc
@@ -643,7 +615,6 @@ config_pc() {
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
             sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-            echo synclient TapButton1=1 >> $HOME/.xinitrc
         fi
 
         if [[ $scripts == *" Microphone "* ]] ; then
