@@ -205,27 +205,19 @@ config_packages() {
 		;;
 		*dictd*)
 		    language=$(whiptail --title "Dictionary languages" --menu "Choose your dictionary" 20 70 11 \
-		    "eng-pol" \
 		    "eng-deu" \
 		    "eng-fra" \
-		    "eng-rus" \
 		    "eng-spa" 3>&1 1>&2 2>&3)
 
 		    case "$language" in
-			"eng-pol")
-			    sudo pacman -S dict-freedict-eng-pol
-			;;
 			"eng-deu")
-			    sudo pacman -S dict-freedict-eng-deu
+			    yaourt -S dict-freedict-eng-deu
 			;;
 			"eng-fra")
-			    sudo pacman -S dict-freedict-eng-fra
-			;;
-			"eng-rus")
-			    sudo pacman -S dict-freedict-eng-rus
+			    yaourt -S dict-freedict-eng-fra
 			;;
 			"eng-spa")
-			    sudo pacman -S dict-freedict-eng-spa
+			    yaourt -S dict-freedict-eng-spa
 			;;
 		    esac
 		;;
