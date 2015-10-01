@@ -4,7 +4,7 @@
 # Title             arch-configurator.sh
 # Description       This script will config installed Arch GNU/Linux system 
 # Author            Michał Dudek 
-# Date              28-09-2015
+# Date              01-10-2015
 # Version           1.0
 # Notes             Run as a user 
 # License           GNU General Public License v3.0
@@ -84,7 +84,7 @@ config_shell() {
 
 config_gui() {
     if (whiptail --title "Arch config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
+        "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing desktop environment" 20 70) then
 
         DE=$(whiptail --title  "Arch config" --menu "Select environment:" 20 70 10 \
         "awesome"           "configurable tiling WM" \
@@ -114,7 +114,7 @@ config_gui() {
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde-core")
-                sudo pacman -S xorg-xinit lxde-core lxterminal
+                sudo pacman -S xorg-xinit lxde-core lxterminal lxrandr lxpanel
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
@@ -177,7 +177,6 @@ config_packages() {
             "steam"                         "Steam Client" OFF \
             "thefuck"                       "Command correcting" OFF \
             "tor"                           "Communication System" OFF \
-            "torbrowser-launcher"           "Web Browser" OFF \
             "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
             "unrar"                         "File archiver" OFF \
@@ -186,8 +185,8 @@ config_packages() {
             "vim" 	  	                    "Vim with script support" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
             "weechat"                       "IRC Client" OFF \
-            "xbacklight"                    "Screen brightness" OFF \
-            "xboxdrv"                       "Xbox pad driver" OFF \
+            "xfburn"                        "Burning tool" OFF \
+            "xorg-xbacklight"               "Screen brightness" OFF \
             "xterm"                         "Terminal emulator" OFF \
             "youtube-dl"                    "YT Download" OFF \
             "zathura"                       "PDF Viewer" OFF \
@@ -242,10 +241,6 @@ config_packages() {
 		;;
 		*dwb*)
 		    cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
-		;;
-		*xboxdrv*)
-		    sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
-		    rmmod xpad
 		;;
 		*git*)
 		    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
@@ -318,6 +313,7 @@ config_packages() {
 		    sudo pacman -S curl zenity steam 
 		;;
 		*slim*)
+            sudo pacman -S archlinux-themes-slim
             sudo systemctl enable slim.service
 		    cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
 		;;
@@ -345,25 +341,13 @@ config_packages() {
 		    #==============================================================
 
 		    sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
+            sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans
 
 		    # Making dirs
 		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
 		    # Pathogen
 		    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-		    # Nerdtree
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/nerdtree.git
-
-		    # Syntastic
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/syntastic.git
-
-		    # Taglist/Tagbar
-		    cd ~/.vim/bundle && \
-		    git clone git://github.com/vim-scripts/taglist.vim.git
-		    #git clone https://github.com/vim-scripts/Tagbar.git
 
 		    # Git-gutter
 		    cd ~/.vim/bundle && \
@@ -373,16 +357,9 @@ config_packages() {
 		    cd ~/.vim/bundle && \
 		    git clone https://github.com/scrooloose/nerdcommenter.git
 
-		    # Vim-airline
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
-
 		    # Auto-pairs
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/jiangmiao/auto-pairs.git
-
-		    # Supertab
-		    git clone git://github.com/ervandew/supertab.git
 
 		    # Snipmate
 		    cd ~/.vim/bundle
@@ -416,12 +393,6 @@ config_packages() {
 		    #git clone https://github.com/adlawson/vim-sorcerer.git
 		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
 		    #rm -rf ~/tmp/vim-sorcerer
-
-		    # Jellybeans theme
-		    cd ~/tmp && \
-		    git clone https://github.com/nanotech/jellybeans.vim.git
-		    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-		    rm -rf ~/tmp/jellybeans.vim
 
 		    # Copying .vimrc
 		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
@@ -453,25 +424,13 @@ config_packages() {
 		    #==============================================================
 
 		    sudo pacman -S vim build-essential cmake python-dev curl ctags ttf-inconsolata 
+            sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans
 
 		    # Making dirs
 		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
 		    # Pathogen
 		    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-		    # Nerdtree
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/nerdtree.git
-
-		    # Syntastic
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/syntastic.git
-
-		    # Taglist/Tagbar
-		    cd ~/.vim/bundle && \
-		    git clone git://github.com/vim-scripts/taglist.vim.git
-		    #git clone https://github.com/vim-scripts/Tagbar.git
 
 		    # Git-gutter
 		    cd ~/.vim/bundle && \
@@ -481,16 +440,9 @@ config_packages() {
 		    cd ~/.vim/bundle && \
 		    git clone https://github.com/scrooloose/nerdcommenter.git
 
-		    # Vim-airline
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
-
 		    # Auto-pairs
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/jiangmiao/auto-pairs.git
-
-		    # Supertab
-		    git clone git://github.com/ervandew/supertab.git
 
 		    # Snipmate
 		    cd ~/.vim/bundle
@@ -524,12 +476,6 @@ config_packages() {
 		    #git clone https://github.com/adlawson/vim-sorcerer.git
 		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
 		    #rm -rf ~/tmp/vim-sorcerer
-
-		    # Jellybeans theme
-		    cd ~/tmp && \
-		    git clone https://github.com/nanotech/jellybeans.vim.git
-		    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-		    rm -rf ~/tmp/jellybeans.vim
 
 		    # Copying .vimrc
 		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
@@ -564,19 +510,19 @@ config_scripts() {
 
         if [[ $scripts == *" m "* ]] ; then
             sudo pacman -S fuse ntfs-3g udisks2
-            cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/bin/
-            sudo chmod +x /usr/bin/m
+            cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
+            sudo chmod +x /usr/local/bin/m
         fi
 
         if [[ $scripts == *" um "* ]] ; then
             sudo pacman -S fuse ntfs-3g udisks2
-            cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/bin/
-            chmod +x /usr/bin/um
+            cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
+            chmod +x /usr/local/bin/um
         fi
 
         if [[ $scripts == *" live-usb "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
-            sudo chmod +x /usr/bin/live-usb
+            cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
+            sudo chmod +x /usr/local/bin/live-usb
         fi
     fi 
 
@@ -601,7 +547,6 @@ config_pc() {
         scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished" 20 70 10 \
             "Wallpaper"     "Set wallpaper" OFF \
             "Touchpad"      "Enable touchpad" OFF \
-            "Microphone"    "Enable Lenovo G580 microphone" OFF \
             "CS:GO config"  "Global Offensive config file" OFF \
             "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
@@ -615,10 +560,6 @@ config_pc() {
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
             sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-        fi
-
-        if [[ $scripts == *" Microphone "* ]] ; then
-            sudo cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         fi
 
         if [[ $scripts == *" CS:GO config "* ]] ; then
