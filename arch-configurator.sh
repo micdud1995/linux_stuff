@@ -90,7 +90,7 @@ config_gui() {
         "awesome"           "configurable tiling WM" \
         "i3"                "i3 tiling WM" \
         "xfce"              "lightweight DE" \
-        "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
+        "lxde"         "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "awesome")
@@ -113,8 +113,8 @@ config_gui() {
                 cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 echo "exec i3" > ~/.xinitrc
             ;;
-            "lxde-core")
-                sudo pacman -S xorg-xinit lxde-core lxterminal lxrandr lxpanel
+            "lxde")
+                sudo pacman -S xorg-xinit lxde-common openbox lxterminal lxrandr lxpanel
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
