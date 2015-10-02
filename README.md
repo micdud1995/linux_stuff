@@ -18,9 +18,12 @@ To run script:
 
 	./debian-configurator.sh
 
-i3 window manager config:
+i3 window manager with Debian:
 =====================
 ![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-i3.png)
+i3 window manager with Arch:
+=====================
+![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-i3-arch.png)
 vim config:
 =====================
 ![vim config](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-vim.png)
