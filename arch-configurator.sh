@@ -26,6 +26,12 @@ repo_dirs() {
 
             mkdir -p $HOME/repo
             mkdir -p $HOME/tmp
+            mkdir -p $HOME/Documents
+            mkdir -p $HOME/Downloads
+            mkdir -p $HOME/Music
+            mkdir -p $HOME/Pictures
+            mkdir -p $HOME/Video
+
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
                 cd $HOME/repo
@@ -79,6 +85,51 @@ config_shell() {
         esac
     fi
 
+    config_drivers
+}
+
+config_drivers() {
+    if (whiptail --title "Drivers" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to install xorg with graphic drivers?" 20 70) then
+
+        sudo pacman -S xorg-server xorg-server-utils mesa xorg-xinit xterm
+
+        DRIVERS=$(whiptail --title  "Arch config" --menu "Select drivers:" 20 70 10 \
+        "intel"                 "" \
+        "intel-multilib"        "" \
+        "amd"                   "" \
+        "amd-multilib"          "" \
+        "nvidia"                "" \
+        "nvidia-multilib"       "" \
+        "vbox"                  ""   3>&1 1>&2 2>&3)
+
+        case "$DRIVERS" in
+            "intel")
+                sudo pacman -S xf86-video-intel
+            ;;
+            "intel-multilib")
+                sudo pacman -S xf86-video-intel lib32-mesa-libgl
+            ;;
+            "amd")
+                sudo pacman -S xf86-video-ati 
+            ;;
+            "amd-multilib")
+                sudo pacman -S xf86-video-ati lib32-mesa-libgl
+            ;;
+            "nvidia")
+                sudo pacman -S nvidia nvidia-libgl nvidia-utils 
+            ;;
+            "nvidia-multilib")
+                sudo pacman -S nvidia nvidia-libgl lib32-nvidia-libgl nvidia-utils lib32-nvidia-utils
+            ;;
+            "vbox")
+                sudo pacman -S virtualbox-guest-additions virtualbox-guest-utils
+                sudo echo -e "vboxguest\nvboxsf\nvboxvideo" > /etc/modules-load.d/vbox.conf
+            ;;
+        esac
+
+    fi
+
     config_gui
 }
 
@@ -94,7 +145,7 @@ config_gui() {
 
         case "$DE" in
             "awesome")
-                sudo pacman -S xorg-xinit awesome
+                sudo pacman -S awesome
                 mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
@@ -102,7 +153,7 @@ config_gui() {
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                sudo pacman -S xorg-xinit lxterminal i3 dmenu i3status feh xterm
+                sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -114,11 +165,11 @@ config_gui() {
                 echo "exec i3" > ~/.xinitrc
             ;;
             "lxde")
-                sudo pacman -S xorg-xinit lxde-common openbox lxterminal lxrandr lxpanel
+                sudo pacman -S lxde-common openbox lxterminal lxrandr lxpanel
                 echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
-                sudo pacman -S xorg-xinit xfce4
+                sudo pacman -S xfce4
                 echo "startxfce4" > ~/.xinitrc
             ;;
         esac
@@ -197,6 +248,9 @@ config_packages() {
         sudo pacman -S $download
 
 	case "$download" in 
+		*alsa-utils*)
+            sudo pacman -S alsa-firmware alsa-lib alsa-plugins alsa-utils pulseaudio pulseaudio-alsa libcanberra libcanberra-pulse
+        ;;
 		*dictd*)
 		    language=$(whiptail --title "Dictionary languages" --menu "Choose your dictionary" 20 70 11 \
 		    "eng-deu" \
@@ -584,6 +638,7 @@ main_menu() {
 		"Clone repo"            "-" \
 		"Config sources"        "-" \
 		"Config shell"          "-" \
+		"Config drivers"          "-" \
 		"Install GUI"           "-" \
 		"Install packages"      "-" \
 		"Copy scripts"          "-" \
@@ -600,6 +655,9 @@ main_menu() {
 		;;
 		"Config shell")
             config_shell
+		;;
+		"Config drivers")
+            config_drivers
 		;;
     	"Install GUI") 
             config_gui
