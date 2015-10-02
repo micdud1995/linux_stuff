@@ -153,7 +153,7 @@ config_gui() {
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch
+                sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch weechat htop moc ranger
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
