@@ -11,12 +11,19 @@ Running
 
 To run script:
 
-1) Just make script executable, e.q.
+1) Make script executable
 
 	chmod +x debian-configurator.sh
-2) Run it, e.q.
+    or
+	chmod +x arch-configurator.sh
+2) For Arch version install depedencies
+    
+    sudo pacman -S libnewt
+3) Run it
 
 	./debian-configurator.sh
+    or
+	./arch-configurator.sh
 
 i3 window manager with Debian:
 =====================
