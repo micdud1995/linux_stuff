@@ -123,8 +123,8 @@ config_drivers() {
                 sudo pacman -S nvidia nvidia-libgl lib32-nvidia-libgl nvidia-utils lib32-nvidia-utils
             ;;
             "vbox")
-                sudo pacman -S virtualbox-guest-additions virtualbox-guest-utils
-                sudo echo -e "vboxguest\nvboxsf\nvboxvideo" > /etc/modules-load.d/vbox.conf
+                sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules
+                sudo cp $HOME/repo/linux_stuff/config-files/virtualbox/vbox.conf /etc/modules-load.d/vbox.conf
             ;;
         esac
 
