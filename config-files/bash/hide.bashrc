@@ -1,7 +1,7 @@
 #=================================================================
 # BASIC
 export EDITOR=vim
-export BROWSER=google-chrome
+export BROWSER=dwb
 export TERM="xterm-256color"
 #=================================================================
 
@@ -15,7 +15,9 @@ if [ "$color_prompt" = yes ]; then
     # Purple
     # export PS1="[\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;93m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]]-[\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;93m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]] \[$(tput sgr0)\]"
     # Green
-    export PS1="[\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;46m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]]-[\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;46m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]]\\$ \[$(tput sgr0)\]"
+    # export PS1="[\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;46m\]\u\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]]-[\[$(tput bold)\]\[$(tput sgr0)\]\[\033[38;5;46m\]\w\[$(tput sgr0)\]\[$(tput sgr0)\]\[\033[38;5;15m\]]\\$ \[$(tput sgr0)\]"
+    # Cyan
+    export PS1="[\[$(tput sgr0)\]\[\033[38;5;51m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]]-[\[$(tput sgr0)\]\[\033[38;5;51m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]]\\$ \[$(tput sgr0)\]"
 
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -181,9 +183,12 @@ fi
 	alias Ss="pacman -Ss" # Search packages
 	alias Sy="sudo pacman -Sy" # Synchronize the repository databases
 	alias Syu="sudo pacman -Syu" # Synchronize the repository databases and update the system's packages
-	alias R="sudo pacman -Rs" # Remove package
+	alias Sc="sudo pacman -Sc" # Clear pacman cache
+    alias Qi="pacman -Qi " # Information about package
+	alias R="sudo pacman -R" # Remove package
+	alias Rs="sudo pacman -Rs" # Remove package with depedencies
 	alias U="sudo pacman -U" # Upgrade package
-	alias V="pacman -V" # Version of package
+	alias V="pacman -V" # Version of pacman package
 # Xrandr aliases
 	alias hdmi_1366x768="xrandr --output HDMI1 --mode 1366x768"
 	alias hdmi_auto="xrandr --output HDMI1 --auto"
@@ -210,7 +215,6 @@ fi
 	alias gr="git reset" # e.g. git reset abc.txt
 	alias grc="git reset --hard HEAD~1" # git reset commit
 # Programs aliases
-    alias config="vim ~/repo/linux_stuff/config.sh"
  	alias r="ranger"
 	alias v="vim"
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
@@ -222,13 +226,19 @@ fi
     # up wired connection
     alias eth="sudo dhclient eth0"
     alias izak="livestreamer -p mpv twitch.tv/izakooo "
+    alias nvidia="livestreamer -p mpv http://twitch.tv/nvidia_pl "
     alias pasha="livestreamer -p mpv twitch.tv/pashabiceps "
     alias zdupy="livestreamer -p mpv twitch.tv/zdupy"
     alias taz="livestreamer -p mpv twitch.tv/g5taz"
     alias neo="livestreamer -p mpv twitch.tv/neog5"
     alias esl="livestreamer -p mpv twitch.tv/esl_csgo"
     alias eslpl="livestreamer -p mpv twitch.tv/esl_csgo_pl"
+    alias faceit="livestreamer -p mpv twitch.tv/faceittv"
     alias cfg="vim /home/michal/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/autoexec.cfg"
     alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
     alias d="dict -d fd-eng-pol"
+    alias w="wicd-curses"
+    alias s="screenfetch"
+    alias cal="cal -w"
 #=================================================================
+screenfetch
