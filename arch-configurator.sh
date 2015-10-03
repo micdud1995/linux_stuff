@@ -540,6 +540,7 @@ config_packages() {
 		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
 
 		    # YouCompleteMe
+            sudo pacman -S cmake
 		    cd ~/.vim/bundle/
 		    git clone https://github.com/Valloric/YouCompleteMe.git
 		    cd YouCompleteMe/
