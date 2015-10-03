@@ -48,7 +48,7 @@ repo_dirs() {
 
 config_pacman() {
     if (whiptail --title "Updating pacman.conf" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to add multilib and AUR to your pacman.conf?\n\n" 20 70) then
+        "Do you want to copy pacman.conf?\n\n1) Adds multilib\n2) Adds AUR\n3) Blocks autoupdate kernel" 20 70) then
 
         sudo cp $HOME/repo/linux_stuff/config-files/pacman/pacman.conf /etc/pacman.conf
 
