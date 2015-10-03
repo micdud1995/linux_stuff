@@ -1,17 +1,20 @@
 # =======================================================
 set $tag1 "1: Desktop"
-# set $tag1 "1"
 set $tag2 "2: Web"
 set $tag3 "3: Code"
 set $tag4 "4: Terminal"
 set $tag5 "5: IRC"
 set $tag6 "6: Other"
+set $tag7 "7: Virtual"
+set $tag8 "8: Settings"
+set $tag9 "9: tmp"
 # =======================================================
-
+setxkbmap pl
 # =======================================================
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
 
+font pango:Inconsolata 8
 font pango:FontAwesome 8
 
 # Really small borders and no title for windows
@@ -40,8 +43,8 @@ workspace_auto_back_and_forth yes
 # set $bo #8A00B8
 # green
 # set $bo #00FF00
-# red
-set $bo #CC0000
+# cyan 
+set $bo #00FFFF
 # 2nd color - gray
 set $se #666666
 
@@ -84,25 +87,26 @@ bar
 bindsym $mod+x exec lxterminal
 # bindsym $mod+x exec xterm
 
-# Start some programs
-bindsym KP_7 exec lxterminal -e mc
-bindsym KP_8 exec lxterminal -e vim
-bindsym KP_9 exec dwb
-
 #Assings
-assign [class="^Lxterminal$" instance="^mocp$"] → $tag1
-assign [class="^Lxterminal$" instance="^newsbeuter$"] → $tag1
 assign [class="^Dwb$"] → $tag2
+for_window [class="^Dwb$"] focus
 assign [class="^Iceweasel$"] → $tag2
-assign [class="^Lxterminal$" instance="^links$"] → $tag3
-assign [class="^Lxterminal$" instance="^vim$"] → $tag3
+for_window [class="^Iceweasel$"] focus
+assign [class="^Firefox$"] → $tag2
+for_window [class="^Firefox$"] focus
 assign [class="^Leafpad$"] → $tag3
+for_window [class="^Leafpad$"] focus
 # assign [class="^Lxterminal$"] → $tag4
 assign [class="^Mpv$"] → $tag6
 assign [class="^Lxrandr$"] → $tag6
-assign [class="^Lxterminal$" instance="^irssi$"] → $tag5
-assign [class="^Lxterminal$" instance="^weechat$"] → $tag5
 assign [class="^Steam$"] → $tag6
+for_window [class="^Steam$"] focus
+assign [class="^Virtualbox$"] → $tag7
+for_window [class="^Virtualbox$"] focus
+assign [class="^Pavucontrol$"] → $tag8
+for_window [class="^Pavucontrol$"] focus
+assign [class="^Lxrandr$"] → $tag8
+for_window [class="^Lxrandr$"] focus
 
 bindsym $mod+F5 exec amixer sset Master toggle
 # Kill focused window
@@ -168,16 +172,16 @@ bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace $tag4
 bindsym $mod+5 workspace $tag5
 bindsym $mod+6 workspace $tag6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+7 workspace $tag7
+bindsym $mod+8 workspace $tag8
+bindsym $mod+9 workspace $tag9
 # and with KP
-# bindsym KP_1 workspace $tag1
-# bindsym KP_2 workspace $tag2
-# bindsym KP_3 workspace $tag3
-# bindsym KP_4 workspace $tag4
-# bindsym KP_5 workspace $tag5
-# bindsym KP_6 workspace $tag6
+bindsym KP_4 workspace $tag4
+bindsym KP_5 workspace $tag5
+bindsym KP_6 workspace $tag6
+bindsym KP_7 workspace $tag7
+bindsym KP_8 workspace $tag8
+bindsym KP_9 workspace $tag9
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $tag1
@@ -187,16 +191,17 @@ bindsym $mod+Shift+4 move container to workspace $tag4
 bindsym $mod+Shift+5 move container to workspace $tag5
 bindsym $mod+Shift+6 move container to workspace $tag6
 bindsym $mod+Shift+7 move container to workspace $tag7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to $tag10
+bindsym $mod+Shift+8 move container to workspace $tag8
+bindsym $mod+Shift+9 move container to workspace $tag9
 
 # Volume control
 bindsym $mod+F11 exec amixer set Master 4%-
 bindsym $mod+F12 exec amixer set Master 4%+
 # Brightness control
-bindsym $mod+F9 exec xbacklight  -dec 3
-bindsym $mod+F10 exec xbacklight  -inc 3
+# bindsym $mod+F9 exec xbacklight -dec 5
+# bindsym $mod+F10 exec xbacklight -inc 5
+bindsym $mod+F9 exec xcalib -c
+bindsym $mod+F10 exec xcalib -co 95 -a
 
 # focus the child container
 #bindsym $mod+d focus child
