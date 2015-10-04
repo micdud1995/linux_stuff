@@ -153,7 +153,7 @@ config_gui() {
                 echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
-                sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch weechat htop moc ranger
+                sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch weechat htop moc ranger w3m
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
@@ -270,6 +270,7 @@ config_packages() {
 		    esac
 		;;
         *ranger*)
+            sudo pacman -S w3m
             mkdir -p $HOME/.config/ranger
             mkdir -p $HOME/.config/ranger/colorschemes
             cp $HOME/repo/linux_stuff/config-files/ranger/solarized.py $HOME/.config/ranger/colorschemes/
