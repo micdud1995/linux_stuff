@@ -103,7 +103,6 @@ set splitright
 " colorscheme railscasts
 " colorscheme sorcerer
 colorscheme jellybeans
-" colorscheme zazen
 "==================================================
 
 "==================================================
@@ -126,6 +125,7 @@ autocmd VimEnter * wincmd p
  " autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
 let Tlist_Use_Right_Window = 1
 let Tlist_Auto_Open = 1
+let TlistHighlightTag = 1
 map <F4> :TlistToggle<CR>
 " =================================================
 
@@ -152,6 +152,7 @@ autocmd InsertLeave * set iminsert=0
 " IndentLine
 let g:indentLine_enabled = 1
 let g:indentLine_char = '|'
+" let g:indentLine_char = '¦'
 let g:indentLine_color_term = 239
 "==================================================
 
@@ -201,7 +202,6 @@ set noswapfile
 
 "==================================================
 " Compiling directly in vim
-
 nmap <F2> :SCCompile<cr>
 nmap <F1> :SCCompileRun<cr>
 "==================================================
@@ -227,3 +227,6 @@ map <S-F6> :s/\(\(\w\)\(\w\+\)\).*/public function set\u\2\3(\$\1){\r\t\$this->\
 " Vim-commentary
 " gc - comment/comment out selected text
 " gcc - comment/comment out a line
+
+" Taglist
+" press Space on function to show the prototype
