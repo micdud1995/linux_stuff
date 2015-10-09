@@ -478,7 +478,7 @@ config_packages() {
 		    #	Gruvbox theme
 		    #==============================================================
 
-		    sudo pacman -S vim build-essential cmake python-dev curl ctags ttf-inconsolata 
+		    sudo pacman -S vim cmake curl ctags ttf-inconsolata 
             sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans
 
 		    # Making dirs
