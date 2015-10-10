@@ -384,6 +384,7 @@ config_packages() {
 		    #	Syntastic
 		    #	Tagbar / Taglist
 		    #	GitGutter
+            #   CtrlP
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
@@ -395,7 +396,7 @@ config_packages() {
 		    #==============================================================
 
 		    sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
-            sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans
+            sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans vim-ctrlp
 
 		    # Making dirs
 		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -461,6 +462,7 @@ config_packages() {
 		    #	Syntastic
 		    #	Tagbar / Taglist
 		    #	GitGutter
+            #   CtrlP
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
@@ -473,7 +475,7 @@ config_packages() {
 		    #==============================================================
 
 		    sudo pacman -S vim cmake curl ctags ttf-inconsolata 
-            sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans
+            sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans vim-ctrlp
 
 		    # Making dirs
 		    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
