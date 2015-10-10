@@ -384,7 +384,6 @@ config_packages() {
 		    #	Syntastic
 		    #	Tagbar / Taglist
 		    #	GitGutter
-		    #	Nerdcommenter
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
@@ -407,10 +406,6 @@ config_packages() {
 		    # Git-gutter
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/airblade/vim-gitgutter.git
-
-		    # Nerd-commenter
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/nerdcommenter.git
 
 		    # Auto-pairs
 		    cd ~/.vim/bundle && \
@@ -466,7 +461,6 @@ config_packages() {
 		    #	Syntastic
 		    #	Tagbar / Taglist
 		    #	GitGutter
-		    #	Nerdcommenter
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
@@ -490,10 +484,6 @@ config_packages() {
 		    # Git-gutter
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/airblade/vim-gitgutter.git
-
-		    # Nerd-commenter
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/nerdcommenter.git
 
 		    # Auto-pairs
 		    cd ~/.vim/bundle && \
