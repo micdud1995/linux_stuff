@@ -7,8 +7,8 @@ set autoindent
 filetype indent on
 set showmatch
 set t_Co=256
-let mapleader = " "
 set background=dark
+let mapleader = "\<Space>"
 "==================================================
 	
 "==================================================
@@ -119,6 +119,15 @@ execute pathogen#infect()
 
 " wincmd p puts the cursor in the main window
 autocmd VimEnter * wincmd p
+" =================================================
+
+" =================================================
+" CtrlP
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_working_path_mode = 0
+noremap <Leader><Leader> :CtrlP ~/<CR>
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+" =================================================
 
 " =================================================
 " Taglist
@@ -146,6 +155,23 @@ let g:NERDTreeDirArrows=0
 " =================================================
 
 " =================================================
+" YouCompleteMe
+let g:ycm_complete_in_strings = 0
+let g:ycm_complete_in_comments = 1
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_disable_for_files_larger_than_kb = 2048
+let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+" let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
+" =================================================
+
+" =================================================
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
 
@@ -163,6 +189,12 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
+"
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
+vmap <Leader>y "+y
+nmap <Leader>p "+p
+
 " jk instead od ESC
 inoremap jk <ESC> 
 
