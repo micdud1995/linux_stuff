@@ -1,47 +1,58 @@
-set imap_user = "dud95@gmx.us"                       
-set imap_pass = "pass"                                    
-set smtp_url = "smtp://dud95@gmx@smtp.gmx.com:587/"       
-set smtp_pass = "pass"                                    
-set from = "dud95@gmx.us"                            
-set realname = "Michal Dudek"                                  
-set folder = "imaps://imap.gmx.com:993"                     
-set spoolfile = "+INBOX"                                      
-set postponed = "+[Gmail]/Drafts"                             
-# set header_cache = ~/.mutt/com.gmail.gotbletu/cache/headers            
-# set message_cachedir = ~/.mutt/com.gmail.gotbletu/cache/bodies         
-# set certificate_file = ~/.mutt/com.gmail.gotbletu/certificates  
+# Replace <mail> with your e-mail address
+# Replace <password> with your e-mail password
+# Replace <name> with your real name 
+# Replace <hostname> with your hostname 
+
+# IMAP
+set folder=imaps://<mai>:'<password>'@imap.gmx.com
+set spoolfile=+INBOX
+set postponed = +INBOX/Drafts
+set record = +INBOX/Sent
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 120
+
+# SMTP
+set smtp_url=smtps://<mail>:'<password>'@mail.gmx.com
+set realname='<name>'
+set from=dud95@gmx.us
+set hostname="<hostname>"
+
+# SSL
+set ssl_force_tls = yes
+unset ssl_starttls
+
+# more
+auto_view text/html
+alternative_order text/plain text/html
+set mailcap_path="~/.mutt/mailcap"
+bind index "^" imap-fetch-mail
+set editor="vim"
+set fast_reply
+
+# colors
+color hdrdefault white black
+color quoted cyan black
+color signature white black
+color attachment black white
+color message cyan black
+color error brightred black
+color indicator black white
+color status black white
+color tree black cyan
+color normal cyan black
+color markers black cyan 
+color search black cyan
+color tilde cyan black
+color index black cyan ~F
+color index black cyan "~N|~O"
+
 ##Set editor to create new email
 set editor='vim'
 #Local Folders 
 set header_cache =~/.mutt/cache/headers 
 set message_cachedir =~/.mutt/cache/bodies 
 set certificate_file =~/.mutt/certificates
-# Colors 
-color hdrdefault cyan default 
-color attachment yellow default 
-color header brightyellow default "From: " 
-color header brightyellow default "Subject: " 
-color header brightyellow default "Date: " 
-color quoted green default 
-color quoted1 cyan default 
-color quoted2 green default 
-color quoted3 cyan default 
-color error red default # error messages 
-color message white default # message informational messages 
-color indicator white red # indicator for the "current message" 
-color status white blue # status lines in the folder index sed for the mini-help line 
-color tree red default # the "tree" display of threads within the folder index 
-color search white blue # search matches found with search within the internal pager 
-color markers red default # The markers indicate a wrapped line 
-color index yellow default '~O' 
-color index yellow default '~N' 
-color index brightred default '~F' # Flagged Messages are important! 
-color index blue default '~D' # Deleted Mails - use dark color as these are already "dealt with"
-# identifies email addresses 
-color body brightred black [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+ 
-# identifies URLs 
-color body brightblue black (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
-bind index G imap-fetch-mail
 # Autocheck for new mails
 set check_new = yes
 set timeout = '15'
