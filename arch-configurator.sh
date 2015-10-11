@@ -388,7 +388,7 @@ config_packages() {
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
-		    #	SnipMate
+		    #	Neosnippet
 		    #   indentLine
 		    #   SingleCompile
 		    #   Vim-commentary
@@ -412,12 +412,9 @@ config_packages() {
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/jiangmiao/auto-pairs.git
 
-		    # Snipmate
+		    # Neosnippet
 		    cd ~/.vim/bundle
-		    git clone https://github.com/tomtom/tlib_vim.git
-		    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-		    git clone https://github.com/garbas/vim-snipmate.git
-		    git clone https://github.com/honza/vim-snippets.git
+            git clone https://github.com/Shougo/neosnippet.vim
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -449,10 +446,7 @@ config_packages() {
 		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
 		    
 		    # Copying snippets
-		    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 		;;
 		*vim*)
 		    #==============================================================
@@ -466,7 +460,7 @@ config_packages() {
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
-		    #	SnipMate
+		    #	Neosnippet
 		    #   indentLine
 		    #   SingleCompile
 		    #   Vim-commentary
@@ -493,10 +487,7 @@ config_packages() {
 
 		    # Snipmate
 		    cd ~/.vim/bundle
-		    git clone https://github.com/tomtom/tlib_vim.git
-		    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-		    git clone https://github.com/garbas/vim-snipmate.git
-		    git clone https://github.com/honza/vim-snippets.git
+            git clone https://github.com/Shougo/neosnippet.vim
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -528,9 +519,7 @@ config_packages() {
 		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
 		    
 		    # Copying snippets
-		    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
+            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
 		    # YouCompleteMe
             sudo pacman -S cmake

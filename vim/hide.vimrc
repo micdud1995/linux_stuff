@@ -122,10 +122,20 @@ autocmd VimEnter * wincmd p
 " =================================================
 
 " =================================================
+" Neosnippet
+imap <Leader><Leader>   <Plug>(neosnippet_expand_or_jump)
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+" =================================================
+
+" =================================================
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_working_path_mode = 0
-noremap <Leader><Leader> :CtrlP ~/<CR>
+noremap <C-p> :CtrlP ~/<CR>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " =================================================
 
@@ -165,10 +175,10 @@ let g:ycm_disable_for_files_larger_than_kb = 2048
 let g:ycm_autoclose_preview_window_after_insertion = 0
 let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-" let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
+" let g:ycm_key_list_select_completion=[]
+" let g:ycm_key_list_previous_completion=[]
+let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
 " =================================================
 
 " =================================================
@@ -189,12 +199,6 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
-"
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q<CR>
-vmap <Leader>y "+y
-nmap <Leader>p "+p
-
 " jk instead od ESC
 inoremap jk <ESC> 
 
