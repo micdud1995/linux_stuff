@@ -415,6 +415,7 @@ config_packages() {
 		    # Neosnippet
 		    cd ~/.vim/bundle
             git clone https://github.com/Shougo/neosnippet.vim
+            git clone https://github.com/Shougo/neosnippet-snippets
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -485,9 +486,10 @@ config_packages() {
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/jiangmiao/auto-pairs.git
 
-		    # Snipmate
+		    # Neosnippet
 		    cd ~/.vim/bundle
             git clone https://github.com/Shougo/neosnippet.vim
+            git clone https://github.com/Shougo/neosnippet-snippets
 
 		    # Indent-line
 		    cd ~/.vim/bundle
