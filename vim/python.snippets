@@ -84,26 +84,22 @@ snippet for
 snippet cl
 	class ${1:ClassName}(${2}):
 		"""${3:docstring for $1}"""
-		#---------------------------------------
+
 		def __init__(self, ${4:arg}=None${5}):
-			${6:super($1, self).__init__()}
 			if $4 is not None:
 				self.$4 = $4
 			else:
 				self.$4 = ${7}
 			${7}
-		#---------------------------------------
+
 		def __del__(self):
 			${9:pass}
-		#---------------------------------------
 		${10}
 # New Functions
 snippet def
-	#-------------------------------------------
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
 		"""${3:docstring for $1}"""
 		${4}
-	#-------------------------------------------
 snippet deff
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
 		${0}
