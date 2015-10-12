@@ -419,6 +419,7 @@ config_packages() {
 		    cd ~/.vim/bundle
             git clone https://github.com/Shougo/neosnippet.vim
             git clone https://github.com/Shougo/neosnippet-snippets
+            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -432,25 +433,9 @@ config_packages() {
 		    cd ~/.vim/bundle
 		    git clone https://github.com/tpope/vim-commentary.git
 
-		    # Gruvbox theme
-		    #mkdir -p ~/tmp
-		    #cd ~/tmp && \
-		    #git clone https://github.com/morhetz/gruvbox.git
-		    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-		    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-		    #rm -rf ~/tmp/gruvbox
-
-		    # Sorcerer theme
-		    #cd ~/tmp && \
-		    #git clone https://github.com/adlawson/vim-sorcerer.git
-		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-		    #rm -rf ~/tmp/vim-sorcerer
-
 		    # Copying .vimrc
 		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
 		    
-		    # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 		;;
 		*vim*)
 		    #==============================================================
@@ -493,6 +478,7 @@ config_packages() {
 		    cd ~/.vim/bundle
             git clone https://github.com/Shougo/neosnippet.vim
             git clone https://github.com/Shougo/neosnippet-snippets
+            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -506,26 +492,6 @@ config_packages() {
 		    cd ~/.vim/bundle
 		    git clone https://github.com/tpope/vim-commentary.git
 
-		    # Gruvbox theme
-		    #mkdir -p ~/tmp
-		    #cd ~/tmp && \
-		    #git clone https://github.com/morhetz/gruvbox.git
-		    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-		    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-		    #rm -rf ~/tmp/gruvbox
-
-		    # Sorcerer theme
-		    #cd ~/tmp && \
-		    #git clone https://github.com/adlawson/vim-sorcerer.git
-		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-		    #rm -rf ~/tmp/vim-sorcerer
-
-		    # Copying .vimrc
-		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-		    
-		    # Copying snippets
-            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
-
 		    # YouCompleteMe
             sudo pacman -S cmake
 		    cd ~/.vim/bundle/
@@ -533,6 +499,9 @@ config_packages() {
 		    cd YouCompleteMe/
 		    git submodule update --init --recursive
 		    ./install.sh
+
+		    # Copying .vimrc
+		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
 		;;
 
 	esac
