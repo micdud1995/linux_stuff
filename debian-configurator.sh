@@ -475,13 +475,13 @@ config_packages() {
 		    #	Pathogen
 		    #	Nerdtree
 		    #	Syntastic
-		    #	Tagbar / Taglist
+		    #	Taglist
 		    #	GitGutter
-		    #	Nerdcommenter
+            #   CtrlP
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
-		    #	SnipMate
+		    #	Neosnippet
 		    #   indentLine
 		    #   SingleCompile
 		    #   Vim-commentary
@@ -496,6 +496,10 @@ config_packages() {
 		    # Pathogen
 		    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+            # CtrlP
+            cd ~/.vim/bundle
+            git clone https://github.com/kien/ctrlp.vim.git
+
 		    # Nerdtree
 		    cd ~/.vim/bundle && \
 		    git clone https://github.com/scrooloose/nerdtree.git
@@ -504,18 +508,13 @@ config_packages() {
 		    cd ~/.vim/bundle && \
 		    git clone https://github.com/scrooloose/syntastic.git
 
-		    # Taglist/Tagbar
+		    # Taglist
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/vim-scripts/taglist.vim.git
-		    #git clone https://github.com/vim-scripts/Tagbar.git
 
 		    # Git-gutter
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/airblade/vim-gitgutter.git
-
-		    # Nerd-commenter
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/nerdcommenter.git
 
 		    # Vim-airline
 		    cd ~/.vim/bundle && \
@@ -528,12 +527,11 @@ config_packages() {
 		    # Supertab
 		    git clone git://github.com/ervandew/supertab.git
 
-		    # Snipmate
+		    # Neosnippet
 		    cd ~/.vim/bundle
-		    git clone https://github.com/tomtom/tlib_vim.git
-		    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-		    git clone https://github.com/garbas/vim-snipmate.git
-		    git clone https://github.com/honza/vim-snippets.git
+            git clone https://github.com/Shougo/neosnippet.vim
+            git clone https://github.com/Shougo/neosnippet-snippets
+            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -547,20 +545,6 @@ config_packages() {
 		    cd ~/.vim/bundle
 		    git clone https://github.com/tpope/vim-commentary.git
 
-		    # Gruvbox theme
-		    #mkdir -p ~/tmp
-		    #cd ~/tmp && \
-		    #git clone https://github.com/morhetz/gruvbox.git
-		    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-		    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-		    #rm -rf ~/tmp/gruvbox
-
-		    # Sorcerer theme
-		    #cd ~/tmp && \
-		    #git clone https://github.com/adlawson/vim-sorcerer.git
-		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-		    #rm -rf ~/tmp/vim-sorcerer
-
 		    # Jellybeans theme
 		    cd ~/tmp && \
 		    git clone https://github.com/nanotech/jellybeans.vim.git
@@ -569,12 +553,6 @@ config_packages() {
 
 		    # Copying .vimrc
 		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-		    
-		    # Copying snippets
-		    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/sh.snippets $HOME/.vim/bundle/vim-snippets/snippets/
 		;;
 		*vim-nox*)
 		    #==============================================================
@@ -582,13 +560,13 @@ config_packages() {
 		    #	Pathogen
 		    #	Nerdtree
 		    #	Syntastic
-		    #	Tagbar / Taglist
+		    #	Taglist
 		    #	GitGutter
-		    #	Nerdcommenter
+            #   CtrlP
 		    # 	Vim-airline
 		    #	Auto-pairs
 		    # 	Supertab
-		    #	SnipMate
+		    #	Neosnippet
 		    #   indentLine
 		    #   SingleCompile
 		    #   Vim-commentary
@@ -604,6 +582,10 @@ config_packages() {
 		    # Pathogen
 		    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+            # CtrlP
+            cd ~/.vim/bundle
+            git clone https://github.com/kien/ctrlp.vim.git
+
 		    # Nerdtree
 		    cd ~/.vim/bundle && \
 		    git clone https://github.com/scrooloose/nerdtree.git
@@ -612,18 +594,13 @@ config_packages() {
 		    cd ~/.vim/bundle && \
 		    git clone https://github.com/scrooloose/syntastic.git
 
-		    # Taglist/Tagbar
+		    # Taglist
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/vim-scripts/taglist.vim.git
-		    #git clone https://github.com/vim-scripts/Tagbar.git
 
 		    # Git-gutter
 		    cd ~/.vim/bundle && \
 		    git clone git://github.com/airblade/vim-gitgutter.git
-
-		    # Nerd-commenter
-		    cd ~/.vim/bundle && \
-		    git clone https://github.com/scrooloose/nerdcommenter.git
 
 		    # Vim-airline
 		    cd ~/.vim/bundle && \
@@ -636,12 +613,11 @@ config_packages() {
 		    # Supertab
 		    git clone git://github.com/ervandew/supertab.git
 
-		    # Snipmate
+		    # Neosnippet
 		    cd ~/.vim/bundle
-		    git clone https://github.com/tomtom/tlib_vim.git
-		    git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
-		    git clone https://github.com/garbas/vim-snipmate.git
-		    git clone https://github.com/honza/vim-snippets.git
+            git clone https://github.com/Shougo/neosnippet.vim
+            git clone https://github.com/Shougo/neosnippet-snippets
+            cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
 		    # Indent-line
 		    cd ~/.vim/bundle
@@ -655,33 +631,11 @@ config_packages() {
 		    cd ~/.vim/bundle
 		    git clone https://github.com/tpope/vim-commentary.git
 
-		    # Gruvbox theme
-		    #mkdir -p ~/tmp
-		    #cd ~/tmp && \
-		    #git clone https://github.com/morhetz/gruvbox.git
-		    #mv ~/tmp/gruvbox/autoload/gruvbox.vim ~/.vim/autoload/gruvbox.vim
-		    #mv ~/tmp/gruvbox/colors/gruvbox.vim ~/.vim/colors/gruvbox.vim
-		    #rm -rf ~/tmp/gruvbox
-
-		    # Sorcerer theme
-		    #cd ~/tmp && \
-		    #git clone https://github.com/adlawson/vim-sorcerer.git
-		    #mv ~/tmp/vim-sorcerer/colors/sorcerer.vim ~/.vim/colors
-		    #rm -rf ~/tmp/vim-sorcerer
-
 		    # Jellybeans theme
 		    cd ~/tmp && \
 		    git clone https://github.com/nanotech/jellybeans.vim.git
 		    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
 		    rm -rf ~/tmp/jellybeans.vim
-
-		    # Copying .vimrc
-		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-		    
-		    # Copying snippets
-		    cp $HOME/repo/linux_stuff/vim/cpp.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/c.snippets $HOME/.vim/bundle/vim-snippets/snippets/
-		    cp $HOME/repo/linux_stuff/vim/python.snippets $HOME/.vim/bundle/vim-snippets/snippets/
 
 		    # YouCompleteMe
 		    cd ~/.vim/bundle/
@@ -689,6 +643,9 @@ config_packages() {
 		    cd YouCompleteMe/
 		    git submodule update --init --recursive
 		    ./install.sh
+
+		    # Copying .vimrc
+		    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
 		;;
 
 	esac
