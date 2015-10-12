@@ -248,6 +248,9 @@ config_packages() {
         sudo pacman -S $download
 
 	case "$download" in 
+		*zathura*)
+            sudo pacman -S zathura-pdf-poppler
+        ;;
 		*alsa-utils*)
             sudo pacman -S alsa-firmware alsa-lib alsa-plugins alsa-utils pulseaudio pulseaudio-alsa libcanberra libcanberra-pulse
         ;;
