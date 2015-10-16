@@ -714,7 +714,7 @@ config_pc() {
         if [[ $scripts == *" Wallpaper "* ]] ; then
             sudo aptitude install feh -y
             mkdir -p $HOME/Obrazy
-            cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+            cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
         fi
 

@@ -564,7 +564,7 @@ config_pc() {
         if [[ $scripts == *" Wallpaper "* ]] ; then
             sudo pacman -S feh 
             mkdir -p $HOME/Obrazy
-            sudo cp $HOME/repo/linux_stuff/config-files/wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+            sudo cp $HOME/repo/linux_stuff/config-files/wallpapers/arch-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
         fi
 
