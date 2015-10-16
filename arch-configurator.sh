@@ -280,7 +280,7 @@ config_packages() {
             cp $HOME/repo/linux_stuff/config-files/ranger/rc.conf $HOME/.config/ranger/
         ;;
 		*cmus*)
-		    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
+		    sudo cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
 		;;
 		*weechat*)
 		    mkdir -p $HOME/.weechat
@@ -319,9 +319,8 @@ config_packages() {
 		;;
 		*moc*)
 		    mkdir -p $HOME/.moc
-		    cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
+		    cp $HOME/repo/linux_stuff/config-files/moc/arch-config $HOME/.moc/config
 		    cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
-		    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
 		;;
 		*libreoffice-still*)
 		    language=$(whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \

@@ -4,8 +4,8 @@
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michał Dudek 
-# Date              20-09-2015
-# Version           2.0.2
+# Date              13-10-2015
+# Version           2.0.3
 # Notes             Run as a user 
 # License           GNU General Public License v3.0
 #==============================================================================
@@ -187,7 +187,7 @@ config_gui() {
     fi
 
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast-performing and energy-saving desktop environment" 20 70) then
+        "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast DE" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
         "awesome"           "configurable tiling WM" \
@@ -382,8 +382,7 @@ config_packages() {
 		;;
 		*moc*)
 		    mkdir -p $HOME/.moc
-		    cp $HOME/repo/linux_stuff/config-files/moc/config $HOME/.moc/config
-		    cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+		    cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
 		    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
 		;;
 		*libreoffice*)
