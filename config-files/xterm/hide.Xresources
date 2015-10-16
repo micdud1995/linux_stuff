@@ -1,0 +1,30 @@
+xterm*faceName:             Inconsolata
+xterm*faceSize: 		    9
+xterm*xftAntialias: 		true
+
+xterm*utf8: 			    1
+xterm*locale: 			    true
+xterm*scrollKey: 		    true
+xterm*savelines: 		    512
+xterm*ScrollBar: 		    false
+xterm*loginshell: 		    true
+xterm*visualBell: 		    false
+xterm*marginBell: 		    false
+xterm*fastScroll: 		    true
+xterm*jumpScroll: 		    true
+xterm*multiScroll: 		    true
+
+xterm*autoWrap: 	        true
+xterm*dynamicColors: 		true
+xterm*scrollTtyOutput: 		false
+xterm*alwaysHighlight:      true
+xterm*highlightSelection: 	true
+
+xterm*charClass: 		    33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+xterm*background: 		    #000000
+xterm*cursorColor: 		    #303030
+xterm*foreground: 		    #DCDCCC
+
+! for update, run:
+! xrdb -merge ~/.Xresources
