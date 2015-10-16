@@ -711,19 +711,20 @@ config_pc() {
             "CS:GO config"  "Global Offensive config file" OFF \
             "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
-        if [[ $scripts == *" Wallpaper "* ]] ; then
+        scripts=$(echo "$scripts" | sed 's/\"//g')
+
+	case "$scripts" in 
+        *Wallpaper*)
             sudo aptitude install feh -y
             mkdir -p $HOME/Obrazy
             cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
-        fi
-
-        if [[ $scripts == *" Touchpad "* ]] ; then
+        ;;
+        *Touchpad*)
             mkdir -p /etc/X11/xorg.conf.d
             sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-        fi
-
-        if [[ $scripts == *" WiFi "* ]] ; then
+        ;;
+        *WiFi*)
             sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
             sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
             sudo modprobe wl
@@ -732,23 +733,22 @@ config_pc() {
             sudo /etc/init.d/dbus reload
             sudo /etc/init.d/wicd start
             wicd-client -n
-        fi
-
-        if [[ $scripts == *" Microphone "* ]] ; then
+        ;;
+        *Microphone*)
             cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
-        fi
-
-        if [[ $scripts == *" CS:GO config "* ]] ; then
+        ;;
+        *CS:GO*)
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
                 cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
                 whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi
-        fi
-
-        if [[ $scripts == *" Lid "* ]] ; then
+        ;;
+        *Lid*)
             sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
-        fi
+        ;;
+    esac
+
     fi 
 
     whiptail --title "Debian config" --msgbox "System configured." 20 70
