@@ -150,7 +150,6 @@ config_gui() {
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
                 cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
-                echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
                 sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch weechat htop moc ranger w3m
@@ -162,15 +161,13 @@ config_gui() {
                 cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
                 chmod +x $HOME/.i3/load_workspaces.sh
                 cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
-                echo "exec i3" > ~/.xinitrc
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde")
                 sudo pacman -S lxde-common openbox lxterminal lxrandr lxpanel
-                echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
                 sudo pacman -S xfce4
-                echo "startxfce4" > ~/.xinitrc
             ;;
         esac
     fi

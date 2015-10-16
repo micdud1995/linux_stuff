@@ -202,7 +202,6 @@ config_gui() {
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
                 cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
-                echo "exec awesome" > ~/.xinitrc
             ;;
             "i3")
                 sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
@@ -214,15 +213,13 @@ config_gui() {
                 cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
                 chmod +x $HOME/.i3/load_workspaces.sh
                 cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
-                echo "exec i3" > ~/.xinitrc
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde-core")
                 sudo aptitude install xorg xinit lxde-core -y
-                echo "startlxde" > ~/.xinitrc
             ;;
             "xfce")
                 sudo aptitude install xorg xinit xfce4 -y
-                echo "startxfce4" > ~/.xinitrc
             ;;
         esac
     fi
@@ -724,7 +721,6 @@ config_pc() {
         if [[ $scripts == *" Touchpad "* ]] ; then
             mkdir -p /etc/X11/xorg.conf.d
             sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-            echo synclient TapButton1=1 >> $HOME/.xinitrc
         fi
 
         if [[ $scripts == *" WiFi "* ]] ; then
