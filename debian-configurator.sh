@@ -264,7 +264,7 @@ config_packages() {
             "moc"                           "Music Player" OFF \
             "mpv"                           "Video Player" OFF \
             "mutt"                          "Mail Client" OFF \
-            "nethack"                       "Roguelike game" OFF \
+            "nethack-console"                       "Roguelike game" OFF \
             "newsbeuter"                    "RSS feed reader" OFF \
             "openssh"                       "Secure Shell" OFF \
             "p7zip"                         "File archiver" OFF \
@@ -388,7 +388,7 @@ config_packages() {
 		*moc*)
 		    mkdir -p $HOME/.moc
 		    cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
-		    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
+		    sudo cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
 		;;
 		*libreoffice*)
 		    language=$(whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
