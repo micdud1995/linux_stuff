@@ -12,18 +12,16 @@
             "current_border_width": 1,
             "floating": "auto_off",
             "geometry": {
-               "height": 362,
-               "width": 562,
+               "height": 340,
+               "width": 484,
                "x": 0,
                "y": 0
             },
-            "name": "LXTerminal",
             "percent": 0.5,
             "swallows": [
                {
-                "class": "^Lxterminal$",
-                "instance": "^lxterminal$",
-                "title": "^LXTerminal$"
+               "class": "^XTerm$",
+               "instance": "^xterm$"
                }
             ],
             "type": "con"
@@ -33,18 +31,16 @@
             "current_border_width": 1,
             "floating": "auto_off",
             "geometry": {
-               "height": 362,
-               "width": 562,
+               "height": 340,
+               "width": 484,
                "x": 0,
                "y": 0
             },
-            "name": "LXTerminal",
             "percent": 0.5,
             "swallows": [
                {
-                "class": "^Lxterminal$",
-                "instance": "^lxterminal$",
-                "title": "^LXTerminal$"
+               "class": "^XTerm$",
+               "instance": "^xterm$"
                }
             ],
             "type": "con"
@@ -65,18 +61,16 @@
             "current_border_width": 1,
             "floating": "auto_off",
             "geometry": {
-               "height": 362,
-               "width": 562,
+               "height": 340,
+               "width": 484,
                "x": 0,
                "y": 0
             },
-            "name": "LXTerminal",
             "percent": 0.5,
             "swallows": [
                {
-                "class": "^Lxterminal$",
-                "instance": "^lxterminal$",
-                "title": "^LXTerminal$"
+               "class": "^XTerm$",
+               "instance": "^xterm$"
                }
             ],
             "type": "con"
@@ -86,18 +80,15 @@
             "current_border_width": 1,
             "floating": "auto_off",
             "geometry": {
-               "height": 362,
-               "width": 562,
+               "height": 340,
+               "width": 484,
                "x": 0,
                "y": 0
             },
-            "name": "LXTerminal",
-            "percent": 0.5,
             "swallows": [
                {
-                "class": "^Lxterminal$",
-                "instance": "^lxterminal$",
-                "title": "^LXTerminal$"
+               "class": "^XTerm$",
+               "instance": "^xterm$"
                }
             ],
             "type": "con"
