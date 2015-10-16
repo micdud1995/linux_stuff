@@ -304,6 +304,13 @@ config_packages() {
         sudo aptitude install $download -y
 
 	case "$download" in 
+        *ranger*)
+            sudo aptitude install w3m w3m-img
+            mkdir -p $HOME/.config/ranger
+            mkdir -p $HOME/.config/ranger/colorschemes
+            cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
+            cp $HOME/repo/linux_stuff/config-files/ranger/debian-rc.conf $HOME/.config/ranger/rc.conf
+        ;;
 		*fuck*)
 		    cd $HOME/tmp
 		    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0

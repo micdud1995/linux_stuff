@@ -277,7 +277,7 @@ config_packages() {
             mkdir -p $HOME/.config/ranger
             mkdir -p $HOME/.config/ranger/colorschemes
             cp $HOME/repo/linux_stuff/config-files/ranger/solarized.py $HOME/.config/ranger/colorschemes/
-            cp $HOME/repo/linux_stuff/config-files/ranger/rc.conf $HOME/.config/ranger/
+            cp $HOME/repo/linux_stuff/config-files/ranger/arch-rc.conf $HOME/.config/ranger/rc.conf
         ;;
 		*cmus*)
 		    sudo cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
