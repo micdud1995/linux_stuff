@@ -146,7 +146,7 @@ config_shell() {
         case "$SHELL" in
             "Bash")
                 sudo aptitude install colordiff bash -y
-                cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
+                cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
                 sudo chsh -s /bin/bash
             ;;
             "Zsh")

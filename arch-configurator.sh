@@ -74,7 +74,7 @@ config_shell() {
         case "$SHELL" in
             "Bash")
                 sudo pacman -S colordiff bash
-                cp $HOME/repo/linux_stuff/config-files/bash/hide.bashrc $HOME/.bashrc
+                cp $HOME/repo/linux_stuff/config-files/bash/arch-bashrc $HOME/.bashrc
                 sudo chsh -s /bin/bash
             ;;
             "Zsh")
