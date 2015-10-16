@@ -345,7 +345,8 @@ config_packages() {
 		    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
 		;;
 		*xterm*)
-		    echo "XTerm*selectToClipboard: true" >> $HOME/.Xdefaults
+            cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+            xrdb -merge ~/.Xresources 
 		;;
 		*weechat*)
 		    mkdir -p $HOME/.weechat

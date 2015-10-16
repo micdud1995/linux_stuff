@@ -248,6 +248,10 @@ config_packages() {
         sudo pacman -S $download
 
 	case "$download" in 
+		*xterm*)
+            cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+            xrdb -merge ~/.Xresources 
+		;;
 		*zathura*)
             sudo pacman -S zathura-pdf-poppler
         ;;
