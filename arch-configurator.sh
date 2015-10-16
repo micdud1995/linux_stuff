@@ -561,29 +561,31 @@ config_pc() {
             "CS:GO config"  "Global Offensive config file" OFF \
             "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
-        if [[ $scripts == *" Wallpaper "* ]] ; then
+        scripts=$(echo "$scripts" | sed 's/\"//g')
+
+	case "$scripts" in 
+        *Wallpaper*)
             sudo pacman -S feh 
             mkdir -p $HOME/Obrazy
             sudo cp $HOME/repo/linux_stuff/config-files/wallpapers/arch-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
             feh --bg-scale $HOME/Obrazy/wallpaper.jpg
-        fi
-
-        if [[ $scripts == *" Touchpad "* ]] ; then
+        ;;
+        *Touchpad*)
             mkdir -p /etc/X11/xorg.conf.d
             sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-        fi
-
-        if [[ $scripts == *" CS:GO config "* ]] ; then
+        ;;
+        *CS:GO*)
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
                 sudo cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
             else
                 whiptail --title "Arch config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
             fi
-        fi
-
-        if [[ $scripts == *" Lid "* ]] ; then
+        ;;
+        *Lid*)
             sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
-        fi
+        ;;
+    esac
+
     fi 
 
     whiptail --title "Arch config" --msgbox "System configured." 20 70
