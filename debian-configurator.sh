@@ -209,7 +209,7 @@ config_gui() {
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                cp $HOME/repo/linux_stuff/i3/config ~/.i3/config
+                cp $HOME/repo/linux_stuff/i3/debian-config ~/.i3/config
                 cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
                 cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
                 chmod +x $HOME/.i3/load_workspaces.sh
