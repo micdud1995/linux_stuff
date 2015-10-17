@@ -264,7 +264,7 @@ config_packages() {
             "moc"                           "Music Player" OFF \
             "mpv"                           "Video Player" OFF \
             "mutt"                          "Mail Client" OFF \
-            "nethack-console"                       "Roguelike game" OFF \
+            "nethack-console"               "Roguelike game" OFF \
             "newsbeuter"                    "RSS feed reader" OFF \
             "openssh"                       "Secure Shell" OFF \
             "p7zip"                         "File archiver" OFF \
@@ -282,10 +282,11 @@ config_packages() {
             "ufw"                           "Firewall" OFF \
             "unrar"                         "File archiver" OFF \
             "unzip"                         "Unpack zip archives" OFF \
-            "vim-clear" 	  	                    "Text Editor" OFF \
+            "vim-clear" 	  	            "Text Editor" OFF \
             "vim-nox" 	  	                "Vim with script support" OFF \
             "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
+            "w3m"                           "Web Browser" OFF \
             "weechat"                       "IRC Client" OFF \
             "xcalib"                        "Screen brightness" OFF \
             "xboxdrv"                       "Xbox pad driver" OFF \
@@ -301,6 +302,9 @@ config_packages() {
         sudo aptitude install $download -y
 
 	case "$download" in 
+        *w3m*)
+            sudo aptitude install w3m-img
+        ;;
         *ranger*)
             sudo aptitude install w3m w3m-img
             mkdir -p $HOME/.config/ranger

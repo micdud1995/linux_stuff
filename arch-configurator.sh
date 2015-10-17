@@ -232,6 +232,7 @@ config_packages() {
             "vim-minimal" 	  	            "Text Editor" OFF \
             "vim" 	  	                    "Vim with script support" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
+            "w3m"                           "Web Browser" OFF \
             "weechat"                       "IRC Client" OFF \
             "xfburn"                        "Burning tool" OFF \
             "xorg-xbacklight"               "Screen brightness" OFF \
@@ -245,6 +246,9 @@ config_packages() {
         sudo pacman -S $download
 
 	case "$download" in 
+		*xterm*)
+            sudo pacman -S w3m-img
+        ;;
 		*xterm*)
             cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
             xrdb -merge ~/.Xresources 
