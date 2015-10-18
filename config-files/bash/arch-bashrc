@@ -171,13 +171,6 @@ fi
     alias df='df -kTh'
     alias free='free -ht'
     alias ip='sudo ip addr show'
-# system upgrade
-	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
-# aptitude aliases
-    alias a="aptitude"
-	alias ai="sudo aptitude install"
-	alias as="aptitude search"
-    alias ar="sudo aptitude remove"
 # pacman aliases
 	alias S="sudo pacman -S" # Install package
 	alias Ss="pacman -Ss" # Search packages
@@ -240,5 +233,9 @@ fi
     alias w="wicd-curses"
     alias s="screenfetch"
     alias cal="cal -w"
+# Systemd aliases
+    alias reb="systemctl reboot"
+    alias off="systemctl poweroff"
+    alias sus="systemctl suspend"
 #=================================================================
 screenfetch
