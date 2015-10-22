@@ -295,8 +295,8 @@ config_packages() {
 		;;
 		*newsbeuter*)
 		    mkdir -p $HOME/.config/newsbeuter
-		    cp $HOME/repo/linux_stuff/config-files/newsbeuter/urls $HOME/.config/newsbeuter/urls
-		    cp $HOME/repo/linux_stuff/config-files/newsbeuter/config $HOME/.config/newsbeuter/config
+		    cp $HOME/repo/linux_stuff/config-files/newsbeuter/arch-urls $HOME/.config/newsbeuter/urls
+		    cp $HOME/repo/linux_stuff/config-files/newsbeuter/arch-config $HOME/.config/newsbeuter/config
 		;;
 		*conky*)
 		    cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
