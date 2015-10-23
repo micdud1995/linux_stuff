@@ -362,7 +362,7 @@ config_packages() {
 		;;
 		*conky*)
 		    cp ~/repo/linux_stuff/conky/conky.conf ~/.conkyrc
-		    cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+		    sudo cp ~/repo/linux_stuff/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
 		;;
 		*dwb*)
 		    cp ~/repo/linux_stuff/config-files/dwb/bookmarks ~/.config/dwb/default/bookmarks
