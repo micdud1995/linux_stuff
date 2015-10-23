@@ -230,7 +230,7 @@ fi
     alias d="dict -d fd-eng-pol"
     alias w="wicd-curses"
     alias s="screenfetch"
-    alias cal="cal -w"
+    alias cal="ncal"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
