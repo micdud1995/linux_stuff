@@ -202,6 +202,7 @@ config_gui() {
                 mkdir -p ~/.config/awesome/themes/
                 mkdir -p ~/.config/awesome/themes/my
                 cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "i3")
                 sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
@@ -217,9 +218,11 @@ config_gui() {
             ;;
             "lxde-core")
                 sudo aptitude install xorg xinit lxde-core -y
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "xfce")
                 sudo aptitude install xorg xinit xfce4 -y
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
         esac
     fi
@@ -228,6 +231,12 @@ config_gui() {
         "Do you want to use Caps Lock as a additional Escape?" 20 70) then
         sudo setxkbmap -option caps:escape &
     fi
+
+    if (whiptail --title "Editing .xinitrc" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to edit your .xinitrc file?" 20 70) then
+        nano $HOME/.xinitrc
+    fi
+
 
     config_packages
 }
