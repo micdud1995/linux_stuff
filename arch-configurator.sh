@@ -155,12 +155,12 @@ config_gui() {
                 sudo pacman -S lxterminal i3 dmenu i3status feh screenfetch weechat htop moc ranger w3m
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
-                cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                cp $HOME/repo/linux_stuff/i3/arch-config ~/.i3/config
-                cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
-                cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
+                cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf ~/.i3status.conf
+                cp $HOME/repo/linux_stuff/config-files/i3/arch-config ~/.i3/config
+                cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
+                cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh ~/.i3/
                 chmod +x $HOME/.i3/load_workspaces.sh
-                cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde")
@@ -576,7 +576,7 @@ config_pc() {
         ;;
         *Touchpad*)
             mkdir -p /etc/X11/xorg.conf.d
-            sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
         ;;
         *CS:GO*)
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
@@ -586,7 +586,7 @@ config_pc() {
             fi
         ;;
         *Lid*)
-            sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
         ;;
     esac
 
