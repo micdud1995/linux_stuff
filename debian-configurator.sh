@@ -207,12 +207,12 @@ config_gui() {
                 sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
-                cp $HOME/repo/linux_stuff/i3/hide.i3status.conf ~/.i3status.conf
-                cp $HOME/repo/linux_stuff/i3/debian-config ~/.i3/config
-                cp $HOME/repo/linux_stuff/i3/workspace* ~/.i3/
-                cp $HOME/repo/linux_stuff/i3/load_workspaces.sh ~/.i3/
+                cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf ~/.i3status.conf
+                cp $HOME/repo/linux_stuff/config-files/i3/debian-config ~/.i3/config
+                cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
+                cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh ~/.i3/
                 chmod +x $HOME/.i3/load_workspaces.sh
-                cp $HOME/repo/linux_stuff/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde-core")
@@ -282,6 +282,7 @@ config_packages() {
             "ufw"                           "Firewall" OFF \
             "unrar"                         "File archiver" OFF \
             "unzip"                         "Unpack zip archives" OFF \
+            "uzbl"                          "Web Browser" OFF \
             "vim-clear" 	  	            "Text Editor" OFF \
             "vim-nox" 	  	                "Vim with script support" OFF \
             "vimb"                          "Web Browser" OFF \
@@ -302,6 +303,10 @@ config_packages() {
         sudo aptitude install $download -y
 
 	case "$download" in 
+        *uzbl*)
+            cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
+            cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
+        ;;
         *w3m*)
             sudo aptitude install w3m-img
         ;;
@@ -713,6 +718,7 @@ config_pc() {
             "WiFi"          "Enable Lenovo G580 net. card" OFF \
             "Microphone"    "Enable Lenovo G580 microphone" OFF \
             "CS:GO config"  "Global Offensive config file" OFF \
+            "Grub"          "Boot loader configuration" OFF \
             "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
 
         scripts=$(echo "$scripts" | sed 's/\"//g')
@@ -726,20 +732,20 @@ config_pc() {
         ;;
         *Touchpad*)
             mkdir -p /etc/X11/xorg.conf.d
-            sudo cp $HOME/repo/linux_stuff/config-files/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
         ;;
         *WiFi*)
             sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
             sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
             sudo modprobe wl
-            sudo cp $HOME/repo/linux_stuff/config-files/interfaces /etc/network/interfaces
+            sudo cp $HOME/repo/linux_stuff/config-files/other/interfaces /etc/network/interfaces
             sudo adduser michal netdev
             sudo /etc/init.d/dbus reload
             sudo /etc/init.d/wicd start
             wicd-client -n
         ;;
         *Microphone*)
-            cp $HOME/repo/linux_stuff/config-files/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+            cp $HOME/repo/linux_stuff/config-files/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         ;;
         *CS:GO*)
             if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
@@ -749,7 +755,11 @@ config_pc() {
             fi
         ;;
         *Lid*)
-            sudo cp $HOME/repo/linux_stuff/config-files/logind.conf /etc/systemd/logind.conf
+            sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
+        ;;
+        *Grub*)
+            sudo nano /etc/default/grub
+            sudo update-grub
         ;;
     esac
 
