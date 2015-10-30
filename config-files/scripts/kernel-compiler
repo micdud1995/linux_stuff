@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Kernel compiler for Debian
+
+cecho() {
+  local code="\033["
+  case "$1" in
+    black  | bk) color="${code}0;30m";;
+    red    |  r) color="${code}1;31m";;
+    green  |  g) color="${code}1;32m";;
+    yellow |  y) color="${code}1;33m";;
+    blue   |  b) color="${code}1;34m";;
+    purple |  p) color="${code}1;35m";;
+    cyan   |  c) color="${code}1;36m";;
+    gray   | gr) color="${code}0;37m";;
+    *) local text="$1"
+  esac
+  [ -z "$text" ] && local text="$color$2${code}0m"
+  printf "$text"
+}
+
+clear
+
+cecho r "Installing depedencies...\n"
+sudo aptitude install gcc libncurses5-dev dpkg-dev kernel-package fakeroot wget bzip2 build-essential
+
+cecho r "Paste URL of sources archive:\n"
+read URL
+mkdir -p $HOME/kernel
+cd $HOME/kernel
+
+cecho r "Downloading source code...\n"
+wget "$URL" -O linux.tar.xz
+
+cecho r "Unpacking archive...\n"
+tar -xJvf linux.tar.xz -C $HOME/kernel/linux
+cd $HOME/kernel/linux
+make clean && make mrproper
+cp /boot/config-$(uname -r) .config
+make menuconfig
+make-kpkg clean
+fakeroot make-kpkg --initrd --append-to-version=-custom kernel-image kernel-headers
+
+read -r -p "Do you want to install new kernel? [y/N] " response
+response=${response,,}    # tolower
+
+if [[ $response =~ ^(yes|y)$ ]]; then
+    dpkg -i $HOME/kernel/linux/*.deb
+fi
