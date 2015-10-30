@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Kernel compiler for Debian
+# Just copy URL of archive with source code from kernel.org
+# and paste it
 
 cecho() {
   local code="\033["
@@ -21,8 +23,10 @@ cecho() {
 
 clear
 
+cecho r "Updating the system...\n"
+sudo aptitude update
 cecho r "Installing depedencies...\n"
-sudo aptitude install gcc libncurses5-dev dpkg-dev kernel-package fakeroot wget bzip2 build-essential
+sudo aptitude install gcc libncurses5-dev kernel-package fakeroot wget bzip2 build-essential --without-recommends
 
 cecho r "Paste URL of sources archive:\n"
 read URL
@@ -33,17 +37,21 @@ cecho r "Downloading source code...\n"
 wget "$URL" -O linux.tar.xz
 
 cecho r "Unpacking archive...\n"
-tar -xJvf linux.tar.xz -C $HOME/kernel/linux
-cd $HOME/kernel/linux
+tar -xJvf linux.tar.xz
+cd $HOME/kernel/linux*
+
+cecho r "Cleaning...\n"
 make clean && make mrproper
 cp /boot/config-$(uname -r) .config
 make menuconfig
 make-kpkg clean
+
+cecho r "Compiling...\n"
 fakeroot make-kpkg --initrd --append-to-version=-custom kernel-image kernel-headers
 
 read -r -p "Do you want to install new kernel? [y/N] " response
 response=${response,,}    # tolower
 
 if [[ $response =~ ^(yes|y)$ ]]; then
-    dpkg -i $HOME/kernel/linux/*.deb
+    sudo dpkg -i $HOME/kernel/linux*/*.deb
 fi
