@@ -190,7 +190,7 @@ config_gui() {
         "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast DE" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
-        "awesome"           "configurable tiling WM" \
+        "awesome"           "configurable WM ver. 3.4" \
         "i3"                "i3 tiling WM" \
         "xfce"              "lightweight DE" \
         "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
