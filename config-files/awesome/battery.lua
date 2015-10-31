@@ -17,6 +17,7 @@ function batteryInfo(adapter)
   local fh = io.open("/sys/class/power_supply/"..adapter.."/present", "r")
   if fh == nil then
     description = "A/C  "
+    battery=""
   else
     local cur = readBatFile(adapter, "charge_now", "energy_now")
     local cap = readBatFile(adapter, "charge_full", "energy_full")
@@ -38,6 +39,7 @@ function batteryInfo(adapter)
     else
       -- If we are neither charging nor discharging, assume that we are on A/C
       description = "A/C  "
+      battery=""
     end
   end
   return '  [<span color="#FFFF00">'..description..battery..' ⚡</span>]  '
