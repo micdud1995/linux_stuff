@@ -200,8 +200,7 @@ config_gui() {
                 sudo aptitude install xorg xinit awesome -y
                 mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
-                mkdir -p ~/.config/awesome/themes/my
-                cp $HOME/repo/linux_stuff/config-files/rc.lua $HOME/.config/awesome/rc.lua
+                cp $HOME/repo/linux_stuff/config-files/awesome/* $HOME/.config/awesome/
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "i3")
