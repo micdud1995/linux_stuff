@@ -767,16 +767,16 @@ config_scripts() {
             case $choice in
                 m)
                     sudo aptitude install fuse ntfs-3g -y
-                    cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
+                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
                     sudo chmod +x /usr/local/bin/m
                 ;;
                 um)
                     sudo aptitude install fuse ntfs-3g -y
-                    cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
-                    chmod +x /usr/local/bin/um
+                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
+                    sudo chmod +x /usr/local/bin/um
                 ;;
                 live-usb)
-                    cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
+                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
                     sudo chmod +x /usr/local/bin/live-usb
                 ;;
             esac
@@ -801,56 +801,57 @@ config_pc() {
     if (whiptail --title "Additional settings" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
-        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished" 20 70 10 \
-            "Wallpaper"     "Set wallpaper" OFF \
-            "Touchpad"      "Enable touchpad" OFF \
-            "WiFi"          "Enable Lenovo G580 net. card" OFF \
-            "Microphone"    "Enable Lenovo G580 microphone" OFF \
-            "CS:GO config"  "Global Offensive config file" OFF \
-            "Grub"          "Boot loader configuration" OFF \
-            "Lid"     	    "Don't suspend laptop when lid closed" OFF 3>&1 1>&2 2>&3)
+    (whiptail --title "Additional settings" --checklist --separate-output "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
+    "Wallpaper" "Set wallpaper" ON \
+    "Touchpad" "Enable touchpad" OFF \
+    "WiFi" "Enable Lenovo G580 net. card" OFF \
+    "Microphone" "Enable Lenovo G580 microphone" OFF \
+    "CS:GO" "Global Offensive config file" OFF \
+    "Grub" "Boot loader configuration" OFF \
+    "Lid" "Don't suspend laptop when lid closed" off 2>results)
 
-        scripts=$(echo "$scripts" | sed 's/\"//g')
-
-	case "$scripts" in 
-        *Wallpaper*)
-            sudo aptitude install feh -y
-            mkdir -p $HOME/Obrazy
-            cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
-            feh --bg-scale $HOME/Obrazy/wallpaper.jpg
-        ;;
-        *Touchpad*)
-            mkdir -p /etc/X11/xorg.conf.d
-            sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-        ;;
-        *WiFi*)
-            sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
-            sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
-            sudo modprobe wl
-            sudo cp $HOME/repo/linux_stuff/config-files/other/interfaces /etc/network/interfaces
-            sudo adduser michal netdev
-            sudo /etc/init.d/dbus reload
-            sudo /etc/init.d/wicd start
-            wicd-client -n
-        ;;
-        *Microphone*)
-            cp $HOME/repo/linux_stuff/config-files/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
-        ;;
-        *CS:GO*)
-            if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
-                cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
-            else
-                whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
-            fi
-        ;;
-        *Lid*)
-            sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
-        ;;
-        *Grub*)
-            sudo nano /etc/default/grub
-            sudo update-grub
-        ;;
-    esac
+    while read choice
+    do
+        case $choice in
+            Wallpaper)
+                sudo aptitude install feh -y
+                mkdir -p $HOME/Obrazy
+                cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
+                feh --bg-scale $HOME/Obrazy/wallpaper.jpg
+            ;;
+            Touchpad)
+                sudo mkdir -p /etc/X11/xorg.conf.d
+                sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+            ;;
+            WiFi)
+                sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
+                sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
+                sudo modprobe wl
+                sudo cp $HOME/repo/linux_stuff/config-files/other/interfaces /etc/network/interfaces
+                sudo adduser michal netdev
+                sudo /etc/init.d/dbus reload
+                sudo /etc/init.d/wicd start
+                wicd-client -n
+            ;;
+            Microphone)
+                sudo cp $HOME/repo/linux_stuff/config-files/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+            ;;
+            CS:GO)
+                if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
+                    cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
+                else
+                    whiptail --title "Debian config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
+                fi
+            ;;
+            Grub)
+                sudo nano /etc/default/grub
+                sudo update-grub
+            ;;
+            Lid)
+                sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
+            ;;
+        esac
+    done < results
 
     fi 
 
