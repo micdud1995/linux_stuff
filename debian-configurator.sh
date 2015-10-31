@@ -756,22 +756,31 @@ config_scripts() {
             "um"            "Umount script" ON \
             "live-usb"     	"Live-USB script" ON 3>&1 1>&2 2>&3)
 
-        if [[ $scripts == *" m "* ]] ; then
-            sudo aptitude install fuse ntfs-3g -y
-            cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/bin/
-            sudo chmod +x /usr/bin/m
-        fi
+        (whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
 
-        if [[ $scripts == *" um "* ]] ; then
-            sudo aptitude install fuse ntfs-3g -y
-            cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/bin/
-            chmod +x /usr/bin/um
-        fi
+        "m" "" on \
+        "um" "" off \
+        "live-usb" "" off 2>results)
 
-        if [[ $scripts == *" live-usb "* ]] ; then
-            cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/bin/
-            sudo chmod +x /usr/bin/live-usb
-        fi
+        while read choice
+        do
+            case $choice in
+                m)
+                    sudo aptitude install fuse ntfs-3g -y
+                    cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
+                    sudo chmod +x /usr/local/bin/m
+                ;;
+                um)
+                    sudo aptitude install fuse ntfs-3g -y
+                    cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
+                    chmod +x /usr/local/bin/um
+                ;;
+                live-usb)
+                    cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
+                    sudo chmod +x /usr/local/bin/live-usb
+                ;;
+            esac
+        done < results
     fi 
 
     config_beep
