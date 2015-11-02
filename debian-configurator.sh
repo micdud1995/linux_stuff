@@ -256,6 +256,7 @@ config_packages() {
             "feh"                           "Image Viewer" OFF \
             "fuck"                          "Command correcting" OFF \
             "git"                           "Content tracker" OFF \
+            "gummi"                         "LaTeX Editor" OFF \
             "htop"                          "Process Info" OFF \
             "irssi"                         "IRC Client" OFF \
             "iceweasel"                     "Web Browser" OFF \
@@ -279,7 +280,6 @@ config_packages() {
             "rtorrent"                      "Torrent Client" OFF \
             "screenfetch"                   "System Info" OFF \
             "scrot"                         "Screenshots" OFF \
-            "steam"                         "Steam Client" OFF \
             "tor"                           "Communication System" OFF \
             "tree"                          "Tree of dirs" OFF \
             "ufw"                           "Firewall" OFF \
@@ -300,8 +300,6 @@ config_packages() {
             "zathura"                       "PDF Viewer" OFF \
             "zsh"     	                    "Z-shell" OFF 2>results)
 
-        sudo aptitude update
-
         while read choice
         do
             case $choice in
@@ -319,6 +317,9 @@ config_packages() {
                     ;;
                     feh)
                         sudo aptitude install feh
+                    ;;
+                    gummi)
+                        sudo aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc 
                     ;;
                     htop)
                         sudo aptitude install htop
@@ -379,6 +380,7 @@ config_packages() {
                         sudo aptitude install zathura
                     ;;
                     conky)
+                        sudo aptitude install conky
                         cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
                         sudo cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                     ;;
@@ -386,7 +388,7 @@ config_packages() {
                         sudo aptitude install w3m-img
                     ;;
                     ranger)
-                        sudo aptitude install w3m w3m-img
+                        sudo aptitude install w3m w3m-img ranger
                         mkdir -p $HOME/.config/ranger
                         mkdir -p $HOME/.config/ranger/colorschemes
                         cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
@@ -397,28 +399,34 @@ config_packages() {
                         wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
                     ;;
                     cmus)
+                        sudo aptitude install cmus
                         cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
                     ;;
                     xterm)
+                        sudo aptitude install xterm
                         cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
                         xrdb -merge ~/.Xresources 
                     ;;
                     weechat)
+                        sudo aptitude install weechat
                         mkdir -p $HOME/.weechat
                         cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
                         rm -f $HOME/.weechat/weechat.log
                         ln -s /dev/null weechat.log
                     ;;
                     newsbeuter)
+                        sudo aptitude install newsbeuter
                         mkdir -p $HOME/.config/newsbeuter
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
                     ;;
                     xboxdrv)
+                        sudo aptitude install xboxdrv
                         sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
                         rmmod xpad
                     ;;
                     git)
+                        sudo aptitude install git
                         name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
                         git config --global user.name "$name"
                         mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
@@ -431,17 +439,20 @@ config_packages() {
                         sudo export DISPLAY=:0
                     ;;
                     mc)
+                        sudo aptitude install mc
                         mkdir -p $HOME/.config/mc
                         mkdir -p $HOME/.local/share/mc/skins
                         cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
                         cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
                     ;;
                     moc)
+                        sudo aptitude install moc
                         mkdir -p $HOME/.moc
                         cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
                         sudo cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
                     ;;
                     libreoffice)
+                        sudo aptitude install libreoffice
                         (whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
                         "Polski"        "Polish" \
                         "Deutsch"       "German" \
@@ -471,9 +482,11 @@ config_packages() {
                         done < results3
                     ;;
                     mutt)
+                        sudo aptitude install mutt
                         cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
                     ;;
                     irssi)
+                        sudo aptitude install irssi
                         mkdir $HOME/.irssi
                         if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
                         "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
@@ -483,6 +496,7 @@ config_packages() {
                         fi
                     ;;
                     rtorrent)
+                        sudo aptitude install rtorrent
                         mkdir -p $HOME/.rtorrent
                         cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
                     ;;
@@ -515,15 +529,13 @@ config_packages() {
                         cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
                         cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
                     ;;
-                    steam)
-                        mkdir -p $HOME/tmp
-                        sudo aptitude install curl zenity steam -y
-                    ;;
                     slim)
+                        sudo aptitude install slim
                         cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
                         sudo dpkg-reconfigure slim
                     ;;
                     lightdm)
+                        sudo aptitude install lightdm
                         cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
                         sudo dpkg-reconfigure lightdm
                     ;;
@@ -706,10 +718,12 @@ config_packages() {
                         cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
                     ;;
                     uzbl)
+                        sudo aptitude install uzbl
                         cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
                         cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
                     ;;
                     dictd)
+                        sudo aptitude install dictd
                         whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
                         "eng-pol" "" OFF \
                         "eng-deu" "" OFF \
