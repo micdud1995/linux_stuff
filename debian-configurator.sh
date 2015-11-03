@@ -4,23 +4,29 @@
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michał Dudek 
-# Date              13-10-2015
-# Version           2.0.3
-# Notes             Run as a user 
+# Date              03-11-2015
+# Version           2.1.0
+# Notes             Run as a root
 # License           GNU General Public License v3.0
 #==============================================================================
 
+#==============================================================================
+# Constant variables
+ROOTID=0
 OS=""
 VERSION=""
 SHELL=""
 GPU=""
 DE=""
+HOME=""
+#==============================================================================
 
 info(){
-    if [[ $UID == 0  ]]; then
+    if [[ $UID != $ROOTID  ]]; then
         whiptail --title "Debian config" --msgbox \
-        "Please run this script as a user" 20 70
+        "Please run this script as a root" 20 70
     else
+        HOME=$(whiptail --nocancel --inputbox "Your home folder is: " 20 70 "/home/michal" 3>&1 1>&2 2>&3)
         main_menu
     fi
 }
@@ -50,7 +56,7 @@ repo_dirs() {
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
                 cd $HOME/repo
-                sudo aptitude install git -y
+                aptitude install git -y
                 git clone https://github.com/micdud1995/linux_stuff.git
             fi
         fi
@@ -75,58 +81,58 @@ config_sources() {
 
         case "$VERSION" in
             "Stable")
-                sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
             "Testing")
-                sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+                sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
             ;;
             "Sid")
-                sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+                sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
             ;;
             "Stable contrib non-free")
-                sudo sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
             ;;
             "Testing contrib non-free")
-                sudo sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
             "Sid contrib non-free")
-                sudo sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sudo sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
+                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo >> /etc/apt/sources.list"
+                sh -c "echo 'deb http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
             ;;
             "*")
                 whiptail --title "Debian config" --msgbox "Wrong version" 20 70
@@ -134,8 +140,8 @@ config_sources() {
             ;;
         esac
 
-        sudo aptitude update 
-        sudo aptitude upgrade -y
+        aptitude update 
+        aptitude upgrade -y
     fi
 
     config_shell
@@ -151,14 +157,14 @@ config_shell() {
 
         case "$SHELL" in
             "Bash")
-                sudo aptitude install colordiff bash -y
+                aptitude install colordiff bash -y
                 cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
-                sudo chsh -s /bin/bash
+                chsh -s /bin/bash
             ;;
             "Zsh")
-                sudo aptitude install colordiff zsh -y
+                aptitude install colordiff zsh -y
                 cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
-                sudo chsh -s /bin/zsh
+                chsh -s /bin/zsh
             ;;
         esac
     fi
@@ -180,14 +186,14 @@ config_gui() {
                 main_menu
             ;;
             "Intel")
-                sudo aptitude install xserver-xorg-video-intel -y
+                aptitude install xserver-xorg-video-intel -y
             ;;
             "Nvidia")
                 whiptail --title "Error" --msgbox "Not supported yet" 20 70
                 main_menu
             ;;
             "VBOX")
-                sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+                aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
             ;;
         esac
     fi
@@ -203,14 +209,14 @@ config_gui() {
 
         case "$DE" in
             "awesome")
-                sudo aptitude install xorg xinit awesome fonts-font-awesome fonts-inconsolata
+                aptitude install xorg xinit awesome fonts-font-awesome fonts-inconsolata
                 mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 cp -r $HOME/repo/linux_stuff/config-files/awesome/* $HOME/.config/awesome/
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "i3")
-                sudo aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
+                aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf ~/.i3status.conf
@@ -222,11 +228,11 @@ config_gui() {
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde-core")
-                sudo aptitude install xorg xinit lxde-core -y
+                aptitude install xorg xinit lxde-core -y
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "xfce")
-                sudo aptitude install xorg xinit xfce4 -y
+                aptitude install xorg xinit xfce4 -y
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
         esac
@@ -234,7 +240,7 @@ config_gui() {
 
     if (whiptail --title "Making Esc from Caps Lock" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to use Caps Lock as a additional Escape?" 20 70) then
-        sudo setxkbmap -option caps:escape &
+        setxkbmap -option caps:escape &
     fi
 
     if (whiptail --title "Editing .xinitrc" --yes-button "Yes" --no-button "No" --yesno \
@@ -310,91 +316,91 @@ config_packages() {
         do
             case $choice in
                     alsa-utils)
-                        sudo aptitude install alsa-utils
+                        aptitude install alsa-utils
                     ;;
                     apache)
-                        sudo aptitude install apache
+                        aptitude install apache
                     ;;
                     brasero)
-                        sudo aptitude install brasero
+                        aptitude install brasero
                     ;;
                     faenza-icon-theme)
-                        sudo aptitude install faenza-icon-theme
+                        aptitude install faenza-icon-theme
                     ;;
                     feh)
-                        sudo aptitude install feh
+                        aptitude install feh
                     ;;
                     gummi)
-                        sudo aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc 
+                        aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc 
                     ;;
                     htop)
-                        sudo aptitude install htop
+                        aptitude install htop
                     ;;
                     iceweasel)
-                        sudo aptitude install iceweasel
+                        aptitude install iceweasel
                     ;;
                     libncurses5-dev)
-                        sudo aptitude install libncurses5-dev
+                        aptitude install libncurses5-dev
                     ;;
                     links)
-                        sudo aptitude install links
+                        aptitude install links
                     ;;
                     lxrandr)
-                        sudo aptitude install lxrandr
+                        aptitude install lxrandr
                     ;;
                     lxterminal)
-                        sudo aptitude install lxterminal
+                        aptitude install lxterminal
                     ;;
                     mpv)
-                        sudo aptitude install mpv
+                        aptitude install mpv
                     ;;
                     nethack-concole)
-                        sudo aptitude install nethack-console
+                        aptitude install nethack-console
                     ;;
                     unpacking)
-                        sudo aptitude install p7zip unrar unzip zip
+                        aptitude install p7zip unrar unzip zip
                     ;;
                     pavucontrol)
-                        sudo aptitude install pavucontrol
+                        aptitude install pavucontrol
                     ;;
                     pinta)
-                        sudo aptitude install pinta
+                        aptitude install pinta
                     ;;
                     screenfetch)
-                        sudo aptitude install screenfetch
+                        aptitude install screenfetch
                     ;;
                     scrot)
-                        sudo aptitude install scrot
+                        aptitude install scrot
                     ;;
                     tor)
-                        sudo aptitude install tor torbrowser-launcher
+                        aptitude install tor torbrowser-launcher
                     ;;
                     ufw)
-                        sudo aptitude install ufw
-                        sudo ufw enable
+                        aptitude install ufw
+                        ufw enable
                     ;;
                     xcalib)
-                        sudo aptitude install xcalib
+                        aptitude install xcalib
                     ;;
                     xorg)
-                        sudo aptitude install xorg
+                        aptitude install xorg
                     ;;
                     xserver-xorg-input-synaptics)
-                        sudo aptitude install xserver-xorg-input-synaptics
+                        aptitude install xserver-xorg-input-synaptics
                     ;;
                     zathura)
-                        sudo aptitude install zathura
+                        aptitude install zathura
                     ;;
                     conky)
-                        sudo aptitude install conky
+                        aptitude install conky
                         cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                        sudo cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+                        cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                     ;;
                     w3m)
-                        sudo aptitude install w3m-img
+                        aptitude install w3m-img
                     ;;
                     ranger)
-                        sudo aptitude install w3m w3m-img ranger
+                        aptitude install w3m w3m-img ranger
                         mkdir -p $HOME/.config/ranger
                         mkdir -p $HOME/.config/ranger/colorschemes
                         cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
@@ -405,61 +411,61 @@ config_packages() {
                         wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
                     ;;
                     cmus)
-                        sudo aptitude install cmus
+                        aptitude install cmus
                         mkdir -p $HOME/.cmus
                         cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
                     ;;
                     xterm)
-                        sudo aptitude install xterm
+                        aptitude install xterm
                         cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
                         xrdb -merge ~/.Xresources 
                     ;;
                     weechat)
-                        sudo aptitude install weechat
+                        aptitude install weechat
                         mkdir -p $HOME/.weechat
                         cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
                         rm -f $HOME/.weechat/weechat.log
                         ln -s /dev/null weechat.log
                     ;;
                     newsbeuter)
-                        sudo aptitude install newsbeuter
+                        aptitude install newsbeuter
                         mkdir -p $HOME/.config/newsbeuter
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
                     ;;
                     xboxdrv)
-                        sudo aptitude install xboxdrv
-                        sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+                        aptitude install xboxdrv
+                        sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
                         rmmod xpad
                     ;;
                     git)
-                        sudo aptitude install git
+                        aptitude install git
                         name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
                         git config --global user.name "$name"
                         mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
                         git config --global user.email $mail
                     ;;
                     openssh)
-                        sudo aptitude install openssh-server -y
-                        sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-                        sudo /etc/init.d/ssh restart
-                        sudo export DISPLAY=:0
+                        aptitude install openssh-server -y
+                        iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+                        /etc/init.d/ssh restart
+                        export DISPLAY=:0
                     ;;
                     mc)
-                        sudo aptitude install mc
+                        aptitude install mc
                         mkdir -p $HOME/.config/mc
                         mkdir -p $HOME/.local/share/mc/skins
                         cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
                         cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
                     ;;
                     moc)
-                        sudo aptitude install moc
+                        aptitude install moc
                         mkdir -p $HOME/.moc
                         cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
-                        sudo cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
+                        cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
                     ;;
                     libreoffice)
-                        sudo aptitude install libreoffice
+                        aptitude install libreoffice
                         (whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
                         "Polski"        "Polish" \
                         "Deutsch"       "German" \
@@ -471,29 +477,29 @@ config_packages() {
                         do
                             case $choice3 in
                             "Polski")
-                                sudo aptitude install libreoffice-l10n-pl -y
+                                aptitude install libreoffice-l10n-pl -y
                             ;;
                             "Deutsch")
-                                sudo aptitude install libreoffice-l10n-de -y
+                                aptitude install libreoffice-l10n-de -y
                             ;;
                             "British")
-                                sudo aptitude install libreoffice-l10n-en-gb -y
+                                aptitude install libreoffice-l10n-en-gb -y
                             ;;
                             "American")
-                                sudo aptitude install libreoffice-l10n-en-us -y
+                                aptitude install libreoffice-l10n-en-us -y
                             ;;
                             "Espanol")
-                                sudo aptitude install libreoffice-l10n-es -y
+                                aptitude install libreoffice-l10n-es -y
                             ;;
                             esac
                         done < results3
                     ;;
                     mutt)
-                        sudo aptitude install mutt
+                        aptitude install mutt
                         cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
                     ;;
                     irssi)
-                        sudo aptitude install irssi
+                        aptitude install irssi
                         mkdir $HOME/.irssi
                         if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
                         "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
@@ -503,15 +509,15 @@ config_packages() {
                         fi
                     ;;
                     rtorrent)
-                        sudo aptitude install rtorrent
+                        aptitude install rtorrent
                         mkdir -p $HOME/.rtorrent
                         cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
                     ;;
                     virtualbox)
-                        sudo aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+                        aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
                     ;;
                     livestreamer)
-                        sudo aptitude install python python-requests python-setuptools python-singledispatch -y
+                        aptitude install python python-requests python-setuptools python-singledispatch -y
                         cd $HOME/tmp
                         git clone https://github.com/chrippa/livestreamer.git
                         cd $HOME/tmp/livestreamer
@@ -523,7 +529,7 @@ config_packages() {
                         chmod a+rx /usr/local/bin/youtube-dl
                     ;;
                     vimb)
-                        sudo aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
+                        aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
                         mkdir -p $HOME/tmp
                         mkdir -p $HOME/tmp/vimb
                         mkdir -p $HOME/.config/vimb
@@ -537,14 +543,14 @@ config_packages() {
                         cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
                     ;;
                     slim)
-                        sudo aptitude install slim
+                        aptitude install slim
                         cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-                        sudo dpkg-reconfigure slim
+                        dpkg-reconfigure slim
                     ;;
                     lightdm)
-                        sudo aptitude install lightdm
+                        aptitude install lightdm
                         cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-                        sudo dpkg-reconfigure lightdm
+                        dpkg-reconfigure lightdm
                     ;;
                     vim-clear)
                         #==============================================================
@@ -565,7 +571,7 @@ config_packages() {
                         #	Gruvbox theme
                         #==============================================================
 
-                        sudo aptitude install vim curl exuberant-ctags fonts-inconsolata -y
+                        aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
                         # Making dirs
                         mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -651,7 +657,7 @@ config_packages() {
                         #	Gruvbox theme
                         #==============================================================
 
-                        sudo aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
+                        aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
                         # Making dirs
                         mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -725,12 +731,12 @@ config_packages() {
                         cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
                     ;;
                     uzbl)
-                        sudo aptitude install uzbl
+                        aptitude install uzbl
                         cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
                         cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
                     ;;
                     dictd)
-                        sudo aptitude install dictd
+                        aptitude install dictd
                         whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
                         "eng-pol" "" OFF \
                         "eng-deu" "" OFF \
@@ -742,19 +748,19 @@ config_packages() {
                         do
                                 case $choice2 in
                                         eng-pol)
-                                            sudo aptitude install dict-freedict-eng-pol -y
+                                            aptitude install dict-freedict-eng-pol -y
                                         ;;
                                         eng-deu)
-                                            sudo aptitude install dict-freedict-eng-deu -y
+                                            aptitude install dict-freedict-eng-deu -y
                                         ;;
                                         eng-fra) 
-                                            sudo aptitude install dict-freedict-eng-fra -y
+                                            aptitude install dict-freedict-eng-fra -y
                                         ;;
                                         eng-rus) 
-                                            sudo aptitude install dict-freedict-eng-rus -y
+                                            aptitude install dict-freedict-eng-rus -y
                                         ;;
                                         eng-spa) 
-                                            sudo aptitude install dict-freedict-eng-spa -y
+                                            aptitude install dict-freedict-eng-spa -y
                                         ;;
                                         *)
                                         ;;
@@ -781,18 +787,18 @@ config_scripts() {
         do
             case $choice in
                 m)
-                    sudo aptitude install fuse ntfs-3g -y
-                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
-                    sudo chmod +x /usr/local/bin/m
+                    aptitude install fuse ntfs-3g -y
+                    cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
+                    chmod +x /usr/local/bin/m
                 ;;
                 um)
-                    sudo aptitude install fuse ntfs-3g -y
-                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
-                    sudo chmod +x /usr/local/bin/um
+                    aptitude install fuse ntfs-3g -y
+                    cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
+                    chmod +x /usr/local/bin/um
                 ;;
                 live-usb)
-                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
-                    sudo chmod +x /usr/local/bin/live-usb
+                    cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
+                    chmod +x /usr/local/bin/live-usb
                 ;;
             esac
         done < results
@@ -805,8 +811,8 @@ config_beep() {
     if (whiptail --title "Beep sound" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 70) then
 
-        sudo rmmod pcspkr
-        sudo sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
+        rmmod pcspkr
+        sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
     fi
 
     config_pc
@@ -829,27 +835,27 @@ config_pc() {
     do
         case $choice in
             Wallpaper)
-                sudo aptitude install feh -y
+                aptitude install feh -y
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
                 feh --bg-scale $HOME/Obrazy/wallpaper.jpg
             ;;
             Touchpad)
-                sudo mkdir -p /etc/X11/xorg.conf.d
-                sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+                mkdir -p /etc/X11/xorg.conf.d
+                cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
             ;;
             WiFi)
-                sudo aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
-                sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
-                sudo modprobe wl
-                sudo cp $HOME/repo/linux_stuff/config-files/other/interfaces /etc/network/interfaces
-                sudo adduser michal netdev
-                sudo /etc/init.d/dbus reload
-                sudo /etc/init.d/wicd start
+                aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
+                modprobe -r b44 b43 b43legacy ssb brcmsmac
+                modprobe wl
+                cp $HOME/repo/linux_stuff/config-files/other/interfaces /etc/network/interfaces
+                adduser michal netdev
+                /etc/init.d/dbus reload
+                /etc/init.d/wicd start
                 wicd-client -n
             ;;
             Microphone)
-                sudo cp $HOME/repo/linux_stuff/config-files/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+                cp $HOME/repo/linux_stuff/config-files/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
             ;;
             CS:GO)
                 if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
@@ -859,11 +865,11 @@ config_pc() {
                 fi
             ;;
             Grub)
-                sudo nano /etc/default/grub
-                sudo update-grub
+                nano /etc/default/grub
+                update-grub
             ;;
             Lid)
-                sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
+                cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
             ;;
         esac
     done < results
