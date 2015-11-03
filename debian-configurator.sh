@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #==============================================================================
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
-# Author            Michał Dudek 
+# Author            Michal Dudek 
 # Date              03-11-2015
 # Version           2.1.0
 # Notes             Run as a root
@@ -144,31 +144,6 @@ config_sources() {
         aptitude upgrade -y
     fi
 
-    config_shell
-}
-
-config_shell() {
-    if (whiptail --title "Shell" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to config shell?\n\nYou can choose between zsh and bash.\nScript will unpack fancy config file for it." 20 70) then
-
-        SHELL=$(whiptail --nocancel --title "Select shell" --menu "Select your shell:" 20 70 10 \
-        "Bash"  "" \
-        "Zsh"   "" 3>&1 1>&2 2>&3)
-
-        case "$SHELL" in
-            "Bash")
-                aptitude install colordiff bash -y
-                cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
-                chsh -s /bin/bash
-            ;;
-            "Zsh")
-                aptitude install colordiff zsh -y
-                cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
-                chsh -s /bin/zsh
-            ;;
-        esac
-    fi
-
     config_gui
 }
 
@@ -238,23 +213,12 @@ config_gui() {
         esac
     fi
 
-    if (whiptail --title "Making Esc from Caps Lock" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to use Caps Lock as a additional Escape?" 20 70) then
-        setxkbmap -option caps:escape &
-    fi
-
-    if (whiptail --title "Editing .xinitrc" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to edit your .xinitrc file?" 20 70) then
-        nano $HOME/.xinitrc
-    fi
-
-
     config_packages
 }
 
 config_packages() {
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install some common software?\n\nPackages demanding configuration will be configured automatically." 20 70) then
+        "Do you want to install/config some common software?" 20 70) then
 
     (whiptail --title "Additional software" --separate-output --checklist "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
             "alsa-utils"                    "Sound" OFF \
@@ -299,7 +263,6 @@ config_packages() {
             "uzbl"                          "Web Browser" OFF \
             "vim-clear" 	  	            "Text Editor" OFF \
             "vim-nox" 	  	                "Vim with script support" OFF \
-            "vimb"                          "Web Browser" OFF \
             "virtualbox"                    "Virtual Machines" OFF \
             "w3m"                           "Web Browser" OFF \
             "weechat"                       "IRC Client" OFF \
@@ -321,14 +284,42 @@ config_packages() {
                     apache)
                         aptitude install apache
                     ;;
+                    bash)
+                        SHELL=BASH
+
+                        aptitude install colordiff bash -y
+                        cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
+                        chsh -s /bin/bash
+                    ;;
                     brasero)
                         aptitude install brasero
+                    ;;
+                    cmus)
+                        aptitude install cmus
+                        mkdir -p $HOME/.cmus
+                        cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
+                    ;;
+                    conky)
+                        aptitude install conky
+                        cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
+                        cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                     ;;
                     faenza-icon-theme)
                         aptitude install faenza-icon-theme
                     ;;
                     feh)
                         aptitude install feh
+                    ;;
+                    fuck)
+                        cd $HOME/tmp
+                        wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
+                    ;;
+                    git)
+                        aptitude install git -y
+                        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
+                        git config --global user.name "$name"
+                        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
+                        git config --global user.email $mail
                     ;;
                     gummi)
                         aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc 
@@ -339,11 +330,64 @@ config_packages() {
                     iceweasel)
                         aptitude install iceweasel
                     ;;
+                    irssi)
+                        aptitude install irssi -y
+                        mkdir $HOME/.irssi
+                        if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
+                        "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
+
+                        cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
+                        cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+                        fi
+                    ;;
                     libncurses5-dev)
                         aptitude install libncurses5-dev
                     ;;
+                    libreoffice)
+                        aptitude install libreoffice -y
+                        (whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
+                        "Polski"        "Polish" \
+                        "Deutsch"       "German" \
+                        "British"       "English_british" \
+                        "American"      "English_american" \
+                        "Espanol"       "Spanish" 2>results3)
+
+                        while read choice3
+                        do
+                            case $choice3 in
+                            "Polski")
+                                aptitude install libreoffice-l10n-pl -y
+                            ;;
+                            "Deutsch")
+                                aptitude install libreoffice-l10n-de -y
+                            ;;
+                            "British")
+                                aptitude install libreoffice-l10n-en-gb -y
+                            ;;
+                            "American")
+                                aptitude install libreoffice-l10n-en-us -y
+                            ;;
+                            "Espanol")
+                                aptitude install libreoffice-l10n-es -y
+                            ;;
+                            esac
+                        done < results3
+                    ;;
+                    lightdm)
+                        aptitude install lightdm -y
+                        cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+                        dpkg-reconfigure lightdm
+                    ;;
                     links)
                         aptitude install links
+                    ;;
+                    livestreamer)
+                        aptitude install python python-requests python-setuptools python-singledispatch -y
+                        cd $HOME/tmp
+                        git clone https://github.com/chrippa/livestreamer.git
+                        cd $HOME/tmp/livestreamer
+                        python setup.py install
+                        rm -rf $HOME/tmp/livestreamer
                     ;;
                     lxrandr)
                         aptitude install lxrandr
@@ -375,30 +419,6 @@ config_packages() {
                     tor)
                         aptitude install tor torbrowser-launcher
                     ;;
-                    ufw)
-                        aptitude install ufw
-                        ufw enable
-                    ;;
-                    xcalib)
-                        aptitude install xcalib
-                    ;;
-                    xorg)
-                        aptitude install xorg
-                    ;;
-                    xserver-xorg-input-synaptics)
-                        aptitude install xserver-xorg-input-synaptics
-                    ;;
-                    zathura)
-                        aptitude install zathura
-                    ;;
-                    conky)
-                        aptitude install conky
-                        cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                        cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
-                    ;;
-                    w3m)
-                        aptitude install w3m-img
-                    ;;
                     ranger)
                         aptitude install w3m w3m-img ranger
                         mkdir -p $HOME/.config/ranger
@@ -406,19 +426,12 @@ config_packages() {
                         cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
                         cp $HOME/repo/linux_stuff/config-files/ranger/debian-rc.conf $HOME/.config/ranger/rc.conf
                     ;;
-                    fuck)
-                        cd $HOME/tmp
-                        wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
+                    ufw)
+                        aptitude install ufw
+                        ufw enable
                     ;;
-                    cmus)
-                        aptitude install cmus
-                        mkdir -p $HOME/.cmus
-                        cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
-                    ;;
-                    xterm)
-                        aptitude install xterm
-                        cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
-                        xrdb -merge ~/.Xresources 
+                    w3m)
+                        aptitude install w3m-img
                     ;;
                     weechat)
                         aptitude install weechat
@@ -433,18 +446,6 @@ config_packages() {
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
                     ;;
-                    xboxdrv)
-                        aptitude install xboxdrv
-                        sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
-                        rmmod xpad
-                    ;;
-                    git)
-                        aptitude install git
-                        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
-                        git config --global user.name "$name"
-                        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
-                        git config --global user.email $mail
-                    ;;
                     openssh)
                         aptitude install openssh-server -y
                         iptables -I INPUT -p tcp --dport 22 -j ACCEPT
@@ -452,105 +453,67 @@ config_packages() {
                         export DISPLAY=:0
                     ;;
                     mc)
-                        aptitude install mc
+                        aptitude install mc -y
                         mkdir -p $HOME/.config/mc
                         mkdir -p $HOME/.local/share/mc/skins
                         cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
                         cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
                     ;;
                     moc)
-                        aptitude install moc
+                        aptitude install moc -y
                         mkdir -p $HOME/.moc
                         cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
                         cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
                     ;;
-                    libreoffice)
-                        aptitude install libreoffice
-                        (whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
-                        "Polski"        "Polish" \
-                        "Deutsch"       "German" \
-                        "British"       "English_british" \
-                        "American"      "English_american" \
-                        "Espanol"       "Spanish" 2>results3)
-
-                        while read choice3
-                        do
-                            case $choice3 in
-                            "Polski")
-                                aptitude install libreoffice-l10n-pl -y
-                            ;;
-                            "Deutsch")
-                                aptitude install libreoffice-l10n-de -y
-                            ;;
-                            "British")
-                                aptitude install libreoffice-l10n-en-gb -y
-                            ;;
-                            "American")
-                                aptitude install libreoffice-l10n-en-us -y
-                            ;;
-                            "Espanol")
-                                aptitude install libreoffice-l10n-es -y
-                            ;;
-                            esac
-                        done < results3
-                    ;;
                     mutt)
-                        aptitude install mutt
+                        aptitude install mutt -y
                         cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
                     ;;
-                    irssi)
-                        aptitude install irssi
-                        mkdir $HOME/.irssi
-                        if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
-                        "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
-
-                        cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
-                        cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
-                        fi
-                    ;;
                     rtorrent)
-                        aptitude install rtorrent
+                        aptitude install rtorrent -y
                         mkdir -p $HOME/.rtorrent
                         cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
                     ;;
                     virtualbox)
                         aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
                     ;;
-                    livestreamer)
-                        aptitude install python python-requests python-setuptools python-singledispatch -y
-                        cd $HOME/tmp
-                        git clone https://github.com/chrippa/livestreamer.git
-                        cd $HOME/tmp/livestreamer
-                        python setup.py install
-                        rm -rf $HOME/tmp/livestreamer
-                    ;;
                     youtube-dl)
                         wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
                         chmod a+rx /usr/local/bin/youtube-dl
                     ;;
-                    vimb)
-                        aptitude install libsoup2.4-dev libwebkit-dev libgtk-3-dev libwebkitgtk-3.0-dev -y
-                        mkdir -p $HOME/tmp
-                        mkdir -p $HOME/tmp/vimb
-                        mkdir -p $HOME/.config/vimb
-                        cd $HOME/tmp
-                        git clone https://github.com/fanglingsu/vimb.git
-                        cd $HOME/tmp/vimb
-                        make clean
-                        make install
-
-                        cp $HOME/repo/linux_stuff/config-files/vimb/config $HOME/.config/vimb/config
-                        cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.config/vimb/bookmark
-                    ;;
                     slim)
-                        aptitude install slim
+                        aptitude install slim -y
                         cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
                         dpkg-reconfigure slim
                     ;;
-                    lightdm)
-                        aptitude install lightdm
-                        cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-                        dpkg-reconfigure lightdm
+                    xboxdrv)
+                        aptitude install xboxdrv
+                        sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+                        rmmod xpad
+                    ;;
+                    xcalib)
+                        aptitude install xcalib
+                    ;;
+                    xorg)
+                        aptitude install xorg
+                    ;;
+                    xserver-xorg-input-synaptics)
+                        aptitude install xserver-xorg-input-synaptics
+                    ;;
+                    xterm)
+                        aptitude install xterm
+                        cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+                        xrdb -merge ~/.Xresources 
+                    ;;
+                    zathura)
+                        aptitude install zathura
+                    ;;
+                    zsh)
+                        SHELL=ZSH
+
+                        aptitude install colordiff zsh -y
+                        cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                        chsh -s /bin/zsh
                     ;;
                     vim-clear)
                         #==============================================================
@@ -804,17 +767,6 @@ config_scripts() {
         done < results
     fi 
 
-    config_beep
-}
-
-config_beep() {
-    if (whiptail --title "Beep sound" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to disable beep sound in your system?\n\nA beep is a short, single tone, typically high-pitched, generally made by a computer." 20 70) then
-
-        rmmod pcspkr
-        sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
-    fi
-
     config_pc
 }
 
@@ -823,17 +775,30 @@ config_pc() {
         "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
     (whiptail --title "Additional settings" --checklist --separate-output "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
-    "Wallpaper" "Set wallpaper" ON \
+    "Wallpaper" "Set wallpaper" OFF \
+    "Beep" "Disable bepp sound" OFF \
+    "Caps" "Making Esc from Caps Lock key" OFF \
     "Touchpad" "Enable touchpad" OFF \
     "WiFi" "Enable Lenovo G580 net. card" OFF \
     "Microphone" "Enable Lenovo G580 microphone" OFF \
     "CS:GO" "Global Offensive config file" OFF \
     "Grub" "Boot loader configuration" OFF \
+    ".xinitrc" "Editing file" OFF \
     "Lid" "Don't suspend laptop when lid closed" off 2>results)
 
     while read choice
     do
         case $choice in
+            Beep)
+                rmmod pcspkr
+                sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
+            ;;
+            Caps)
+                setxkbmap -option caps:escape &
+            ;;
+            .xinitrc)
+                vim $HOME/.xinitrc
+            ;;
             Wallpaper)
                 aptitude install feh -y
                 mkdir -p $HOME/Obrazy
@@ -865,7 +830,7 @@ config_pc() {
                 fi
             ;;
             Grub)
-                nano /etc/default/grub
+                vim /etc/default/grub
                 update-grub
             ;;
             Lid)
