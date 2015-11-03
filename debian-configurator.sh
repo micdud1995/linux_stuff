@@ -10,6 +10,12 @@
 # License           GNU General Public License v3.0
 #==============================================================================
 
+OS=""
+VERSION=""
+SHELL=""
+GPU=""
+DE=""
+
 info(){
     if [[ $UID == 0  ]]; then
         whiptail --title "Debian config" --msgbox \
@@ -400,7 +406,8 @@ config_packages() {
                     ;;
                     cmus)
                         sudo aptitude install cmus
-                        cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme /usr/share/cmus/
+                        mkdir -p $HOME/.cmus
+                        cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
                     ;;
                     xterm)
                         sudo aptitude install xterm
@@ -763,18 +770,12 @@ config_packages() {
 
 config_scripts() {
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to copy useful scripts?\n\n - Mounting [m command]\n - Unmounting [um command]\n - Creating live-usb [live-usb command]" 20 70) then
+        "Do you want to copy useful scripts?" 20 70) then
 
-        scripts=$(whiptail --title "Additional scripts" --checklist "Choose your desired scripts\nUse spacebar to check/uncheck \nPress enter when finished" 20 70 10 \
-            "m"             "Mount script" ON \
-            "um"            "Umount script" ON \
-            "live-usb"     	"Live-USB script" ON 3>&1 1>&2 2>&3)
-
-        (whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
-
-        "m" "" on \
-        "um" "" off \
-        "live-usb" "" off 2>results)
+        (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
+        "m" "" OFF \
+        "um" "" OFF \
+        "live-usb" "" OFF 2>results)
 
         while read choice
         do
