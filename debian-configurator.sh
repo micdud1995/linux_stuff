@@ -12,7 +12,7 @@
 
 #==============================================================================
 # Constant variables
-ROOTID=0
+ROOT_UID=0
 OS=""
 VERSION=""
 SHELL=""
@@ -21,8 +21,9 @@ DE=""
 HOME=""
 #==============================================================================
 
-info(){
-    if [[ $UID != $ROOTID  ]]; then
+info()
+{
+    if [[ $UID != $ROOT_UID  ]]; then
         whiptail --title "Debian config" --msgbox \
         "Please run this script as a root" 20 70
     else
@@ -31,7 +32,8 @@ info(){
     fi
 }
 
-select_system() {
+select_system() 
+{
 	OS=$(whiptail --nocancel --title "Select OS" --menu "Select your OS" 20 70 10 \
 	"Debian_8" "" 3>&1 1>&2 2>&3)
 
@@ -46,7 +48,8 @@ select_system() {
     esac
 }
 
-repo_dirs() {
+repo_dirs() 
+{
     if [[ ! -d $HOME/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
             "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
@@ -67,7 +70,8 @@ repo_dirs() {
     config_sources
 }
 
-config_sources() {
+config_sources() 
+{
     if (whiptail --title "Updating sources" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\nContrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
 
@@ -147,7 +151,8 @@ config_sources() {
     config_gui
 }
 
-config_gui() {
+config_gui() 
+{
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
         "Install graphics drivers now? \nDrivers for Intel, and Virtual Box guests" 20 70) then
 
@@ -184,7 +189,7 @@ config_gui() {
 
         case "$DE" in
             "awesome")
-                aptitude install xorg xinit awesome fonts-font-awesome fonts-inconsolata
+                aptitude install xorg xinit awesome fonts-font-awesome fonts-inconsolata -y
                 mkdir -p $HOME/.config/awesome
                 mkdir -p ~/.config/awesome/themes/
                 cp -r $HOME/repo/linux_stuff/config-files/awesome/* $HOME/.config/awesome/
@@ -216,7 +221,8 @@ config_gui() {
     config_packages
 }
 
-config_packages() {
+config_packages() 
+{
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to install/config some common software?" 20 70) then
 
@@ -279,10 +285,10 @@ config_packages() {
         do
             case $choice in
                     alsa-utils)
-                        aptitude install alsa-utils
+                        aptitude install alsa-utils -y
                     ;;
                     apache)
-                        aptitude install apache
+                        aptitude install apache -y
                     ;;
                     bash)
                         SHELL=BASH
@@ -292,23 +298,23 @@ config_packages() {
                         chsh -s /bin/bash
                     ;;
                     brasero)
-                        aptitude install brasero
+                        aptitude install brasero -y
                     ;;
                     cmus)
-                        aptitude install cmus
+                        aptitude install cmus -y
                         mkdir -p $HOME/.cmus
                         cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
                     ;;
                     conky)
-                        aptitude install conky
+                        aptitude install conky -y
                         cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
                         cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                     ;;
                     faenza-icon-theme)
-                        aptitude install faenza-icon-theme
+                        aptitude install faenza-icon-theme -y
                     ;;
                     feh)
-                        aptitude install feh
+                        aptitude install feh -y
                     ;;
                     fuck)
                         cd $HOME/tmp
@@ -322,13 +328,13 @@ config_packages() {
                         git config --global user.email $mail
                     ;;
                     gummi)
-                        aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc 
+                        aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
                     ;;
                     htop)
-                        aptitude install htop
+                        aptitude install htop -y
                     ;;
                     iceweasel)
-                        aptitude install iceweasel
+                        aptitude install iceweasel -y
                     ;;
                     irssi)
                         aptitude install irssi -y
@@ -341,7 +347,7 @@ config_packages() {
                         fi
                     ;;
                     libncurses5-dev)
-                        aptitude install libncurses5-dev
+                        aptitude install libncurses5-dev -y
                     ;;
                     libreoffice)
                         aptitude install libreoffice -y
@@ -379,7 +385,7 @@ config_packages() {
                         dpkg-reconfigure lightdm
                     ;;
                     links)
-                        aptitude install links
+                        aptitude install links -y
                     ;;
                     livestreamer)
                         aptitude install python python-requests python-setuptools python-singledispatch -y
@@ -390,58 +396,58 @@ config_packages() {
                         rm -rf $HOME/tmp/livestreamer
                     ;;
                     lxrandr)
-                        aptitude install lxrandr
+                        aptitude install lxrandr -y
                     ;;
                     lxterminal)
-                        aptitude install lxterminal
+                        aptitude install lxterminal -y
                     ;;
                     mpv)
-                        aptitude install mpv
+                        aptitude install mpv -y
                     ;;
                     nethack-concole)
-                        aptitude install nethack-console
+                        aptitude install nethack-console -y
                     ;;
                     unpacking)
-                        aptitude install p7zip unrar unzip zip
+                        aptitude install p7zip unrar unzip zip -y
                     ;;
                     pavucontrol)
-                        aptitude install pavucontrol
+                        aptitude install pavucontrol -y
                     ;;
                     pinta)
-                        aptitude install pinta
+                        aptitude install pinta -y
                     ;;
                     screenfetch)
-                        aptitude install screenfetch
+                        aptitude install screenfetch -y
                     ;;
                     scrot)
-                        aptitude install scrot
+                        aptitude install scrot -y
                     ;;
                     tor)
-                        aptitude install tor torbrowser-launcher
+                        aptitude install tor torbrowser-launcher -y
                     ;;
                     ranger)
-                        aptitude install w3m w3m-img ranger
+                        aptitude install w3m w3m-img ranger -y
                         mkdir -p $HOME/.config/ranger
                         mkdir -p $HOME/.config/ranger/colorschemes
                         cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
                         cp $HOME/repo/linux_stuff/config-files/ranger/debian-rc.conf $HOME/.config/ranger/rc.conf
                     ;;
                     ufw)
-                        aptitude install ufw
+                        aptitude install ufw -y
                         ufw enable
                     ;;
                     w3m)
-                        aptitude install w3m-img
+                        aptitude install w3m-img -y
                     ;;
                     weechat)
-                        aptitude install weechat
+                        aptitude install weechat -y
                         mkdir -p $HOME/.weechat
                         cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
                         rm -f $HOME/.weechat/weechat.log
                         ln -s /dev/null weechat.log
                     ;;
                     newsbeuter)
-                        aptitude install newsbeuter
+                        aptitude install newsbeuter -y
                         mkdir -p $HOME/.config/newsbeuter
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
                         cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
@@ -487,26 +493,26 @@ config_packages() {
                         dpkg-reconfigure slim
                     ;;
                     xboxdrv)
-                        aptitude install xboxdrv
+                        aptitude install xboxdrv -y
                         sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
                         rmmod xpad
                     ;;
                     xcalib)
-                        aptitude install xcalib
+                        aptitude install xcalib -y
                     ;;
                     xorg)
-                        aptitude install xorg
+                        aptitude install xorg -y
                     ;;
                     xserver-xorg-input-synaptics)
-                        aptitude install xserver-xorg-input-synaptics
+                        aptitude install xserver-xorg-input-synaptics -y
                     ;;
                     xterm)
-                        aptitude install xterm
+                        aptitude install xterm -y
                         cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
                         xrdb -merge ~/.Xresources 
                     ;;
                     zathura)
-                        aptitude install zathura
+                        aptitude install zathura -y
                     ;;
                     zsh)
                         SHELL=ZSH
@@ -694,12 +700,12 @@ config_packages() {
                         cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
                     ;;
                     uzbl)
-                        aptitude install uzbl
+                        aptitude install uzbl -y
                         cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
                         cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
                     ;;
                     dictd)
-                        aptitude install dictd
+                        aptitude install dictd -y
                         whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
                         "eng-pol" "" OFF \
                         "eng-deu" "" OFF \
@@ -737,7 +743,8 @@ config_packages() {
     config_scripts
 } 
 
-config_scripts() {
+config_scripts() 
+{
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to copy useful scripts?" 20 70) then
 
@@ -770,7 +777,9 @@ config_scripts() {
     config_pc
 }
 
-config_pc() {
+
+config_pc() 
+{
     if (whiptail --title "Additional settings" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
@@ -810,7 +819,7 @@ config_pc() {
                 cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
             ;;
             WiFi)
-                aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd
+                aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd -y
                 modprobe -r b44 b43 b43legacy ssb brcmsmac
                 modprobe wl
                 cp $HOME/repo/linux_stuff/config-files/other/interfaces /etc/network/interfaces
@@ -845,7 +854,8 @@ config_pc() {
     exit
 }
 
-main_menu() {
+main_menu() 
+{
 	menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 70 10 \
 		"Select OS"             "-" \
 		"Clone repo"            "-" \
