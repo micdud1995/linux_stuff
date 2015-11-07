@@ -208,7 +208,7 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde-core")
-                aptitude install xorg xinit lxde-core -y
+                aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr -y
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "xfce")
