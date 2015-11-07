@@ -21,7 +21,7 @@ To run script:
     sudo pacman -S libnewt
 3) Run it
 
-	./debian-configurator.sh
+	sudo ./debian-configurator.sh
     or
 	./arch-configurator.sh
 
