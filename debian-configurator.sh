@@ -507,7 +507,7 @@ config_packages()
                         aptitude install xserver-xorg-input-synaptics -y
                     ;;
                     xterm)
-                        aptitude install xterm -y
+                        aptitude install xterm fonts-inconsolata -y
                         cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
                         xrdb -merge ~/.Xresources 
                     ;;
