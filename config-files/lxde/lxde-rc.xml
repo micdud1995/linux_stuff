@@ -176,49 +176,49 @@
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
     <!-- Keybindings for desktop switching -->
-    <keybind key="A-h">
+    <keybind key="A-Left">
       <action name="DesktopLeft">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="A-l">
+    <keybind key="A-Right">
       <action name="DesktopRight">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="A-k">
+    <keybind key="A-Up">
       <action name="DesktopUp">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="A-j">
+    <keybind key="A-Down">
       <action name="DesktopDown">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="S-A-h">
+    <keybind key="S-A-Left">
       <action name="SendToDesktopLeft">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="S-A-l">
+    <keybind key="S-A-Right">
       <action name="SendToDesktopRight">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="S-A-k">
+    <keybind key="S-A-Up">
       <action name="SendToDesktopUp">
         <dialog>no</dialog>
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="S-A-j">
+    <keybind key="S-A-Down">
       <action name="SendToDesktopDown">
         <dialog>no</dialog>
         <wrap>no</wrap>
@@ -284,8 +284,38 @@
           <enabled>true</enabled>
           <name>xterm</name>
         </startupnotify>
-        <command>pcmanfm</command>
+        <command>xterm</command>
       </action>
+    </keybind>
+    <keybind key="A-r">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>openbox-restart</name>
+        </startupnotify>
+        <command>xterm -e openbox --restart</command>
+      </action>
+    </keybind>
+    <keybind key="A-v">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>ranger</name>
+        </startupnotify>
+        <command>xterm -e ranger</command>
+      </action>
+    </keybind>
+    <keybind key="A-m">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>mocp</name>
+        </startupnotify>
+        <command>xterm -e mocp</command>
+      </action>
+    </keybind>
+    <keybind key="A-f">
+        <action name="ToggleFullscreen"/>
     </keybind>
     <!--keybindings for LXPanel -->
     <keybind key="W-r">
@@ -308,13 +338,10 @@
         <command>lxpanelctl menu</command>
       </action>
     </keybind>
-    <keybind key="A-F11">
-      <action name="ToggleFullscreen"/>
-    </keybind>
     <!-- Launch Task Manager with Ctrl+Alt+Del -->
     <keybind key="A-C-Delete">
       <action name="Execute">
-        <command>lxtask</command>
+        <command>xterm -e htop</command>
       </action>
     </keybind>
     <!-- Launch gnome-screenshot when PrintScreen is pressed -->
@@ -324,9 +351,19 @@
       </action>
     </keybind>
     <!-- Launch LXRandR when Fn+Screen is pressed -->
-    <keybind key="XF86Display">
+    <keybind key="A-l">
       <action name="Execute">
         <command>lxrandr</command>
+      </action>
+    </keybind>
+    <keybind key="A-i">
+      <action name="Execute">
+        <command>uzbl</command>
+      </action>
+    </keybind>
+    <keybind key="A-s">
+      <action name="Execute">
+        <command>steam</command>
       </action>
     </keybind>
   </keyboard>
