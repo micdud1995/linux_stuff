@@ -208,7 +208,9 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde-core")
-                aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr -y
+                aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata -y
+                cp $HOME/repo/linux_stuff/config-files/lxde/lxde-rc.xml $HOME/.config/openbox/
+                cp $HOME/repo/linux_stuff/config-files/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "xfce")
@@ -784,7 +786,6 @@ config_pc()
         "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
     (whiptail --title "Additional settings" --checklist --separate-output "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
-    "Wallpaper" "Set wallpaper" OFF \
     "Beep" "Disable bepp sound" OFF \
     "Caps" "Making Esc from Caps Lock key" OFF \
     "Touchpad" "Enable touchpad" OFF \
@@ -807,12 +808,6 @@ config_pc()
             ;;
             .xinitrc)
                 vim $HOME/.xinitrc
-            ;;
-            Wallpaper)
-                aptitude install feh -y
-                mkdir -p $HOME/Obrazy
-                cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Obrazy/wallpaper.jpg
-                feh --bg-scale $HOME/Obrazy/wallpaper.jpg
             ;;
             Touchpad)
                 mkdir -p /etc/X11/xorg.conf.d
