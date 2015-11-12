@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xterm -e "sh -c 'export TERM="screen-256color" && cmus'"
