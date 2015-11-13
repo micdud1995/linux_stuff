@@ -4,8 +4,8 @@
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michal Dudek 
-# Date              03-11-2015
-# Version           2.1.0
+# Date              12-11-2015
+# Version           2.1.1
 # Notes             Run as a root
 # License           GNU General Public License v3.0
 #==============================================================================
@@ -27,7 +27,7 @@ info()
         whiptail --title "Debian config" --msgbox \
         "Please run this script as a root" 20 70
     else
-        HOME=$(whiptail --nocancel --inputbox "Your home folder is: " 20 70 "/home/michal" 3>&1 1>&2 2>&3)
+        HOME=$(whiptail --nocancel --inputbox "Type your home folder: " 20 70 "/home/michal" 3>&1 1>&2 2>&3)
         main_menu
     fi
 }
@@ -145,7 +145,7 @@ config_sources()
         esac
 
         aptitude update 
-        aptitude upgrade -y
+        aptitude dist-upgrade -y
     fi
 
     config_gui
@@ -211,6 +211,8 @@ config_gui()
                 aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
                 cp $HOME/repo/linux_stuff/config-files/lxde/lxde-rc.xml $HOME/.config/openbox/
                 cp $HOME/repo/linux_stuff/config-files/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
+                cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
+                chmod +x /usr/local/bin/run-cmus
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "xfce")
@@ -229,515 +231,515 @@ config_packages()
         "Do you want to install/config some common software?" 20 70) then
 
     (whiptail --title "Additional software" --separate-output --checklist "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
-            "alsa-utils"                    "Sound" OFF \
-            "apache"  	                    "Web Server" OFF \
-            "bash"                          "Shell" OFF \
-            "brasero"                       "Burning app" OFF \
-            "cmus"                          "Music player" OFF \
-            "conky"                         "System Info" OFF \
-            "dictd"                         "Offline dictionary" OFF \
-            "faenza-icon-theme"             "Icon Theme" OFF \
-            "feh"                           "Image Viewer" OFF \
-            "fuck"                          "Command correcting" OFF \
-            "git"                           "Content tracker" OFF \
-            "gummi"                         "LaTeX Editor" OFF \
-            "htop"                          "Process Info" OFF \
-            "irssi"                         "IRC Client" OFF \
-            "iceweasel"                     "Web Browser" OFF \
-            "libncurses5-dev"               "ncurses" OFF \
-            "libreoffice"                   "Libre Office" OFF \
-            "lightdm"                       "Login Manager" OFF \
-            "links"                         "Web Browser" OFF \
-            "livestreamer"                  "Stream Tool" OFF \
-            "lxrandr"                       "Output manager" OFF \
-            "lxterminal"                    "Light terminal" OFF \
-            "mc"                            "Midnight Commander" OFF \
-            "moc"                           "Music Player" OFF \
-            "mpv"                           "Video Player" OFF \
-            "mutt"                          "Mail Client" OFF \
-            "nethack-console"               "Roguelike game" OFF \
-            "newsbeuter"                    "RSS feed reader" OFF \
-            "openssh"                       "Secure Shell" OFF \
-            "pavucontrol"                   "Sound output" OFF \
-            "pinta"                         "Image Editor" OFF \
-            "ranger"                        "File manager" OFF \
-            "rtorrent"                      "Torrent Client" OFF \
-            "screenfetch"                   "System Info" OFF \
-            "scrot"                         "Screenshots" OFF \
-            "tor"                           "Communication System" OFF \
-            "tree"                          "Tree of dirs" OFF \
-            "ufw"                           "Firewall" OFF \
-            "unpacking"                     "Archive tools" OFF \
-            "uzbl"                          "Web Browser" OFF \
-            "vim-clear" 	  	            "Text Editor" OFF \
-            "vim-nox" 	  	                "Vim with script support" OFF \
-            "virtualbox"                    "Virtual Machines" OFF \
-            "w3m"                           "Web Browser" OFF \
-            "weechat"                       "IRC Client" OFF \
-            "xcalib"                        "Screen brightness" OFF \
-            "xboxdrv"                       "Xbox pad driver" OFF \
-            "xterm"                         "Terminal emulator" OFF \
-            "xorg" 	  	                    "X Server" OFF \
-            "xserver-xorg-input-synaptics"  "Touchpad" OFF \
-            "youtube-dl"                    "YT Download" OFF \
-            "zathura"                       "PDF Viewer" OFF \
-            "zsh"     	                    "Z-shell" OFF 2>results)
+        "alsa-utils"                    "Sound" OFF \
+        "apache"  	                    "Web Server" OFF \
+        "bash"                          "Shell" OFF \
+        "brasero"                       "Burning app" OFF \
+        "cmus"                          "Music player" OFF \
+        "conky"                         "System Info" OFF \
+        "dictd"                         "Offline dictionary" OFF \
+        "faenza-icon-theme"             "Icon Theme" OFF \
+        "feh"                           "Image Viewer" OFF \
+        "fuck"                          "Command correcting" OFF \
+        "git"                           "Content tracker" OFF \
+        "gummi"                         "LaTeX Editor" OFF \
+        "htop"                          "Process Info" OFF \
+        "irssi"                         "IRC Client" OFF \
+        "iceweasel"                     "Web Browser" OFF \
+        "libncurses5-dev"               "ncurses" OFF \
+        "libreoffice"                   "Libre Office" OFF \
+        "lightdm"                       "Login Manager" OFF \
+        "links"                         "Web Browser" OFF \
+        "livestreamer"                  "Stream Tool" OFF \
+        "lxrandr"                       "Output manager" OFF \
+        "lxterminal"                    "Light terminal" OFF \
+        "mc"                            "Midnight Commander" OFF \
+        "moc"                           "Music Player" OFF \
+        "mpv"                           "Video Player" OFF \
+        "mutt"                          "Mail Client" OFF \
+        "nethack-console"               "Roguelike game" OFF \
+        "newsbeuter"                    "RSS feed reader" OFF \
+        "openssh"                       "Secure Shell" OFF \
+        "pavucontrol"                   "Sound output" OFF \
+        "pinta"                         "Image Editor" OFF \
+        "ranger"                        "File manager" OFF \
+        "rtorrent"                      "Torrent Client" OFF \
+        "screenfetch"                   "System Info" OFF \
+        "scrot"                         "Screenshots" OFF \
+        "tor"                           "Communication System" OFF \
+        "tree"                          "Tree of dirs" OFF \
+        "ufw"                           "Firewall" OFF \
+        "unpacking"                     "Archive tools" OFF \
+        "uzbl"                          "Web Browser" OFF \
+        "vim-clear" 	  	            "Text Editor" OFF \
+        "vim-nox" 	  	                "Vim with scripts support" OFF \
+        "virtualbox"                    "Virtual Machines" OFF \
+        "w3m"                           "Web Browser" OFF \
+        "weechat"                       "IRC Client" OFF \
+        "xcalib"                        "Screen brightness" OFF \
+        "xboxdrv"                       "Xbox pad driver" OFF \
+        "xterm"                         "Terminal emulator" OFF \
+        "xorg" 	  	                    "X Server" OFF \
+        "xserver-xorg-input-synaptics"  "Touchpad" OFF \
+        "youtube-dl"                    "YT Downloader" OFF \
+        "zathura"                       "PDF Viewer" OFF \
+        "zsh"     	                    "Z-shell" OFF 2>results)
 
         while read choice
         do
             case $choice in
-                    alsa-utils)
-                        aptitude install alsa-utils -y
-                    ;;
-                    apache)
-                        aptitude install apache -y
-                    ;;
-                    bash)
-                        SHELL=BASH
+                alsa-utils)
+                    aptitude install alsa-utils -y
+                ;;
+                apache)
+                    aptitude install apache -y
+                ;;
+                bash)
+                    SHELL="BASH"
 
-                        aptitude install colordiff bash -y
-                        cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
-                        chsh -s /bin/bash
-                    ;;
-                    brasero)
-                        aptitude install brasero -y
-                    ;;
-                    cmus)
-                        aptitude install cmus -y
-                        mkdir -p $HOME/.cmus
-                        cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
-                    ;;
-                    conky)
-                        aptitude install conky -y
-                        cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                        cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
-                    ;;
-                    faenza-icon-theme)
-                        aptitude install faenza-icon-theme -y
-                    ;;
-                    feh)
-                        aptitude install feh -y
-                    ;;
-                    fuck)
-                        cd $HOME/tmp
-                        wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
-                    ;;
-                    git)
-                        aptitude install git -y
-                        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
-                        git config --global user.name "$name"
-                        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
-                        git config --global user.email $mail
-                    ;;
-                    gummi)
-                        aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
-                    ;;
-                    htop)
-                        aptitude install htop -y
-                    ;;
-                    iceweasel)
-                        aptitude install iceweasel -y
-                    ;;
-                    irssi)
-                        aptitude install irssi -y
-                        mkdir $HOME/.irssi
-                        if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
-                        "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
+                    aptitude install colordiff bash -y
+                    cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
+                    chsh -s /bin/bash
+                ;;
+                brasero)
+                    aptitude install brasero -y
+                ;;
+                cmus)
+                    aptitude install cmus -y
+                    mkdir -p $HOME/.cmus
+                    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
+                ;;
+                conky)
+                    aptitude install conky -y
+                    cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
+                    cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+                ;;
+                dictd)
+                    aptitude install dictd -y
+                    whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
+                    "eng-pol" "" OFF \
+                    "eng-deu" "" OFF \
+                    "eng-fra" "" OFF \
+                    "eng-rus" "" OFF \
+                    "eng-spa" "" off 2>results2
 
-                        cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
-                        cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
-                        fi
-                    ;;
-                    libncurses5-dev)
-                        aptitude install libncurses5-dev -y
-                    ;;
-                    libreoffice)
-                        aptitude install libreoffice -y
-                        (whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
-                        "Polski"        "Polish" \
-                        "Deutsch"       "German" \
-                        "British"       "English_british" \
-                        "American"      "English_american" \
-                        "Espanol"       "Spanish" 2>results3)
+                    while read choice2
+                    do
+                        case $choice2 in
+                                eng-pol)
+                                    aptitude install dict-freedict-eng-pol -y
+                                ;;
+                                eng-deu)
+                                    aptitude install dict-freedict-eng-deu -y
+                                ;;
+                                eng-fra) 
+                                    aptitude install dict-freedict-eng-fra -y
+                                ;;
+                                eng-rus) 
+                                    aptitude install dict-freedict-eng-rus -y
+                                ;;
+                                eng-spa) 
+                                    aptitude install dict-freedict-eng-spa -y
+                                ;;
+                                *)
+                                ;;
+                        esac
+                    done < results2
+                ;;
+                faenza-icon-theme)
+                    aptitude install faenza-icon-theme -y
+                ;;
+                feh)
+                    aptitude install feh -y
+                ;;
+                fuck)
+                    cd $HOME/tmp
+                    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
+                ;;
+                git)
+                    aptitude install git -y
+                    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
+                    git config --global user.name "$name"
+                    mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
+                    git config --global user.email $mail
+                ;;
+                gummi)
+                    aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
+                ;;
+                htop)
+                    aptitude install htop -y
+                ;;
+                iceweasel)
+                    aptitude install iceweasel -y
+                ;;
+                irssi)
+                    aptitude install irssi -y
+                    mkdir $HOME/.irssi
+                    if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
+                    "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
 
-                        while read choice3
-                        do
-                            case $choice3 in
-                            "Polski")
-                                aptitude install libreoffice-l10n-pl -y
-                            ;;
-                            "Deutsch")
-                                aptitude install libreoffice-l10n-de -y
-                            ;;
-                            "British")
-                                aptitude install libreoffice-l10n-en-gb -y
-                            ;;
-                            "American")
-                                aptitude install libreoffice-l10n-en-us -y
-                            ;;
-                            "Espanol")
-                                aptitude install libreoffice-l10n-es -y
-                            ;;
-                            esac
-                        done < results3
-                    ;;
-                    lightdm)
-                        aptitude install lightdm -y
-                        cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-                        dpkg-reconfigure lightdm
-                    ;;
-                    links)
-                        aptitude install links -y
-                    ;;
-                    livestreamer)
-                        aptitude install python python-requests python-setuptools python-singledispatch -y
-                        cd $HOME/tmp
-                        git clone https://github.com/chrippa/livestreamer.git
-                        cd $HOME/tmp/livestreamer
-                        python setup.py install
-                        rm -rf $HOME/tmp/livestreamer
-                    ;;
-                    lxrandr)
-                        aptitude install lxrandr -y
-                    ;;
-                    lxterminal)
-                        aptitude install lxterminal -y
-                    ;;
-                    mpv)
-                        aptitude install mpv -y
-                    ;;
-                    nethack-concole)
-                        aptitude install nethack-console -y
-                    ;;
-                    unpacking)
-                        aptitude install p7zip unrar unzip zip -y
-                    ;;
-                    pavucontrol)
-                        aptitude install pavucontrol -y
-                    ;;
-                    pinta)
-                        aptitude install pinta -y
-                    ;;
-                    screenfetch)
-                        aptitude install screenfetch -y
-                    ;;
-                    scrot)
-                        aptitude install scrot -y
-                    ;;
-                    tor)
-                        aptitude install tor torbrowser-launcher -y
-                    ;;
-                    ranger)
-                        aptitude install w3m w3m-img ranger -y
-                        mkdir -p $HOME/.config/ranger
-                        mkdir -p $HOME/.config/ranger/colorschemes
-                        cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
-                        cp $HOME/repo/linux_stuff/config-files/ranger/debian-rc.conf $HOME/.config/ranger/rc.conf
-                    ;;
-                    ufw)
-                        aptitude install ufw -y
-                        ufw enable
-                    ;;
-                    w3m)
-                        aptitude install w3m-img -y
-                    ;;
-                    weechat)
-                        aptitude install weechat -y
-                        mkdir -p $HOME/.weechat
-                        cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
-                        rm -f $HOME/.weechat/weechat.log
-                        ln -s /dev/null weechat.log
-                    ;;
-                    newsbeuter)
-                        aptitude install newsbeuter -y
-                        mkdir -p $HOME/.config/newsbeuter
-                        cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
-                        cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
-                    ;;
-                    openssh)
-                        aptitude install openssh-server -y
-                        iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-                        /etc/init.d/ssh restart
-                        export DISPLAY=:0
-                    ;;
-                    mc)
-                        aptitude install mc -y
-                        mkdir -p $HOME/.config/mc
-                        mkdir -p $HOME/.local/share/mc/skins
-                        cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
-                        cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
-                    ;;
-                    moc)
-                        aptitude install moc -y
-                        mkdir -p $HOME/.moc
-                        cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
-                        cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
-                    ;;
-                    mutt)
-                        aptitude install mutt -y
-                        cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
-                    ;;
-                    rtorrent)
-                        aptitude install rtorrent -y
-                        mkdir -p $HOME/.rtorrent
-                        cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
-                    ;;
-                    virtualbox)
-                        aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
-                    ;;
-                    youtube-dl)
-                        wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-                        chmod a+rx /usr/local/bin/youtube-dl
-                    ;;
-                    slim)
-                        aptitude install slim -y
-                        cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-                        dpkg-reconfigure slim
-                    ;;
-                    xboxdrv)
-                        aptitude install xboxdrv -y
-                        sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
-                        rmmod xpad
-                    ;;
-                    xcalib)
-                        aptitude install xcalib -y
-                    ;;
-                    xorg)
-                        aptitude install xorg -y
-                    ;;
-                    xserver-xorg-input-synaptics)
-                        aptitude install xserver-xorg-input-synaptics -y
-                    ;;
-                    xterm)
-                        aptitude install xterm fonts-inconsolata -y
-                        cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
-                        xrdb -merge ~/.Xresources 
-                    ;;
-                    zathura)
-                        aptitude install zathura -y
-                    ;;
-                    zsh)
-                        SHELL=ZSH
+                    cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
+                    cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
+                    fi
+                ;;
+                libncurses5-dev)
+                    aptitude install libncurses5-dev -y
+                ;;
+                libreoffice)
+                    aptitude install libreoffice -y
+                    (whiptail --title "Libre office language" --menu "Choose your language" 20 70 11 \
+                    "Polski"        "Polish" \
+                    "Deutsch"       "German" \
+                    "British"       "English_british" \
+                    "American"      "English_american" \
+                    "Espanol"       "Spanish" 2>results3)
 
-                        aptitude install colordiff zsh -y
-                        cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
-                        chsh -s /bin/zsh
-                    ;;
-                    vim-clear)
-                        #==============================================================
-                        # Plugin list:
-                        #	Pathogen
-                        #	Nerdtree
-                        #	Syntastic
-                        #	Taglist
-                        #	GitGutter
-                        #   CtrlP
-                        # 	Vim-airline
-                        #	Auto-pairs
-                        # 	Supertab
-                        #	Neosnippet
-                        #   indentLine
-                        #   SingleCompile
-                        #   Vim-commentary
-                        #	Gruvbox theme
-                        #==============================================================
+                    while read choice3
+                    do
+                        case $choice3 in
+                        "Polski")
+                            aptitude install libreoffice-l10n-pl -y
+                        ;;
+                        "Deutsch")
+                            aptitude install libreoffice-l10n-de -y
+                        ;;
+                        "British")
+                            aptitude install libreoffice-l10n-en-gb -y
+                        ;;
+                        "American")
+                            aptitude install libreoffice-l10n-en-us -y
+                        ;;
+                        "Espanol")
+                            aptitude install libreoffice-l10n-es -y
+                        ;;
+                        esac
+                    done < results3
+                ;;
+                lightdm)
+                    aptitude install lightdm -y
+                    cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
+                    dpkg-reconfigure lightdm
+                ;;
+                links)
+                    aptitude install links -y
+                ;;
+                livestreamer)
+                    aptitude install python python-requests python-setuptools python-singledispatch -y
+                    cd $HOME/tmp
+                    git clone https://github.com/chrippa/livestreamer.git
+                    cd $HOME/tmp/livestreamer
+                    python setup.py install
+                    rm -rf $HOME/tmp/livestreamer
+                ;;
+                lxrandr)
+                    aptitude install lxrandr -y
+                ;;
+                lxterminal)
+                    aptitude install lxterminal -y
+                ;;
+                mpv)
+                    aptitude install mpv -y
+                ;;
+                nethack-concole)
+                    aptitude install nethack-console -y
+                ;;
+                unpacking)
+                    aptitude install p7zip unrar unzip zip -y
+                ;;
+                pavucontrol)
+                    aptitude install pavucontrol -y
+                ;;
+                pinta)
+                    aptitude install pinta -y
+                ;;
+                screenfetch)
+                    aptitude install screenfetch -y
+                ;;
+                scrot)
+                    aptitude install scrot -y
+                ;;
+                tor)
+                    aptitude install tor torbrowser-launcher -y
+                ;;
+                ranger)
+                    aptitude install w3m w3m-img ranger -y
+                    mkdir -p $HOME/.config/ranger
+                    mkdir -p $HOME/.config/ranger/colorschemes
+                    cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
+                    cp $HOME/repo/linux_stuff/config-files/ranger/debian-rc.conf $HOME/.config/ranger/rc.conf
+                ;;
+                ufw)
+                    aptitude install ufw -y
+                    ufw enable
+                ;;
+                w3m)
+                    aptitude install w3m-img -y
+                ;;
+                weechat)
+                    aptitude install weechat -y
+                    mkdir -p $HOME/.weechat
+                    cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
+                    rm -f $HOME/.weechat/weechat.log
+                    ln -s /dev/null weechat.log
+                ;;
+                newsbeuter)
+                    aptitude install newsbeuter -y
+                    mkdir -p $HOME/.config/newsbeuter
+                    cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
+                    cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
+                ;;
+                openssh)
+                    aptitude install openssh-server -y
+                    iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+                    /etc/init.d/ssh restart
+                    export DISPLAY=:0
+                ;;
+                mc)
+                    aptitude install mc -y
+                    mkdir -p $HOME/.config/mc
+                    mkdir -p $HOME/.local/share/mc/skins
+                    cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+                    cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+                ;;
+                moc)
+                    aptitude install moc -y
+                    mkdir -p $HOME/.moc
+                    cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
+                    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
+                ;;
+                mutt)
+                    aptitude install mutt -y
+                    cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+                ;;
+                rtorrent)
+                    aptitude install rtorrent -y
+                    mkdir -p $HOME/.rtorrent
+                    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
+                ;;
+                uzbl)
+                    aptitude install uzbl -y
+                    cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
+                    cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
+                ;;
+                virtualbox)
+                    aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
+                ;;
+                youtube-dl)
+                    wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+                    chmod a+rx /usr/local/bin/youtube-dl
+                ;;
+                slim)
+                    aptitude install slim -y
+                    cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
+                    dpkg-reconfigure slim
+                ;;
+                xboxdrv)
+                    aptitude install xboxdrv -y
+                    sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+                    rmmod xpad
+                ;;
+                xcalib)
+                    aptitude install xcalib -y
+                ;;
+                xorg)
+                    aptitude install xorg -y
+                ;;
+                xserver-xorg-input-synaptics)
+                    aptitude install xserver-xorg-input-synaptics -y
+                ;;
+                xterm)
+                    aptitude install xterm fonts-inconsolata -y
+                    cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+                    xrdb -merge ~/.Xresources 
+                ;;
+                zathura)
+                    aptitude install zathura -y
+                ;;
+                zsh)
+                    SHELL="ZSH"
 
-                        aptitude install vim curl exuberant-ctags fonts-inconsolata -y
+                    aptitude install colordiff zsh -y
+                    cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                    chsh -s /bin/zsh
+                ;;
+                vim-clear)
+                    #==============================================================
+                    # Plugin list:
+                    #	Pathogen
+                    #	Nerdtree
+                    #	Syntastic
+                    #	Taglist
+                    #	GitGutter
+                    #   CtrlP
+                    # 	Vim-airline
+                    #	Auto-pairs
+                    # 	Supertab
+                    #	Neosnippet
+                    #   indentLine
+                    #   SingleCompile
+                    #   Vim-commentary
+                    #	Gruvbox theme
+                    #==============================================================
 
-                        # Making dirs
-                        mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+                    aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
-                        # Pathogen
-                        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                    # Making dirs
+                    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-                        # CtrlP
-                        cd ~/.vim/bundle
-                        git clone https://github.com/kien/ctrlp.vim.git
+                    # Pathogen
+                    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-                        # Nerdtree
-                        cd ~/.vim/bundle && \
-                        git clone https://github.com/scrooloose/nerdtree.git
+                    # CtrlP
+                    cd ~/.vim/bundle
+                    git clone https://github.com/kien/ctrlp.vim.git
 
-                        # Syntastic
-                        cd ~/.vim/bundle && \
-                        git clone https://github.com/scrooloose/syntastic.git
+                    # Nerdtree
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/nerdtree.git
 
-                        # Taglist
-                        cd ~/.vim/bundle && \
-                        git clone git://github.com/vim-scripts/taglist.vim.git
+                    # Syntastic
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/syntastic.git
 
-                        # Git-gutter
-                        cd ~/.vim/bundle && \
-                        git clone git://github.com/airblade/vim-gitgutter.git
+                    # Taglist
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/vim-scripts/taglist.vim.git
 
-                        # Vim-airline
-                        cd ~/.vim/bundle && \
-                        git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                    # Git-gutter
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/airblade/vim-gitgutter.git
 
-                        # Auto-pairs
-                        cd ~/.vim/bundle && \
-                        git clone git://github.com/jiangmiao/auto-pairs.git
+                    # Vim-airline
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-                        # Supertab
-                        git clone git://github.com/ervandew/supertab.git
+                    # Auto-pairs
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/jiangmiao/auto-pairs.git
 
-                        # Neosnippet
-                        cd ~/.vim/bundle
-                        git clone https://github.com/Shougo/neosnippet.vim
-                        git clone https://github.com/Shougo/neosnippet-snippets
-                        cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+                    # Supertab
+                    git clone git://github.com/ervandew/supertab.git
 
-                        # Indent-line
-                        cd ~/.vim/bundle
-                        git clone https://github.com/Yggdroot/indentLine.git
+                    # Neosnippet
+                    cd ~/.vim/bundle
+                    git clone https://github.com/Shougo/neosnippet.vim
+                    git clone https://github.com/Shougo/neosnippet-snippets
+                    cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
-                        # Single-compile
-                        cd ~/.vim/bundle
-                        git clone https://github.com/xuhdev/SingleCompile.git
+                    # Indent-line
+                    cd ~/.vim/bundle
+                    git clone https://github.com/Yggdroot/indentLine.git
 
-                        # Vim-commentary
-                        cd ~/.vim/bundle
-                        git clone https://github.com/tpope/vim-commentary.git
+                    # Single-compile
+                    cd ~/.vim/bundle
+                    git clone https://github.com/xuhdev/SingleCompile.git
 
-                        # Jellybeans theme
-                        cd ~/tmp && \
-                        git clone https://github.com/nanotech/jellybeans.vim.git
-                        mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-                        rm -rf ~/tmp/jellybeans.vim
+                    # Vim-commentary
+                    cd ~/.vim/bundle
+                    git clone https://github.com/tpope/vim-commentary.git
 
-                        # Copying .vimrc
-                        cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-                    ;;
-                    vim-nox)
-                        #==============================================================
-                        # Plugin list:
-                        #	Pathogen
-                        #	Nerdtree
-                        #	Syntastic
-                        #	Taglist
-                        #	GitGutter
-                        #   CtrlP
-                        # 	Vim-airline
-                        #	Auto-pairs
-                        # 	Supertab
-                        #	Neosnippet
-                        #   indentLine
-                        #   SingleCompile
-                        #   Vim-commentary
-                        #   YouCompleteMe
-                        #	Gruvbox theme
-                        #==============================================================
+                    # Jellybeans theme
+                    cd ~/tmp && \
+                    git clone https://github.com/nanotech/jellybeans.vim.git
+                    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+                    rm -rf ~/tmp/jellybeans.vim
 
-                        aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
+                    # Copying .vimrc
+                    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                ;;
+                vim-nox)
+                    #==============================================================
+                    # Plugin list:
+                    #	Pathogen
+                    #	Nerdtree
+                    #	Syntastic
+                    #	Taglist
+                    #	GitGutter
+                    #   CtrlP
+                    # 	Vim-airline
+                    #	Auto-pairs
+                    # 	Supertab
+                    #	Neosnippet
+                    #   indentLine
+                    #   SingleCompile
+                    #   Vim-commentary
+                    #   YouCompleteMe
+                    #	Gruvbox theme
+                    #==============================================================
 
-                        # Making dirs
-                        mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+                    aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
-                        # Pathogen
-                        curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                    # Making dirs
+                    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
-                        # CtrlP
-                        cd ~/.vim/bundle
-                        git clone https://github.com/kien/ctrlp.vim.git
+                    # Pathogen
+                    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-                        # Nerdtree
-                        cd ~/.vim/bundle && \
-                        git clone https://github.com/scrooloose/nerdtree.git
+                    # CtrlP
+                    cd ~/.vim/bundle
+                    git clone https://github.com/kien/ctrlp.vim.git
 
-                        # Syntastic
-                        cd ~/.vim/bundle && \
-                        git clone https://github.com/scrooloose/syntastic.git
+                    # Nerdtree
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/nerdtree.git
 
-                        # Taglist
-                        cd ~/.vim/bundle && \
-                        git clone git://github.com/vim-scripts/taglist.vim.git
+                    # Syntastic
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/syntastic.git
 
-                        # Git-gutter
-                        cd ~/.vim/bundle && \
-                        git clone git://github.com/airblade/vim-gitgutter.git
+                    # Taglist
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/vim-scripts/taglist.vim.git
 
-                        # Vim-airline
-                        cd ~/.vim/bundle && \
-                        git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                    # Git-gutter
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/airblade/vim-gitgutter.git
 
-                        # Auto-pairs
-                        cd ~/.vim/bundle && \
-                        git clone git://github.com/jiangmiao/auto-pairs.git
+                    # Vim-airline
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
 
-                        # Supertab
-                        git clone git://github.com/ervandew/supertab.git
+                    # Auto-pairs
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/jiangmiao/auto-pairs.git
 
-                        # Neosnippet
-                        cd ~/.vim/bundle
-                        git clone https://github.com/Shougo/neosnippet.vim
-                        git clone https://github.com/Shougo/neosnippet-snippets
-                        cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+                    # Supertab
+                    git clone git://github.com/ervandew/supertab.git
 
-                        # Indent-line
-                        cd ~/.vim/bundle
-                        git clone https://github.com/Yggdroot/indentLine.git
+                    # Neosnippet
+                    cd ~/.vim/bundle
+                    git clone https://github.com/Shougo/neosnippet.vim
+                    git clone https://github.com/Shougo/neosnippet-snippets
+                    cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
-                        # Single-compile
-                        cd ~/.vim/bundle
-                        git clone https://github.com/xuhdev/SingleCompile.git
+                    # Indent-line
+                    cd ~/.vim/bundle
+                    git clone https://github.com/Yggdroot/indentLine.git
 
-                        # Vim-commentary
-                        cd ~/.vim/bundle
-                        git clone https://github.com/tpope/vim-commentary.git
+                    # Single-compile
+                    cd ~/.vim/bundle
+                    git clone https://github.com/xuhdev/SingleCompile.git
 
-                        # Jellybeans theme
-                        cd ~/tmp && \
-                        git clone https://github.com/nanotech/jellybeans.vim.git
-                        mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-                        rm -rf ~/tmp/jellybeans.vim
+                    # Vim-commentary
+                    cd ~/.vim/bundle
+                    git clone https://github.com/tpope/vim-commentary.git
 
-                        # YouCompleteMe
-                        cd ~/.vim/bundle/
-                        git clone https://github.com/Valloric/YouCompleteMe.git
-                        cd YouCompleteMe/
-                        git submodule update --init --recursive
-                        ./install.sh
+                    # Jellybeans theme
+                    cd ~/tmp && \
+                    git clone https://github.com/nanotech/jellybeans.vim.git
+                    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
+                    rm -rf ~/tmp/jellybeans.vim
 
-                        # Copying .vimrc
-                        cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
-                    ;;
-                    uzbl)
-                        aptitude install uzbl -y
-                        cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
-                        cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
-                    ;;
-                    dictd)
-                        aptitude install dictd -y
-                        whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
-                        "eng-pol" "" OFF \
-                        "eng-deu" "" OFF \
-                        "eng-fra" "" OFF \
-                        "eng-rus" "" OFF \
-                        "eng-spa" "" off 2>results2
+                    # YouCompleteMe
+                    cd ~/.vim/bundle/
+                    git clone https://github.com/Valloric/YouCompleteMe.git
+                    cd YouCompleteMe/
+                    git submodule update --init --recursive
+                    ./install.sh
 
-                        while read choice2
-                        do
-                                case $choice2 in
-                                        eng-pol)
-                                            aptitude install dict-freedict-eng-pol -y
-                                        ;;
-                                        eng-deu)
-                                            aptitude install dict-freedict-eng-deu -y
-                                        ;;
-                                        eng-fra) 
-                                            aptitude install dict-freedict-eng-fra -y
-                                        ;;
-                                        eng-rus) 
-                                            aptitude install dict-freedict-eng-rus -y
-                                        ;;
-                                        eng-spa) 
-                                            aptitude install dict-freedict-eng-spa -y
-                                        ;;
-                                        *)
-                                        ;;
-                                esac
-                        done < results2
-                    ;;
+                    # Copying .vimrc
+                    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                ;;
             esac
         done < results
 
