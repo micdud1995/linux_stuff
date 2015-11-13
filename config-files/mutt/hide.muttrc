@@ -4,7 +4,7 @@
 # Replace <hostname> with your hostname 
 
 # IMAP
-set folder=imaps://<mai>:'<password>'@imap.gmx.com
+set folder=imaps://<mail>:'<password>'@imap.gmx.com
 set spoolfile=+INBOX
 set postponed = +INBOX/Drafts
 set record = +INBOX/Sent
@@ -15,7 +15,7 @@ set mail_check = 120
 # SMTP
 set smtp_url=smtps://<mail>:'<password>'@mail.gmx.com
 set realname='<name>'
-set from=dud95@gmx.us
+set from="<mail>"
 set hostname="<hostname>"
 
 # SSL
@@ -32,20 +32,20 @@ set fast_reply
 
 # colors
 color hdrdefault white black
-color quoted cyan black
+color quoted red black
 color signature white black
 color attachment black white
-color message cyan black
+color message red black
 color error brightred black
 color indicator black white
 color status black white
-color tree black cyan
-color normal cyan black
-color markers black cyan 
-color search black cyan
-color tilde cyan black
-color index black cyan ~F
-color index black cyan "~N|~O"
+color tree black red
+color normal red black
+color markers black red 
+color search black red
+color tilde red black
+color index black red ~F
+color index black red "~N|~O"
 
 ##Set editor to create new email
 set editor='vim'
