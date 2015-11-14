@@ -1,7 +1,7 @@
 #=================================================================
 # BASIC
 export EDITOR=vim
-export BROWSER=dwb
+export BROWSER=uzbl
 export TERM="xterm-256color"
 #=================================================================
 
@@ -171,21 +171,19 @@ fi
     alias df='df -kTh'
     alias free='free -ht'
     alias ip='sudo ip addr show'
-# system upgrade
-	alias upgrade='sudo aptitude update; sudo aptitude upgrade; sudo aptitude clean'
 # aptitude aliases
     alias a="aptitude"
 	alias ai="sudo aptitude install"
 	alias as="aptitude search"
 	alias ash="aptitude show"
     alias ap="sudo aptitude purge"
-    alias upgrade="sudo aptitude update;sudo aptitude upgrade"
+	alias upgrade='sudo aptitude update; sudo aptitude upgrade -y; sudo aptitude clean'
 # Xrandr aliases
 	alias hdmi_1366x768="xrandr --output HDMI1 --mode 1366x768"
 	alias hdmi_auto="xrandr --output HDMI1 --auto"
 	alias hdmi_off="xrandr --off"
 # show which commands you use the most
-	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
+	alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
 	alias ..="cd ..;ls"
 	alias ...="cd ../..;ls"
@@ -210,21 +208,17 @@ fi
 	alias v="vim"
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
     alias x="chmod +x"
-    alias hist="cat ~/.zshr_history | grep"
+    alias hist="cat ~/.bash_history | grep"
+    alias bat="echo $(acpi -b | awk "{print $1}" | sed 's/\([^:]*\): \([^,]*\), \([0-9]*\)%.*/\3/')"
+    alias bats="echo $(acpi -b | awk "{print $1}" | sed 's/\([^:]*\): \([^,]*\), \([0-9]*\)%.*/\2/')"
     alias y="youtube-dl -f 18"
     alias yhd="youtube-dl -f 22"
     alias pyt="vim ~/.vim/bundle/vim-snippets/snippets/python.snippets"
+    alias bashsnipp="vim ~/.vim/bundle/neosnippet-snippets/neosnippets/sh.snip"
     # up wired connection
     alias eth="sudo dhclient eth0"
     alias izak="livestreamer -p mpv twitch.tv/izakooo "
-    alias nvidia="livestreamer -p mpv http://twitch.tv/nvidia_pl "
     alias pasha="livestreamer -p mpv twitch.tv/pashabiceps "
-    alias zdupy="livestreamer -p mpv twitch.tv/zdupy"
-    alias taz="livestreamer -p mpv twitch.tv/g5taz"
-    alias neo="livestreamer -p mpv twitch.tv/neog5"
-    alias esl="livestreamer -p mpv twitch.tv/esl_csgo"
-    alias eslpl="livestreamer -p mpv twitch.tv/esl_csgo_pl"
-    alias faceit="livestreamer -p mpv twitch.tv/faceittv"
     alias cfg="vim /home/michal/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/autoexec.cfg"
     alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
     alias d="dict -d fd-eng-pol"
@@ -237,3 +231,4 @@ fi
     alias sus="systemctl suspend"
 #=================================================================
 screenfetch
+eval $(thefuck --alias)
