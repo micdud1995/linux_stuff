@@ -1,0 +1,7 @@
+### SID ###
+
+deb http://ftp.pl.debian.org/debian/ unstable main
+deb-src http://ftp.pl.debian.org/debian/ unstable main
+
+deb http://security.debian.org/ unstable/updates main
+deb-src http://security.debian.org/ unstable/updates main
