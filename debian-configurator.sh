@@ -209,7 +209,6 @@ config_packages()
         "git"                           "Content tracker" OFF \
         "gummi"                         "LaTeX Editor" OFF \
         "htop"                          "Process Info" OFF \
-        "irssi"                         "IRC Client" OFF \
         "iceweasel"                     "Web Browser" OFF \
         "libncurses5-dev"               "ncurses" OFF \
         "libreoffice"                   "Libre Office" OFF \
@@ -338,16 +337,6 @@ config_packages()
                 ;;
                 iceweasel)
                     aptitude install iceweasel -y
-                ;;
-                irssi)
-                    aptitude install irssi -y
-                    mkdir $HOME/.irssi
-                    if (whiptail --title "Irssi channels" --yes-button "Yes" --no-button "No" --yesno \
-                    "Do you want to add channels to autostart?\n\n#debian\n#debian-offtopic\n#listekklonu\n#plug\n#error" 20 70) then
-
-                    cp $HOME/repo/linux_stuff/config-files/irssi/config $HOME/.irssi/config
-                    cp $HOME/repo/linux_stuff/config-files/cyanic.theme $HOME/.irssi/
-                    fi
                 ;;
                 libncurses5-dev)
                     aptitude install libncurses5-dev -y
@@ -770,7 +759,7 @@ config_pc()
         case $choice in
             Beep)
                 rmmod pcspkr
-                sh -c "echo 'blacklist pcspkr' > /etc/modprobe.d/blacklist"
+                sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
             ;;
             Caps)
                 setxkbmap -option caps:escape &
