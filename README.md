@@ -20,7 +20,7 @@ To run script:
 
 i3 window manager with Debian:
 =====================
-![i3 wm autostart layout]<img src=https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-i3.png width=711 height=400 />
+![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-i3.png)
 vim config:
 =====================
 ![vim config](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-vim.png)
