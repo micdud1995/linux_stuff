@@ -4,8 +4,8 @@
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
 # Author            Michal Dudek 
-# Date              12-11-2015
-# Version           2.1.1
+# Date              14-11-2015
+# Version           2.2
 # Notes             Run as a root
 # License           GNU General Public License v3.0
 #==============================================================================
@@ -322,7 +322,7 @@ config_packages()
                 ;;
                 git)
                     aptitude install git -y
-                    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michał Dudek" 3>&1 1>&2 2>&3)
+                    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michal Dudek" 3>&1 1>&2 2>&3)
                     git config --global user.name "$name"
                     mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
                     git config --global user.email $mail
