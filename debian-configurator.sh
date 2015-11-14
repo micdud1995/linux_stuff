@@ -86,58 +86,22 @@ config_sources()
 
         case "$VERSION" in
             "Stable")
-                sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ stable/updates main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sh -c "cat $HOME/repo/linux_stuff/config-files/sources.list/stable.txt > /etc/apt/sources.list"
             ;;
             "Testing")
-                sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ testing/updates main' >> /etc/apt/sources.list"
+                sh -c "cat $HOME/repo/linux_stuff/config-files/sources.list/testing.txt > /etc/apt/sources.list"
             ;;
             "Sid")
-                sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main' >> /etc/apt/sources.list"
+                sh -c "cat $HOME/repo/linux_stuff/config-files/sources.list/unstable.txt > /etc/apt/sources.list"
             ;;
             "Stable contrib non-free")
-                sh -c "echo '### STABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ stable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ stable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ jessie-updates main' >> /etc/apt/sources.list"
+                sh -c "cat $HOME/repo/linux_stuff/config-files/sources.list/stable-nonfree.txt > /etc/apt/sources.list"
             ;;
             "Testing contrib non-free")
-                sh -c "echo '### TESTING ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ testing/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "cat $HOME/repo/linux_stuff/config-files/sources.list/testing-nonfree.txt > /etc/apt/sources.list"
             ;;
             "Sid contrib non-free")
-                sh -c "echo '### UNSTABLE ###' > /etc/apt/sources.list"
-                sh -c "echo 'deb http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://ftp.pl.debian.org/debian/ unstable main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo >> /etc/apt/sources.list"
-                sh -c "echo 'deb http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
-                sh -c "echo 'deb-src http://security.debian.org/ unstable/updates main contrib non-free' >> /etc/apt/sources.list"
+                sh -c "cat $HOME/repo/linux_stuff/config-files/sources.list/unstable-nonfree.txt > /etc/apt/sources.list"
             ;;
             "*")
                 whiptail --title "Debian config" --msgbox "Wrong version" 20 70
