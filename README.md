@@ -18,6 +18,9 @@ To run script:
 
 	sudo ./debian-configurator.sh
 
+program layout:
+=====================
+![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-program.png)
 i3 window manager with Debian:
 =====================
 ![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-i3.png)
