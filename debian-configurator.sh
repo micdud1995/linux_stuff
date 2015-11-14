@@ -26,6 +26,7 @@ info()
     if [[ $UID != $ROOT_UID  ]]; then
         whiptail --title "Debian config" --msgbox \
         "Please run this script as a root" 20 70
+        exit 126
     else
         HOME=$(whiptail --nocancel --inputbox "Type your home folder: " 20 70 "/home/michal" 3>&1 1>&2 2>&3)
         main_menu
@@ -362,6 +363,8 @@ config_packages()
                     git config --global user.name "$name"
                     mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
                     git config --global user.email $mail
+                    edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
+                    git config --global core.editor $edit
                 ;;
                 gummi)
                     aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
@@ -848,7 +851,7 @@ config_pc()
     fi 
 
     whiptail --title "Debian config" --msgbox "System configured." 20 70
-    exit
+    exit 0
 }
 
 main_menu() 
@@ -863,7 +866,7 @@ main_menu()
 		"Copy scripts"          "-" \
 		"Disable beep"          "-" \
 		"Config PC things"      "-" \
-		"Exit Installer"        "-" 3>&1 1>&2 2>&3)
+		"Exit"                  "-" 3>&1 1>&2 2>&3)
 
 	case "$menu_item" in
         "Select OS")
@@ -896,9 +899,9 @@ main_menu()
 		"Reboot System") 
             reboot
 		;;
-		"Exit Installer")
+		"Exit")
             whiptail --title "Debian config" --msgbox "System configured." 20 70
-            exit
+            exit 0
 		;;
 	esac
 }
