@@ -150,6 +150,8 @@ config_gui()
         "awesome"           "configurable WM ver. 3.4" \
         "i3"                "i3 tiling WM" \
         "xfce"              "lightweight DE" \
+        "gnome"             "gnome DE" \
+        "kde"               "KDE DE" \
         "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
@@ -182,6 +184,14 @@ config_gui()
             ;;
             "xfce")
                 aptitude install xorg xinit xfce4 -y
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
+            ;;
+            "gnome")
+                aptitude install xorg xinit gnome -y
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
+            ;;
+            "kde")
+                aptitude install xorg xinit kde-standard -y
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
         esac
