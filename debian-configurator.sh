@@ -147,8 +147,9 @@ config_gui()
         "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast DE" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
-        "awesome"           "configurable WM ver. 3.4" \
-        "i3"                "i3 tiling WM" \
+        "awesome"           "tiling WM" \
+        "bspwm"            "tiling WM" \
+        "i3"                "tiling WM" \
         "xfce"              "lightweight DE" \
         "gnome"             "gnome DE" \
         "kde"               "KDE DE" \
@@ -161,6 +162,29 @@ config_gui()
                 mkdir -p ~/.config/awesome/themes/
                 cp -r $HOME/repo/linux_stuff/config-files/awesome/* $HOME/.config/awesome/
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
+            ;;
+            "bspwm")
+                aptitude install git gcc make xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libxcb-ewmh2
+                
+                mkdir -p $HOME/tmp
+                cd $HOME/tmp
+                git clone https://github.com/baskerville/bspwm.git
+                git clone https://github.com/baskerville/sxhkd.git
+                cd $HOME/tmp/bspwm
+                make
+                make install
+                cd $HOME/tmp/sxhkd
+                make
+                sudo make install
+
+                mkdir $HOME/.config/bspwm
+                mkdir $HOME/.config/sxhkd
+                cp $HOME/repo/linux_stuff/config-files/bspwm/bspwmrc $HOME/.config/bspwm/bspwmrc
+                cp $HOME/repo/linux_stuff/config-files/bspwm/sxhkdrc $HOME/.config/sxhkd/sxhkdrc
+                chmod +x $HOME/.config/bspwm/bspwmrc
+                cp -R $HOME/tmp/bspwm/contrib/freedesktop/bspwm-session /usr/bin/bspwm-session
+                cp -R $HOME/repo/linux_stuff/config-files/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
+
             ;;
             "i3")
                 aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
