@@ -91,6 +91,8 @@ bindsym $mod+x exec xterm
 #Assings
 assign [class="^Dwb$"] → $tag2
 for_window [class="^Dwb$"] focus
+assign [class="^Uzbl$"] → $tag2
+for_window [class="^Uzbl$"] focus
 assign [class="^Iceweasel$"] → $tag2
 for_window [class="^Iceweasel$"] focus
 assign [class="^Firefox$"] → $tag2
