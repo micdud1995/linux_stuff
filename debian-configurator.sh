@@ -23,7 +23,7 @@ HOME=""
 
 info()
 {
-    if [[ $UID != $ROOT_UID  ]]; then
+    if [[ "$UID" != "$ROOT_UID"  ]]; then
         whiptail --title "Debian config" --msgbox \
         "Please run this script as a root" 20 70
         exit 126
@@ -210,6 +210,7 @@ config_packages()
         "apache"  	                    "Web Server" OFF \
         "bash"                          "Shell" OFF \
         "brasero"                       "Burning app" OFF \
+        "calcurse"                      "Text-based organizer" OFF \
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
         "dictd"                         "Offline dictionary" OFF \
@@ -278,6 +279,9 @@ config_packages()
                 brasero)
                     aptitude install brasero -y
                 ;;
+                calcurse)
+                    aptitude install calcurse -y
+                ;;
                 cmus)
                     aptitude install cmus -y
                     mkdir -p $HOME/.cmus
@@ -332,9 +336,9 @@ config_packages()
                 ;;
                 git)
                     aptitude install git -y
-                    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "Michal Dudek" 3>&1 1>&2 2>&3)
+                    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
                     git config --global user.name "$name"
-                    mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "dud95@gmx.us" 3>&1 1>&2 2>&3)
+                    mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
                     git config --global user.email $mail
                     edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
                     git config --global core.editor $edit
@@ -746,7 +750,6 @@ config_scripts()
 
     config_pc
 }
-
 
 config_pc() 
 {
