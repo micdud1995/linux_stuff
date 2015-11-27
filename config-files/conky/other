@@ -1,0 +1,29 @@
+background yes
+use_xft yes
+xftfont Tamsyn:size=8
+xftalpha 0.9
+update_interval 10.0
+total_run_times 0
+mpd_port 6600
+own_window yes
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default color #FFFFFF
+color1 fff
+alignment top_right
+gap_x 5
+gap_y 2
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale yes
+default_bar_size 25,25
+
+TEXT
+$alignr${execp amixer get Master | tail -n 1 | cut -b 21-25 | sed -e 's/\[//g' -e 's/\]//g} [Bat ${battery_percent BAT1}%]
