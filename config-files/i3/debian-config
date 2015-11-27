@@ -116,7 +116,7 @@ bindsym $mod+F5 exec amixer sset Master toggle
 bindsym $mod+c kill
 
 # Start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn 'Tamsyn-7' -f -nb '#FFFFFF' -nf '#000000' -sb '#000000' -sf '#FFFFFF'
 # bindsym $mod+d exec j4-dmenu-desktop
 
 # Open menu with system commands
