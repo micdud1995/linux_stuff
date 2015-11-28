@@ -163,14 +163,16 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "i3")
-                aptitude install xorg xinit i3 dmenu fonts-font-awesome feh weechat vim-nox lxterminal ranger moc -y
+                aptitude install xorg xinit i3 dmenu fonts-inconsolata fonts-font-awesome feh weechat xterm ranger moc -y
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Obrazy
                 cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf ~/.i3status.conf
                 cp $HOME/repo/linux_stuff/config-files/i3/debian-config ~/.i3/config
-                cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
-                cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh ~/.i3/
-                chmod +x $HOME/.i3/load_workspaces.sh
+                # cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
+                # cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh ~/.i3/
+                # chmod +x $HOME/.i3/load_workspaces.sh
+
+                cp -R $HOME/repo/linux_stuff/config-files/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
                 cp $HOME/repo/linux_stuff/config-files/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
@@ -289,8 +291,24 @@ config_packages()
                 ;;
                 conky)
                     aptitude install conky -y
-                    cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                    cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+
+                    CONKY=$(whiptail --title  "Debian config" --menu "Select conky file:" 20 70 10 \
+                    "red"               "all informations" \
+                    "binary"            "binary clock" \
+                    "indicator"         "desktop indicator" 3>&1 1>&2 2>&3)
+
+                    case "$CONKY" in
+                        "red")
+                            cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
+                            cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+                        ;;
+                        "binary")
+                            cp ~/repo/linux_stuff/config-files/conky/binary-clock ~/.conkyrc
+                        ;;
+                        "indicator")
+                            cp ~/repo/linux_stuff/config-files/conky/workspace-indicator ~/.conkyrc
+                        ;;
+                    esac
                 ;;
                 dictd)
                     aptitude install dictd -y
