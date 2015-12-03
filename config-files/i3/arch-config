@@ -10,7 +10,7 @@ set $tag7 "7: Virtual"
 set $tag8 "8: Settings"
 set $tag9 "9: tmp"
 # =======================================================
-setxkbmap pl
+
 # =======================================================
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
@@ -25,7 +25,7 @@ for_window [class="^."] border pixel 1
 floating_modifier $mod
 
 # Basic layout
-exec --no-startup-id exec $HOME/.i3/load_workspaces.sh
+#exec --no-startup-id exec $HOME/.i3/load_workspaces.sh
 
 # Default volume
 exec --no-startup-id amixer sset Master 20%
@@ -34,7 +34,7 @@ exec amixer sset Master mute
 
 # Wallpaper restoring
 #exec --no-startup-id nitrogen --restore
-exec feh --bg-scale /home/michal/Obrazy/wallpaper.jpg
+exec feh --bg-scale /home/michal/Pictures/wallpaper.jpg
 
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
@@ -44,7 +44,7 @@ workspace_auto_back_and_forth yes
 # set $bo #8A00B8
 # green
 # set $bo #00FF00
-# cyan 
+# cyan
 set $bo #00FFFF
 # 2nd color - gray
 set $se #666666
@@ -77,7 +77,7 @@ bar
 	position bottom
 
 	status_command i3status
-    font pango:Amble regular 8, Ionicons, FontAwesome 8
+    font pango:Amble regular 8, Ionicons, Tamsyn 8
 }
 # =======================================================
 
@@ -91,6 +91,8 @@ bindsym $mod+x exec xterm
 #Assings
 assign [class="^Dwb$"] → $tag2
 for_window [class="^Dwb$"] focus
+assign [class="^Uzbl$"] → $tag2
+for_window [class="^Uzbl$"] focus
 assign [class="^Iceweasel$"] → $tag2
 for_window [class="^Iceweasel$"] focus
 assign [class="^Firefox$"] → $tag2
@@ -114,7 +116,7 @@ bindsym $mod+F5 exec amixer sset Master toggle
 bindsym $mod+c kill
 
 # Start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn 'Tamsyn-7' -f -nb '#FFFFFF' -nf '#000000' -sb '#000000' -sf '#FFFFFF'
 # bindsym $mod+d exec j4-dmenu-desktop
 
 # Open menu with system commands
@@ -227,8 +229,7 @@ bindsym $mod+r mode "resize"
 # Shutdown, reboot, lock screen
 
 #set $Locker i3lock -c 000000 && sleep 1
-# set $Locker i3lock -i ~/Pictures/i3lock-arch.png --color=ff0000
-set $Locker i3lock -i ~/Pictures/i3lock-deb.png --color=ff0000
+set $Locker i3lock -i ~/Pictures/i3lock-arch.png --color=ff0000
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
