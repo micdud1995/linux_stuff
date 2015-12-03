@@ -1,4 +1,3 @@
-
 Description
 =====================
 
@@ -14,9 +13,15 @@ To run script:
 1) Make script executable
 
 	chmod +x debian-configurator.sh
-2) Run it
+    or
+	chmod +x arch-configurator.sh
+2) For Arch install depedencies: 
+    sudo pacman -S libnewt
+3) Run it:
 
 	sudo ./debian-configurator.sh
+    or
+	sudo ./arch-configurator.sh
 
 ➤ program layout:
 =====================
