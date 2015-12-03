@@ -72,7 +72,18 @@ config_pacman()
     if (whiptail --title "AUR repository" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to install yaourt?" 20 70) then
 
-        !!!
+        mkdir yaourt
+        cd yaourt
+        curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+        tar zxvf package-query.tar.gz
+        cd package-query
+        makepkg -s
+        pacman -U package-query-1.5-2-x86_64.pkg.tar.xz
+        curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+        tar zxvf yaourt.tar.gz
+        cd yaourt
+        makepkg -si
+        rm -dR ../yaourt
 
     fi
 
@@ -131,7 +142,7 @@ config_gui()
         "i3"                "" \
         "xfce"              "" \
         "gnome"             "" \
-        "lxde-common"         ""   3>&1 1>&2 2>&3)
+        "lxde-common"       ""   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "i3")
@@ -181,8 +192,10 @@ config_packages()
     if (whiptail --title "Arch config" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to install/config some common software?" 20 70) then
 
-    (whiptail --title "Additional software" --separate-output --checklist "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
+        (whiptail --title "Additional software" --separate-output --checklist \
+        "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
         "alsa-utils"                    "Sound" OFF \
+        "archey3"                       "System Info" OFF \
         "apache"  	                    "Web Server" OFF \
         "bash"                          "Shell" OFF \
         "brasero"                       "Burning app" OFF \
@@ -215,7 +228,6 @@ config_packages()
         "pinta"                         "Image Editor" OFF \
         "ranger"                        "File manager" OFF \
         "rtorrent"                      "Torrent Client" OFF \
-        "screenfetch"                   "System Info" OFF \
         "scrot"                         "Screenshots" OFF \
         "tor"                           "Communication System" OFF \
         "tree"                          "Tree of dirs" OFF \
@@ -400,9 +412,6 @@ config_packages()
                 ;;
                 pinta)
                     pacman -S pinta --noconfirm
-                ;;
-                screenfetch)
-                    pacman -S screenfetch --noconfirm
                 ;;
                 scrot)
                     pacman -S scrot --noconfirm
@@ -649,7 +658,8 @@ config_pc()
     if (whiptail --title "Additional settings" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to configure computer options?\n\nYou can set here things depending on your computer and personal preferences." 20 70) then
 
-    (whiptail --title "Additional settings" --checklist --separate-output "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
+    (whiptail --title "Additional settings" --checklist --separate-output \
+    "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
     "Beep" "Disable bepp sound" OFF \
     "Touchpad" "Enable touchpad" OFF \
     "Microphone" "Enable Lenovo G580 microphone" OFF \
@@ -685,7 +695,9 @@ config_pc()
             Lid)
                 cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
             ;;
+
         esac
+
     done < results
 
     fi 
@@ -698,7 +710,7 @@ main_menu()
 {
 	menu_item=$(whiptail --nocancel --title "Arch config" --menu "Menu Items:" 20 70 10 \
 		"Clone repo"            "-" \
-		"Config pacman"        "-" \
+		"Config pacman"         "-" \
 		"Install GUI"           "-" \
 		"Install packages"      "-" \
 		"Copy scripts"          "-" \
