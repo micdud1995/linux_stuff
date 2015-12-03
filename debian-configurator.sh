@@ -144,7 +144,7 @@ config_gui()
     fi
 
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install a DE or WM?\n\n\n\n*awesome is configurable tiling wm\n\n*i3 is an improved dynamic, tiling window manager \n\n*LXDE is an extremely fast DE" 20 70) then
+        "Do you want to install a DE or WM?" 20 70) then
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
         "awesome"           "tiling WM" \
@@ -614,7 +614,7 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
-                    cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+                    cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
                     cd ~/.vim/bundle
@@ -635,7 +635,7 @@ config_packages()
                     rm -rf ~/tmp/jellybeans.vim
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
                 ;;
                 vim-nox)
                     #==============================================================
@@ -700,7 +700,7 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
-                    cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+                    cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
                     cd ~/.vim/bundle
@@ -728,7 +728,7 @@ config_packages()
                     ./install.sh
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
                 ;;
             esac
         done < results
