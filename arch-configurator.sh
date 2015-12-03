@@ -69,6 +69,13 @@ config_pacman()
         vim /etc/pacman.conf
     fi
 
+    if (whiptail --title "AUR repository" --yes-button "Yes" --no-button "No" --yesno \
+        "Do you want to install yaourt?" 20 70) then
+
+        !!!
+
+    fi
+
     pacman -Syu --noconfirm
     pacman -S yaourt --noconfirm
 
@@ -512,7 +519,7 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
-                    cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+                    cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
                     cd ~/.vim/bundle
@@ -527,7 +534,7 @@ config_packages()
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
                     
                 ;;
                 *vim*)
@@ -571,7 +578,7 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
-                    cp $HOME/repo/linux_stuff/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+                    cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
                     cd ~/.vim/bundle
@@ -594,7 +601,7 @@ config_packages()
                     ./install.sh
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/vim/hide.vimrc ~/.vimrc
+                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
                 ;;
             esac
         done < results
