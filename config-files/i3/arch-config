@@ -15,7 +15,7 @@ set $tag9 "9: tmp"
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
 
-font pango:Inconsolata 8
+font pango:Tamsyn 8
 font pango:FontAwesome 8
 
 # Really small borders and no title for windows
@@ -73,8 +73,8 @@ bar
     }
     
 	# i3bar position
-    # position top
-	position bottom
+    position top
+	#position bottom
 
 	status_command i3status
     font pango:Amble regular 8, Ionicons, Tamsyn 8
