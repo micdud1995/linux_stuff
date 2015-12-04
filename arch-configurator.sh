@@ -18,6 +18,7 @@ SHELL=""
 GPU=""
 DE=""
 HOME=""
+USER=""
 #==============================================================================
 
 info()
@@ -27,7 +28,18 @@ info()
         "Please run this script as a root" 20 70
         exit 126
     else
-        HOME=$(whiptail --nocancel --inputbox "Type your home folder: " 20 70 "/home/michal" 3>&1 1>&2 2>&3)
+        USER=$(whiptail --nocancel --inputbox "Type your user name: " 20 70 "michal" 3>&1 1>&2 2>&3)
+
+        HOME="/home/$USER"
+        mkdir -p $HOME/repo
+        mkdir -p $HOME/tmp
+        mkdir -p $HOME/Documents
+        mkdir -p $HOME/Music
+        mkdir -p $HOME/Movies
+        mkdir -p $HOME/Downloads
+        mkdir -p $HOME/Pictures
+        mkdir -p $HOME/Desktop
+
         main_menu
     fi
 }
@@ -37,15 +49,6 @@ repo_dirs()
     if [[ ! -d $HOME/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
             "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
-
-            mkdir -p $HOME/repo
-            mkdir -p $HOME/tmp
-            mkdir -p $HOME/Documents
-            mkdir -p $HOME/Music
-            mkdir -p $HOME/Movies
-            mkdir -p $HOME/Downloads
-            mkdir -p $HOME/Pictures
-            mkdir -p $HOME/Desktop
 
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
@@ -66,7 +69,7 @@ config_pacman()
     if (whiptail --title "Pacman config" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to edit pacman.conf?" 20 70) then
 	
-        vim /etc/pacman.conf
+        nano /etc/pacman.conf
 
         pacman -Syu --noconfirm
 
@@ -155,20 +158,20 @@ config_gui()
         case "$DE" in
             "i3")
                 pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font feh weechat rxvt ranger cmus --noconfirm
-                yaourt -S ttf-font-awesome
+                yaourt -S ttf-font-awesome xcalib --noconfirm
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/.config/i3status
                 mkdir -p $HOME/.config/i3/
                 cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf $HOME/.i3status.conf
-                cp $HOME/repo/linux_stuff/config-files/i3/arch-config ~/.i3/config
-                # cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
-                # cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh ~/.i3/
+                cp $HOME/repo/linux_stuff/config-files/i3/arch-config $HOME/.i3/config
+                # cp $HOME/repo/linux_stuff/config-files/i3/workspace* $HOME/.i3/
+                # cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh $HOME/.i3/
                 # chmod +x $HOME/.i3/load_workspaces.sh
 
-                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-arch.png ~/Pictures/i3lock-arch.png
+                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-arch.png $HOME/Pictures/i3lock-arch.png
                 cp $HOME/repo/linux_stuff/config-files/wallpapers/arch-wallpaper.jpg $HOME/Pictures/wallpaper.png
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                vim $HOME/.xinitrc
+                nano $HOME/.xinitrc
             ;;
             "lxde-core")
                 pacman -S lxde-core lxpanel lxappearance lxappearance-obconf lxrandr faenza-icon-theme --noconfirm
@@ -177,17 +180,17 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
                 chmod +x /usr/local/bin/run-cmus
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                vim $HOME/.xinitrc
+                nano $HOME/.xinitrc
             ;;
             "xfce")
                 pacman -S xfwm4 --noconfirm
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                vim $HOME/.xinitrc
+                nano $HOME/.xinitrc
             ;;
             "gnome")
                 pacman -S gnome --noconfirm
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                vim $HOME/.xinitrc
+                nano $HOME/.xinitrc
             ;;
         esac
     fi
@@ -266,7 +269,7 @@ config_packages()
                     SHELL="BASH"
 
                     pacman -S colordiff bash ttf-inconsolata --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
+                    cp $HOME/repo/linux_stuff/config-files/bash/arch-bashrc $HOME/.bashrc
                     chsh -s /bin/bash
                 ;;
                 brasero)
@@ -291,14 +294,14 @@ config_packages()
 
                     case "$CONKY" in
                         "red")
-                            cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                            cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+                            cp $HOME/repo/linux_stuff/config-files/conky/hide.conkyrc $HOME/.conkyrc
+                            cp $HOME/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                         ;;
                         "binary")
-                            cp ~/repo/linux_stuff/config-files/conky/binary-clock ~/.conkyrc
+                            cp $HOME/repo/linux_stuff/config-files/conky/binary-clock $HOME/.conkyrc
                         ;;
                         "indicator")
-                            cp ~/repo/linux_stuff/config-files/conky/workspace-indicator ~/.conkyrc
+                            cp $HOME/repo/linux_stuff/config-files/conky/workspace-indicator $HOME/.conkyrc
                         ;;
                     esac
                 ;;
@@ -354,8 +357,9 @@ config_packages()
                 moc)
                     pacman -S moc --noconfirm
                     mkdir -p $HOME/.moc
+                    mkdir -p $HOME/.moc/themes
                     cp $HOME/repo/linux_stuff/config-files/moc/arch-config $HOME/.moc/config
-                    cp $HOME/repo/linux_stuff/config-files/moc/cyanic_theme /usr/share/moc/themes/
+                    cp $HOME/repo/linux_stuff/config-files/moc/solarized $HOME/.moc/themes/
                 ;;
                 mpv)
                     pacman -S mpv --noconfirm
@@ -421,16 +425,16 @@ config_packages()
                 rtorrent)
                     pacman -S rtorrent --noconfirm
                     mkdir -p $HOME/.rtorrent
-                    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
+                    cp $HOME/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc $HOME/.rtorrent.rc
                 ;;
                 rxvt)
                     pacman -S rxvt tamsyn-font  --noconfirm
                     cp $HOME/repo/linux_stuff/config-files/rxvt/hide.Xresources $HOME/.Xresources
-                    xrdb -merge ~/.Xresources 
+                    xrdb -merge $HOME/.Xresources 
                 ;;
                 uzbl)
                     pacman -S uzbl-browser --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
+                    cp $HOME/repo/linux_stuff/config-files/uzbl/config $HOME/.config/uzbl/config
                     cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
                 ;;
                 virtualbox)
@@ -481,61 +485,61 @@ config_packages()
                     pacman -S vim-minimal curl ctags ttf-inconsolata 
 
                     # Making dirs
-                    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+                    mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
 
                     # Pathogen
-                    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
                     # Supertab
                     git clone git://github.com/ervandew/supertab.git
 
                     # Vim-airline
-                    cd ~/.vim/bundle && \
-                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                    cd $HOME/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
 
                     # Syntastic
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/syntastic.git
 
                     # Nerdtree
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/nerdtree.git
 
                     # Taglist
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/vim-scripts/taglist.vim.git
 
                     # Git-gutter
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/airblade/vim-gitgutter.git
 
                     # Auto-pairs
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/jiangmiao/auto-pairs.git
 
                     # Neosnippet
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
                     cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
                     # Single-compile
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/xuhdev/SingleCompile.git
 
                     # Vim-commentary
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # Copying solarized theme
                     cp $HOME/repo/linux_stuff/config-files/vim/solarized.vim $HOME/.vim/colors/
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
+                    cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
                     
                 ;;
                 *vim*)
@@ -560,59 +564,59 @@ config_packages()
                     pacman -S vim cmake curl ctags ttf-inconsolata 
 
                     # Making dirs
-                    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+                    mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
 
                     # Pathogen
-                    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
                     # Supertab
                     git clone git://github.com/ervandew/supertab.git
 
                     # Vim-airline
-                    cd ~/.vim/bundle && \
-                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                    cd $HOME/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
 
                     # Syntastic
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/syntastic.git
 
                     # Nerdtree
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/nerdtree.git
 
                     # Git-gutter
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/airblade/vim-gitgutter.git
 
                     # Taglist
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/vim-scripts/taglist.vim.git
 
                     # Auto-pairs
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/jiangmiao/auto-pairs.git
 
                     # Neosnippet
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
                     cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
                     # Single-compile
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/xuhdev/SingleCompile.git
 
                     # Vim-commentary
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # YouCompleteMe
                     pacman -S cmake
-                    cd ~/.vim/bundle/
+                    cd $HOME/.vim/bundle/
                     git clone https://github.com/Valloric/YouCompleteMe.git
                     cd YouCompleteMe/
                     git submodule update --init --recursive
@@ -622,7 +626,7 @@ config_packages()
                     cp $HOME/repo/linux_stuff/config-files/vim/solarized.vim $HOME/.vim/colors/
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
+                    cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
                 ;;
             esac
         done < results
@@ -713,6 +717,8 @@ config_pc()
     done < results
 
     fi 
+
+    chown $USER $HOME -R
 
     whiptail --title "Arch config" --msgbox "System configured." 20 70
     exit 0
