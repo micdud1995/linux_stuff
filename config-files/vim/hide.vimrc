@@ -102,7 +102,8 @@ set splitright
 " colorscheme gruvbox
 " colorscheme railscasts
 " colorscheme sorcerer
-colorscheme jellybeans
+" colorscheme jellybeans
+colorscheme solarized
 "==================================================
 
 "==================================================
