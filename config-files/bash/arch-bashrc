@@ -1,7 +1,7 @@
 #=================================================================
 # BASIC
 export EDITOR=vim
-export BROWSER=dwb
+export BROWSER=uzbl
 export TERM="xterm-256color"
 #=================================================================
 
@@ -130,11 +130,6 @@ shopt -s cmdhist
 # Extended pattern
 shopt -s extglob
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -212,30 +207,22 @@ fi
 	alias v="vim"
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
     alias x="chmod +x"
-    alias hist="cat ~/.zshr_history | grep"
+    alias hist="cat ~/.bash_history | grep"
     alias y="youtube-dl -f 18"
     alias yhd="youtube-dl -f 22"
     alias pyt="vim ~/.vim/bundle/vim-snippets/snippets/python.snippets"
     # up wired connection
     alias eth="sudo dhclient eth0"
     alias izak="livestreamer -p mpv twitch.tv/izakooo "
-    alias nvidia="livestreamer -p mpv http://twitch.tv/nvidia_pl "
     alias pasha="livestreamer -p mpv twitch.tv/pashabiceps "
-    alias zdupy="livestreamer -p mpv twitch.tv/zdupy"
-    alias taz="livestreamer -p mpv twitch.tv/g5taz"
-    alias neo="livestreamer -p mpv twitch.tv/neog5"
-    alias esl="livestreamer -p mpv twitch.tv/esl_csgo"
-    alias eslpl="livestreamer -p mpv twitch.tv/esl_csgo_pl"
-    alias faceit="livestreamer -p mpv twitch.tv/faceittv"
     alias cfg="vim /home/michal/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/autoexec.cfg"
     alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
     alias d="dict -d fd-eng-pol"
     alias w="wicd-curses"
-    alias s="screenfetch"
+    alias a="archey3"
     alias cal="cal -w"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
     alias sus="systemctl suspend"
 #=================================================================
-screenfetch
