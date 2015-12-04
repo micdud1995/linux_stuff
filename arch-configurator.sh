@@ -279,6 +279,7 @@ config_packages()
                     pacman -S cmus --noconfirm
                     mkdir -p $HOME/.cmus
                     cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
+                    cp $HOME/repo/linux_stuff/config-files/cmus/solarized.theme $HOME/.cmus/
                 ;;
                 conky)
                     pacman -S conky --noconfirm
@@ -467,7 +468,6 @@ config_packages()
                     #	Syntastic
                     #	Tagbar / Taglist
                     #	GitGutter
-                    #   CtrlP
                     # 	Vim-airline
                     #	Auto-pairs
                     # 	Supertab
@@ -475,17 +475,35 @@ config_packages()
                     #   indentLine
                     #   SingleCompile
                     #   Vim-commentary
-                    #	Gruvbox theme
+                    #	Solarized theme
                     #==============================================================
 
-                    sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
-                    sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans vim-ctrlp
+                    pacman -S vim-minimal curl ctags ttf-inconsolata 
 
                     # Making dirs
                     mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
 
                     # Pathogen
                     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+                    # Supertab
+                    git clone git://github.com/ervandew/supertab.git
+
+                    # Vim-airline
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+
+                    # Syntastic
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/syntastic.git
+
+                    # Nerdtree
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/nerdtree.git
+
+                    # Taglist
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/vim-scripts/taglist.vim.git
 
                     # Git-gutter
                     cd ~/.vim/bundle && \
@@ -513,6 +531,9 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
+                    # Copying solarized theme
+                    cp $HOME/repo/linux_stuff/config-files/vim/solarized.vim $HOME/.vim/colors/
+
                     # Copying .vimrc
                     cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
                     
@@ -525,7 +546,6 @@ config_packages()
                     #	Syntastic
                     #	Tagbar / Taglist
                     #	GitGutter
-                    #   CtrlP
                     # 	Vim-airline
                     #	Auto-pairs
                     # 	Supertab
@@ -534,11 +554,10 @@ config_packages()
                     #   SingleCompile
                     #   Vim-commentary
                     #   YouCompleteMe
-                    #	Gruvbox theme
+                    #	Solarized theme
                     #==============================================================
 
-                    sudo pacman -S vim cmake curl ctags ttf-inconsolata 
-                    sudo pacman -S vim-nerdtree vim-syntastic vim-taglist vim-airline vim-supertab vim-jellybeans vim-ctrlp
+                    pacman -S vim cmake curl ctags ttf-inconsolata 
 
                     # Making dirs
                     mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
@@ -546,9 +565,28 @@ config_packages()
                     # Pathogen
                     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+                    # Supertab
+                    git clone git://github.com/ervandew/supertab.git
+
+                    # Vim-airline
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+
+                    # Syntastic
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/syntastic.git
+
+                    # Nerdtree
+                    cd ~/.vim/bundle && \
+                    git clone https://github.com/scrooloose/nerdtree.git
+
                     # Git-gutter
                     cd ~/.vim/bundle && \
                     git clone git://github.com/airblade/vim-gitgutter.git
+
+                    # Taglist
+                    cd ~/.vim/bundle && \
+                    git clone git://github.com/vim-scripts/taglist.vim.git
 
                     # Auto-pairs
                     cd ~/.vim/bundle && \
@@ -573,12 +611,15 @@ config_packages()
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # YouCompleteMe
-                    sudo pacman -S cmake
+                    pacman -S cmake
                     cd ~/.vim/bundle/
                     git clone https://github.com/Valloric/YouCompleteMe.git
                     cd YouCompleteMe/
                     git submodule update --init --recursive
                     ./install.sh
+
+                    # Copying solarized theme
+                    cp $HOME/repo/linux_stuff/config-files/vim/solarized.vim $HOME/.vim/colors/
 
                     # Copying .vimrc
                     cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
