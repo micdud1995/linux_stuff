@@ -16,6 +16,7 @@ To run script:
     or
 	chmod +x arch-configurator.sh
 2) For Arch install depedencies: 
+
     sudo pacman -S libnewt
 3) Run it:
 
