@@ -67,28 +67,36 @@ config_pacman()
         "Do you want to edit pacman.conf?" 20 70) then
 	
         vim /etc/pacman.conf
+
+        pacman -Syu --noconfirm
+
     fi
 
-    if (whiptail --title "AUR repository" --yes-button "Yes" --no-button "No" --yesno \
+    if (whiptail --title "Pacman config" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to install yaourt?" 20 70) then
 
-        mkdir yaourt
-        cd yaourt
-        curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
-        tar zxvf package-query.tar.gz
-        cd package-query
-        makepkg -s
-        pacman -U package-query-1.5-2-x86_64.pkg.tar.xz
-        curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
-        tar zxvf yaourt.tar.gz
-        cd yaourt
-        makepkg -si
-        rm -dR ../yaourt
+        YAOURT_VER=$(whiptail --title  "Arch config" --menu "Select drivers:" 20 70 10 \
+        "64bit"                 "" \
+        "32bit"                  ""   3>&1 1>&2 2>&3)
 
-    fi
+        case "$YAOURT_VER" in
+            "64bit")
+                sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
+                sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+                sh -c "echo 'Server = http://repo.archlinux.fr/x86_64' >> /etc/pacman.conf"
+            ;;
+            "32bit")
+                sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
+                sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+                sh -c "echo 'Server = http://repo.archlinux.fr/i686' >> /etc/pacman.conf"
+            ;;
+        esac
 
     pacman -Syu --noconfirm
     pacman -S yaourt --noconfirm
+
+    fi
+
 
     config_gui
 }
@@ -202,7 +210,6 @@ config_packages()
         "calcurse"                      "Text-based organizer" OFF \
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
-        "dictd"                         "Offline dictionary" OFF \
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
         "firefox"                       "Web Browser" OFF \
@@ -295,38 +302,6 @@ config_packages()
                         ;;
                     esac
                 ;;
-                dictd)
-                    pacman -S dictd --noconfirm
-                    whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
-                    "eng-pol" "" OFF \
-                    "eng-deu" "" OFF \
-                    "eng-fra" "" OFF \
-                    "eng-rus" "" OFF \
-                    "eng-spa" "" off 2>results2
-
-                    while read choice2
-                    do
-                        case $choice2 in
-                                eng-pol)
-                                    pacman -S dict-freedict-eng-pol --noconfirm
-                                ;;
-                                eng-deu)
-                                    pacman -S dict-freedict-eng-deu --noconfirm
-                                ;;
-                                eng-fra) 
-                                    pacman -S dict-freedict-eng-fra --noconfirm
-                                ;;
-                                eng-rus) 
-                                    pacman -S dict-freedict-eng-rus --noconfirm
-                                ;;
-                                eng-spa) 
-                                    pacman -S dict-freedict-eng-spa --noconfirm
-                                ;;
-                                *)
-                                ;;
-                        esac
-                    done < results2
-                ;;
                 faenza-icon-theme)
                     pacman -S faenza-icon-theme --noconfirm
                 ;;
@@ -349,7 +324,7 @@ config_packages()
                     git config --global core.editor $edit
                 ;;
                 gummi)
-                    pacman -S gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc --noconfirm
+                    pacman -S gummi texlive-most --noconfirm
                 ;;
                 htop)
                     pacman -S htop --noconfirm
