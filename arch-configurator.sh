@@ -425,7 +425,7 @@ config_packages()
                 rtorrent)
                     pacman -S rtorrent --noconfirm
                     mkdir -p $HOME/.rtorrent
-                    cp $HOME/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc $HOME/.rtorrent.rc
+                    cp $HOME/repo/linux_stuff/config-files/rtorrent/hide.rtorrent-arch.rc $HOME/.rtorrent.rc
                 ;;
                 rxvt)
                     pacman -S rxvt tamsyn-font  --noconfirm
