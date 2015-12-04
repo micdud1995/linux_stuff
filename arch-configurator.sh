@@ -4,7 +4,7 @@
 # Title             arch-configurator.sh
 # Description       This script will config installed Arch GNU/Linux system 
 # Author            Michal Dudek 
-# Date              03-12-2015
+# Date              04-12-2015
 # Version           0.1
 # Notes             Run as a root
 # License           GNU General Public License v3.0
@@ -92,8 +92,8 @@ config_pacman()
             ;;
         esac
 
-    pacman -Syu --noconfirm
-    pacman -S yaourt --noconfirm
+        pacman -Syu --noconfirm
+        pacman -S yaourt --noconfirm
 
     fi
 
@@ -106,7 +106,7 @@ config_gui()
     if (whiptail --title "Arch config" --yes-button "Yes" --no-button "No" --yesno \
         "Install graphics drivers now? \nDrivers for Intel, and Virtual Box guests" 20 70) then
 
-         pacman -S xorg-server xorg-server-utils mesa mesa-libgl xorg-xinit xterm
+         pacman -S xorg-server xorg-server-utils mesa mesa-libgl xorg-xinit rxvt
 
         DRIVERS=$(whiptail --title  "Arch config" --menu "Select drivers:" 20 70 10 \
         "intel"                 "" \
@@ -154,7 +154,7 @@ config_gui()
 
         case "$DE" in
             "i3")
-                pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font feh weechat xterm ranger cmus --noconfirm
+                pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font feh weechat rxvt ranger cmus --noconfirm
                 yaourt -S ttf-font-awesome
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/.config/i3status
@@ -222,7 +222,6 @@ config_packages()
         "links"                         "Web Browser" OFF \
         "livestreamer"                  "Stream Tool" OFF \
         "lxrandr"                       "Output manager" OFF \
-        "lxterminal"                    "Light terminal" OFF \
         "mc"                            "Midnight Commander" OFF \
         "moc"                           "Music Player" OFF \
         "mpv"                           "Video Player" OFF \
@@ -235,6 +234,7 @@ config_packages()
         "pinta"                         "Image Editor" OFF \
         "ranger"                        "File manager" OFF \
         "rtorrent"                      "Torrent Client" OFF \
+        "rxvt"                          "Terminal emulator" OFF \
         "scrot"                         "Screenshots" OFF \
         "tor"                           "Communication System" OFF \
         "tree"                          "Tree of dirs" OFF \
@@ -248,7 +248,6 @@ config_packages()
         "weechat"                       "IRC Client" OFF \
         "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
-        "xterm"                         "Terminal emulator" OFF \
         "xorg" 	  	                    "X Server" OFF \
         "youtube-dl"                    "YT Downloader" OFF \
         "zathura"                       "PDF Viewer" OFF \
@@ -344,9 +343,6 @@ config_packages()
                 lxrandr)
                     pacman -S lxrandr --noconfirm
                 ;;
-                lxterminal)
-                    pacman -S lxterminal --noconfirm
-                ;;
                 mc)
                     pacman -S mc --noconfirm
                     mkdir -p $HOME/.config/mc
@@ -426,6 +422,11 @@ config_packages()
                     mkdir -p $HOME/.rtorrent
                     cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
                 ;;
+                rxvt)
+                    pacman -S rxvt tamsyn-font  --noconfirm
+                    cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+                    xrdb -merge ~/.Xresources 
+                ;;
                 uzbl)
                     pacman -S uzbl-browser --noconfirm
                     cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
@@ -447,11 +448,6 @@ config_packages()
                 ;;
                 xorg)
                     pacman -S xorg-server xorg-xinit --noconfirm
-                ;;
-                xterm)
-                    pacman -S xterm ttf-inconsolata tamsyn-font  --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
-                    xrdb -merge ~/.Xresources 
                 ;;
                 zathura)
                     pacman -S zathura --noconfirm
