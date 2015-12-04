@@ -424,7 +424,7 @@ config_packages()
                 ;;
                 rxvt)
                     pacman -S rxvt tamsyn-font  --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+                    cp $HOME/repo/linux_stuff/config-files/rxvt/hide.Xresources $HOME/.Xresources
                     xrdb -merge ~/.Xresources 
                 ;;
                 uzbl)
