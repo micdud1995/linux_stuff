@@ -86,7 +86,8 @@ bar
 
 # Start a terminal
 # bindsym $mod+x exec lxterminal
-bindsym $mod+x exec xterm
+# bindsym $mod+x exec xterm
+bindsym $mod+x exec rxvt
 
 #Assings
 assign [class="^Dwb$"] → $tag2
