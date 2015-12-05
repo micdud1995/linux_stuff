@@ -244,6 +244,7 @@ config_packages()
         "ufw"                           "Firewall" OFF \
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
+        "vifm"                          "File Manager" OFF \
         "vim-minimal" 	  	            "Text Editor" OFF \
         "vim" 	  	                    "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
@@ -436,6 +437,13 @@ config_packages()
                     pacman -S uzbl-browser --noconfirm
                     cp $HOME/repo/linux_stuff/config-files/uzbl/config $HOME/.config/uzbl/config
                     cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
+                ;;
+                vifm)
+                    pacman -S vifm --noconfirm
+                    mkdir -p $HOME/.vifm
+                    mkdir -p $HOME/.vifm/colors
+                    cp $HOME/repo/linux_stuff/config-files/vifm/vifmrc $HOME/.vifm/
+                    cp $HOME/repo/linux_stuff/config-files/vifm/solarized.vifm $HOME/.vifm/colors/
                 ;;
                 virtualbox)
                     pacman -S virtualbox virtualbox-host-modules virtualbox-guest-iso --noconfirm
