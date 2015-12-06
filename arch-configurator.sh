@@ -157,7 +157,7 @@ config_gui()
 
         case "$DE" in
             "i3")
-                pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font alsa-utils feh rxvt-unicode --noconfirm
+                pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font alsa-utils feh rxvt-unicode udiskie --noconfirm
                 yaourt -S ttf-font-awesome xcalib --noconfirm
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/.config/i3status
@@ -366,8 +366,9 @@ config_packages()
                     pacman -S mpv --noconfirm
                 ;;
                 mutt)
-                    pacman -S mutt --noconfirm
+                    pacman -S mutt abook --noconfirm
                     cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+                    touch $HOME/.mutt-alias
                 ;;
                 ncurses)
                     pacman -S ncurses --noconfirm
