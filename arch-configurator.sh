@@ -302,6 +302,7 @@ config_packages()
                             cp $HOME/repo/linux_stuff/config-files/conky/binary-clock $HOME/.conkyrc
                         ;;
                         "indicator")
+                            pacman -S bc --noconfirm
                             cp $HOME/repo/linux_stuff/config-files/conky/workspace-indicator $HOME/.conkyrc
                         ;;
                     esac
