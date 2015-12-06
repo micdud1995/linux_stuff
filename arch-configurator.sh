@@ -109,7 +109,7 @@ config_gui()
     if (whiptail --title "Arch config" --yes-button "Yes" --no-button "No" --yesno \
         "Install graphics drivers now? \nDrivers for Intel, and Virtual Box guests" 20 70) then
 
-         pacman -S xorg-server xorg-server-utils mesa mesa-libgl xorg-xinit rxvt
+         pacman -S xorg-server xorg-server-utils mesa mesa-libgl xorg-xinit
 
         DRIVERS=$(whiptail --title  "Arch config" --menu "Select drivers:" 20 70 10 \
         "intel"                 "" \
@@ -157,7 +157,7 @@ config_gui()
 
         case "$DE" in
             "i3")
-                pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font feh weechat rxvt ranger cmus --noconfirm
+                pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font alsa-utils feh rxvt-unicode --noconfirm
                 yaourt -S ttf-font-awesome xcalib --noconfirm
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/.config/i3status
@@ -237,7 +237,7 @@ config_packages()
         "pinta"                         "Image Editor" OFF \
         "ranger"                        "File manager" OFF \
         "rtorrent"                      "Torrent Client" OFF \
-        "rxvt"                          "Terminal emulator" OFF \
+        "rxvt-unicode"                  "Terminal emulator" OFF \
         "scrot"                         "Screenshots" OFF \
         "tor"                           "Communication System" OFF \
         "tree"                          "Tree of dirs" OFF \
@@ -428,8 +428,8 @@ config_packages()
                     mkdir -p $HOME/.rtorrent
                     cp $HOME/repo/linux_stuff/config-files/rtorrent/hide.rtorrent-arch.rc $HOME/.rtorrent.rc
                 ;;
-                rxvt)
-                    pacman -S rxvt tamsyn-font  --noconfirm
+                rxvt-unicode)
+                    pacman -S rxvt-unicode --noconfirm
                     cp $HOME/repo/linux_stuff/config-files/rxvt/hide.Xresources $HOME/.Xresources
                     xrdb -merge $HOME/.Xresources 
                 ;;
