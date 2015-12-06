@@ -1,16 +1,12 @@
-! for update, run:
-! xrdb -merge ~/.Xresources
-
-Rxvt.scrollBar:             false
-Rxvt.saveLines:             256
-Rxvt.internalBorder:        0
-Rxvt.externalBorder:        0
-Rxvt.highlightSelection:    true
-Rxvt.loginShell:            true
-Rxvt.termName:              xterm-256color
-Rxvt.letterSpace:           -1
-Rxvt.font:                  xft:Tamsyn:Bold:size=9
-Rxvt.boldFont:              xft:Tamsyn:Bold:size=9
+URxvt.scrollBar:             false
+URxvt.saveLines:             256
+URxvt.internalBorder:        0
+URxvt.externalBorder:        0
+URxvt.highlightSelection:    true
+URxvt.loginShell:            true
+URxvt.termName:              xterm-256color
+URxvt.letterSpace:           -1
+URxvt*font: 				xft:Inconsolata:pixelsize=13
 
 Xft.dpi:                    96
 Xft.antialias:              true
@@ -58,3 +54,5 @@ Xft.hintstyle:              hintfull
 !! white dark/light
 *color7:                #eee8d5
 *color15:               #fdf6e3
+
+! xrdb -merge ~/.Xresources
