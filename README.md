@@ -20,9 +20,10 @@ To run script:
     sudo pacman -S libnewt
 3) Run it:
 
+for Debian as a root:
 	sudo ./debian-configurator.sh
-    or
-	sudo ./arch-configurator.sh
+or for Arch as a user:
+	./arch-configurator.sh
 
 ➤ program layout:
 =====================
