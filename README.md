@@ -22,6 +22,7 @@ To run script:
 
     for Debian as a root:
 	sudo ./debian-configurator.sh
+
     or for Arch as a user:
 	./arch-configurator.sh
 
