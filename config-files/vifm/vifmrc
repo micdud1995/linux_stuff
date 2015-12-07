@@ -301,8 +301,8 @@ filextype *.pro qtcreator %f &
 
 " Directories
 filextype */
-        \ {View in thunar}
-        \ Thunar %f &,
+        \ {View in pcmanfm}
+        \ Pcmanfm %f &,
 fileviewer .*/,*/ tree %f
 
 " Syntax highlighting in preview
