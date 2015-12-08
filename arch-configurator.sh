@@ -246,6 +246,7 @@ config_packages()
         "weechat"                       "IRC Client" OFF \
         "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
+        "xf86-input"                    "Touchpad driver" OFF \
         "xorg" 	  	                    "X Server" OFF \
         "youtube-dl"                    "YT Downloader" OFF \
         "zathura"                       "PDF Viewer" OFF \
@@ -454,6 +455,9 @@ config_packages()
                 ;;
                 xcalib)
                     yaourt -S xcalib --noconfirm
+                ;;
+                xf86-input)
+                    sudo pacman -S xf86-input-synaptics --noconfirm
                 ;;
                 xorg)
                     sudo pacman -S xorg-server xorg-xinit --noconfirm
@@ -683,6 +687,7 @@ config_pc()
                 sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
             ;;
             Touchpad)
+                sudo pacman -S xf86-input-synaptics --noconfirm
                 sudo mkdir -p /etc/X11/xorg.conf.d
                 sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
             ;;
