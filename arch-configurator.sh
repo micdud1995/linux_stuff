@@ -225,6 +225,7 @@ config_packages()
         "ncurses"                       "ncurses library" OFF \
         "nethack"                       "Roguelike game" OFF \
         "newsbeuter"                    "RSS feed reader" OFF \
+        "nmap"                          "Network Mapper" OFF \
         "openssh"                       "Secure Shell" OFF \
         "pavucontrol"                   "Sound output" OFF \
         "pinta"                         "Image Editor" OFF \
@@ -377,6 +378,9 @@ config_packages()
                     mkdir -p $HOME/.config/newsbeuter
                     cp $HOME/repo/linux_stuff/config-files/newsbeuter/arch-urls $HOME/.config/newsbeuter/urls
                     cp $HOME/repo/linux_stuff/config-files/newsbeuter/arch-config $HOME/.config/newsbeuter/config
+                ;;
+                nmap)
+                    sudo pacman -S nmap --noconfirm
                 ;;
                 unpacking)
                     sudo pacman -S p7zip unrar unzip zip --noconfirm
