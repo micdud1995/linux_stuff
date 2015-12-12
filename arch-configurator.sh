@@ -467,7 +467,7 @@ config_packages()
                     sudo pacman -S xorg-server xorg-xinit --noconfirm
                 ;;
                 zathura)
-                    sudo pacman -S zathura --noconfirm
+                    sudo pacman -S zathura zathura-pdf-poppler --noconfirm
                 ;;
                 zsh)
                     SHELL="ZSH"
