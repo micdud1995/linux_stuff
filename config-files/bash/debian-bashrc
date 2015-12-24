@@ -230,5 +230,4 @@ fi
     alias off="systemctl poweroff"
     alias sus="systemctl suspend"
 #=================================================================
-screenfetch
-eval $(thefuck --alias)
+#screenfetch
