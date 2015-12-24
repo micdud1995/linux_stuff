@@ -3,6 +3,7 @@
 #==============================================================================
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
+#                   in version 8.x or Raspbian
 # Author            Michal Dudek 
 # Date              14-11-2015
 # Version           2.2
@@ -36,15 +37,15 @@ info()
 select_system() 
 {
 	OS=$(whiptail --nocancel --title "Select OS" --menu "Select your OS" 20 70 10 \
-	"Debian_8" "" 3>&1 1>&2 2>&3)
+	"Debian"    ""  \
+    "Raspbian"  ""  3>&1 1>&2 2>&3)
 
     case "$OS" in
-        "Debian_8")
+        "Debian")
             repo_dirs
         ;;
-        "*")
-            whiptail --title "Debian config" --msgbox "Wrong OS" 20 70
-            main_menu
+        "Raspbian")
+            raspbian_config
         ;;
     esac
 }
@@ -53,10 +54,12 @@ repo_dirs()
 {
     if [[ ! -d $HOME/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
-            "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
+            "Do you want to clone repo?\nThere are important files for this program\n\n \
+            Repository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
             mkdir -p $HOME/repo
             mkdir -p $HOME/tmp
+
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
                 cd $HOME/repo
@@ -74,7 +77,8 @@ repo_dirs()
 config_sources() 
 {
     if (whiptail --title "Updating sources" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\nContrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
+        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\n \
+        Contrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
 
         VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select version of repositories" 20 70 10 \
         "Stable"    "" \
@@ -240,6 +244,7 @@ config_packages()
         "ufw"                           "Firewall" OFF \
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
+        "vifm"                          "File Manager" OFF \
         "vim-clear" 	  	            "Text Editor" OFF \
         "vim-nox" 	  	                "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
@@ -500,6 +505,13 @@ config_packages()
                     aptitude install uzbl -y
                     cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
                     cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
+                ;;
+                vifm)
+                    aptitude install vifm -y
+                    mkdir -p $HOME/.vifm
+                    mkdir -p $HOME/.vifm/colors
+                    cp $HOME/repo/linux_stuff/config-files/vifm/vifmrc $HOME/.vifm/
+                    cp $HOME/repo/linux_stuff/config-files/vifm/solarized.vifm $HOME/.vifm/colors/
                 ;;
                 virtualbox)
                     aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
@@ -828,6 +840,40 @@ config_pc()
 
     whiptail --title "Debian config" --msgbox "System configured." 20 70
     exit 0
+}
+
+raspbian_config()
+{
+    if (whiptail --title "Raspbian config" --yes-button "Yes" --no-button "No" --yesno \
+        "Launch fast Raspbian config?\n\n\n \
+        \nTo install: git, weechat, htop, links, vim, vifm, mutt, weechat, unpacking packages \
+        \nTo config: bash, git, weechat" 20 70) then
+
+        aptitude install colordiff bash git htop links p7zip unrar unzip zip vim vifm mutt -y
+
+        # BASH
+        cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
+        chsh -s /bin/bash
+
+        # GIT
+        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
+        git config --global user.name "$name"
+        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
+        git config --global user.email $mail
+        edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
+        git config --global core.editor $edit
+
+        #WEECHAT
+        mkdir -p $HOME/.weechat
+        cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
+        rm -f $HOME/.weechat/weechat.log
+        ln -s /dev/null weechat.log
+
+        #MUTT
+        cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+    fi
+
+    main_menu
 }
 
 main_menu() 
