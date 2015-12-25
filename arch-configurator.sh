@@ -166,8 +166,8 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
                 nano $HOME/.xinitrc
             ;;
-            "lxde-core")
-                sudo pacman -S lxde-core lxpanel lxappearance lxappearance-obconf lxrandr faenza-icon-theme --noconfirm
+            "lxde-common")
+                sudo pacman -S lxde-common lxpanel lxappearance lxappearance-obconf lxrandr faenza-icon-theme --noconfirm
                 cp $HOME/repo/linux_stuff/config-files/lxde/lxde-rc.xml $HOME/.config/openbox/
                 cp $HOME/repo/linux_stuff/config-files/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
                 sudo cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
