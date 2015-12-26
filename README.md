@@ -12,8 +12,9 @@ To run script:
 
 * in Debian:
     
-    1) Config visudo
+    1) Edit sudoers file with visudo command
 
+        visudo
 
     2) Make script executable
 
@@ -22,6 +23,8 @@ To run script:
     3) Run it with sudo
 
         sudo ./debian-configurator.sh
+
+=====================
 
 * in Arch:
     
