@@ -7,7 +7,7 @@
 # Author            Michal Dudek 
 # Date              14-11-2015
 # Version           2.2
-# Notes             Run as a root
+# Notes             Run with sudo only
 # License           GNU General Public License v3.0
 #==============================================================================
 
@@ -26,7 +26,7 @@ info()
 {
     if [[ "$UID" != "$ROOT_UID"  ]]; then
         whiptail --title "Debian config" --msgbox \
-        "Please run this script as a root" 20 70
+        "Please run this script with sudo only" 20 70
         exit 126
     else
         HOME=$(whiptail --nocancel --inputbox "Type your home folder: " 20 70 "/home/michal" 3>&1 1>&2 2>&3)
