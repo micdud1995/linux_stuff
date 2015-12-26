@@ -77,8 +77,8 @@ repo_dirs()
 config_sources() 
 {
     if (whiptail --title "Updating sources" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\n \
-        Contrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
+        "Do you want to update sources.list file?\n\nYou can choose between different versions of sources.\n\n
+        \n\nContrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
 
         VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select version of repositories" 20 70 10 \
         "Stable"                    ""  \
@@ -265,8 +265,8 @@ config_packages()
         "weechat"                       "IRC Client" OFF \
         "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
-        "xterm"                         "Terminal emulator" OFF \
         "xorg" 	  	                    "X Server" OFF \
+        "xterm"                         "Terminal Emulator" OFF \
         "xserver-xorg-input-synaptics"  "Touchpad" OFF \
         "youtube-dl"                    "YT Downloader" OFF \
         "zathura"                       "PDF Viewer" OFF \
@@ -549,13 +549,13 @@ config_packages()
                 xorg)
                     aptitude install xorg -y
                 ;;
-                xserver-xorg-input-synaptics)
-                    aptitude install xserver-xorg-input-synaptics -y
-                ;;
                 xterm)
                     aptitude install xterm fonts-inconsolata -y
                     cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
                     xrdb -merge ~/.Xresources 
+                ;;
+                xserver-xorg-input-synaptics)
+                    aptitude install xserver-xorg-input-synaptics -y
                 ;;
                 zathura)
                     aptitude install zathura -y
