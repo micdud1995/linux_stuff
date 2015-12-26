@@ -31,7 +31,7 @@ Running
 
         chmod +x debian-configurator.sh
 
-    1) Install depedencies
+    2) Install depedencies
 
         pacman -S libnewt
 
