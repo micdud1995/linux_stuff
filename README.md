@@ -29,10 +29,3 @@ To run script:
 ➤ program layout:
 =====================
 ![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-program.png)
-➤ i3 window manager with Arch:
-=====================
-![i3 wm autostart layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-i3-arch.png)
-➤ vim config:
-=====================
-![vim config](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-vim.png)
-
