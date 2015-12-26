@@ -85,9 +85,9 @@ bar
 # Bindings
 
 # Start a terminal
-bindsym $mod+x exec urxvt
-bindsym $mod+m exec urxvt -e mocp
-bindsym $mod+v exec urxvt -e vifm
+bindsym $mod+x exec xterm
+bindsym $mod+m exec xterm -e mocp
+bindsym $mod+v exec xterm -e vifm
 
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
@@ -152,9 +152,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+g split h
+bindsym $mod+p split h
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+o split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
