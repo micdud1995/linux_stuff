@@ -8,7 +8,6 @@ Vim, file managers, shells and many others.
 Running
 =====================
 
-To run script:
 
 * in Debian:
     
