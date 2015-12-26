@@ -1,30 +1,44 @@
-Description
+➤ Description
 =====================
 
 Config files with simple scripts that unpack/install/config all that stuff:
 Vim, file managers, shells and many others.
 
 
-Running
+➤ Running
 =====================
 
-To run script:
 
-1) Make script executable
+* in Debian:
+    
+    1) Edit sudoers file with visudo command
 
-	chmod +x debian-configurator.sh
-    or
-	chmod +x arch-configurator.sh
-2) For Arch install depedencies: 
+        visudo
 
-    sudo pacman -S libnewt
-3) Run it:
+    2) Make script executable
 
-    for Debian as a root:
-	sudo ./debian-configurator.sh
+        chmod +x debian-configurator.sh
 
-    or for Arch as a user:
-	./arch-configurator.sh
+    3) Run it with sudo
+
+        sudo ./debian-configurator.sh
+
+=====================
+
+* in Arch:
+    
+    1) Make script executable
+
+        chmod +x debian-configurator.sh
+
+    2) Install depedencies
+
+        pacman -S libnewt
+
+    3) Run it as a user
+
+        ./arch-configurator.sh
+    
 
 ➤ program layout:
 =====================
