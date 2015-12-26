@@ -34,7 +34,7 @@ exec amixer sset Master mute
 
 # Wallpaper restoring
 #exec --no-startup-id nitrogen --restore
-exec feh --bg-scale /home/michal/Obrazy/wallpaper.jpg
+exec feh --bg-scale /home/michal/Pictures/wallpaper.jpg
 
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
@@ -73,8 +73,8 @@ bar
     }
     
 	# i3bar position
-    position top
-	# position bottom
+    # position top
+	position bottom
 
 	status_command i3status
     font pango:Amble regular 8, Ionicons, Tamsyn 8
@@ -88,6 +88,10 @@ bar
 bindsym $mod+x exec urxvt
 bindsym $mod+m exec urxvt -e mocp
 bindsym $mod+v exec urxvt -e vifm
+
+# Change keyboard layout
+bindsym $mod+F7 exec setxkbmap pl
+bindsym $mod+F8 exec setxkbmap ru
 
 #Assings
 assign [class="^Dwb$"] → $tag2
