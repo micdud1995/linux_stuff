@@ -81,12 +81,12 @@ config_sources()
         Contrib software requires non-free depedencies.\nNon-free section contains non-free software." 20 70) then
 
         VERSION=$(whiptail --nocancel --title "Edit sources.list" --menu "Select version of repositories" 20 70 10 \
-        "Stable"    "" \
-        "Testing"   "" \
-        "Sid"       "" \
-        "Stable contrib non-free"    "" \
-        "Testing contrib non-free"   "" \
-        "Sid contrib non-free"       "" 3>&1 1>&2 2>&3)
+        "Stable"                    ""  \
+        "Testing"                   ""  \
+        "Sid"                       ""  \
+        "Stable contrib non-free"   ""  \
+        "Testing contrib non-free"  ""  \
+        "Sid contrib non-free"      ""  3>&1 1>&2 2>&3)
 
         case "$VERSION" in
             "Stable")
@@ -161,7 +161,7 @@ config_gui()
             "i3")
                 aptitude install xorg xinit i3 dmenu fonts-inconsolata fonts-font-awesome feh weechat xterm ranger moc -y
                 mkdir -p $HOME/.i3
-                mkdir -p $HOME/Obrazy
+                mkdir -p $HOME/Pictures
                 cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf ~/.i3status.conf
                 cp $HOME/repo/linux_stuff/config-files/i3/debian-config ~/.i3/config
                 # cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
@@ -169,8 +169,21 @@ config_gui()
                 # chmod +x $HOME/.i3/load_workspaces.sh
 
                 cp -R $HOME/repo/linux_stuff/config-files/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
-                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-deb.png ~/Obrazy/i3lock-deb.png
+                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-deb.png $HOME/Pictures/i3lock-deb.png
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
+
+                WALLPAPER=$(whiptail --title "Debian config" --menu "Select your wallpaper" 20 70 10 \
+                    "Black Debian"  "" \
+                    "Grey Space"    "" 3>&1 1>&2 2>&3)
+
+                case "$WALLPAPER" in
+                    "Black Debian")
+                        cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Pictures/wallpaper.jpg
+                    ;;
+                    "Grey Space")
+                        cp $HOME/repo/linux_stuff/config-files/wallpapers/space.jpg $HOME/Pictures/wallpaper.jpg
+                    ;;
+                esac
             ;;
             "lxde-core")
                 aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
@@ -745,9 +758,9 @@ config_scripts()
         "Do you want to copy useful scripts?" 20 70) then
 
         (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
-        "m" "" OFF \
-        "um" "" OFF \
-        "live-usb" "" OFF 2>results)
+        "m"         "" OFF \
+        "um"        "" OFF \
+        "live-usb"  "" OFF 2>results)
 
         while read choice
         do
@@ -846,10 +859,10 @@ raspbian_config()
 {
     if (whiptail --title "Raspbian config" --yes-button "Yes" --no-button "No" --yesno \
         "Launch fast Raspbian config?\n\n\n \
-        \nTo install: git, weechat, htop, links, vim, vifm, mutt, weechat, unpacking packages \
+        \nTo install: git, htop, links, vim, vifm, mutt, weechat, unpacking packages \
         \nTo config: bash, git, weechat" 20 70) then
 
-        aptitude install colordiff bash git htop links p7zip unrar unzip zip vim vifm mutt -y
+        aptitude install colordiff bash git htop links p7zip unrar-free unzip zip vim-nox vifm mutt -y
 
         # BASH
         cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
