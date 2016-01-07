@@ -1,16 +1,23 @@
 # =======================================================
-set $tag1 "1: Desktop"
-# set $tag1 "1"
-set $tag2 "2: Web"
-set $tag3 "3: Code"
-set $tag4 "4: Terminal"
-set $tag5 "5: IRC"
-set $tag6 "6: Other"
-set $tag7 "7: Virtual"
-set $tag8 "8: Settings"
-set $tag9 "9: tmp"
+# set $tag1 "1: Desktop"
+# set $tag2 "2: Web"
+# set $tag3 "3: Code"
+# set $tag4 "4: Terminal"
+# set $tag5 "5: IRC"
+# set $tag6 "6: Other"
+# set $tag7 "7: Virtual"
+# set $tag8 "8: Settings"
+# set $tag9 "9: tmp"
+
+set $tag1 "1: база"
+set $tag2 "2: сеть"
+set $tag3 "3: код"
+set $tag4 "4: терминал"
+set $tag5 "5: чат"
+set $tag6 "6: эмуляция"
+set $tag7 "7: настройки"
 # =======================================================
-setxkbmap pl
+
 # =======================================================
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
@@ -77,7 +84,8 @@ bar
 	position bottom
 
 	status_command i3status
-    font pango:Amble regular 8, Ionicons, Tamsyn 8
+    # font pango:Amble regular 9, Ionicons, Tamsyn 9
+    font pango:UniCyr-sans 8
 }
 # =======================================================
 
@@ -92,6 +100,10 @@ bindsym $mod+v exec xterm -e vifm
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
 bindsym $mod+F8 exec setxkbmap ru
+
+for_window [class="XTerm" instance="xterm"] floating enable
+for_window [class="Virtualbox"] floating enable
+for_window [class="Pavucontrol"] floating enable, border normal
 
 #Assings
 assign [class="^Dwb$"] → $tag2
@@ -111,10 +123,6 @@ assign [class="^Steam$"] → $tag6
 for_window [class="^Steam$"] focus
 assign [class="^Virtualbox$"] → $tag7
 for_window [class="^Virtualbox$"] focus
-assign [class="^Pavucontrol$"] → $tag8
-for_window [class="^Pavucontrol$"] focus
-assign [class="^Lxrandr$"] → $tag8
-for_window [class="^Lxrandr$"] focus
 
 bindsym $mod+F5 exec amixer sset Master toggle
 # Kill focused window
