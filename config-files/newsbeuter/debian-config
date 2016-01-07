@@ -2,7 +2,7 @@
 always-display-description false
 auto-reload yes
 datetime-format "%b %d %R"
-download-path "$HOME/Pobrane/"
+download-path "$HOME/Downloads/"
 feed-sort-order title-dec
 max-downloads 4
 cleanup-on-quit no
@@ -28,13 +28,11 @@ macro y set browser "mpv %u"; open-in-browser ; set browser "firefox %u"
 
 # =================================================
 # Theme
-
-color background            color12     color8
-color listnormal            color12     color8
-color listnormal_unread     color49     color10     bold 
-color listfocus             color49      color10
-color listfocus_unread     color49     color10     bold reverse
-color info                  color10     color0      bold
-color article               color12     color8
-
+color background            color232     color232
+color listnormal            color2     color232
+color listnormal_unread     color196     color232     bold 
+color listfocus             color15      color232
+color listfocus_unread     color196     color232     bold reverse
+color info                  color10     color232      bold
+color article               color12     color232
 # =================================================
