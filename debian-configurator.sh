@@ -5,7 +5,7 @@
 # Description       This script will config installed Debian GNU/Linux system 
 #                   in version 8.x or Raspbian
 # Author            Michal Dudek 
-# Date              14-11-2015
+# Date              07-01-2016
 # Version           2.2
 # Notes             Run with sudo only
 # License           GNU General Public License v3.0
@@ -862,7 +862,7 @@ raspbian_config()
         \nTo install: git, htop, links, vim, vifm, mutt, weechat, unpacking packages \
         \nTo config: bash, git, weechat" 20 70) then
 
-        aptitude install colordiff bash git htop links p7zip unrar-free unzip zip vim-nox vifm mutt -y
+        aptitude install colordiff bash git htop links p7zip unrar-free unzip zip vim-nox vifm mutt weechat -y
 
         # BASH
         cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
