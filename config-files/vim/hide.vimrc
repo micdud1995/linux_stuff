@@ -137,16 +137,38 @@ endif
 " =================================================
 " Taglist
  " autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
-let Tlist_Use_Right_Window = 1
-let Tlist_Auto_Open = 1
-let TlistHighlightTag = 1
-map <F4> :TlistToggle<CR>
+" let Tlist_Use_Right_Window = 1
+" let Tlist_Auto_Open = 1
+" let TlistHighlightTag = 1
+" map <F4> :TlistToggle<CR>
 " =================================================
 
 " =================================================
 " Tagbar
 " Open Tagbar only with specific files
-" autocmd FileType c,h,cpp,java nested :TagbarOpen
+autocmd FileType c,h,cpp,java,sh nested :TagbarOpen
+map <F4> :TagbarToggle<CR>
+let g:tagbar_left = 0
+let g:tagbar_width = 25
+let g:tagbar_sort = 1
+let g:tagbar_indent = 1
+let g:tagbar_show_visibility = 1
+let g:tagbar_show_linenumbers = 0
+let g:tagbar_singleclick = 1
+let g:tagbar_foldlevel = 2
+let g:tagbar_iconchars = ['+', '-']
+let g:tagbar_autoshowtag = 1
+let g:tagbar_autopreview = 0
+highlight TagbarKind ctermfg=196
+highlight TagbarNestedKind ctermfg=196
+highlight TagbarScope ctermfg=196
+highlight TagbarType ctermfg=196
+highlight TagbarSignature ctermfg=196
+highlight TagbarFoldIcon ctermfg=196
+highlight TagbarHighlight ctermfg=46
+highlight TagbarVisibilityPublic ctermfg=49
+highlight TagbarVisibilityProtected ctermfg=208
+highlight TagbarVisibilityPrivate ctermfg=196
 " =================================================
 
 " =================================================
