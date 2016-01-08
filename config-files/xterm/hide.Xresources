@@ -1,5 +1,11 @@
+! --- ~/.Xresources ------------------------------------------------------------
+
+! ------------------------------------------------------------------------------
+! --- generated with 4bit Terminal Color Scheme Designer -----------------------
+! ------------------------------------------------------------------------------
+
 xterm*faceName:             Inconsolata
-xterm*faceSize: 		    9
+xterm*faceSize: 		    10
 xterm*xftAntialias: 		true
 
 xterm*utf8: 			    1
@@ -22,9 +28,63 @@ xterm*highlightSelection: 	true
 
 xterm*charClass: 		    33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 
-xterm*background: 		    #000000
-xterm*cursorColor: 		    #303030
-xterm*foreground: 		    #DCDCCC
 
-! for update, run:
+! --- special colors ---
+
+XTerm*background: #080808
+XTerm*foreground: #585858
+
+! --- standard colors ---
+! black
+*color0: #111111
+
+! bright_black
+*color8: #303030
+
+! red
+*color1: #8d3c3c
+
+! bright_red
+*color9: #dfb5b5
+
+! green
+*color2: #3c8d3c
+
+! bright_green
+*color10: #b5dfb5
+
+! yellow
+*color3: #8d8d3c
+
+! bright_yellow
+*color11: #dfdfb5
+
+! blue
+*color4: #3c3c8d
+
+! bright_blue
+*color12: #b5b5df
+
+! magenta
+*color5: #8d3c8d
+
+! bright_magenta
+*color13: #dfb5df
+
+! cyan
+*color6: #3c8d8d
+
+! bright_cyan
+*color14: #b5dfdf
+
+! white
+*color7: #dddddd
+
+! bright_white
+*color15: #ffffff
+
+! ------------------------------------------------------------------------------
+! --- end of terminal colors section -------------------------------------------
+! ------------------------------------------------------------------------------
+
 ! xrdb -merge ~/.Xresources
