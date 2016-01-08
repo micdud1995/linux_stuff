@@ -573,7 +573,7 @@ config_packages()
                     #	Pathogen
                     #	Nerdtree
                     #	Syntastic
-                    #	Taglist
+                    #	Tagbar
                     #	GitGutter
                     #   CtrlP
                     # 	Vim-airline
@@ -588,7 +588,7 @@ config_packages()
                     aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
                     # Making dirs
-                    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+                    mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
                     # Pathogen
                     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -605,9 +605,9 @@ config_packages()
                     cd ~/.vim/bundle && \
                     git clone https://github.com/scrooloose/syntastic.git
 
-                    # Taglist
+                    # Tagbar
                     cd ~/.vim/bundle && \
-                    git clone git://github.com/vim-scripts/taglist.vim.git
+                    git clone https://github.com/majutsushi/tagbar
 
                     # Git-gutter
                     cd ~/.vim/bundle && \
@@ -654,7 +654,7 @@ config_packages()
                     #	Pathogen
                     #	Nerdtree
                     #	Syntastic
-                    #	Taglist
+                    #	Tagbar
                     #	GitGutter
                     #   CtrlP
                     # 	Vim-airline
@@ -670,7 +670,7 @@ config_packages()
                     aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
                     # Making dirs
-                    mkdir -p ~/tmp ~/.vim/autoload ~/.vim/bundle ~/.vim/colors ~/tmp/tagbar
+                    mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
                     # Pathogen
                     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -687,9 +687,9 @@ config_packages()
                     cd ~/.vim/bundle && \
                     git clone https://github.com/scrooloose/syntastic.git
 
-                    # Taglist
+                    # Tagbar
                     cd ~/.vim/bundle && \
-                    git clone git://github.com/vim-scripts/taglist.vim.git
+                    git clone https://github.com/majutsushi/tagbar
 
                     # Git-gutter
                     cd ~/.vim/bundle && \
