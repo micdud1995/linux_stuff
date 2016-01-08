@@ -583,7 +583,6 @@ config_packages()
                     #   indentLine
                     #   SingleCompile
                     #   Vim-commentary
-                    #	Gruvbox theme
                     #==============================================================
 
                     aptitude install vim curl exuberant-ctags fonts-inconsolata -y
@@ -643,11 +642,8 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
-                    # Jellybeans theme
-                    cd ~/tmp && \
-                    git clone https://github.com/nanotech/jellybeans.vim.git
-                    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-                    rm -rf ~/tmp/jellybeans.vim
+                    # Themes
+                    cp $HOME/repo/linux_stuff/config-files/vim/colors/*.vim $HOME/.vim/colors/
 
                     # Copying .vimrc
                     cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
@@ -669,7 +665,6 @@ config_packages()
                     #   SingleCompile
                     #   Vim-commentary
                     #   YouCompleteMe
-                    #	Gruvbox theme
                     #==============================================================
 
                     aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
@@ -729,11 +724,8 @@ config_packages()
                     cd ~/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
-                    # Jellybeans theme
-                    cd ~/tmp && \
-                    git clone https://github.com/nanotech/jellybeans.vim.git
-                    mv ~/tmp/jellybeans.vim/colors/jellybeans.vim ~/.vim/colors/jellybeans.vim
-                    rm -rf ~/tmp/jellybeans.vim
+                    # Themes
+                    cp $HOME/repo/linux_stuff/config-files/vim/colors/*.vim $HOME/.vim/colors/
 
                     # YouCompleteMe
                     cd ~/.vim/bundle/
