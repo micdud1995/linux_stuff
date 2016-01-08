@@ -8,7 +8,8 @@ filetype indent on
 set showmatch
 set t_Co=256
 set background=dark
-let mapleader = "\<Space>"
+let mapleader=","
+set background=dark
 "==================================================
 	
 "==================================================
@@ -57,10 +58,10 @@ set statusline+=%*
 " Highlight current line and column
 " au WinLeave * set nocursorline nocursorcolumn
 " au WinEnter * set cursorline cursorcolumn
-set cursorline "cursorcolumn
+set cursorline " cursorcolumn
 
 " Cursor stays in the middle of the screen
-set scrolloff=999
+set scrolloff=50
 
 " show numbers of lines
 set number
@@ -103,7 +104,8 @@ set splitright
 " colorscheme railscasts
 " colorscheme sorcerer
 " colorscheme jellybeans
-colorscheme solarized
+" colorscheme solarized
+colorscheme 256_noir
 "==================================================
 
 "==================================================
@@ -133,14 +135,6 @@ endif
 " =================================================
 
 " =================================================
-" CtrlP
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_working_path_mode = 0
-noremap <C-p> :CtrlP ~/<CR>
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-" =================================================
-
-" =================================================
 " Taglist
  " autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
 let Tlist_Use_Right_Window = 1
@@ -167,19 +161,19 @@ let g:NERDTreeDirArrows=0
 
 " =================================================
 " YouCompleteMe
-let g:ycm_complete_in_strings = 0
-let g:ycm_complete_in_comments = 1
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_disable_for_files_larger_than_kb = 2048
-let g:ycm_autoclose_preview_window_after_insertion = 0
-let g:ycm_autoclose_preview_window_after_completion = 0
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
+" let g:ycm_complete_in_strings = 0
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_add_preview_to_completeopt = 0
+" let g:ycm_min_num_of_chars_for_completion = 2
+" let g:ycm_min_num_identifier_candidate_chars = 0
+" let g:ycm_disable_for_files_larger_than_kb = 2048
+" let g:ycm_autoclose_preview_window_after_insertion = 0
+" let g:ycm_autoclose_preview_window_after_completion = 0
+" let g:ycm_collect_identifiers_from_comments_and_strings = 0
 " let g:ycm_key_list_select_completion=[]
 " let g:ycm_key_list_previous_completion=[]
-let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
+" let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
 " =================================================
 
 " =================================================
