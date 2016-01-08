@@ -179,23 +179,31 @@ let g:NERDTreeWinSize = 20
 map <F3> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
 let g:NERDTreeDirArrows=0
+let NERDTreeAutoDeleteBuffer=1
+let NERDTreeCascadeOpenSingleChildDir=1
+let NERDTreeMinimalUI=0
+let NERDTreeShowLineNumbers=0
+let NERDTreeShowBookmarks=1
+let NERDTreeBookmarksFile="/home/michal/.NERDTreeBookmarks"
+let NERDTreeIgnore=['\.vim$', '\.o$', '\.pdf$', '\.png$', '\.jpg$', '\.doc$', '\.mp4$', '\.mp3$', '\.rar$', '\.zip$', '\~$']
+let NERDTreeHijackNetrw=0
 " =================================================
 
 " =================================================
 " YouCompleteMe
-" let g:ycm_complete_in_strings = 0
-" let g:ycm_complete_in_comments = 1
-" let g:ycm_add_preview_to_completeopt = 0
-" let g:ycm_min_num_of_chars_for_completion = 2
-" let g:ycm_min_num_identifier_candidate_chars = 0
-" let g:ycm_disable_for_files_larger_than_kb = 2048
-" let g:ycm_autoclose_preview_window_after_insertion = 0
-" let g:ycm_autoclose_preview_window_after_completion = 0
-" let g:ycm_collect_identifiers_from_comments_and_strings = 0
-" let g:ycm_key_list_select_completion=[]
-" let g:ycm_key_list_previous_completion=[]
-" let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
+let g:ycm_complete_in_strings = 0
+let g:ycm_complete_in_comments = 1
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_disable_for_files_larger_than_kb = 2048
+let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_completion = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
 " =================================================
 
 " =================================================
