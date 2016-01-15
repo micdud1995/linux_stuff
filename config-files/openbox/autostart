@@ -15,4 +15,5 @@
 # If you want to use XFCE config tools...
 #
 tint2 &
+conky &
 feh --bg-scale $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg
