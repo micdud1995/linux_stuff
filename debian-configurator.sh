@@ -194,6 +194,8 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/tint2/tint2rc $HOME/.config/tint2/tint2rc
                 cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
                 chmod +x /usr/local/bin/run-cmus
+                cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
+                chmod +x /usr/local/bin/run-mc
             ;;
             "lxde-core")
                 aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
@@ -308,6 +310,8 @@ config_packages()
                     aptitude install cmus -y
                     mkdir -p $HOME/.cmus
                     cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
+                    cp $HOME/repo/linux_stuff/config-files/cmus/solarized.theme $HOME/.cmus/
+                    cp $HOME/repo/linux_stuff/config-files/cmus/red.theme $HOME/.cmus/
                 ;;
                 conky)
                     aptitude install conky alsa-utils -y
