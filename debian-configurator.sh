@@ -647,6 +647,11 @@ config_packages()
 
                     # Copying .vimrc
                     cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
+
+                    # Copying NERDTree bookmarks
+                    if [[ "$USER" == "michal"  ]]; then
+                        cp $HOME/repo/linux_stuff/config-files/vim/hide.NERDTreeBookmarks $HOME/.NERDTreeBookmarks
+                    fi
                 ;;
                 vim-nox)
                     #==============================================================
@@ -736,6 +741,11 @@ config_packages()
 
                     # Copying .vimrc
                     cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
+
+                    # Copying NERDTree bookmarks
+                    if [[ "$USER" == "michal"  ]]; then
+                        cp $HOME/repo/linux_stuff/config-files/vim/hide.NERDTreeBookmarks $HOME/.NERDTreeBookmarks
+                    fi
                 ;;
             esac
         done < results
