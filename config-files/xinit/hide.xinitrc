@@ -1,12 +1,12 @@
 language="pl"
-session="i3"
+session="openbox"
 
 setxkbmap $language
 xset b off
 xset b 0 0 0
 xrdb -merge $HOME/.Xresources
 
-udiskie -t -n --file-manager=pcmanfm &
+#udiskie -t -n --file-manager=pcmanfm &
 
 case $session in
     awesome           ) exec awesome;;

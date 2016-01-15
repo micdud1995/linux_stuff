@@ -152,10 +152,11 @@ config_gui()
 
         DE=$(whiptail --title  "Debian config" --menu "Select environment:" 20 70 10 \
         "i3"                "tiling WM" \
-        "xfce"              "lightweight DE" \
-        "gnome"             "gnome DE" \
-        "kde"               "KDE DE" \
-        "lxde-core"         "fast DE"   3>&1 1>&2 2>&3)
+        "openbox"           "WM" \
+        "xfce"              "DE" \
+        "gnome"             "DE" \
+        "kde"               "DE" \
+        "lxde-core"         "DE"   3>&1 1>&2 2>&3)
 
         case "$DE" in
             "i3")
@@ -184,6 +185,17 @@ config_gui()
                         cp $HOME/repo/linux_stuff/config-files/wallpapers/space.jpg $HOME/Pictures/wallpaper.jpg
                     ;;
                 esac
+            ;;
+            "openbox")
+                mkdir -p $HOME/.config/openbox
+                mkdir -p $HOME/.config/tint2
+                cp -p $HOME/repo/linux_stuff/config-files/openbox/{rc.xml,menu.xml,environment,autostart} $HOME/.config/openbox/
+                chmod +x $HOME/.config/openbox/{autostart,environment}
+                cp $HOME/repo/linux_stuff/config-files/tint2/tint2rc $HOME/.config/tint2/tint2rc
+                cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
+                chmod +x /usr/local/bin/run-cmus
+                cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
+                chmod +x /usr/local/bin/run-mc
             ;;
             "lxde-core")
                 aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
@@ -298,9 +310,11 @@ config_packages()
                     aptitude install cmus -y
                     mkdir -p $HOME/.cmus
                     cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
+                    cp $HOME/repo/linux_stuff/config-files/cmus/solarized.theme $HOME/.cmus/
+                    cp $HOME/repo/linux_stuff/config-files/cmus/red.theme $HOME/.cmus/
                 ;;
                 conky)
-                    aptitude install conky -y
+                    aptitude install conky alsa-utils -y
 
                     CONKY=$(whiptail --title  "Debian config" --menu "Select conky file:" 20 70 10 \
                     "red"               "all informations" \
@@ -498,6 +512,7 @@ config_packages()
                     mkdir -p $HOME/.local/share/mc/skins
                     cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
                     cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+                    cp $HOME/repo/linux_stuff/config-files/midnight-commander/red.ini $HOME/.local/share/mc/skins/
                 ;;
                 moc)
                     aptitude install moc -y
