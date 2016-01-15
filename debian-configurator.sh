@@ -187,6 +187,48 @@ config_gui()
                 esac
             ;;
             "openbox")
+                aptitude install fonts-inconsolata colordiff bash xterm xorg mc cmus conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter mutt uzbl git weechat -y
+
+                mkdir -p $HOME/.weechat
+                cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
+                rm -f $HOME/.weechat/weechat.log
+                ln -s /dev/null weechat.log
+
+                name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
+                git config --global user.name "$name"
+                mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
+                git config --global user.email $mail
+                edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
+                git config --global core.editor $edit
+
+                cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
+                cp $HOME/repo/linux_stuff/config-files/uzbl/bookmarks $HOME/.local/share/uzbl/bookmarks
+
+                cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
+
+                mkdir -p $HOME/.config/newsbeuter
+                cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
+                cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
+
+                cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
+                cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+
+                mkdir -p $HOME/.cmus
+                cp $HOME/repo/linux_stuff/config-files/cmus/red.theme $HOME/.cmus/
+
+                mkdir -p $HOME/.config/mc
+                mkdir -p $HOME/.local/share/mc/skins
+                cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+                cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+                cp $HOME/repo/linux_stuff/config-files/midnight-commander/red.ini $HOME/.local/share/mc/skins/
+
+                SHELL="BASH"
+                cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
+                chsh -s /bin/bash
+
+                cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+                xrdb -merge ~/.Xresources 
+
                 mkdir -p $HOME/.config/openbox
                 mkdir -p $HOME/.config/tint2
                 cp -p $HOME/repo/linux_stuff/config-files/openbox/{rc.xml,menu.xml,environment,autostart} $HOME/.config/openbox/
@@ -250,7 +292,6 @@ config_packages()
         "links"                         "Web Browser" OFF \
         "livestreamer"                  "Stream Tool" OFF \
         "lxrandr"                       "Output manager" OFF \
-        "lxterminal"                    "Light terminal" OFF \
         "mc"                            "Midnight Commander" OFF \
         "moc"                           "Music Player" OFF \
         "mpv"                           "Video Player" OFF \
@@ -446,9 +487,6 @@ config_packages()
                 lxrandr)
                     aptitude install lxrandr -y
                 ;;
-                lxterminal)
-                    aptitude install lxterminal -y
-                ;;
                 mpv)
                     aptitude install mpv -y
                 ;;
@@ -532,7 +570,7 @@ config_packages()
                 uzbl)
                     aptitude install uzbl -y
                     cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
-                    cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
+                    cp $HOME/repo/linux_stuff/config-files/uzbl/bookmarks $HOME/.local/share/uzbl/bookmarks
                 ;;
                 vifm)
                     aptitude install vifm -y
@@ -816,7 +854,6 @@ config_pc()
     "Microphone" "Enable Lenovo G580 microphone" OFF \
     "CS:GO" "Global Offensive config file" OFF \
     "Grub" "Boot loader configuration" OFF \
-    ".xinitrc" "Editing file" OFF \
     "Lid" "Don't suspend laptop when lid closed" off 2>results)
 
     while read choice
@@ -828,9 +865,6 @@ config_pc()
             ;;
             Caps)
                 setxkbmap -option caps:escape &
-            ;;
-            .xinitrc)
-                vim $HOME/.xinitrc
             ;;
             Touchpad)
                 mkdir -p /etc/X11/xorg.conf.d
