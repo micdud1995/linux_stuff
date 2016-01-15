@@ -310,7 +310,7 @@ config_packages()
                     cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
                 ;;
                 conky)
-                    aptitude install conky -y
+                    aptitude install conky alsa-utils -y
 
                     CONKY=$(whiptail --title  "Debian config" --menu "Select conky file:" 20 70 10 \
                     "red"               "all informations" \
