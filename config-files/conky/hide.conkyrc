@@ -22,7 +22,7 @@ default_color FF0000
 default_outline_color white
 alignment top_right
 gap_x 5
-gap_y 70
+gap_y 110
 no_buffers yes
 uppercase no
 override_utf8_locale yes
@@ -31,7 +31,6 @@ override_utf8_locale yes
 #=================================================================
 TEXT
 ${font hooge 05_55 Cyr2:size=9}SYSTEM${font}${color D0D0D0} ${hr 2}
-$alignr Debian 8
 $alignr$kernel
 Up: $alignr$uptime
 ${font hooge 05_55 Cyr2:size=9}${color}TIME ${voffset 3}${hr 2}$color
@@ -45,7 +44,6 @@ $alignc ${color D0D0D0}SWAP: ${swapperc}%
 ${font hooge 05_55 Cyr2:size=9}${color}PROCESSORS ${color D0D0D0}${font}${hr 2}
 ${font sans-serif:normal:size=8}${color D0D0D0}${cpugraph cpu1 25,0 000000 FF0000}${color D0D0D0}
 ${alignc}CPU: ${cpu cpu1}%
-temp: ${alignr}${hwmon temp 1}°C
 ${font hooge 05_55 Cyr2:size=9}${color}DISKS ${color D0D0D0}${font}${hr 2}
 ${font sans-serif:normal:size=8}/ $alignr ${fs_used /}
 ${color D0D0D0}${fs_bar 5 /}${color D0D0D0}
@@ -55,14 +53,7 @@ ${font hooge 05_55 Cyr2:size=9}${color}NETWORK${color D0D0D0}${font} ${hr 2}
 ${font sans-serif:normal:size=8}IP:$alignr ${addr wlan0}
 E:$alignr ${wireless_essid wlan0}
 Q: $alignr ${wireless_link_qual_perc wlan0}%
-${color D0D0D0}${downspeedgraph wlan0}${color D0D0D0}
-DLS:${downspeed wlan0} $alignr
-total: ${totaldown wlan0}
-${color D0D0D0}${upspeedgraph wlan0}${color D0D0D0}
-ULS:${upspeed wlan0} $alignr
-total: ${totalup wlan0}
-${color}${font hooge 05_55 Cyr2:size=9}MOC ${color D0D0D0}${font}${hr 2}
-${font sans-serif:size=6}
-$alignc${exec mocp -Q %artist}
-$alignc${exec mocp -Q %song}
+#Battery:${voffset 2} ${battery_bar 5,50 BAT0} ${battery_percent BAT0}%
+Battery: ${battery_percent BAT0}% 
+ ${color}${battery_bar 8,100 BAT0}
 #=================================================================
