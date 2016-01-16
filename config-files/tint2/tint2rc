@@ -73,9 +73,9 @@ systray_icon_asb = 100 -60 -10
 
 # Clock
 time1_format = %S
-time1_font = Inconsolata 6
+time1_font = hooge 05_55 Cyr2 8
 time2_format = %H:%M
-time2_font = Sans 9
+time2_font = hooge 05_55 Cyr2 9
 clock_font_color = #FFFFFF 100
 clock_tooltip = %a %d %B
 clock_padding = 0 0
