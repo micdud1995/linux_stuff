@@ -84,6 +84,21 @@ extract () {
      fi
 }
 
+# To do
+# function cooperates with .conkyrc
+# e.q.: todo "Do homework"
+todo() { 
+    echo "$1" >> $HOME/.conkyrc & 
+}
+
+# To do - remove
+# Removing last line of to do section
+# e.q.: todor
+todor() { 
+    head -n -1 $HOME/.conkyrc > tmp-conky.txt
+    mv tmp-conky.txt $HOME/.conkyrc
+}
+
 # Remind me 
 # usage: remindme <time> <text>
 # e.g.: remindme 10m "omg, the pizza"
@@ -99,21 +114,6 @@ calc() {
   fi
 }
 
-# Find and removed empty directories
-fared() {
-    read -p "Delete all empty folders recursively [y/N]: " OPT
-    [[ $OPT == y ]] && find . -type d -empty -exec rm -fr {} \; &> /dev/null
-}
-
-# ii() - info
-function ii()
-{
-    echo -e "\nSysteminformation:$NC " ; uname -a
-    echo -e "\nCurrent date :$NC " ; date
-    echo -e "\nMachine stats :$NC " ; uptime
-    echo -e "\nMemory stats :$NC " ; free -ht
-    echo
-}
 #=================================================================
 
 #=================================================================
@@ -206,8 +206,6 @@ fi
 	alias gr="git reset" # e.g. git reset abc.txt
 	alias grc="git reset --hard HEAD~1" # git reset commit
 # Programs aliases
- 	alias r="ranger"
-	alias v="vim"
     alias last="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -25"
     alias x="chmod +x"
     alias hist="cat ~/.bash_history | grep"
@@ -231,5 +229,5 @@ fi
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
     alias sus="systemctl suspend"
-    alias log="sudo pkill -u $USER"
+    alias logout="sudo pkill -u $USER"
 #=================================================================
