@@ -58,6 +58,4 @@ $alignc${exec amixer get Master -M | grep -oE "[[:digit:]]*%" | head -n 1}
 ${font hooge 05_55 Cyr2:size=9}${color}BATTERY${color D0D0D0}${font} ${hr 2}
 $alignc${battery_percent BAT0}% 
  ${color}${battery_bar 5,100 BAT0}
-${font hooge 05_55 Cyr2:size=9}${color}SYSLOG${color D0D0D0}${font} ${hr 2}
-${execi 2 tail -n5 /var/log/syslog | fold -w50}
-#=================================================================
+${font hooge 05_55 Cyr2:size=9}${color}TO DO:${color D0D0D0}${font} ${hr 2}
