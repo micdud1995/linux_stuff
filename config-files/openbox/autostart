@@ -16,4 +16,4 @@
 #
 tint2 &
 conky &
-feh --bg-scale $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg
+feh --bg-scale $HOME/repo/linux_stuff/config-files/wallpapers/debian-ascii.jpg
