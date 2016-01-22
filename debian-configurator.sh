@@ -3,10 +3,10 @@
 #==============================================================================
 # Title             debian-configurator.sh
 # Description       This script will config installed Debian GNU/Linux system 
-#                   in version 8.x or Raspbian
+#                   in version 8.x
 # Author            Michal Dudek 
-# Date              07-01-2016
-# Version           2.2
+# Date              22-01-2016
+# Version           2.2.1
 # Notes             Run with sudo only
 # License           GNU General Public License v3.0
 #==============================================================================
@@ -57,12 +57,12 @@ repo_dirs()
             "Do you want to clone repo?\nThere are important files for this program\n\n \
             Repository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
-            mkdir -p $HOME/repo
+            mkdir -p $HOME
             mkdir -p $HOME/tmp
 
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
-                cd $HOME/repo
+                cd $HOME
                 aptitude install git -y
                 git clone https://github.com/micdud1995/linux_stuff.git
             fi
@@ -163,8 +163,8 @@ config_gui()
                 aptitude install xorg xinit i3 dmenu fonts-inconsolata fonts-font-awesome feh weechat xterm ranger moc -y
                 mkdir -p $HOME/.i3
                 mkdir -p $HOME/Pictures
-                cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf ~/.i3status.conf
-                cp $HOME/repo/linux_stuff/config-files/i3/debian-config ~/.i3/config
+                cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf $HOME/.i3status.conf
+                cp $HOME/repo/linux_stuff/config-files/i3/debian-config $HOME/.i3/config
                 # cp $HOME/repo/linux_stuff/config-files/i3/workspace* ~/.i3/
                 # cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh ~/.i3/
                 # chmod +x $HOME/.i3/load_workspaces.sh
@@ -181,13 +181,16 @@ config_gui()
                     "Black Debian")
                         cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-wallpaper.jpg $HOME/Pictures/wallpaper.jpg
                     ;;
+                    "Debian Ascii")
+                        cp $HOME/repo/linux_stuff/config-files/wallpapers/debian-ascii.jpg $HOME/Pictures/wallpaper.jpg
+                    ;;
                     "Grey Space")
                         cp $HOME/repo/linux_stuff/config-files/wallpapers/space.jpg $HOME/Pictures/wallpaper.jpg
                     ;;
                 esac
             ;;
             "openbox")
-                aptitude install fonts-inconsolata colordiff bash xterm xorg mc cmus conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter mutt uzbl git weechat -y
+                aptitude install fonts-inconsolata colordiff bash xterm xorg mc cmus conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter uzbl git weechat xfonts-terminus -y
 
                 mkdir -p $HOME/.weechat
                 cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
@@ -201,17 +204,15 @@ config_gui()
                 edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
                 git config --global core.editor $edit
 
-                cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
+                cp $HOME/repo/linux_stuff/config-files/uzbl/config $HOME/.config/uzbl/config
                 cp $HOME/repo/linux_stuff/config-files/uzbl/bookmarks $HOME/.local/share/uzbl/bookmarks
-
-                cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
 
                 mkdir -p $HOME/.config/newsbeuter
                 cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
                 cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
 
-                cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+                cp $HOME/repo/linux_stuff/config-files/conky/red-top $HOME/.conkyrc
+                cp $HOME/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
 
                 mkdir -p $HOME/.cmus
                 cp $HOME/repo/linux_stuff/config-files/cmus/red.theme $HOME/.cmus/
@@ -227,7 +228,7 @@ config_gui()
                 chsh -s /bin/bash
 
                 cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
-                xrdb -merge ~/.Xresources 
+                xrdb -merge $HOME/.Xresources 
 
                 mkdir -p $HOME/.config/openbox
                 mkdir -p $HOME/.config/tint2
@@ -363,15 +364,18 @@ config_packages()
                     "indicator"         "desktop indicator" 3>&1 1>&2 2>&3)
 
                     case "$CONKY" in
+                        "top")
+                            cp $HOME/repo/linux_stuff/config-files/conky/red-top $HOME/.conkyrc
+                        ;;
                         "red")
-                            cp ~/repo/linux_stuff/config-files/conky/hide.conkyrc ~/.conkyrc
-                            cp ~/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
+                            cp $HOME/repo/linux_stuff/config-files/conky/hide.conkyrc $HOME/.conkyrc
+                            cp $HOME/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                         ;;
                         "binary")
-                            cp ~/repo/linux_stuff/config-files/conky/binary-clock ~/.conkyrc
+                            cp $HOME/repo/linux_stuff/config-files/conky/binary-clock $HOME/.conkyrc
                         ;;
                         "indicator")
-                            cp ~/repo/linux_stuff/config-files/conky/workspace-indicator ~/.conkyrc
+                            cp $HOME/repo/linux_stuff/config-files/conky/workspace-indicator $HOME/.conkyrc
                         ;;
                     esac
                 ;;
@@ -565,11 +569,11 @@ config_packages()
                 rtorrent)
                     aptitude install rtorrent -y
                     mkdir -p $HOME/.rtorrent
-                    cp ~/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc ~/.rtorrent.rc
+                    cp $HOME/repo/linux_stuff/config-files/rtorrent/hide.rtorrent.rc $HOME/.rtorrent.rc
                 ;;
                 uzbl)
                     aptitude install uzbl -y
-                    cp $HOME/repo/linux_stuff/config-files/uzbl/config ~/.config/uzbl/config
+                    cp $HOME/repo/linux_stuff/config-files/uzbl/config $HOME/.config/uzbl/config
                     cp $HOME/repo/linux_stuff/config-files/uzbl/bookmarks $HOME/.local/share/uzbl/bookmarks
                 ;;
                 vifm)
@@ -605,7 +609,7 @@ config_packages()
                 xterm)
                     aptitude install xterm fonts-inconsolata -y
                     cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
-                    xrdb -merge ~/.Xresources 
+                    xrdb -merge $HOME/.Xresources 
                 ;;
                 xserver-xorg-input-synaptics)
                     aptitude install xserver-xorg-input-synaptics -y
@@ -644,62 +648,62 @@ config_packages()
                     mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
                     # Pathogen
-                    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
                     # CtrlP
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/kien/ctrlp.vim.git
 
                     # Nerdtree
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/nerdtree.git
 
                     # Syntastic
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/syntastic.git
 
                     # Tagbar
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/majutsushi/tagbar
 
                     # Git-gutter
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/airblade/vim-gitgutter.git
 
                     # Vim-airline
-                    cd ~/.vim/bundle && \
-                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                    cd $HOME/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
 
                     # Auto-pairs
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/jiangmiao/auto-pairs.git
 
                     # Supertab
                     git clone git://github.com/ervandew/supertab.git
 
                     # Neosnippet
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
                     cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
                     # Single-compile
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/xuhdev/SingleCompile.git
 
                     # Vim-commentary
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # Themes
                     cp $HOME/repo/linux_stuff/config-files/vim/colors/*.vim $HOME/.vim/colors/
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
+                    cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
 
                     # Copying NERDTree bookmarks
                     if [[ "$USER" == "michal"  ]]; then
@@ -731,69 +735,69 @@ config_packages()
                     mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
                     # Pathogen
-                    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+                    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
                     # CtrlP
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/kien/ctrlp.vim.git
 
                     # Nerdtree
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/nerdtree.git
 
                     # Syntastic
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/scrooloose/syntastic.git
 
                     # Tagbar
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone https://github.com/majutsushi/tagbar
 
                     # Git-gutter
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/airblade/vim-gitgutter.git
 
                     # Vim-airline
-                    cd ~/.vim/bundle && \
-                    git clone https://github.com/bling/vim-airline ~/.vim/bundle/vim-airline
+                    cd $HOME/.vim/bundle && \
+                    git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
 
                     # Auto-pairs
-                    cd ~/.vim/bundle && \
+                    cd $HOME/.vim/bundle && \
                     git clone git://github.com/jiangmiao/auto-pairs.git
 
                     # Supertab
                     git clone git://github.com/ervandew/supertab.git
 
                     # Neosnippet
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Shougo/neosnippet.vim
                     git clone https://github.com/Shougo/neosnippet-snippets
                     cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
                     # Indent-line
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
                     # Single-compile
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/xuhdev/SingleCompile.git
 
                     # Vim-commentary
-                    cd ~/.vim/bundle
+                    cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # Themes
                     cp $HOME/repo/linux_stuff/config-files/vim/colors/*.vim $HOME/.vim/colors/
 
                     # YouCompleteMe
-                    cd ~/.vim/bundle/
+                    cd $HOME/.vim/bundle/
                     git clone https://github.com/Valloric/YouCompleteMe.git
                     cd YouCompleteMe/
                     git submodule update --init --recursive
                     ./install.sh
 
                     # Copying .vimrc
-                    cp ~/repo/linux_stuff/config-files/vim/hide.vimrc ~/.vimrc
+                    cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
 
                     # Copying NERDTree bookmarks
                     if [[ "$USER" == "michal"  ]]; then
@@ -906,44 +910,9 @@ config_pc()
     exit 0
 }
 
-raspbian_config()
-{
-    if (whiptail --title "Raspbian config" --yes-button "Yes" --no-button "No" --yesno \
-        "Launch fast Raspbian config?\n\n\n \
-        \nTo install: git, htop, links, vim, vifm, mutt, weechat, unpacking packages \
-        \nTo config: bash, git, weechat" 20 70) then
-
-        aptitude install colordiff bash git htop links p7zip unrar-free unzip zip vim-nox vifm mutt weechat -y
-
-        # BASH
-        cp $HOME/repo/linux_stuff/config-files/bash/debian-bashrc $HOME/.bashrc
-        chsh -s /bin/bash
-
-        # GIT
-        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
-        git config --global user.name "$name"
-        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
-        git config --global user.email $mail
-        edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
-        git config --global core.editor $edit
-
-        #WEECHAT
-        mkdir -p $HOME/.weechat
-        cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
-        rm -f $HOME/.weechat/weechat.log
-        ln -s /dev/null weechat.log
-
-        #MUTT
-        cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
-    fi
-
-    main_menu
-}
-
 main_menu() 
 {
 	menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 70 10 \
-		"Select OS"             "-" \
 		"Clone repo"            "-" \
 		"Config sources"        "-" \
 		"Config shell"          "-" \
@@ -955,9 +924,6 @@ main_menu()
 		"Exit"                  "-" 3>&1 1>&2 2>&3)
 
 	case "$menu_item" in
-        "Select OS")
-            select_system
-		;;
 		"Clone repo")
             repo_dirs
 		;;
