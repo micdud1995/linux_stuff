@@ -42,25 +42,29 @@ XTerm*foreground: #585858
 *color8: #303030
 
 ! red
-*color1: #8d3c3c
+!*color1: #8d3c3c
+*color1: #ff0000
 
 ! bright_red
 *color9: #dfb5b5
 
 ! green
-*color2: #3c8d3c
+! *color2: #3c8d3c
+*color2: #008000
 
 ! bright_green
 *color10: #b5dfb5
 
 ! yellow
-*color3: #8d8d3c
+!*color3: #8d8d3c
+*color3: #ffff00
 
 ! bright_yellow
 *color11: #dfdfb5
 
 ! blue
-*color4: #3c3c8d
+!*color4: #3c3c8d
+*color4: #0000ff
 
 ! bright_blue
 *color12: #b5b5df
@@ -72,13 +76,14 @@ XTerm*foreground: #585858
 *color13: #dfb5df
 
 ! cyan
-*color6: #3c8d8d
+!*color6: #3c8d8d
+*color6: #00ffff
 
 ! bright_cyan
 *color14: #b5dfdf
 
 ! white
-*color7: #dddddd
+*color7: #cccccc
 
 ! bright_white
 *color15: #ffffff
