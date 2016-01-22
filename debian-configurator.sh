@@ -356,7 +356,7 @@ config_packages()
                     cp $HOME/repo/linux_stuff/config-files/cmus/red.theme $HOME/.cmus/
                 ;;
                 conky)
-                    aptitude install conky alsa-utils -y
+                    aptitude install conky alsa-utils xfonts-terminus -y
 
                     CONKY=$(whiptail --title  "Debian config" --menu "Select conky file:" 20 70 10 \
                     "top"               "vertical red bar" \
