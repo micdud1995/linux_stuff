@@ -1,0 +1,43 @@
+background yes
+use_xft yes
+xftfont Terminus:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+own_window no
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour white
+double_buffer yes
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color white
+alignment tl
+maximum_width 1400
+minimum_size 1400 24
+alignment top_middle
+gap_x 0
+gap_y 3
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+color1 ff0000
+color2 ff0000
+
+##############################################
+#  Output
+##############################################
+
+TEXT
+  ${alignc}[cpu] ${color2}${cpubar 6,60}${color}\
+  [ram] ${color2}${membar 6,60}${color}\
+  [/] ${color2}${fs_bar 6,60 /}${color}\
+  [/home] ${color2}${fs_bar 6,60 /home}${color}\
+  [wlan] ${color2}${addr wlp2s0b1}${color}\
+  [uptime] ${color2}${uptime_short}${color} \
+  [bat ${battery_percent BAT1}%] ${color2}${battery_bar 6,60 BAT1}${color}\
+  [vol] ${color2}${exec amixer get Master -M | grep -oE "[[:digit:]]*%" | head -n 1}${color}\
