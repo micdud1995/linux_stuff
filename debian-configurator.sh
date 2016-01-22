@@ -57,7 +57,7 @@ repo_dirs()
             "Do you want to clone repo?\nThere are important files for this program\n\n \
             Repository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
 
-            mkdir -p $HOME
+            mkdir -p $HOME/repo
             mkdir -p $HOME/tmp
 
             # Creating repo dir and cloning repository
