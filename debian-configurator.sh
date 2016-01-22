@@ -359,6 +359,7 @@ config_packages()
                     aptitude install conky alsa-utils -y
 
                     CONKY=$(whiptail --title  "Debian config" --menu "Select conky file:" 20 70 10 \
+                    "top"               "vertical red bar" \
                     "red"               "all informations" \
                     "binary"            "binary clock" \
                     "indicator"         "desktop indicator" 3>&1 1>&2 2>&3)
