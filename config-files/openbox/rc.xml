@@ -151,7 +151,7 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>10</top>
+    <top>20</top>
     <bottom>10</bottom>
     <left>65</left>
     <right>10</right>
@@ -255,7 +255,19 @@
         <wrap>no</wrap>
       </action>
     </keybind>
+    <keybind key="A-j">
+      <action name="DesktopRight">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
     <keybind key="A-Up">
+      <action name="DesktopLeft">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="A-k">
       <action name="DesktopLeft">
         <dialog>no</dialog>
         <wrap>no</wrap>
@@ -267,7 +279,19 @@
         <wrap>no</wrap>
       </action>
     </keybind>
+    <keybind key="S-A-h">
+      <action name="SendToDesktopLeft">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
     <keybind key="S-A-Right">
+      <action name="SendToDesktopRight">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-l">
       <action name="SendToDesktopRight">
         <dialog>no</dialog>
         <wrap>no</wrap>
@@ -362,6 +386,15 @@
         <command>run-cmus</command>
       </action>
     </keybind>
+    <keybind key="A-n">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>mc</name>
+        </startupnotify>
+        <command>run-mc</command>
+      </action>
+    </keybind>
     <keybind key="A-f">
       <action name="ToggleFullscreen"/>
     </keybind>
@@ -402,13 +435,22 @@
         <command>scrot -s ~/tmp/%H:%M:%S-%d-%m_screenshot.png</command>
       </action>
     </keybind>
-    <!-- Launch LXRandR when Fn+Screen is pressed -->
     <keybind key="A-l">
+      <action name="NextWindow">
+      </action>
+    </keybind>
+    <keybind key="A-Tab">
       <action name="NextWindow">
       </action>
     </keybind>
     <keybind key="A-h">
       <action name="PreviousWindow">
+      </action>
+    </keybind>
+    <keybind key="A-d">
+      <action name="Execute">
+        <name>dmenu</name>
+        <command>dmenu_run -fn 'Tamsyn-7' -f -nb '#FFFFFF' -nf '#000000' -sb '#000000' -sf '#FFFFFF'</command>
       </action>
     </keybind>
     <keybind key="A-u">
