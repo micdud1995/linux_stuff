@@ -204,6 +204,8 @@ config_gui()
                 edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
                 git config --global core.editor $edit
 
+                cp -R $HOME/repo/linux_stuff/config-files/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
+
                 cp $HOME/repo/linux_stuff/config-files/uzbl/config $HOME/.config/uzbl/config
                 cp $HOME/repo/linux_stuff/config-files/uzbl/bookmarks $HOME/.local/share/uzbl/bookmarks
 
@@ -236,9 +238,13 @@ config_gui()
                 chmod +x $HOME/.config/openbox/{autostart,environment}
                 cp $HOME/repo/linux_stuff/config-files/tint2/tint2rc $HOME/.config/tint2/tint2rc
                 cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
-                chmod +x /usr/local/bin/run-cmus
                 cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
+                cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot /usr/local/bin/
+                cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot-s /usr/local/bin/
+                chmod +x /usr/local/bin/run-cmus
                 chmod +x /usr/local/bin/run-mc
+                chmod +x /usr/local/bin/take-screenshot
+                chmod +x /usr/local/bin/take-screenshot-s
             ;;
             "lxde-core")
                 aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
