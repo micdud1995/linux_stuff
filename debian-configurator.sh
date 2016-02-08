@@ -247,6 +247,7 @@ config_gui()
                 chmod +x /usr/local/bin/take-screenshot-s
             ;;
             "lxde-core")
+                mkdir -p $HOME/.config/lxpanel/LXDE/panels
                 aptitude install xorg xinit lxde-core lxpanel lxappearance lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
                 cp $HOME/repo/linux_stuff/config-files/lxde/lxde-rc.xml $HOME/.config/openbox/
                 cp $HOME/repo/linux_stuff/config-files/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
