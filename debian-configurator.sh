@@ -62,7 +62,7 @@ repo_dirs()
 
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
-                cd $HOME
+                cd $HOME/repo
                 aptitude install git -y
                 git clone https://github.com/micdud1995/linux_stuff.git
             fi
