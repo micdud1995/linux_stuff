@@ -8,6 +8,12 @@ xrdb -merge $HOME/.Xresources
 
 #udiskie -t -n --file-manager=pcmanfm &
 
+# Redshift with Wroclaw location
+redshift -l 51.107:17.04 -t 5500:3500 -b 0.9:0.8 &
+
+#Run conky
+conky &
+
 case $session in
     awesome           ) exec awesome;;
     bspwm             ) exec bspwm;;
