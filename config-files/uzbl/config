@@ -50,7 +50,9 @@ set download_handler    = sync_spawn @scripts_dir/download.sh
 
 #   What to do when a website wants to open a new window:
 # Open link in new window
-@on_event   NEW_WINDOW     sh 'uzbl-browser ${1:+-u "$1"}' %r
+# @on_event   NEW_WINDOW     sh 'uzbl-browser ${1:+-u "$1"}' %r
+# Open link in new tab
+@on_event   NEW_WINDOW     event NEW_TAB %s
 # Open in current window (also see the REQ_NEW_WINDOW event handler below)
 #@on_event   NEW_WINDOW     uri %s
 # Open in new tab. Other options are NEW_TAB_NEXT, NEW_BG_TAB and NEW_BG_TAB_NEXT.
@@ -356,10 +358,10 @@ set follow_hint_keys = qwerty
 set follow_hint_keys = asdfghjkl;
 #set follow_hint_keys = thsnd-rcgmvwb/;789aefijkopquxyz234
 @cbind  f*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'click') >\@
-@cbind  Ft*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'newwindow') >\@
+@cbind  F*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'newwindow') >\@
 @cbind  Fi   = spawn @scripts_dir/go_input.sh
 # @cbind  fL*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'returnuri') >\@ set
-# @cbind  FL*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'returnuri') >\@ clipboard
+#@cbind  F*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'returnuri') >\@ clipboard
 
 # @cbind  fs  = spawn @scripts_dir/follow.sh \@< uzbl.follow.followSelection('returnuri') >\@ set
 # @cbind  fS  = spawn @scripts_dir/follow.sh \@< uzbl.follow.followSelection('click') >\@
@@ -393,7 +395,7 @@ set formfiller = spawn @scripts_dir/formfiller.sh
 @cbind  gO<uri:>_       = event NEW_TAB_NEXT %s
 
 # Closing / resting
-@cbind  gC              = exit
+@cbind  d              = exit
 @cbind  gQ              = event CLEAN_TABS
 
 # Tab navigating
@@ -463,3 +465,28 @@ sync_spawn_exec @scripts_dir/load_cookies.sh @data_home/uzbl/session-cookies.txt
 set uri = e-try.com/black.htm
 
 # vim: set fdm=syntax:
+
+# Uzbl-tabbed
+set show_tablist            = 1
+set show_gtk_tabs           = 0
+set tablist_top             = 1
+set switch_to_new_tabs      = 1
+set capture_new_windows     = 1
+set tab_titles              = 1
+set new_tab_title           = Loading
+set max_title_len           = 30
+set show_ellipsis           = 1
+set save_session            = 0
+set json_session            = 0
+set session_file            = $HOME/.local/share/uzbl/session
+set status_background       = #303030
+set window_size             = 800,800
+set tab_colours             = foreground = "#A5A5A5" background = "#000000"
+set tab_text_colours        = foreground = "#A5A5A5"
+set selected_tab            = foreground = "#000000" background = "#303030"
+set selected_tab_text       = foreground = "#00FF00"
+set tab_indicate_https      = 1
+set https_colours           = foreground = "#888"
+set https_text_colours      = foreground = "#A5A5A5"
+set selected_https          = foreground = "#fff"
+set selected_https_text     = foreground = "#00FF00"
