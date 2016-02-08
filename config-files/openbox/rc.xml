@@ -467,7 +467,7 @@
     </keybind>
     <keybind key="A-u">
       <action name="Execute">
-        <command>uzbl-browser</command>
+        <command>uzbl-tabbed</command>
       </action>
     </keybind>
     <keybind key="A-s">
