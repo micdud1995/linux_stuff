@@ -213,7 +213,7 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
                 cp $HOME/repo/linux_stuff/config-files/newsbeuter/debian-config $HOME/.config/newsbeuter/config
 
-                cp $HOME/repo/linux_stuff/config-files/conky/red-top $HOME/.conkyrc
+                cp $HOME/repo/linux_stuff/config-files/conky/green-top $HOME/.conkyrc
                 cp $HOME/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
 
                 mkdir -p $HOME/.cmus
