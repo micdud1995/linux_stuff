@@ -15,7 +15,7 @@ MusicDir = /home/michal/Muzyka
 #=================================================================
 # MOC directory (where pid file, socket and state files are stored).
 # You can use ~ at the beginning.
-#MOCDir = ~/.moc
+MOCDir = ~/.moc
 #=================================================================
 
 #=================================================================
@@ -23,12 +23,12 @@ MusicDir = /home/michal/Muzyka
 # /usr/share/moc/themes/ (depends on installation prefix) or
 # ~/.moc/themes/ .
 #
-Theme = red_theme 
+Theme = green_theme 
 #=================================================================
 
 #=================================================================
 # Remember the playlist after exit?
-#SavePlaylist = yes
+SavePlaylist = yes
 #=================================================================
 
 #=================================================================
@@ -56,7 +56,7 @@ PlaylistNumbering = yes
 
 #=================================================================
 # How to sort?  FileName is the option's only value for now.
-#Sort = FileName
+Sort = FileName
 #=================================================================
 
 #=================================================================
