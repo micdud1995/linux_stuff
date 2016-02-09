@@ -63,7 +63,7 @@ repo_dirs()
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
                 cd $HOME/repo
-                aptitude install git -y
+                aptitude install git tree -y
                 git clone https://github.com/micdud1995/linux_stuff.git
             fi
         fi
@@ -281,23 +281,20 @@ config_packages()
 
     (whiptail --title "Additional software" --separate-output --checklist "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
         "alsa-utils"                    "Sound" OFF \
-        "apache"  	                    "Web Server" OFF \
         "bash"                          "Shell" OFF \
         "brasero"                       "Burning app" OFF \
         "calcurse"                      "Text-based organizer" OFF \
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
+        "crawl-tiles"                   "Roguelike game" OFF \
         "dictd"                         "Offline dictionary" OFF \
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
-        "fuck"                          "Command correcting" OFF \
         "git"                           "Content tracker" OFF \
         "gummi"                         "LaTeX Editor" OFF \
         "htop"                          "Process Info" OFF \
         "iceweasel"                     "Web Browser" OFF \
-        "libncurses5-dev"               "ncurses" OFF \
         "libreoffice"                   "Libre Office" OFF \
-        "lightdm"                       "Login Manager" OFF \
         "links"                         "Web Browser" OFF \
         "livestreamer"                  "Stream Tool" OFF \
         "lxrandr"                       "Output manager" OFF \
@@ -315,7 +312,6 @@ config_packages()
         "screenfetch"                   "System Info" OFF \
         "scrot"                         "Screenshots" OFF \
         "tor"                           "Communication System" OFF \
-        "tree"                          "Tree of dirs" OFF \
         "ufw"                           "Firewall" OFF \
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
@@ -323,7 +319,6 @@ config_packages()
         "vim-clear" 	  	            "Text Editor" OFF \
         "vim-nox" 	  	                "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
-        "w3m"                           "Web Browser" OFF \
         "weechat"                       "IRC Client" OFF \
         "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
@@ -339,9 +334,6 @@ config_packages()
             case $choice in
                 alsa-utils)
                     aptitude install alsa-utils -y
-                ;;
-                apache)
-                    aptitude install apache -y
                 ;;
                 bash)
                     SHELL="BASH"
@@ -426,10 +418,6 @@ config_packages()
                 feh)
                     aptitude install feh -y
                 ;;
-                fuck)
-                    cd $HOME/tmp
-                    wget -O - https://raw.githubusercontent.com/nvbn/thefuck/master/install.sh | sh - && $0
-                ;;
                 git)
                     aptitude install git -y
                     name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
@@ -447,9 +435,6 @@ config_packages()
                 ;;
                 iceweasel)
                     aptitude install iceweasel -y
-                ;;
-                libncurses5-dev)
-                    aptitude install libncurses5-dev -y
                 ;;
                 libreoffice)
                     aptitude install libreoffice -y
@@ -480,11 +465,6 @@ config_packages()
                         ;;
                         esac
                     done < results3
-                ;;
-                lightdm)
-                    aptitude install lightdm -y
-                    cp $HOME/repo/linux_stuff/config-files/lightdm/lightdm.conf /etc/ligthdm/lightdm.conf
-                    dpkg-reconfigure lightdm
                 ;;
                 links)
                     aptitude install links -y
@@ -534,9 +514,6 @@ config_packages()
                 ufw)
                     aptitude install ufw -y
                     ufw enable
-                ;;
-                w3m)
-                    aptitude install w3m-img -y
                 ;;
                 weechat)
                     aptitude install weechat -y
@@ -599,11 +576,6 @@ config_packages()
                 youtube-dl)
                     wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
                     chmod a+rx /usr/local/bin/youtube-dl
-                ;;
-                slim)
-                    aptitude install slim -y
-                    cp $HOME/repo/linux_stuff/config-files/slim/slim.conf /etc/slim.conf
-                    dpkg-reconfigure slim
                 ;;
                 xboxdrv)
                     aptitude install xboxdrv -y
