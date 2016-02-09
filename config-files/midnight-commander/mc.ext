@@ -172,7 +172,7 @@ type/^ASCII\ mail\ text
 
 ### Sources ###
 
-regex/\.(c|cc|cpp|py|h|dat|log|txt|rc|ini|ext|sh|zshrc|conf|xml|md|o|vimrc|srt|log|html|cnf|cfg|asc|yaml|css|java|theme)$
+regex/\.(c|cc|cpp|py|h|dat|log|txt|rc|ini|ext|sh|zshrc|conf|xml|md|o|vimrc|srt|log|html|cnf|cfg|asc|yaml|css|java|theme|bashrc|zshrc|lua|bak)$
 	Open=%var{EDITOR:vim} %f
 
 # Fortran
