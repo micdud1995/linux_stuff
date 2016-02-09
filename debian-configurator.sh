@@ -190,7 +190,7 @@ config_gui()
                 esac
             ;;
             "openbox")
-                aptitude install fonts-inconsolata colordiff bash xterm xorg mc cmus conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter uzbl git weechat xfonts-terminus -y
+                aptitude install fonts-inconsolata colordiff bash xterm xorg mc conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter uzbl git weechat xfonts-terminus moc -y
 
                 mkdir -p $HOME/.weechat
                 cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
@@ -216,8 +216,9 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/conky/green-top $HOME/.conkyrc
                 cp $HOME/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
 
-                mkdir -p $HOME/.cmus
-                cp $HOME/repo/linux_stuff/config-files/cmus/red.theme $HOME/.cmus/
+                mkdir -p $HOME/.moc/themes
+                cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
+                cp $HOME/repo/linux_stuff/config-files/moc/green_theme $HOME/.moc/themes/
 
                 mkdir -p $HOME/.config/mc
                 mkdir -p $HOME/.local/share/mc/skins
@@ -566,9 +567,10 @@ config_packages()
                 ;;
                 moc)
                     aptitude install moc -y
-                    mkdir -p $HOME/.moc
+                    mkdir -p $HOME/.moc/themes
                     cp $HOME/repo/linux_stuff/config-files/moc/debian-config $HOME/.moc/config
-                    cp $HOME/repo/linux_stuff/config-files/moc/red_theme /usr/share/moc/themes/
+                    cp $HOME/repo/linux_stuff/config-files/moc/red_theme $HOME/.moc/themes/
+                    cp $HOME/repo/linux_stuff/config-files/moc/green_theme $HOME/.moc/themes/
                 ;;
                 mutt)
                     aptitude install mutt -y
