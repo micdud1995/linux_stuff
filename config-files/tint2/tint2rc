@@ -42,7 +42,7 @@ urgent_nb_of_blink = 7
 task_icon = 1
 task_text = 0
 task_centered = 1
-task_maximum_size = 30 20
+task_maximum_size = 19 19
 task_padding = 4 1
 task_background_id = 0
 task_active_background_id = 1
@@ -50,7 +50,7 @@ task_urgent_background_id = 1
 task_iconified_background_id = 0
 
 # Task Icons
-task_icon_asb = 50 0 0
+task_icon_asb = 100 0 0
 task_active_icon_asb = 100 0 0
 task_urgent_icon_asb = 80 0 0
 task_iconified_icon_asb = 80 0 0
@@ -58,7 +58,7 @@ task_iconified_icon_asb = 80 0 0
 # Fonts
 task_font = Terminus 8
 task_font_color = #FFFFFF 47
-task_active_font_color = #FFFFFF 80
+task_active_font_color = #00FF00 80
 task_urgent_font_color = #FFFFFF 100
 task_iconified_font_color = #FFFFFF 24
 font_shadow = 0
@@ -106,5 +106,3 @@ bat2_font = Sans 12
 battery_font_color = #FFFFFF 100
 battery_padding = 0 0
 battery_background_id = 0
-
-# End of config
