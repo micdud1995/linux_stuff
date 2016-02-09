@@ -1,9 +1,4 @@
-! --- ~/.Xresources ------------------------------------------------------------
-
-! ------------------------------------------------------------------------------
-! --- generated with 4bit Terminal Color Scheme Designer -----------------------
-! ------------------------------------------------------------------------------
-
+! --- ~/.Xresources ---
 xterm*faceName:             Inconsolata
 xterm*faceSize: 		    10
 xterm*xftAntialias: 		true
@@ -32,7 +27,7 @@ xterm*charClass: 		    33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 ! --- special colors ---
 
 XTerm*background: #080808
-XTerm*foreground: #585858
+XTerm*foreground: #00FF00
 
 ! --- standard colors ---
 ! black
@@ -50,7 +45,7 @@ XTerm*foreground: #585858
 
 ! green
 ! *color2: #3c8d3c
-*color2: #008000
+*color2: #00FF00
 
 ! bright_green
 *color10: #b5dfb5
