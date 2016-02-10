@@ -1,0 +1,134 @@
+ Dungeon Crawl Stone Soup version 0.15.1 (tiles) character file.
+
+2 Misza the Ruinous (level 1, -10/10 HPs)
+             Began as a Deep Elf Conjurer on Feb 9, 2016.
+             Mangled by a worm (11 damage)
+             ... on Level 3 of the Dungeon.
+             The game lasted 00:07:58 (171 turns).
+
+Misza the Ruinous (Deep Elf Conjurer)                Turns: 171, Time: 00:08:23
+
+HP -10/10        AC  2     Str  5      XL: 1   Next: 25%
+MP   5/5         EV 13     Int 19      God: 
+Gold 0           SH  0     Dex 15      Spells:  1 memorised,  5 levels left
+
+rFire  . . .     SeeInvis .     e - +0 hunting sling
+rCold  . . .     Clarity  .     a - +0 robe
+rNeg   . . .     rCorr    .     (no shield)
+rPois  .         rRot     .     (no helmet)
+rElec  .         Spirit   .     (no cloak)
+SustAb .         Warding  .     (no gloves)
+rMut   .         Stasis   .     (no boots)
+Gourm  .                        (no amulet)
+MR     .....                    (no ring)
+                                (no ring)
+
+@: not resistant to hostile enchantments, unstealthy
+A: no striking features
+a: no special abilities
+
+
+You were on level 3 of the Dungeon.
+You were not hungry.
+
+You visited 1 branch of the dungeon, and saw 3 of its levels.
+
+Inventory:
+
+Hand weapons
+ d - a +0 club
+ e - a +0 hunting sling (weapon)
+Armour
+ a - a +0 robe (worn)
+ g - a cursed +0 leather armour
+Comestibles
+ b - a bread ration
+Scrolls
+ f - 2 scrolls of recharging
+Books
+ c - a book of Conjurations   
+   
+   Spells                             Type                      Level
+   *Magic Dart                        Conjuration                  1
+   Searing Ray                        Conjuration                  2
+   Dazzling Spray                     Conjuration/Hexes            3
+   Fulminant Prism                    Conjuration/Hexes            4
+   Iskenderun's Mystic Blast          Conjuration                  4
+   Iskenderun's Battlesphere          Conjuration/Charms           5
+
+
+   Skills:
+ + Level 2,4 Dodging
+ + Level 2,4 Stealth
+ + Level 3,0 Spellcasting
+ + Level 4,4 Conjurations
+
+
+You had 5 spell levels left.
+You knew the following spells:
+
+ Your Spells              Type           Power        Failure   Level  Hunger
+a - Magic Dart            Conj           ###.         2%          1    None
+
+
+Dungeon Overview and Level Annotations
+
+Branches:
+Dungeon (3/15)            
+
+Altars:
+
+Message History
+
+A worm is nearby!
+A hobgoblin comes into view.
+A hobgoblin is nearby!
+Read which item? (? for menu, Esc to quit)
+As you read the scroll labeled PSESEG APROA, it crumbles to dust.
+It is a scroll of recharging.
+You aren't carrying any rechargeable items.
+Wield which item (- for none, * to show all)? (? for menu, Esc to quit)
+e - a +0 hunting sling (weapon)
+Really attack while wielding your +0 hunting sling?  
+You clumsily bash the worm but do no damage.
+The worm bites you!
+Ouch! That really hurt!
+You die...
+
+       ........<...#
+      .............#
+     .......w......#
+     ........#..####
+     ...........#
+    ......$.#...#
+        ####....#
+          ##.#.##
+..#########w.###
+...........@##
+g############
+
+
+You could see a worm.
+
+Vanquished Creatures
+  A giant cockroach (D:1)
+  A goblin (D:1)
+2 creatures vanquished.
+
+Notes
+Turn   | Place    | Note
+--------------------------------------------------------------
+     0 | D:1      | Learned a level 1 spell: Magic Dart
+     0 | D:1      | Misza, the Deep Elf Conjurer, began the quest for the Orb.
+     0 | D:1      | Reached XP level 1. HP: 10/10 MP: 5/5
+   171 | D:3      | Mangled by a worm
+
+
+Action                   || total
+-------------------------++-------
+Melee: Club              ||    14
+       Unarmed           ||     6
+       Hunting sling     ||     1
+  Use: Scroll            ||     1
+ Stab: Sleeping          ||     1
+

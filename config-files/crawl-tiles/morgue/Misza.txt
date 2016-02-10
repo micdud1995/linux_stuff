@@ -1,0 +1,104 @@
+ Dungeon Crawl Stone Soup version 0.15.1 (tiles) character file.
+
+Misza the Ruinous (Deep Elf Conjurer)                  Turns: 1, Time: 00:00:47
+
+HP  10/10        AC  2     Str  5      XL: 1   Next:  0%
+MP   5/5         EV 13     Int 19      God: 
+Gold 0           SH  0     Dex 15      Spells:  1 memorised,  5 levels left
+
+rFire  . . .     SeeInvis .     (no weapon)
+rCold  . . .     Clarity  .     a - +0 robe
+rNeg   . . .     rCorr    .     (no shield)
+rPois  .         rRot     .     (no helmet)
+rElec  .         Spirit   .     (no cloak)
+SustAb .         Warding  .     (no gloves)
+rMut   .         Stasis   .     (no boots)
+Gourm  .                        (no amulet)
+MR     .....                    (no ring)
+                                (no ring)
+
+@: not resistant to hostile enchantments, unstealthy
+A: no striking features
+a: no special abilities
+
+
+You are on level 1 of the Dungeon.
+You are not hungry.
+
+You have visited 1 branch of the dungeon, and seen 1 of its levels.
+
+Inventory:
+
+Armour
+ a - a +0 robe (worn)
+Comestibles
+ b - a bread ration
+Books
+ c - a book of Conjurations   
+   
+   Spells                             Type                      Level
+   *Magic Dart                        Conjuration                  1
+   Searing Ray                        Conjuration                  2
+   Dazzling Spray                     Conjuration/Hexes            3
+   Fulminant Prism                    Conjuration/Hexes            4
+   Iskenderun's Mystic Blast          Conjuration                  4
+   Iskenderun's Battlesphere          Conjuration/Charms           5
+
+
+   Skills:
+ + Level 2,4 Dodging
+ + Level 2,4 Stealth
+ + Level 3,0 Spellcasting
+ + Level 4,3 Conjurations
+
+
+You have 5 spell levels left.
+You know the following spells:
+
+ Your Spells              Type           Power        Failure   Level  Hunger
+a - Magic Dart            Conj           ###.         2%          1    None
+
+
+Dungeon Overview and Level Annotations
+
+Branches:
+Dungeon (1/15)            
+
+Altars:
+
+Message History
+
+Spell assigned to 'a'.
+Welcome, Misza the Deep Elf Conjurer.
+
+Press ? for a list of commands and other information.
+Found a staircase leading out of the dungeon.
+Unknown command. (For a list of commands type ??.)
+Unknown command. (For a list of commands type ??.)
+Unknown command. (For a list of commands type ??.)
+Unknown command. (For a list of commands type ??.)
+Unknown command. (For a list of commands type ??.)
+key_to_command(): command 'CMD_NO_CMD' (901:178) wrong for desired context
+Unknown command. (For a list of commands type ??.)
+You aren't carrying any potions.
+Sorry, you're not good enough to have a special ability.
+Saving game... please wait.
+
+  #+#
+  #.#
+###@###
+#..<..#
+###.###
+  ...
+ #####
+
+
+There are no monsters in sight!
+
+
+Notes
+Turn   | Place    | Note
+--------------------------------------------------------------
+     0 | D:1      | Misza, the Deep Elf Conjurer, began the quest for the Orb.
+     0 | D:1      | Reached XP level 1. HP: 10/10 MP: 5/5
+
