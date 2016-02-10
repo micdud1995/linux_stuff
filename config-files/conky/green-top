@@ -4,7 +4,7 @@ xftfont Terminus:size=9
 xftalpha 1
 update_interval 1.0
 total_run_times 0
-own_window no
+own_window yes
 own_window_transparent yes
 own_window_type desktop
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
@@ -16,7 +16,7 @@ draw_borders no
 draw_graph_borders no
 alignment tl
 maximum_width 1400
-minimum_size 1400 24
+minimum_size 100 24
 alignment top_middle
 gap_x 0
 gap_y 3
