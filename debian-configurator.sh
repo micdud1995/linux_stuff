@@ -802,32 +802,10 @@ config_packages()
 config_scripts() 
 {
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to copy useful scripts?" 20 70) then
+        "Do you want to install automount packages?" 20 70) then
 
-        (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
-        "m"         "" OFF \
-        "um"        "" OFF \
-        "live-usb"  "" OFF 2>results)
-
-        while read choice
-        do
-            case $choice in
-                m)
-                    aptitude install fuse ntfs-3g -y
-                    cp $HOME/repo/linux_stuff/config-files/scripts/m /usr/local/bin/
-                    chmod +x /usr/local/bin/m
-                ;;
-                um)
-                    aptitude install fuse ntfs-3g -y
-                    cp $HOME/repo/linux_stuff/config-files/scripts/um /usr/local/bin/
-                    chmod +x /usr/local/bin/um
-                ;;
-                live-usb)
-                    cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
-                    chmod +x /usr/local/bin/live-usb
-                ;;
-            esac
-        done < results
+        aptitude install fuse ntfs-3g udisks2 -y
+        sh -c "echo '/dev/sdb1  /mnt/sdb1   auto    defaults    0   0' >> /etc/fstab"
     fi 
 
     config_pc
