@@ -190,7 +190,7 @@ config_gui()
                 esac
             ;;
             "openbox")
-                aptitude install fonts-inconsolata colordiff bash xterm xorg mc conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter uzbl git weechat xfonts-terminus moc -y
+                aptitude install openbox tint2 fonts-inconsolata colordiff bash xterm xorg mc conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter uzbl git weechat xfonts-terminus moc xbacklight -y
 
                 mkdir -p $HOME/.weechat
                 cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
@@ -238,7 +238,6 @@ config_gui()
                 cp -p $HOME/repo/linux_stuff/config-files/openbox/{rc.xml,menu.xml,environment,autostart} $HOME/.config/openbox/
                 chmod +x $HOME/.config/openbox/{autostart,environment}
                 cp $HOME/repo/linux_stuff/config-files/tint2/tint2rc $HOME/.config/tint2/tint2rc
-                cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
                 cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
                 cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot /usr/local/bin/
                 cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot-s /usr/local/bin/
@@ -246,6 +245,8 @@ config_gui()
                 chmod +x /usr/local/bin/run-mc
                 chmod +x /usr/local/bin/take-screenshot
                 chmod +x /usr/local/bin/take-screenshot-s
+
+                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
             ;;
             "lxde-core")
                 mkdir -p $HOME/.config/lxpanel/LXDE/panels
@@ -293,6 +294,7 @@ config_packages()
         "git"                           "Content tracker" OFF \
         "gummi"                         "LaTeX Editor" OFF \
         "htop"                          "Process Info" OFF \
+        "icedove"                       "Mail Client" OFF \
         "iceweasel"                     "Web Browser" OFF \
         "libreoffice"                   "Libre Office" OFF \
         "links"                         "Web Browser" OFF \
@@ -320,7 +322,6 @@ config_packages()
         "vim-nox" 	  	                "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
         "weechat"                       "IRC Client" OFF \
-        "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
         "xorg" 	  	                    "X Server" OFF \
         "xterm"                         "Terminal Emulator" OFF \
@@ -437,6 +438,9 @@ config_packages()
                 ;;
                 htop)
                     aptitude install htop -y
+                ;;
+                icedove)
+                    aptitude install icedove -y
                 ;;
                 iceweasel)
                     aptitude install iceweasel -y
@@ -586,9 +590,6 @@ config_packages()
                     aptitude install xboxdrv -y
                     sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
                     rmmod xpad
-                ;;
-                xcalib)
-                    aptitude install xcalib -y
                 ;;
                 xorg)
                     aptitude install xorg -y
@@ -939,6 +940,7 @@ main_menu()
             reboot
 		;;
 		"Exit")
+            chown -R "${HOME///\home\/}" $HOME
             whiptail --title "Debian config" --msgbox "System configured." 20 70
             exit 0
 		;;
