@@ -2,7 +2,7 @@
 background =	        default	default
 frame =			        green 	default
 window_title =	        white 	default
-directory =		        grey 	default
+directory =		        white 	default
 selected_directory =	green 	default	bold
 playlist =		        white 	default
 selected_playlist =	    white 	default	bold
