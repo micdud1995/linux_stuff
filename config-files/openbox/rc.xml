@@ -391,9 +391,9 @@
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
-          <name>cmus</name>
+          <name>mocp</name>
         </startupnotify>
-        <command>run-cmus</command>
+        <command>xterm -e mocp</command>
       </action>
     </keybind>
     <keybind key="A-n">
@@ -431,7 +431,32 @@
         <command>lxpanelctl menu</command>
       </action>
     </keybind>
-    <!-- Launch Task Manager with Ctrl+Alt+Del -->
+    <keybind key="A-F5">
+      <action name="Execute">
+        <command>amixer sset Master toggle</command>
+      </action>
+    </keybind>
+    <keybind key="A-F9">
+      <action name="Execute">
+        <command>xbacklight -dec 5</command>
+      </action>
+    </keybind>
+    <keybind key="A-F10">
+      <action name="Execute">
+        <command>xbacklight -inc 5</command>
+      </action>
+    </keybind>
+    <keybind key="A-F11">
+      <action name="Execute">
+        <command>amixer set Master 5%-</command>
+      </action>
+    </keybind>
+    <keybind key="A-F12">
+      <action name="Execute">
+        <command>amixer set Master 5%+</command>
+      </action>
+    </keybind>
+    <!-- Launch Task Manager -->
     <keybind key="A-q">
       <action name="Execute">
         <command>xterm -e htop</command>
