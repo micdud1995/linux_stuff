@@ -380,6 +380,11 @@ config_packages()
                         ;;
                     esac
                 ;;
+                crawl-tiles)
+                    aptitude install crawl-tiles -y
+                    mkdir -p $HOME/.crawl
+                    cp -R $HOME/repo/linux_stuff/config-files/crawl-tiles/* $HOME/.crawl/
+                ;;
                 dictd)
                     aptitude install dictd -y
                     whiptail --title "Test" --checklist --separate-output "Choose:" 20 78 15 \
