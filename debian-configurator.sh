@@ -193,6 +193,7 @@ config_gui()
                 aptitude install openbox tint2 fonts-inconsolata colordiff bash xterm xorg mc conky alsa-utils faenza-icon-theme feh htop lxrandr p7zip unrar unzip zip scrot newsbeuter uzbl git weechat xfonts-terminus moc xbacklight -y
 
                 mkdir -p $HOME/.weechat
+                mkdir -p $HOME/.local/share/uzbl
                 cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
                 rm -f $HOME/.weechat/weechat.log
                 ln -s /dev/null weechat.log
@@ -241,7 +242,6 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
                 cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot /usr/local/bin/
                 cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot-s /usr/local/bin/
-                chmod +x /usr/local/bin/run-cmus
                 chmod +x /usr/local/bin/run-mc
                 chmod +x /usr/local/bin/take-screenshot
                 chmod +x /usr/local/bin/take-screenshot-s
@@ -804,8 +804,8 @@ config_scripts()
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to install automount packages?" 20 70) then
 
+        mkdir -p /mnt/sdb1
         aptitude install fuse ntfs-3g udisks2 -y
-        sh -c "echo '/dev/sdb1  /mnt/sdb1   auto    defaults    0   0' >> /etc/fstab"
     fi 
 
     config_pc
@@ -918,7 +918,7 @@ main_menu()
             reboot
 		;;
 		"Exit")
-            chown -R "${HOME///\home\/}" $HOME
+            chown -R "${HOME///\home\/}" $HOME/*
             whiptail --title "Debian config" --msgbox "System configured." 20 70
             exit 0
 		;;
