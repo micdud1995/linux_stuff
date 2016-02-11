@@ -870,6 +870,12 @@ config_pc()
 
     fi 
 
+    exiting
+}
+
+exiting()
+{
+    chown -R "${HOME///\home\/}" $HOME
     whiptail --title "Debian config" --msgbox "System configured." 20 70
     exit 0
 }
@@ -916,9 +922,7 @@ main_menu()
             reboot
 		;;
 		"Exit")
-            chown -R "${HOME///\home\/}" $HOME/*
-            whiptail --title "Debian config" --msgbox "System configured." 20 70
-            exit 0
+            exiting
 		;;
 	esac
 }
