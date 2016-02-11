@@ -196,7 +196,6 @@ config_gui()
                 mkdir -p $HOME/.local/share/uzbl
                 cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
                 rm -f $HOME/.weechat/weechat.log
-                ln -s /dev/null weechat.log
 
                 name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
                 git config --global user.name "$name"
@@ -529,7 +528,6 @@ config_packages()
                     mkdir -p $HOME/.weechat
                     cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
                     rm -f $HOME/.weechat/weechat.log
-                    ln -s /dev/null weechat.log
                 ;;
                 newsbeuter)
                     aptitude install newsbeuter -y
