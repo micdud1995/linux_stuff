@@ -491,7 +491,7 @@ config_packages()
                 mpv)
                     aptitude install mpv -y
                 ;;
-                nethack-concole)
+                nethack-console)
                     aptitude install nethack-console -y
                 ;;
                 unpacking)
