@@ -291,7 +291,6 @@ config_packages()
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
         "git"                           "Content tracker" OFF \
-        "gummi"                         "LaTeX Editor" OFF \
         "htop"                          "Process Info" OFF \
         "icedove"                       "Mail Client" OFF \
         "iceweasel"                     "Web Browser" OFF \
@@ -312,6 +311,7 @@ config_packages()
         "rtorrent"                      "Torrent Client" OFF \
         "screenfetch"                   "System Info" OFF \
         "scrot"                         "Screenshots" OFF \
+        "texmaker"                      "LaTeX Editor" OFF \
         "tor"                           "Communication System" OFF \
         "ufw"                           "Firewall" OFF \
         "unpacking"                     "Archive tools" OFF \
@@ -432,9 +432,6 @@ config_packages()
                     edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
                     git config --global core.editor $edit
                 ;;
-                gummi)
-                    aptitude install gummi texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
-                ;;
                 htop)
                     aptitude install htop -y
                 ;;
@@ -518,6 +515,9 @@ config_packages()
                     mkdir -p $HOME/.config/ranger/colorschemes
                     cp $HOME/repo/linux_stuff/config-files/ranger/red.py $HOME/.config/ranger/colorschemes/
                     cp $HOME/repo/linux_stuff/config-files/ranger/debian-rc.conf $HOME/.config/ranger/rc.conf
+                ;;
+                texmaker)
+                    aptitude install texmaker texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
                 ;;
                 ufw)
                     aptitude install ufw -y
