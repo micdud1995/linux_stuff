@@ -5,8 +5,6 @@
 # Description       This script will config installed Debian GNU/Linux system 
 #                   in version 8.x
 # Author            Michal Dudek 
-# Date              22-01-2016
-# Version           2.2.1
 # Notes             Run with sudo only
 # License           GNU General Public License v3.0
 #==============================================================================
