@@ -8,8 +8,7 @@ filetype indent on
 set showmatch
 set t_Co=256
 set background=dark
-let mapleader=","
-set background=dark
+let mapleader=" "
 "==================================================
 	
 "==================================================
@@ -100,11 +99,6 @@ set splitright
 
 "==================================================
 " Look and themes
-" colorscheme gruvbox
-" colorscheme railscasts
-" colorscheme sorcerer
-" colorscheme jellybeans
-" colorscheme solarized
 colorscheme 256_noir
 "==================================================
 
@@ -126,7 +120,7 @@ autocmd VimEnter * wincmd p
 
 " =================================================
 " Neosnippet
-imap <Leader><Leader>   <Plug>(neosnippet_expand_or_jump)
+imap ,,   <Plug>(neosnippet_expand_or_jump)
 
 " For conceal markers.
 if has('conceal')
@@ -227,6 +221,9 @@ set clipboard=unnamed
 " jk instead od ESC
 inoremap jk <ESC> 
 
+" search with space
+" noremap <space> /
+
 " 
 nnoremap Y y$
 
@@ -252,8 +249,41 @@ noremap <Right> <NOP>
 noremap <C-n> :nohl<CR>
 vnoremap <C-n> :nohl<CR>
 inoremap <C-n> :nohl<CR>
+
+" jump to the end of pasted text
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
 "==================================================
 
+"==================================================
+" leader-key maps
+" saving
+nnoremap <Leader>w :w<CR>
+" closing
+nnoremap <Leader>c :q<CR>
+" search and replace (cs - replace first match, n - next)
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+" splitting
+nnoremap <Leader>a :sp<CR>
+nnoremap <Leader>s :vsp<CR>
+nnoremap <Leader>k :resize +5<CR>
+nnoremap <Leader>j :resize -5<CR>
+"==================================================
+"
 "==================================================
 " No backup and swap files
 set nobackup
