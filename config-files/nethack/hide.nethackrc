@@ -1,0 +1,34 @@
+#OPTIONS=gender:male,name:Ekhart,role:Wizard,race:Elf,align:chaotic
+# OPTIONS=gender:male,name:Geralt,role:Knight,race:Human,align:lawful
+OPTIONS=catname:Garfield
+OPTIONS=horsename:Plotka
+OPTIONS=dogname:Bailey
+OPTIONS=autodig
+OPTIONS=autoquiver
+OPTIONS=fruit:raspberry
+OPTIONS=color
+OPTIONS=hilite_pet
+OPTIONS=DECgraphics
+OPTIONS=showexp
+OPTIONS=time
+OPTIONS=rest_on_space
+OPTIONS=lit_corridor
+OPTIONS=!cmdassist
+OPTIONS=checkpoint
+OPTIONS=checkspace
+OPTIONS=confirm
+OPTIONS=menustyle:full
+OPTIONS=windowtype:curses
+OPTIONS=align_message:bottom
+OPTIONS=align_status:right
+OPTIONS=guicolor
+OPTIONS=petattr:u
+OPTIONS=autopickup
+OPTIONS=pickup_types:$!/="+?*
+OPTIONS=pickup_burden:unencumbered
+OPTIONS=menucolors
+MENUCOLOR=" blessed "=green
+MENUCOLOR=" holy "=green
+MENUCOLOR=" cursed "=red
+MENUCOLOR=" unholy "=red
+MENUCOLOR=" cursed .* (being worn)"=orange&underline 
