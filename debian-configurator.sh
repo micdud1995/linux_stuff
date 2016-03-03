@@ -300,7 +300,7 @@ config_packages()
         "moc"                           "Music Player" OFF \
         "mpv"                           "Video Player" OFF \
         "mutt"                          "Mail Client" OFF \
-        "nethack-console"               "Roguelike game" OFF \
+        "nethack"                       "Roguelike game" OFF \
         "newsbeuter"                    "RSS feed reader" OFF \
         "openssh"                       "Secure Shell" OFF \
         "pavucontrol"                   "Sound output" OFF \
@@ -486,8 +486,10 @@ config_packages()
                 mpv)
                     aptitude install mpv -y
                 ;;
-                nethack-console)
+                nethack)
                     aptitude install nethack-console -y
+                    cp $HOME/repo/linux_stuff/config-files/nethack/hide.nethackrc $HOME/.nethackrc
+                    cp $HOME/repo/linux_stuff/config-files/nethack/record /var/games/nethack/record
                 ;;
                 unpacking)
                     aptitude install p7zip unrar unzip zip -y
