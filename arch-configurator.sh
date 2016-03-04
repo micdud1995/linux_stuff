@@ -371,7 +371,7 @@ config_packages()
                     sudo pacman -S ncurses --noconfirm
                 ;;
                 nethack)
-                    sudo pacman -S nethack--noconfirm
+                    sudo pacman -S nethack --noconfirm
                 ;;
                 newsbeuter)
                     sudo pacman -S newsbeuter --noconfirm
@@ -560,7 +560,7 @@ config_packages()
                     #	Pathogen
                     #	Nerdtree
                     #	Syntastic
-                    #	Tagbar / Taglist
+                    #	Tagbar
                     #	GitGutter
                     # 	Vim-airline
                     #	Auto-pairs
@@ -570,7 +570,6 @@ config_packages()
                     #   SingleCompile
                     #   Vim-commentary
                     #   YouCompleteMe
-                    #	Solarized theme
                     #==============================================================
 
                     sudo pacman -S vim cmake curl ctags ttf-inconsolata 
@@ -600,9 +599,9 @@ config_packages()
                     cd $HOME/.vim/bundle && \
                     git clone git://github.com/airblade/vim-gitgutter.git
 
-                    # Taglist
+                    # Tagbar
                     cd $HOME/.vim/bundle && \
-                    git clone git://github.com/vim-scripts/taglist.vim.git
+                    git clone https://github.com/majutsushi/tagbar
 
                     # Auto-pairs
                     cd $HOME/.vim/bundle && \
@@ -627,15 +626,14 @@ config_packages()
                     git clone https://github.com/tpope/vim-commentary.git
 
                     # YouCompleteMe
-                    sudo pacman -S cmake
                     cd $HOME/.vim/bundle/
                     git clone https://github.com/Valloric/YouCompleteMe.git
                     cd YouCompleteMe/
                     git submodule update --init --recursive
                     sudo ./install.sh
 
-                    # Copying solarized theme
-                    cp $HOME/repo/linux_stuff/config-files/vim/solarized.vim $HOME/.vim/colors/
+                    # Copying themes
+                    cp $HOME/repo/linux_stuff/config-files/vim/colors/* $HOME/.vim/colors/
 
                     # Copying .vimrc
                     cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
