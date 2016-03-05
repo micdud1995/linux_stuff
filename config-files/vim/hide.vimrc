@@ -1,4 +1,5 @@
 "==================================================
+set encoding=utf-8
 set nocompatible
 syntax on
 filetype on
@@ -64,7 +65,7 @@ set scrolloff=50
 
 " show numbers of lines
 set number
-set relativenumber
+" set relativenumber
 
 " Write the old file out when switching between files.
 " set autowrite
@@ -135,13 +136,15 @@ endif
 " let Tlist_Auto_Open = 1
 " let TlistHighlightTag = 1
 " map <F4> :TlistToggle<CR>
+map <Leader>2 :TlistToggle<CR>
 " =================================================
 
 " =================================================
 " Tagbar
 " Open Tagbar only with specific files
 autocmd FileType c,h,cpp,java,sh nested :TagbarOpen
-map <F4> :TagbarToggle<CR>
+" map <F4> :TagbarToggle<CR>
+map <Leader>2 :TagbarToggle<CR>
 let g:tagbar_left = 0
 let g:tagbar_width = 25
 let g:tagbar_sort = 1
@@ -170,7 +173,8 @@ highlight TagbarVisibilityPrivate ctermfg=196
 " autocmd FileType c,h,cpp,java,sh,py nested :NERDTree
 autocmd VimEnter * NERDTree | wincmd p
 let g:NERDTreeWinSize = 20
-map <F3> :NERDTreeToggle<CR>
+" map <F3> :NERDTreeToggle<CR>
+nnoremap <Leader>1 :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
 let g:NERDTreeDirArrows=0
 let NERDTreeAutoDeleteBuffer=1
@@ -181,6 +185,14 @@ let NERDTreeShowBookmarks=1
 let NERDTreeBookmarksFile="/home/michal/.NERDTreeBookmarks"
 let NERDTreeIgnore=['\.vim$', '\.o$', '\.pdf$', '\.png$', '\.jpg$', '\.doc$', '\.mp4$', '\.mp3$', '\.rar$', '\.zip$', '\~$']
 let NERDTreeHijackNetrw=0
+" =================================================
+
+" =================================================
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " =================================================
 
 " =================================================
@@ -207,7 +219,6 @@ autocmd InsertLeave * set iminsert=0
 " IndentLine
 let g:indentLine_enabled = 1
 let g:indentLine_char = '|'
-" let g:indentLine_char = '¦'
 let g:indentLine_color_term = 239
 "==================================================
 
