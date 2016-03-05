@@ -1,4 +1,5 @@
 ! --- ~/.Xresources ---
+
 xterm*faceName:             Inconsolata
 xterm*faceSize: 		    10
 xterm*xftAntialias: 		true
@@ -27,7 +28,7 @@ xterm*charClass: 		    33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
 ! --- special colors ---
 
 XTerm*background: #080808
-XTerm*foreground: #00FF00
+XTerm*foreground: #FFFFFF
 
 ! --- standard colors ---
 ! black
