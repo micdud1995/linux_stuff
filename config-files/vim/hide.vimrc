@@ -230,6 +230,9 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
+" Compiling directly in vim
+nmap <Leader>9 :make<cr>
+
 " run compiled file
 map <Leader>0 :!./bin<CR>
 
@@ -304,12 +307,6 @@ nnoremap <Leader>j :resize -5<CR>
 set nobackup
 set nowritebackup
 set noswapfile
-"==================================================
-
-"==================================================
-" Compiling directly in vim
-nmap <Leader>9 :SCCompile<cr>
-nmap <F1> :SCCompileRun<cr>
 "==================================================
 
 "==================================================
