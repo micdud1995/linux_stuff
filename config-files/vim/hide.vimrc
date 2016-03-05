@@ -189,25 +189,27 @@ let NERDTreeHijackNetrw=0
 " neocomplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#sources#syntax#min_keyword_length = 5
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " =================================================
 
 " =================================================
 " YouCompleteMe
-let g:ycm_complete_in_strings = 0
-let g:ycm_complete_in_comments = 1
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_disable_for_files_larger_than_kb = 2048
-let g:ycm_autoclose_preview_window_after_insertion = 0
-let g:ycm_autoclose_preview_window_after_completion = 0
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
+" let g:ycm_complete_in_strings = 0
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_add_preview_to_completeopt = 0
+" let g:ycm_min_num_of_chars_for_completion = 2
+" let g:ycm_min_num_identifier_candidate_chars = 0
+" let g:ycm_disable_for_files_larger_than_kb = 2048
+" let g:ycm_autoclose_preview_window_after_insertion = 0
+" let g:ycm_autoclose_preview_window_after_completion = 0
+" let g:ycm_collect_identifiers_from_comments_and_strings = 0
+" let g:ycm_key_list_select_completion=[]
+" let g:ycm_key_list_previous_completion=[]
+" let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
 " =================================================
 
 " =================================================
