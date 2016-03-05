@@ -1,4 +1,5 @@
 "==================================================
+set encoding=utf-8
 set nocompatible
 syntax on
 filetype on
@@ -64,7 +65,7 @@ set scrolloff=50
 
 " show numbers of lines
 set number
-set relativenumber
+" set relativenumber
 
 " Write the old file out when switching between files.
 " set autowrite
@@ -135,6 +136,7 @@ endif
 " let Tlist_Auto_Open = 1
 " let TlistHighlightTag = 1
 " map <F4> :TlistToggle<CR>
+map <Leader>2 :TlistToggle<CR>
 " =================================================
 
 " =================================================
@@ -184,6 +186,14 @@ let NERDTreeHijackNetrw=0
 " =================================================
 
 " =================================================
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" =================================================
+
+" =================================================
 " YouCompleteMe
 let g:ycm_complete_in_strings = 0
 let g:ycm_complete_in_comments = 1
@@ -218,6 +228,9 @@ set clipboard=unnamed
 "==================================================
 
 "==================================================
+" run compiled file
+map <Leader>0 :!./bin<CR>
+
 " jk instead od ESC
 inoremap jk <ESC> 
 
@@ -293,15 +306,8 @@ set noswapfile
 
 "==================================================
 " Compiling directly in vim
-nmap <F2> :SCCompile<cr>
+nmap <Leader>9 :SCCompile<cr>
 nmap <F1> :SCCompileRun<cr>
-"==================================================
-
-"==================================================
-" Public Accessors
-map <F6> :s/\(\(\w\)\(\w\+\)\).*/public function get\u\2\3(){\r\treturn \$this->\1;\r}/<CR>
-" Public Setters
-map <S-F6> :s/\(\(\w\)\(\w\+\)\).*/public function set\u\2\3(\$\1){\r\t\$this->\1 = \$\1;\r}/<CR>
 "==================================================
 
 "==================================================
