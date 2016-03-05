@@ -704,7 +704,6 @@ config_packages()
                     #	Syntastic
                     #	Tagbar
                     #	GitGutter
-                    #   CtrlP
                     # 	Vim-airline
                     #	Auto-pairs
                     # 	Supertab
@@ -712,7 +711,7 @@ config_packages()
                     #   indentLine
                     #   SingleCompile
                     #   Vim-commentary
-                    #   YouCompleteMe
+                    #   neocomplete
                     #==============================================================
 
                     aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
@@ -775,12 +774,9 @@ config_packages()
                     # Themes
                     cp $HOME/repo/linux_stuff/config-files/vim/colors/*.vim $HOME/.vim/colors/
 
-                    # YouCompleteMe
+                    # neocomplete
                     cd $HOME/.vim/bundle/
-                    git clone https://github.com/Valloric/YouCompleteMe.git
-                    cd YouCompleteMe/
-                    git submodule update --init --recursive
-                    ./install.sh
+                    git clone https://github.com/Shougo/neocomplete.vim
 
                     # Copying .vimrc
                     cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
