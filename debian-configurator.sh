@@ -624,7 +624,6 @@ config_packages()
                     # 	Supertab
                     #	Neosnippet
                     #   indentLine
-                    #   SingleCompile
                     #   Vim-commentary
                     #==============================================================
 
@@ -677,10 +676,6 @@ config_packages()
                     cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
-                    # Single-compile
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/xuhdev/SingleCompile.git
-
                     # Vim-commentary
                     cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
@@ -709,7 +704,6 @@ config_packages()
                     # 	Supertab
                     #	Neosnippet
                     #   indentLine
-                    #   SingleCompile
                     #   Vim-commentary
                     #   neocomplete
                     #==============================================================
@@ -762,10 +756,6 @@ config_packages()
                     # Indent-line
                     cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
-
-                    # Single-compile
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/xuhdev/SingleCompile.git
 
                     # Vim-commentary
                     cd $HOME/.vim/bundle

@@ -498,7 +498,6 @@ config_packages()
                     # 	Supertab
                     #	Neosnippet
                     #   indentLine
-                    #   SingleCompile
                     #   Vim-commentary
                     #	Solarized theme
                     #==============================================================
@@ -548,10 +547,6 @@ config_packages()
                     cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
-                    # Single-compile
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/xuhdev/SingleCompile.git
-
                     # Vim-commentary
                     cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
@@ -577,7 +572,6 @@ config_packages()
                     #	Neosnippet
                     #   indentLine
                     #   CtrlP
-                    #   SingleCompile
                     #   Vim-commentary
                     #   neocomplete
                     #==============================================================
@@ -630,10 +624,6 @@ config_packages()
                     # CtrlP
                     cd $HOME/.vim/bundle
                     git clone https://github.com/kien/ctrlp.vim.git
-
-                    # Single-compile
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/xuhdev/SingleCompile.git
 
                     # Vim-commentary
                     cd $HOME/.vim/bundle
