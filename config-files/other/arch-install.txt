@@ -78,6 +78,10 @@ passwd michal
 pacman -S sudo
 visudo
 reboot -> login as a user
+
+sudo nano /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
 sudo pacman -S git libnewt
 mkdir repo
 cd repo
