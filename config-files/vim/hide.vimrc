@@ -141,7 +141,7 @@ endif
 " Tagbar
 " Open Tagbar only with specific files
 autocmd FileType c,h,cpp,java,sh nested :TagbarOpen
-map <F4> :TagbarToggle<CR>
+map <Leader>2 :TagbarToggle<CR>
 let g:tagbar_left = 0
 let g:tagbar_width = 25
 let g:tagbar_sort = 1
@@ -170,7 +170,7 @@ highlight TagbarVisibilityPrivate ctermfg=196
 " autocmd FileType c,h,cpp,java,sh,py nested :NERDTree
 autocmd VimEnter * NERDTree | wincmd p
 let g:NERDTreeWinSize = 20
-map <F3> :NERDTreeToggle<CR>
+map <Leader>1 :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
 let g:NERDTreeDirArrows=0
 let NERDTreeAutoDeleteBuffer=1
