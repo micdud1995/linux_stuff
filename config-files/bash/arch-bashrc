@@ -182,7 +182,7 @@ fi
 	alias hdmi_auto="xrandr --output HDMI1 --auto"
 	alias hdmi_off="xrandr --off"
 # show which commands you use the most
-	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
+	alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
 	alias ..="cd ..;ls"
 	alias ...="cd ../..;ls"
@@ -226,3 +226,4 @@ fi
     alias off="systemctl poweroff"
     alias sus="systemctl suspend"
 #=================================================================
+alsi --bold=black --normal=cyan -l
