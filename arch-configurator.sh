@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
 #==============================================================================
-# Title             arch-configurator.sh
+# Title             arch-configurator
 # Description       This script will config installed Arch GNU/Linux system 
 # Author            Michal Dudek 
-# Date              07-12-2015
-# Version           0.1
 # Notes             Run as a user
 # License           GNU General Public License v3.0
 #==============================================================================
@@ -26,12 +24,12 @@ info()
     else
         mkdir -p $HOME/repo
         mkdir -p $HOME/tmp
-        mkdir -p $HOME/Documents
-        mkdir -p $HOME/Music
-        mkdir -p $HOME/Movies
-        mkdir -p $HOME/Downloads
-        mkdir -p $HOME/Pictures
-        mkdir -p $HOME/Desktop
+        mkdir -p $HOME/documents
+        mkdir -p $HOME/music
+        mkdir -p $HOME/movies
+        mkdir -p $HOME/downloads
+        mkdir -p $HOME/pictures
+        setfont UniCyr_8x14.psf.gz
 
         main_menu
     fi
@@ -166,14 +164,22 @@ config_gui()
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
                 nano $HOME/.xinitrc
             ;;
-            "lxde-common")
-                sudo pacman -S lxde-common lxpanel lxappearance lxappearance-obconf lxrandr faenza-icon-theme --noconfirm
-                cp $HOME/repo/linux_stuff/config-files/lxde/lxde-rc.xml $HOME/.config/openbox/
+            "lxde")
+                sudo pacman -S lxde faenza-icon-theme --noconfirm
+                cp $HOME/repo/linux_stuff/config-files/openbox/rc.xml $HOME/.config/openbox/lxde-rc.xml
                 cp $HOME/repo/linux_stuff/config-files/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
                 sudo cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
                 sudo chmod +x /usr/local/bin/run-cmus
                 cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
                 nano $HOME/.xinitrc
+                cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
+                xrdb -merge $HOME/.Xresources 
+                cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
+                cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot /usr/local/bin/
+                cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot-s /usr/local/bin/
+                chmod +x /usr/local/bin/run-mc
+                chmod +x /usr/local/bin/take-screenshot
+                chmod +x /usr/local/bin/take-screenshot-s
             ;;
             "xfce")
                 sudo pacman -S xfwm4 --noconfirm
@@ -199,7 +205,7 @@ config_packages()
         (whiptail --title "Additional software" --separate-output --checklist \
         "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
         "alsa-utils"                    "Sound" OFF \
-        "archey3"                       "System Info" OFF \
+        "alsi"                          "System Info" OFF \
         "apache"  	                    "Web Server" OFF \
         "bash"                          "Shell" OFF \
         "brasero"                       "Burning app" OFF \
@@ -211,7 +217,6 @@ config_packages()
         "firefox"                       "Web Browser" OFF \
         "fuck"                          "Command correcting" OFF \
         "git"                           "Content tracker" OFF \
-        "gummi"                         "LaTeX Editor" OFF \
         "htop"                          "Process Info" OFF \
         "libreoffice"                   "Libre Office" OFF \
         "lightdm"                       "Login Manager" OFF \
@@ -233,6 +238,7 @@ config_packages()
         "rtorrent"                      "Torrent Client" OFF \
         "rxvt-unicode"                  "Terminal emulator" OFF \
         "scrot"                         "Screenshots" OFF \
+        "texmaker"                      "LaTeX Editor" OFF \
         "tor"                           "Communication System" OFF \
         "tree"                          "Tree of dirs" OFF \
         "udiskie"                       "Automounting devices" OFF \
@@ -256,6 +262,9 @@ config_packages()
         while read choice
         do
             case $choice in
+                alsi)
+                    sudo pacman -S alsi --noconfirm
+                ;;
                 alsa-utils)
                     sudo pacman -S alsa-utils --noconfirm
                 ;;
@@ -324,9 +333,6 @@ config_packages()
                     edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
                     git config --global core.editor $edit
                 ;;
-                gummi)
-                    sudo pacman -S gummi texlive-most --noconfirm
-                ;;
                 htop)
                     sudo pacman -S htop --noconfirm
                 ;;
@@ -357,7 +363,7 @@ config_packages()
                     mkdir -p $HOME/.moc
                     mkdir -p $HOME/.moc/themes
                     cp $HOME/repo/linux_stuff/config-files/moc/arch-config $HOME/.moc/config
-                    cp $HOME/repo/linux_stuff/config-files/moc/solarized $HOME/.moc/themes/
+                    cp $HOME/repo/linux_stuff/config-files/moc/* $HOME/.moc/themes/
                 ;;
                 mpv)
                     sudo pacman -S mpv --noconfirm
@@ -393,6 +399,9 @@ config_packages()
                 ;;
                 scrot)
                     sudo pacman -S scrot --noconfirm
+                ;;
+                texmaker)
+                    sudo pacman -S texmaker texlive-core texlive-lang --noconfirm
                 ;;
                 tor)
                     sudo pacman -S tor torbrowser-launcher --noconfirm
@@ -567,12 +576,13 @@ config_packages()
                     # 	Supertab
                     #	Neosnippet
                     #   indentLine
+                    #   CtrlP
                     #   SingleCompile
                     #   Vim-commentary
-                    #   YouCompleteMe
+                    #   neocomplete
                     #==============================================================
 
-                    sudo pacman -S vim cmake curl ctags ttf-inconsolata 
+                    sudo pacman -S vim cmake curl ctags ttf-inconsolata lua
 
                     # Making dirs
                     mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
@@ -617,6 +627,10 @@ config_packages()
                     cd $HOME/.vim/bundle
                     git clone https://github.com/Yggdroot/indentLine.git
 
+                    # CtrlP
+                    cd $HOME/.vim/bundle
+                    git clone https://github.com/kien/ctrlp.vim.git
+
                     # Single-compile
                     cd $HOME/.vim/bundle
                     git clone https://github.com/xuhdev/SingleCompile.git
@@ -625,12 +639,9 @@ config_packages()
                     cd $HOME/.vim/bundle
                     git clone https://github.com/tpope/vim-commentary.git
 
-                    # YouCompleteMe
+                    # neocomplete
                     cd $HOME/.vim/bundle/
-                    git clone https://github.com/Valloric/YouCompleteMe.git
-                    cd YouCompleteMe/
-                    git submodule update --init --recursive
-                    sudo ./install.sh
+                    git clone https://github.com/Shougo/neocomplete.vim
 
                     # Copying themes
                     cp $HOME/repo/linux_stuff/config-files/vim/colors/* $HOME/.vim/colors/
@@ -678,7 +689,6 @@ config_pc()
     "Touchpad" "Enable touchpad" OFF \
     "Microphone" "Enable Lenovo G580 microphone" OFF \
     "CS:GO" "Global Offensive config file" OFF \
-    "Grub" "Boot loader configuration" OFF \
     "Lid" "Don't suspend laptop when lid closed" off 2>results)
 
     while read choice
@@ -702,10 +712,6 @@ config_pc()
                 else
                     whiptail --title "Arch config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
                 fi
-            ;;
-            Grub)
-                sudo nano /etc/default/grub
-                sudo grub-mkconfig -o /boot/grub/grub.cfg
             ;;
             Lid)
                 sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
