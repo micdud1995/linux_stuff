@@ -20,11 +20,12 @@ setxkbmap -option ctrl:nocaps   # disable caps-lock
 # Prompt
 setopt PROMPT_SUBST     # allow funky stuff in prompt
 color="white"
-
 # left prompt part
-PROMPT="%{$fg[$color]%}[%{$fg[cyan]%}%n%{$fg[$color]%}]-%{$reset_color%}[%{$fg[cyan]%}%d%{$fg[$color]%}]%{$reset_color%}$ "
+PROMPT="%{$fg[$color]%}[%{$fg[cyan]%}%n%{$fg[$color]%}]-%{$reset_color%}[%{$fg[cyan]%}%~%{$fg[$color]%}]%{$reset_color%}$ "
 # right prompt part
-RPROMPT="%h-%{$fg[$color]%}[%{$fg[cyan]%}%m%{$fg[$color]%}]"
+local BAT="$(acpi | grep -o "[0-9]*%")%"
+# RPROMPT="%{$fg[$color]%}[%{$fg[cyan]%}${BAT}%{$fg[$color]%}]-%{$fg[$color]%}[%{$fg[cyan]%}%m%{$fg[$color]%}]"
+RPROMPT="%{$fg[$color]%}[%{$fg[cyan]%}${BAT}%{$fg[$color]%}]"
 #=================================================================
 
 #=================================================================
