@@ -344,6 +344,8 @@ config_packages()
                 ;;
                 links)
                     sudo pacman -S links --noconfirm
+                    mkdir -p $HOME/.links
+                    cp $HOME/repo/linux_stuff/config-files/links/links.cfg $HOME/.links/
                 ;;
                 livestreamer)
                     sudo pacman -S livestreamer
@@ -482,7 +484,7 @@ config_packages()
                     SHELL="ZSH"
 
                     sudo pacman -S colordiff zsh inconsolata --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                    cp $HOME/repo/linux_stuff/config-files/zsh/arch-zshrc $HOME/.zshrc
                     chsh -s /bin/zsh
                 ;;
                 *vim-minimal*)

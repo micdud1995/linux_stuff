@@ -471,6 +471,8 @@ config_packages()
                 ;;
                 links)
                     aptitude install links -y
+                    mkdir -p $HOME/.links2
+                    cp $HOME/repo/linux_stuff/config-files/links2/links.cfg $HOME/.links2/
                 ;;
                 livestreamer)
                     aptitude install python python-requests python-setuptools python-singledispatch -y
@@ -607,7 +609,7 @@ config_packages()
                     SHELL="ZSH"
 
                     aptitude install colordiff zsh -y
-                    cp $HOME/repo/linux_stuff/config-files/zsh/hide.zshrc $HOME/.zshrc
+                    cp $HOME/repo/linux_stuff/config-files/zsh/debian-zshrc $HOME/.zshrc
                     chsh -s /bin/zsh
                 ;;
                 vim-clear)
