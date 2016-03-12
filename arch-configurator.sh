@@ -380,6 +380,9 @@ config_packages()
                 ;;
                 nethack)
                     sudo pacman -S nethack --noconfirm
+                    sudo mkdir -p /var/games/nethack
+                    cp $HOME/repo/linux_stuff/config-files/nethack/hide.nethackrc $HOME/.nethackrc
+                    sudo cp $HOME/repo/linux_stuff/config-files/nethack/record /var/games/nethack/record
                 ;;
                 newsbeuter)
                     sudo pacman -S newsbeuter --noconfirm
@@ -483,7 +486,7 @@ config_packages()
                 zsh)
                     SHELL="ZSH"
 
-                    sudo pacman -S colordiff zsh inconsolata --noconfirm
+                    sudo pacman -S colordiff zsh inconsolata acpi --noconfirm
                     cp $HOME/repo/linux_stuff/config-files/zsh/arch-zshrc $HOME/.zshrc
                     chsh -s /bin/zsh
                 ;;
