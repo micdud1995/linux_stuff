@@ -1,7 +1,7 @@
 ! --- ~/.Xresources ---
 
 xterm*faceName:             Inconsolata
-xterm*faceSize: 		    10
+xterm*faceSize: 		    9
 xterm*xftAntialias: 		true
 
 xterm*utf8: 			    1
