@@ -34,8 +34,8 @@ info()
 
 select_system() 
 {
-	OS=$(whiptail --nocancel --title "Select OS" --menu "Select your OS" 20 70 10 \
-	"Debian"    ""  \
+    OS=$(whiptail --nocancel --title "Select OS" --menu "Select your OS" 20 70 10 \
+    "Debian"    ""  \
     "Raspbian"  ""  3>&1 1>&2 2>&3)
 
     case "$OS" in
@@ -315,17 +315,17 @@ config_packages()
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
         "vifm"                          "File Manager" OFF \
-        "vim-clear" 	  	            "Text Editor" OFF \
-        "vim-nox" 	  	                "Vim with scripts support" OFF \
+        "vim-clear"                     "Text Editor" OFF \
+        "vim-nox"                       "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
         "weechat"                       "IRC Client" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
-        "xorg" 	  	                    "X Server" OFF \
+        "xorg"                          "X Server" OFF \
         "xterm"                         "Terminal Emulator" OFF \
         "xserver-xorg-input-synaptics"  "Touchpad" OFF \
         "youtube-dl"                    "YT Downloader" OFF \
         "zathura"                       "PDF Viewer" OFF \
-        "zsh"     	                    "Z-shell" OFF 2>results)
+        "zsh"                           "Z-shell" OFF 2>results)
 
         while read choice
         do
@@ -615,16 +615,16 @@ config_packages()
                 vim-clear)
                     #==============================================================
                     # Plugin list:
-                    #	Pathogen
-                    #	Nerdtree
-                    #	Syntastic
-                    #	Tagbar
-                    #	GitGutter
+                    #   Pathogen
+                    #   Nerdtree
+                    #   Syntastic
+                    #   Tagbar
+                    #   GitGutter
                     #   CtrlP
-                    # 	Vim-airline
-                    #	Auto-pairs
-                    # 	Supertab
-                    #	Neosnippet
+                    #   Vim-airline
+                    #   Auto-pairs
+                    #   Supertab
+                    #   Neosnippet
                     #   indentLine
                     #   Vim-commentary
                     #==============================================================
@@ -696,15 +696,15 @@ config_packages()
                 vim-nox)
                     #==============================================================
                     # Plugin list:
-                    #	Pathogen
-                    #	Nerdtree
-                    #	Syntastic
-                    #	Tagbar
-                    #	GitGutter
-                    # 	Vim-airline
-                    #	Auto-pairs
-                    # 	Supertab
-                    #	Neosnippet
+                    #   Pathogen
+                    #   Nerdtree
+                    #   Syntastic
+                    #   Tagbar
+                    #   GitGutter
+                    #   Vim-airline
+                    #   Auto-pairs
+                    #   Supertab
+                    #   Neosnippet
                     #   indentLine
                     #   Vim-commentary
                     #   neocomplete
@@ -870,49 +870,49 @@ exiting()
 
 main_menu() 
 {
-	menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 70 10 \
-		"Clone repo"            "-" \
-		"Config sources"        "-" \
-		"Config shell"          "-" \
-		"Install GUI"           "-" \
-		"Install packages"      "-" \
-		"Copy scripts"          "-" \
-		"Disable beep"          "-" \
-		"Config PC things"      "-" \
-		"Exit"                  "-" 3>&1 1>&2 2>&3)
+    menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 70 10 \
+        "Clone repo"            "-" \
+        "Config sources"        "-" \
+        "Config shell"          "-" \
+        "Install GUI"           "-" \
+        "Install packages"      "-" \
+        "Copy scripts"          "-" \
+        "Disable beep"          "-" \
+        "Config PC things"      "-" \
+        "Exit"                  "-" 3>&1 1>&2 2>&3)
 
-	case "$menu_item" in
-		"Clone repo")
+    case "$menu_item" in
+        "Clone repo")
             repo_dirs
-		;;
-		"Config sources")
+        ;;
+        "Config sources")
             config_sources
-		;;
-		"Config shell")
+        ;;
+        "Config shell")
             config_shell
-		;;
-    	"Install GUI") 
+        ;;
+        "Install GUI") 
             config_gui
-		;;
-		"Install packages") 
+        ;;
+        "Install packages") 
             config_packages
-		;;
-		"Copy scripts")
+        ;;
+        "Copy scripts")
             config_scripts
-		;;
-		"Disable beep")
+        ;;
+        "Disable beep")
             config_beep
-		;;
-		"Config PC things")
+        ;;
+        "Config PC things")
             config_pc
-		;;
-		"Reboot System") 
+        ;;
+        "Reboot System") 
             reboot
-		;;
-		"Exit")
+        ;;
+        "Exit")
             exiting
-		;;
-	esac
+        ;;
+    esac
 }
 
 info

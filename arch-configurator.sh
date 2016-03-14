@@ -59,7 +59,7 @@ config_pacman()
 {
     if (whiptail --title "Pacman config" --yes-button "Yes" --no-button "No" --yesno \
         "Do you want to edit pacman.conf?" 20 70) then
-	
+    
         sudo nano /etc/pacman.conf
 
         sudo pacman -Syu --noconfirm
@@ -206,7 +206,7 @@ config_packages()
         "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
         "alsa-utils"                    "Sound" OFF \
         "alsi"                          "System Info" OFF \
-        "apache"  	                    "Web Server" OFF \
+        "apache"                        "Web Server" OFF \
         "bash"                          "Shell" OFF \
         "brasero"                       "Burning app" OFF \
         "calcurse"                      "Text-based organizer" OFF \
@@ -246,18 +246,18 @@ config_packages()
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
         "vifm"                          "File Manager" OFF \
-        "vim-minimal" 	  	            "Text Editor" OFF \
-        "vim" 	  	                    "Vim with scripts support" OFF \
+        "vim-minimal"                   "Text Editor" OFF \
+        "vim"                           "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
         "w3m"                           "Web Browser" OFF \
         "weechat"                       "IRC Client" OFF \
         "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
         "xf86-input"                    "Touchpad driver" OFF \
-        "xorg" 	  	                    "X Server" OFF \
+        "xorg"                          "X Server" OFF \
         "youtube-dl"                    "YT Downloader" OFF \
         "zathura"                       "PDF Viewer" OFF \
-        "zsh"     	                    "Z-shell" OFF 2>results)
+        "zsh"                           "Z-shell" OFF 2>results)
 
         while read choice
         do
@@ -493,18 +493,18 @@ config_packages()
                 *vim-minimal*)
                     #==============================================================
                     # Plugin list:
-                    #	Pathogen
-                    #	Nerdtree
-                    #	Syntastic
-                    #	Tagbar / Taglist
-                    #	GitGutter
-                    # 	Vim-airline
-                    #	Auto-pairs
-                    # 	Supertab
-                    #	Neosnippet
+                    #   Pathogen
+                    #   Nerdtree
+                    #   Syntastic
+                    #   Tagbar / Taglist
+                    #   GitGutter
+                    #   Vim-airline
+                    #   Auto-pairs
+                    #   Supertab
+                    #   Neosnippet
                     #   indentLine
                     #   Vim-commentary
-                    #	Solarized theme
+                    #   Solarized theme
                     #==============================================================
 
                     sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
@@ -566,15 +566,15 @@ config_packages()
                 *vim*)
                     #==============================================================
                     # Plugin list:
-                    #	Pathogen
-                    #	Nerdtree
-                    #	Syntastic
-                    #	Tagbar
-                    #	GitGutter
-                    # 	Vim-airline
-                    #	Auto-pairs
-                    # 	Supertab
-                    #	Neosnippet
+                    #   Pathogen
+                    #   Nerdtree
+                    #   Syntastic
+                    #   Tagbar
+                    #   GitGutter
+                    #   Vim-airline
+                    #   Auto-pairs
+                    #   Supertab
+                    #   Neosnippet
                     #   indentLine
                     #   CtrlP
                     #   Vim-commentary
@@ -724,43 +724,43 @@ config_pc()
 
 main_menu() 
 {
-	menu_item=$(whiptail --nocancel --title "Arch config" --menu "Menu Items:" 20 70 10 \
-		"Clone repo"            "-" \
-		"Config pacman"         "-" \
-		"Install GUI"           "-" \
-		"Install packages"      "-" \
-		"Copy scripts"          "-" \
-		"Config PC things"      "-" \
-		"Exit"                  "-" 3>&1 1>&2 2>&3)
+    menu_item=$(whiptail --nocancel --title "Arch config" --menu "Menu Items:" 20 70 10 \
+        "Clone repo"            "-" \
+        "Config pacman"         "-" \
+        "Install GUI"           "-" \
+        "Install packages"      "-" \
+        "Copy scripts"          "-" \
+        "Config PC things"      "-" \
+        "Exit"                  "-" 3>&1 1>&2 2>&3)
 
-	case "$menu_item" in
-	"Clone repo")
+    case "$menu_item" in
+    "Clone repo")
         repo_dirs
     ;;
-	"Config pacman")
+    "Config pacman")
         config_pacman
     ;;
     "Install GUI") 
         config_gui
     ;;
-	"Install packages") 
+    "Install packages") 
         config_packages
     ;;
-	"Copy scripts")
+    "Copy scripts")
         config_scripts
     ;;
-	"Config PC things")
+    "Config PC things")
         config_pc
     ;;
-	"Reboot System") 
+    "Reboot System") 
         reboot
     ;;
-	"Exit")
+    "Exit")
         whiptail --title "Arch config" --msgbox "System configured." 20 70
         exit 0
     ;;
 
-	esac
+    esac
 }
 
 info
