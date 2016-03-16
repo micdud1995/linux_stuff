@@ -53,7 +53,7 @@ repo_dirs()
     if [[ ! -d $HOME/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
             "Do you want to clone repo?\nThere are important files for this program\n\n \
-            Repository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
+            Repository: \ngithub.com/qeni/linux_stuff.git" 20 70) then
 
             mkdir -p $HOME/repo
             mkdir -p $HOME/tmp
@@ -62,7 +62,7 @@ repo_dirs()
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
                 cd $HOME/repo
                 aptitude install git tree -y
-                git clone https://github.com/micdud1995/linux_stuff.git
+                git clone https://github.com/qeni/linux_stuff.git
             fi
         fi
     else
@@ -284,7 +284,6 @@ config_packages()
         "calcurse"                      "Text-based organizer" OFF \
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
-        "crawl-tiles"                   "Roguelike game" OFF \
         "dictd"                         "Offline dictionary" OFF \
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
@@ -377,11 +376,6 @@ config_packages()
                             cp $HOME/repo/linux_stuff/config-files/conky/workspace-indicator $HOME/.conkyrc
                         ;;
                     esac
-                ;;
-                crawl-tiles)
-                    aptitude install crawl-tiles -y
-                    mkdir -p $HOME/.crawl
-                    cp -R $HOME/repo/linux_stuff/config-files/crawl-tiles/* $HOME/.crawl/
                 ;;
                 dictd)
                     aptitude install dictd -y

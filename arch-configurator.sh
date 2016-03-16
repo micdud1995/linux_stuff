@@ -39,13 +39,13 @@ repo_dirs()
 {
     if [[ ! -d $HOME/repo/linux_stuff ]]; then
         if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
-            "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/micdud1995/linux_stuff.git" 20 70) then
+            "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/qeni/linux_stuff.git" 20 70) then
 
             # Creating repo dir and cloning repository
             if [[ ! -d $HOME/repo/linux_stuff ]]; then
                 cd $HOME/repo
                 sudo pacman -S git --noconfirm
-                git clone https://github.com/micdud1995/linux_stuff.git
+                git clone https://github.com/qeni/linux_stuff.git
             fi
         fi
     else
