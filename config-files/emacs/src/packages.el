@@ -74,7 +74,7 @@ ido-case-fold  t;    be case-insensitive
  '(ecb-layout-window-sizes nil)
  '(ecb-minor-mode-text "")
  '(ecb-options-version "2.40")
- '(ecb-source-path (quote (("/home/michal" "/"))))
+ '(ecb-source-path (quote (("/home/michal/.emacs.d/src/" "/"))))
  '(ecb-windows-height 40)
  '(ecb-windows-width 20)
  '(erc-autojoin-mode t)
