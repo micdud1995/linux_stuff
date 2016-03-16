@@ -212,6 +212,7 @@ config_packages()
         "calcurse"                      "Text-based organizer" OFF \
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
+        "emacs-nox"                     "GNU Editor"
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
         "firefox"                       "Web Browser" OFF \
@@ -311,6 +312,11 @@ config_packages()
                             cp $HOME/repo/linux_stuff/config-files/conky/workspace-indicator $HOME/.conkyrc
                         ;;
                     esac
+                ;;
+                emacs-nox)
+                    sudo pacman -S emacs-nox --noconfirm
+                    mkdir -p $HOME/.emacs.d/
+                    cp $HOME/repo/linux_stuff/config-files/emacs/* $HOME/.emacs.d/
                 ;;
                 faenza-icon-theme)
                     sudo pacman -S faenza-icon-theme --noconfirm

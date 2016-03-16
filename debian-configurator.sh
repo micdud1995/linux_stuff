@@ -285,6 +285,7 @@ config_packages()
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
         "dictd"                         "Offline dictionary" OFF \
+        "emacs-nox"                     "GNU Editor"
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
         "git"                           "Content tracker" OFF \
@@ -408,6 +409,11 @@ config_packages()
                                 ;;
                         esac
                     done < results2
+                ;;
+                emacs-nox)
+                    sudo pacman -S emacs-nox --noconfirm
+                    mkdir -p $HOME/.emacs.d/
+                    cp $HOME/repo/linux_stuff/config-files/emacs/* $HOME/.emacs.d/
                 ;;
                 faenza-icon-theme)
                     aptitude install faenza-icon-theme -y
