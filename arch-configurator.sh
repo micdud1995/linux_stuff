@@ -490,7 +490,7 @@ config_packages()
         zsh)
             SHELL="ZSH"
 
-            sudo pacman -S colordiff zsh inconsolata acpi --noconfirm
+            sudo pacman -S colordiff zsh inconsolata acpi alsi --noconfirm
             cp $CONF/zsh/arch-zshrc $HOME/.zshrc
             chsh -s /bin/zsh
         ;;
