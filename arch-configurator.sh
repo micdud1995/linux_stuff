@@ -223,7 +223,7 @@ config_packages()
         "calcurse"                      "Text-based organizer" OFF \
         "cmus"                          "Music player" OFF \
         "conky"                         "System Info" OFF \
-        "emacs-nox"                     "GNU Editor"
+        "emacs-nox"                     "GNU Editor" OFF \
         "faenza-icon-theme"             "Icon Theme" OFF \
         "feh"                           "Image Viewer" OFF \
         "firefox"                       "Web Browser" OFF \
@@ -670,10 +670,10 @@ config_scripts()
         "Do you want to copy useful scripts?" 20 70) then
 
         (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
-        "live-usb" 			"Make bootable usb" \
-		"run-mc" 			"Running midnight commander" \
-        "take-screenshot" 	"Easier screenshots" \
-        "run-wicd" 	        "Run wicd daemon and app" \
+        "live-usb" 			"Make bootable usb" OFF \
+		"run-mc" 			"Running midnight commander" OFF \
+        "take-screenshot" 	"Easier screenshots" OFF \
+        "run-wicd" 	        "Run wicd daemon and app" OFF \
         "run-emacs" 		"Running Emacs" OFF 2>results)
 
         while read choice
