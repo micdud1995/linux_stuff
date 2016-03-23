@@ -321,8 +321,9 @@ config_packages()
         ;;
         emacs-nox)
             sudo pacman -S emacs-nox --noconfirm
-            mkdir -p $HOME/.emacs.d/
-            cp $CONF/emacs/* $HOME/.emacs.d/
+            mkdir -p $HOME/.emacs.d/src
+            cp $CONF/emacs/init.el $HOME/.emacs.d/
+            cp -r $CONF/emacs/src/* $HOME/.emacs.d/src/
         ;;
         faenza-icon-theme)
             sudo pacman -S faenza-icon-theme --noconfirm
@@ -494,7 +495,7 @@ config_packages()
             cp $CONF/zsh/arch-zshrc $HOME/.zshrc
             chsh -s /bin/zsh
         ;;
-        *vim-minimal*)
+        vim-minimal)
             #==============================================================
             # Plugin list:
             #   Pathogen
@@ -567,7 +568,7 @@ config_packages()
             cp $CONF/vim/hide.vimrc $HOME/.vimrc
             
         ;;
-        *vim*)
+        vim)
             #==============================================================
             # Plugin list:
             #   Pathogen
