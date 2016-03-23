@@ -217,7 +217,6 @@ config_packages()
         "Choose your desired software \nUse spacebar to check/uncheck \npress enter when finished" 20 70 14 \
         "alsa-utils"                    "Sound" OFF \
         "alsi"                          "System Info" OFF \
-        "apache"                        "Web Server" OFF \
         "bash"                          "Shell" OFF \
         "brasero"                       "Burning app" OFF \
         "calcurse"                      "Text-based organizer" OFF \
@@ -233,7 +232,6 @@ config_packages()
         "libreoffice"                   "Libre Office" OFF \
         "lightdm"                       "Login Manager" OFF \
         "links"                         "Web Browser" OFF \
-        "livestreamer"                  "Stream Tool" OFF \
         "lxrandr"                       "Output manager" OFF \
         "mc"                            "Midnight Commander" OFF \
         "moc"                           "Music Player" OFF \
@@ -258,7 +256,6 @@ config_packages()
         "ufw"                           "Firewall" OFF \
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
-        "vifm"                          "File Manager" OFF \
         "vim-minimal"                   "Text Editor" OFF \
         "vim"                           "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
@@ -280,9 +277,6 @@ config_packages()
         ;;
         alsa-utils)
             sudo pacman -S alsa-utils --noconfirm
-        ;;
-        apache)
-            sudo pacman -S apache --noconfirm
         ;;
         bash)
             SHELL="BASH"
@@ -364,9 +358,6 @@ config_packages()
             sudo pacman -S links --noconfirm
             mkdir -p $HOME/.links
             cp $CONF/links/links.cfg $HOME/.links/
-        ;;
-        livestreamer)
-            sudo pacman -S livestreamer
         ;;
         lxrandr)
             sudo pacman -S lxrandr --noconfirm
@@ -499,7 +490,7 @@ config_packages()
         zsh)
             SHELL="ZSH"
 
-            sudo pacman -S colordiff zsh inconsolata acpi --noconfirm
+            sudo pacman -S colordiff zsh inconsolata acpi alsi --noconfirm
             cp $CONF/zsh/arch-zshrc $HOME/.zshrc
             chsh -s /bin/zsh
         ;;
