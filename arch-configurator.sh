@@ -357,7 +357,7 @@ config_packages()
         links)
             sudo pacman -S links --noconfirm
             mkdir -p $HOME/.links
-            cp $CONF/links/links.cfg $HOME/.links/
+            cp $CONF/links/* $HOME/.links/
         ;;
         lxrandr)
             sudo pacman -S lxrandr --noconfirm
