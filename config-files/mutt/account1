@@ -1,0 +1,30 @@
+# ==============================================
+# Before use 
+# Replace <mail1> with your mail adress
+# Replace <password1> with your password
+# Replace <name> with your real name
+# Replace <hostname> with your hostname
+# Change imap nad smtp server if it's another one
+# ==============================================
+
+# ==============================================
+# Receive options
+set folder=imaps://<mail1>:'<password1>'@imap.gmx.com
+set spoolfile = +INBOX
+set postponed = +Drafts
+set record = +Sent
+# ==============================================
+
+# ==============================================
+# Send options
+set smtp_url=smtps://<mail1>:'<password1>'@smtp.gmx.com
+set realname='<name>'
+set from='<mail1>'
+set hostname="<hostname>"
+# ==============================================
+
+# ==============================================
+# Connection options
+set ssl_force_tls = yes
+unset ssl_starttls
+# ==============================================

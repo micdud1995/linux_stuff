@@ -1,8 +1,9 @@
 ! --- ~/.Xresources ---
 
-xterm*faceName:             Inconsolata
+xterm*faceName:             Terminus
 xterm*faceSize: 		    9
 xterm*xftAntialias: 		true
+XTerm*metaSendsEscape:      true
 
 xterm*utf8: 			    1
 xterm*locale: 			    true

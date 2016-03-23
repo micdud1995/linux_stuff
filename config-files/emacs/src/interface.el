@@ -3,10 +3,13 @@
 
 ;; Default theme
 (setq sml/no-confirm-load-theme t)
-(load-theme 'quasi-monochrome t)
+(load-theme 'cyberpunk t)
 
 ;; Different colors for odd and even lines
 ;;(turn-on-stripes-mode)
+
+;; Show battery status
+(display-battery-mode 1)
 
 ;; No bell
 (setq ring-bell-function 'ignore)
@@ -43,3 +46,12 @@
 
 ;; Don't make backup files
 (setq make-backup-files nil)
+;; Disable backup
+(setq backup-inhibited t)
+;; Disable auto save
+(setq auto-save-default nil)
+
+;; Forces the messages to 0, and kills the *Messages* buffer
+(setq-default message-log-max nil)
+(kill-buffer "*Messages*")
+(kill-buffer "*Compile-Log*")

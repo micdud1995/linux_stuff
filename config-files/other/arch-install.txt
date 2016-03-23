@@ -34,58 +34,82 @@ mount /dev/sdaH /mnt/home (H - home partition)
 
 # INSTALL =========================================
 dhcpcd
+ping -c 3 wp.pl
+pacman -Sy
+ 
+# Choose closest mirror
+pacman -S reflector     
+reflector --verbose -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+
+# Pacstrap script installs the base system
 pacstrap /mnt base base-devel
+
+# Generate an fstab file
+genfstab -U -p /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+
+# Chroot is an operation that changes the apparent root directory 
+# for the current running process and their children
 arch-chroot /mnt
+
+# Regional settings for Poland
 echo arch > /etc/hostname
 cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 nano /etc/locale.gen
     uncomment two lines with pl
 locale-gen
+echo LANG=pl_PL.UTF-8 > /etc/locale.conf
+export LANG=pl_PL.UTF-8
+
+# Change root password
 passwd
+
+# Install grub
 pacman -S grub
 grub-install /dev/sda
-mkinitcpio -p linux
-# Generating grub file
+nano /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
-ip link
-systemctl enable dhcpcd@name-of-wifi-interface.service
-exit
-genfstab -p /mnt >> /mnt/etc/fstab
-umount -R /mnt
-reboot -> boot existing OS
-arch login: root
-Password: you've typed this earlier
+
+# Create an initial ramdisk environment
+mkinitcpio -p linux 
+
+# Config pacman
 nano /etc/pacman.conf
     uncomment #Color
     uncomment Multilib (if x64)
 pacman -Syyu
-# =================================================
 
-# ENDING ==========================================
-
-# Network
+# Install wicd stuff
 pacman -S wget net-tools wicd wireless_tools wpa_supplicant wpa_actiond
 
-# Services
-systemctl disable dhcpcd
-systemctl disable network-auto-wired.service
+# Install dependencies for my script
+pacman -S git libnewt
+
+# Reboot
+exit
+umount -R /mnt
+reboot -> boot existing OS
+arch login: root
+Password: you've typed this earlier
+
+# Run wicd daemon for network
 systemctl start wicd
+# Optionally automate this
 systemctl enable wicd
 
-useradd -m -g users -s /bin/bash michal
-chfn michal
-passwd michal 
+# Add new user
+useradd -m -g users -G wheel,games,audio,video,storage,power \
+-s /bin/bash <username>
+chfn <username>
+passwd <username>
 pacman -S sudo
-visudo
+visudo -> uncomment line with wheel
 reboot -> login as a user
 
-sudo nano /etc/default/grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-sudo pacman -S git libnewt
+# Run my own script
 mkdir repo
 cd repo
-git clone https://github.com/micdud1995/linux_stuff.git
+git clone https://github.com/qeni/linux_stuff.git
 chmod +x $HOME/repo/linux_stuff/arch-configurator.sh
 ./$HOME/repo/linux_stuff/arch-configurator.sh
 # =================================================

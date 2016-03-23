@@ -13,6 +13,8 @@
 ROOT_UID=0
 GPU=""
 DE=""
+REPO="$HOME/repo/linux_stuff"   # Path to repository
+CONF="$REPO/config-files"       # Path to config files
 #==============================================================================
 
 info()
@@ -22,6 +24,10 @@ info()
         "Please run this script as a user" 20 70
         exit 126
     else
+        if [[ ! -d $HOME/documents ]]; then
+        if (whiptail --title "Creating directories" --yes-button "Yes" \
+            --no-button "No" --yesno \
+            "Create basic directories in your home?" 20 70)  then
         mkdir -p $HOME/repo
         mkdir -p $HOME/tmp
         mkdir -p $HOME/documents
@@ -29,7 +35,8 @@ info()
         mkdir -p $HOME/movies
         mkdir -p $HOME/downloads
         mkdir -p $HOME/pictures
-        setfont UniCyr_8x14.psf.gz
+        fi
+        fi
 
         main_menu
     fi
@@ -37,19 +44,22 @@ info()
 
 repo_dirs() 
 {
-    if [[ ! -d $HOME/repo/linux_stuff ]]; then
-        if (whiptail --title "Cloning repository" --yes-button "Yes" --no-button "No" --yesno \
-            "Do you want to clone repo?\nThere are important files for this program\n\nRepository: \ngithub.com/qeni/linux_stuff.git" 20 70) then
+    if [[ ! -d $REPO ]]; then
+        if (whiptail --title "Cloning repository" --yes-button "Yes" \
+            --no-button "No" --yesno \
+            "Do you want to clone repo?\n \
+            There are important files for this program\n\n \
+            Repository: \ngithub.com/qeni/linux_stuff.git" 20 70) then
 
             # Creating repo dir and cloning repository
-            if [[ ! -d $HOME/repo/linux_stuff ]]; then
+            if [[ ! -d $REPO ]]; then
                 cd $HOME/repo
                 sudo pacman -S git --noconfirm
                 git clone https://github.com/qeni/linux_stuff.git
             fi
         fi
     else
-        whiptail --title "Arch config" --msgbox "OK, $HOME/repo/linux_stuff exists already" 20 70
+        whiptail --title "Arch config" --msgbox "OK, $REPO exists already" 20 70
     fi
 
     config_pacman
@@ -67,7 +77,7 @@ config_pacman()
     fi
 
     if (whiptail --title "Pacman config" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install yaourt?" 20 70) then
+    "Do you want to install yaourt?" 20 70) then
 
         YAOURT_VER=$(whiptail --title  "Arch config" --menu "Select drivers:" 20 70 10 \
         "64bit"                 "" \
@@ -132,7 +142,7 @@ config_gui()
             ;;
             "vbox")
                 sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules
-                sudo cp $HOME/repo/linux_stuff/config-files/virtualbox/vbox.conf /etc/modules-load.d/vbox.conf
+                sudo cp $CONF/virtualbox/vbox.conf /etc/modules-load.d/vbox.conf
             ;;
         esac
     fi
@@ -147,50 +157,51 @@ config_gui()
         "lxde-common"       ""   3>&1 1>&2 2>&3)
 
         case "$DE" in
-            "i3")
-                sudo pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font tamsyn-font alsa-utils feh rxvt-unicode udiskie --noconfirm
-                yaourt -S ttf-font-awesome xcalib --noconfirm
-                mkdir -p $HOME/.i3
-                mkdir -p $HOME/.config/i3status
-                mkdir -p $HOME/.config/i3/
-                cp $HOME/repo/linux_stuff/config-files/i3/hide.i3status.conf $HOME/.i3status.conf
-                cp $HOME/repo/linux_stuff/config-files/i3/arch-config $HOME/.i3/config
-                # cp $HOME/repo/linux_stuff/config-files/i3/workspace* $HOME/.i3/
-                # cp $HOME/repo/linux_stuff/config-files/i3/load_workspaces.sh $HOME/.i3/
-                # chmod +x $HOME/.i3/load_workspaces.sh
+        "i3")
+            sudo pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font \
+            tamsyn-font alsa-utils feh rxvt-unicode udiskie --noconfirm
+            yaourt -S ttf-font-awesome xcalib --noconfirm
+            mkdir -p $HOME/.i3
+            mkdir -p $HOME/.config/i3status
+            mkdir -p $HOME/.config/i3/
+            cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
+            cp $CONF/i3/arch-config $HOME/.i3/config
+            # cp $CONF/i3/workspace* $HOME/.i3/
+            # cp $CONF/i3/load_workspaces.sh $HOME/.i3/
+            # chmod +x $HOME/.i3/load_workspaces.sh
 
-                cp $HOME/repo/linux_stuff/config-files/i3/i3lock-arch.png $HOME/Pictures/i3lock-arch.png
-                cp $HOME/repo/linux_stuff/config-files/wallpapers/arch-wallpaper.jpg $HOME/Pictures/wallpaper.png
-                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                nano $HOME/.xinitrc
-            ;;
-            "lxde")
-                sudo pacman -S lxde faenza-icon-theme --noconfirm
-                cp $HOME/repo/linux_stuff/config-files/openbox/rc.xml $HOME/.config/openbox/lxde-rc.xml
-                cp $HOME/repo/linux_stuff/config-files/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
-                sudo cp $HOME/repo/linux_stuff/config-files/scripts/run-cmus /usr/local/bin/
-                sudo chmod +x /usr/local/bin/run-cmus
-                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                nano $HOME/.xinitrc
-                cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
-                xrdb -merge $HOME/.Xresources 
-                cp $HOME/repo/linux_stuff/config-files/scripts/run-mc /usr/local/bin/
-                cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot /usr/local/bin/
-                cp $HOME/repo/linux_stuff/config-files/scripts/take-screenshot-s /usr/local/bin/
-                chmod +x /usr/local/bin/run-mc
-                chmod +x /usr/local/bin/take-screenshot
-                chmod +x /usr/local/bin/take-screenshot-s
-            ;;
-            "xfce")
-                sudo pacman -S xfwm4 --noconfirm
-                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                nano $HOME/.xinitrc
-            ;;
-            "gnome")
-                sudo pacman -S gnome --noconfirm
-                cp $HOME/repo/linux_stuff/config-files/xinit/hide.xinitrc $HOME/.xinitrc
-                nano $HOME/.xinitrc
-            ;;
+            cp $CONF/i3/i3lock-arch.png $HOME/Pictures/i3lock-arch.png
+            cp $CONF/wallpapers/arch-wallpaper.jpg $HOME/Pictures/wallpaper.png
+            cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+            nano $HOME/.xinitrc
+        ;;
+        "lxde")
+            sudo pacman -S lxde faenza-icon-theme --noconfirm
+            cp $CONF/openbox/rc.xml $HOME/.config/openbox/lxde-rc.xml
+            cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
+            sudo cp $CONF/scripts/run-cmus /usr/local/bin/
+            sudo chmod +x /usr/local/bin/run-cmus
+            cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+            nano $HOME/.xinitrc
+            cp $CONF/xterm/hide.Xresources $HOME/.Xresources
+            xrdb -merge $HOME/.Xresources 
+            cp $CONF/scripts/run-mc /usr/local/bin/
+            cp $CONF/scripts/take-screenshot /usr/local/bin/
+            cp $CONF/scripts/take-screenshot-s /usr/local/bin/
+            chmod +x /usr/local/bin/run-mc
+            chmod +x /usr/local/bin/take-screenshot
+            chmod +x /usr/local/bin/take-screenshot-s
+        ;;
+        "xfce")
+            sudo pacman -S xfwm4 --noconfirm
+            cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+            nano $HOME/.xinitrc
+        ;;
+        "gnome")
+            sudo pacman -S gnome --noconfirm
+            cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+            nano $HOME/.xinitrc
+        ;;
         esac
     fi
 
@@ -226,6 +237,7 @@ config_packages()
         "lxrandr"                       "Output manager" OFF \
         "mc"                            "Midnight Commander" OFF \
         "moc"                           "Music Player" OFF \
+        "mps-youtube"                   "Youtube in console" OFF \
         "mpv"                           "Video Player" OFF \
         "mutt"                          "Mail Client" OFF \
         "ncurses"                       "ncurses library" OFF \
@@ -262,395 +274,390 @@ config_packages()
 
         while read choice
         do
-            case $choice in
-                alsi)
-                    sudo pacman -S alsi --noconfirm
-                ;;
-                alsa-utils)
-                    sudo pacman -S alsa-utils --noconfirm
-                ;;
-                apache)
-                    sudo pacman -S apache --noconfirm
-                ;;
-                bash)
-                    SHELL="BASH"
+        case $choice in
+        alsi)
+            sudo pacman -S alsi --noconfirm
+        ;;
+        alsa-utils)
+            sudo pacman -S alsa-utils --noconfirm
+        ;;
+        apache)
+            sudo pacman -S apache --noconfirm
+        ;;
+        bash)
+            SHELL="BASH"
 
-                    sudo pacman -S colordiff bash ttf-inconsolata --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/bash/arch-bashrc $HOME/.bashrc
-                    chsh -s /bin/bash
-                ;;
-                brasero)
-                    sudo pacman -S brasero --noconfirm
-                ;;
-                calcurse)
-                    sudo pacman -S calcurse --noconfirm
-                ;;
-                cmus)
-                    sudo pacman -S cmus --noconfirm
-                    mkdir -p $HOME/.cmus
-                    cp $HOME/repo/linux_stuff/config-files/cmus/zenburn.theme $HOME/.cmus/
-                    cp $HOME/repo/linux_stuff/config-files/cmus/solarized.theme $HOME/.cmus/
-                ;;
-                conky)
-                    sudo pacman -S conky --noconfirm
+            sudo pacman -S colordiff bash ttf-inconsolata --noconfirm
+            cp $CONF/bash/arch-bashrc $HOME/.bashrc
+            chsh -s /bin/bash
+        ;;
+        brasero)
+            sudo pacman -S brasero --noconfirm
+        ;;
+        calcurse)
+            sudo pacman -S calcurse --noconfirm
+        ;;
+        cmus)
+            sudo pacman -S cmus --noconfirm
+            mkdir -p $HOME/.cmus
+            cp $CONF/cmus/zenburn.theme $HOME/.cmus/
+            cp $CONF/cmus/solarized.theme $HOME/.cmus/
+        ;;
+        conky)
+            sudo pacman -S conky --noconfirm
 
-                    CONKY=$(whiptail --title  "Arch config" --menu "Select conky file:" 20 70 10 \
-                    "red"               "all informations" \
-                    "binary"            "binary clock" \
-                    "indicator"         "desktop indicator" 3>&1 1>&2 2>&3)
+            CONKY=$(whiptail --title  "Arch config" --menu "Select conky file:" 20 70 10 \
+            "red"               "all informations" \
+            "binary"            "binary clock" \
+            "indicator"         "desktop indicator" 3>&1 1>&2 2>&3)
 
-                    case "$CONKY" in
-                        "red")
-                            cp $HOME/repo/linux_stuff/config-files/conky/hide.conkyrc $HOME/.conkyrc
-                            sudo cp $HOME/repo/linux_stuff/config-files/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
-                        ;;
-                        "binary")
-                            cp $HOME/repo/linux_stuff/config-files/conky/binary-clock $HOME/.conkyrc
-                        ;;
-                        "indicator")
-                            pacman -S bc --noconfirm
-                            cp $HOME/repo/linux_stuff/config-files/conky/workspace-indicator $HOME/.conkyrc
-                        ;;
-                    esac
+            case "$CONKY" in
+                "red")
+                    cp $CONF/conky/hide.conkyrc $HOME/.conkyrc
+                    sudo cp $CONF/conky/hoog0555_cyr2.ttf /usr/share/fonts/truetype/ 
                 ;;
-                emacs-nox)
-                    sudo pacman -S emacs-nox --noconfirm
-                    mkdir -p $HOME/.emacs.d/
-                    cp $HOME/repo/linux_stuff/config-files/emacs/* $HOME/.emacs.d/
+                "binary")
+                    cp $CONF/conky/binary-clock $HOME/.conkyrc
                 ;;
-                faenza-icon-theme)
-                    sudo pacman -S faenza-icon-theme --noconfirm
-                ;;
-                feh)
-                    sudo pacman -S feh --noconfirm
-                ;;
-                firefox)
-                    sudo pacman -S firefox --noconfirm
-                ;;
-                fuck)
-                    sudo pacman -S thefuck
-                ;;
-                git)
-                    sudo pacman -S git --noconfirm
-                    name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
-                    git config --global user.name "$name"
-                    mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
-                    git config --global user.email $mail
-                    edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
-                    git config --global core.editor $edit
-                ;;
-                htop)
-                    sudo pacman -S htop --noconfirm
-                ;;
-                libreoffice)
-                    sudo pacman -S libreoffice-still --noconfirm
-                ;;
-                lightdm)
-                    sudo pacman -S lightdm --noconfirm
-                ;;
-                links)
-                    sudo pacman -S links --noconfirm
-                    mkdir -p $HOME/.links
-                    cp $HOME/repo/linux_stuff/config-files/links/links.cfg $HOME/.links/
-                ;;
-                livestreamer)
-                    sudo pacman -S livestreamer
-                ;;
-                lxrandr)
-                    sudo pacman -S lxrandr --noconfirm
-                ;;
-                mc)
-                    sudo pacman -S mc --noconfirm
-                    mkdir -p $HOME/.config/mc
-                    mkdir -p $HOME/.local/share/mc/skins
-                    cp $HOME/repo/linux_stuff/config-files/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
-                    cp $HOME/repo/linux_stuff/config-files/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
-                ;;
-                moc)
-                    sudo pacman -S moc --noconfirm
-                    mkdir -p $HOME/.moc
-                    mkdir -p $HOME/.moc/themes
-                    cp $HOME/repo/linux_stuff/config-files/moc/arch-config $HOME/.moc/config
-                    cp $HOME/repo/linux_stuff/config-files/moc/* $HOME/.moc/themes/
-                ;;
-                mpv)
-                    sudo pacman -S mpv --noconfirm
-                ;;
-                mutt)
-                    sudo pacman -S mutt abook --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/mutt/hide.muttrc $HOME/.muttrc
-                    touch $HOME/.mutt-alias
-                ;;
-                ncurses)
-                    sudo pacman -S ncurses --noconfirm
-                ;;
-                nethack)
-                    sudo pacman -S nethack --noconfirm
-                    sudo mkdir -p /var/games/nethack
-                    cp $HOME/repo/linux_stuff/config-files/nethack/hide.nethackrc $HOME/.nethackrc
-                    sudo cp $HOME/repo/linux_stuff/config-files/nethack/record /var/games/nethack/record
-                ;;
-                newsbeuter)
-                    sudo pacman -S newsbeuter --noconfirm
-                    mkdir -p $HOME/.config/newsbeuter
-                    cp $HOME/repo/linux_stuff/config-files/newsbeuter/arch-urls $HOME/.config/newsbeuter/urls
-                    cp $HOME/repo/linux_stuff/config-files/newsbeuter/arch-config $HOME/.config/newsbeuter/config
-                ;;
-                nmap)
-                    sudo pacman -S nmap --noconfirm
-                ;;
-                unpacking)
-                    sudo pacman -S p7zip unrar unzip zip --noconfirm
-                ;;
-                pavucontrol)
-                    sudo pacman -S pavucontrol --noconfirm
-                ;;
-                pinta)
-                    sudo pacman -S pinta --noconfirm
-                ;;
-                scrot)
-                    sudo pacman -S scrot --noconfirm
-                ;;
-                texmaker)
-                    sudo pacman -S texmaker texlive-core texlive-lang --noconfirm
-                ;;
-                tor)
-                    sudo pacman -S tor torbrowser-launcher --noconfirm
-                ;;
-                ranger)
-                    sudo pacman -S w3m w3m-img ranger --noconfirm
-                    mkdir -p $HOME/.config/ranger
-                    mkdir -p $HOME/.config/ranger/colorschemes
-                    cp $HOME/repo/linux_stuff/config-files/ranger/solarized.py $HOME/.config/ranger/colorschemes/
-                    cp $HOME/repo/linux_stuff/config-files/ranger/arch-rc.conf $HOME/.config/ranger/rc.conf
-                ;;
-                ufw)
-                    sudo pacman -S ufw --noconfirm
-                    sudo ufw enable
-                ;;
-                w3m)
-                    sudo pacman -S w3m --noconfirm
-                ;;
-                weechat)
-                    sudo pacman -S weechat --noconfirm
-                    mkdir -p $HOME/.weechat
-                    cp $HOME/repo/linux_stuff/config-files/weechat/* $HOME/.weechat/
-                    rm -f $HOME/.weechat/weechat.log
-                    ln -s /dev/null weechat.log
-                ;;
-                openssh)
-                    sudo pacman -S openssh--noconfirm
-                    sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-                    sudo /etc/init.d/ssh restart
-                    sudo export DISPLAY=:0
-                ;;
-                rtorrent)
-                    sudo pacman -S rtorrent --noconfirm
-                    mkdir -p $HOME/.rtorrent
-                    cp $HOME/repo/linux_stuff/config-files/rtorrent/hide.rtorrent-arch.rc $HOME/.rtorrent.rc
-                ;;
-                rxvt-unicode)
-                    sudo pacman -S rxvt-unicode --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/rxvt/hide.Xresources $HOME/.Xresources
-                    xrdb -merge $HOME/.Xresources 
-                ;;
-                uzbl)
-                    sudo pacman -S uzbl-browser --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/uzbl/config $HOME/.config/uzbl/config
-                    cp $HOME/repo/linux_stuff/config-files/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
-                ;;
-                vifm)
-                    sudo pacman -S vifm --noconfirm
-                    mkdir -p $HOME/.vifm
-                    mkdir -p $HOME/.vifm/colors
-                    cp $HOME/repo/linux_stuff/config-files/vifm/vifmrc $HOME/.vifm/
-                    cp $HOME/repo/linux_stuff/config-files/vifm/solarized.vifm $HOME/.vifm/colors/
-                ;;
-                virtualbox)
-                    sudo pacman -S virtualbox virtualbox-host-modules virtualbox-guest-iso --noconfirm
-                ;;
-                youtube-dl)
-                    sudo pacman -S youtube-dl --noconfirm
-                ;;
-                xboxdrv)
-                    yaourt -S xboxdrv --noconfirm
-                    sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
-                    sudo rmmod xpad
-                ;;
-                xcalib)
-                    yaourt -S xcalib --noconfirm
-                ;;
-                xf86-input)
-                    sudo pacman -S xf86-input-synaptics --noconfirm
-                ;;
-                xorg)
-                    sudo pacman -S xorg-server xorg-xinit --noconfirm
-                ;;
-                zathura)
-                    sudo pacman -S zathura zathura-pdf-poppler --noconfirm
-                ;;
-                zsh)
-                    SHELL="ZSH"
-
-                    sudo pacman -S colordiff zsh inconsolata acpi --noconfirm
-                    cp $HOME/repo/linux_stuff/config-files/zsh/arch-zshrc $HOME/.zshrc
-                    chsh -s /bin/zsh
-                ;;
-                *vim-minimal*)
-                    #==============================================================
-                    # Plugin list:
-                    #   Pathogen
-                    #   Nerdtree
-                    #   Syntastic
-                    #   Tagbar / Taglist
-                    #   GitGutter
-                    #   Vim-airline
-                    #   Auto-pairs
-                    #   Supertab
-                    #   Neosnippet
-                    #   indentLine
-                    #   Vim-commentary
-                    #   Solarized theme
-                    #==============================================================
-
-                    sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
-
-                    # Making dirs
-                    mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
-
-                    # Pathogen
-                    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-                    # Supertab
-                    git clone git://github.com/ervandew/supertab.git
-
-                    # Vim-airline
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
-
-                    # Syntastic
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/scrooloose/syntastic.git
-
-                    # Nerdtree
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/scrooloose/nerdtree.git
-
-                    # Taglist
-                    cd $HOME/.vim/bundle && \
-                    git clone git://github.com/vim-scripts/taglist.vim.git
-
-                    # Git-gutter
-                    cd $HOME/.vim/bundle && \
-                    git clone git://github.com/airblade/vim-gitgutter.git
-
-                    # Auto-pairs
-                    cd $HOME/.vim/bundle && \
-                    git clone git://github.com/jiangmiao/auto-pairs.git
-
-                    # Neosnippet
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/Shougo/neosnippet.vim
-                    git clone https://github.com/Shougo/neosnippet-snippets
-                    cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
-
-                    # Indent-line
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/Yggdroot/indentLine.git
-
-                    # Vim-commentary
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/tpope/vim-commentary.git
-
-                    # Copying solarized theme
-                    cp $HOME/repo/linux_stuff/config-files/vim/solarized.vim $HOME/.vim/colors/
-
-                    # Copying .vimrc
-                    cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
-                    
-                ;;
-                *vim*)
-                    #==============================================================
-                    # Plugin list:
-                    #   Pathogen
-                    #   Nerdtree
-                    #   Syntastic
-                    #   Tagbar
-                    #   GitGutter
-                    #   Vim-airline
-                    #   Auto-pairs
-                    #   Supertab
-                    #   Neosnippet
-                    #   indentLine
-                    #   CtrlP
-                    #   Vim-commentary
-                    #   neocomplete
-                    #==============================================================
-
-                    sudo pacman -S vim cmake curl ctags ttf-inconsolata lua
-
-                    # Making dirs
-                    mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
-
-                    # Pathogen
-                    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-                    # Supertab
-                    git clone git://github.com/ervandew/supertab.git
-
-                    # Vim-airline
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
-
-                    # Syntastic
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/scrooloose/syntastic.git
-
-                    # Nerdtree
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/scrooloose/nerdtree.git
-
-                    # Git-gutter
-                    cd $HOME/.vim/bundle && \
-                    git clone git://github.com/airblade/vim-gitgutter.git
-
-                    # Tagbar
-                    cd $HOME/.vim/bundle && \
-                    git clone https://github.com/majutsushi/tagbar
-
-                    # Auto-pairs
-                    cd $HOME/.vim/bundle && \
-                    git clone git://github.com/jiangmiao/auto-pairs.git
-
-                    # Neosnippet
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/Shougo/neosnippet.vim
-                    git clone https://github.com/Shougo/neosnippet-snippets
-                    cp $HOME/repo/linux_stuff/config-files/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
-
-                    # Indent-line
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/Yggdroot/indentLine.git
-
-                    # CtrlP
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/kien/ctrlp.vim.git
-
-                    # Vim-commentary
-                    cd $HOME/.vim/bundle
-                    git clone https://github.com/tpope/vim-commentary.git
-
-                    # neocomplete
-                    cd $HOME/.vim/bundle/
-                    git clone https://github.com/Shougo/neocomplete.vim
-
-                    # Copying themes
-                    cp $HOME/repo/linux_stuff/config-files/vim/colors/* $HOME/.vim/colors/
-
-                    # Copying .vimrc
-                    cp $HOME/repo/linux_stuff/config-files/vim/hide.vimrc $HOME/.vimrc
+                "indicator")
+                    pacman -S bc --noconfirm
+                    cp $CONF/conky/workspace-indicator $HOME/.conkyrc
                 ;;
             esac
+        ;;
+        emacs-nox)
+            sudo pacman -S emacs-nox --noconfirm
+            mkdir -p $HOME/.emacs.d/
+            cp $CONF/emacs/* $HOME/.emacs.d/
+        ;;
+        faenza-icon-theme)
+            sudo pacman -S faenza-icon-theme --noconfirm
+        ;;
+        feh)
+            sudo pacman -S feh --noconfirm
+        ;;
+        firefox)
+            sudo pacman -S firefox --noconfirm
+        ;;
+        fuck)
+            sudo pacman -S thefuck
+        ;;
+        git)
+            sudo pacman -S git --noconfirm
+            name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
+            git config --global user.name "$name"
+            mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
+            git config --global user.email $mail
+            edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
+            git config --global core.editor $edit
+        ;;
+        htop)
+            sudo pacman -S htop --noconfirm
+        ;;
+        libreoffice)
+            sudo pacman -S libreoffice-still --noconfirm
+        ;;
+        lightdm)
+            sudo pacman -S lightdm --noconfirm
+        ;;
+        links)
+            sudo pacman -S links --noconfirm
+            mkdir -p $HOME/.links
+            cp $CONF/links/links.cfg $HOME/.links/
+        ;;
+        livestreamer)
+            sudo pacman -S livestreamer
+        ;;
+        lxrandr)
+            sudo pacman -S lxrandr --noconfirm
+        ;;
+        mc)
+            sudo pacman -S mc --noconfirm
+            mkdir -p $HOME/.config/mc
+            mkdir -p $HOME/.local/share/mc/skins
+            cp $CONF/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+            cp $CONF/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+        ;;
+        moc)
+            sudo pacman -S moc --noconfirm
+            mkdir -p $HOME/.moc
+            mkdir -p $HOME/.moc/themes
+            cp $CONF/moc/arch-config $HOME/.moc/config
+            cp $CONF/moc/* $HOME/.moc/themes/
+        ;;
+        mps-youtube)
+            sudo pacman -S aalib libcaca mpv --noconfirm
+            sudo yaourt -S mps-youtube
+        ;;
+        mpv)
+            sudo pacman -S mpv --noconfirm
+        ;;
+        mutt)
+            sudo pacman -S mutt abook --noconfirm
+            cp $CONF/mutt/hide.muttrc $HOME/.muttrc
+            mkdir -p $HOME/.mutt
+            cp $CONF/mutt/account* $HOME/.mutt/
+        ;;
+        ncurses)
+            sudo pacman -S ncurses --noconfirm
+        ;;
+        nethack)
+            sudo pacman -S nethack --noconfirm
+            sudo mkdir -p /var/games/nethack
+            cp $CONF/nethack/hide.nethackrc $HOME/.nethackrc
+            sudo cp $CONF/nethack/record /var/games/nethack/record
+        ;;
+        newsbeuter)
+            sudo pacman -S newsbeuter --noconfirm
+            mkdir -p $HOME/.config/newsbeuter
+            cp $CONF/newsbeuter/arch-urls $HOME/.config/newsbeuter/urls
+            cp $CONF/newsbeuter/arch-config $HOME/.config/newsbeuter/config
+        ;;
+        nmap)
+            sudo pacman -S nmap --noconfirm
+        ;;
+        unpacking)
+            sudo pacman -S p7zip unrar unzip zip --noconfirm
+        ;;
+        pavucontrol)
+            sudo pacman -S pavucontrol --noconfirm
+        ;;
+        pinta)
+            sudo pacman -S pinta --noconfirm
+        ;;
+        scrot)
+            sudo pacman -S scrot --noconfirm
+        ;;
+        texmaker)
+            sudo pacman -S texmaker texlive-core texlive-lang --noconfirm
+        ;;
+        tor)
+            sudo pacman -S tor torbrowser-launcher --noconfirm
+        ;;
+        ranger)
+            sudo pacman -S w3m w3m-img ranger --noconfirm
+            mkdir -p $HOME/.config/ranger
+            mkdir -p $HOME/.config/ranger/colorschemes
+            cp $CONF/ranger/solarized.py $HOME/.config/ranger/colorschemes/
+            cp $CONF/ranger/arch-rc.conf $HOME/.config/ranger/rc.conf
+        ;;
+        ufw)
+            sudo pacman -S ufw --noconfirm
+            sudo ufw enable
+        ;;
+        weechat)
+            sudo pacman -S weechat --noconfirm
+            mkdir -p $HOME/.weechat
+            cp $CONF/weechat/* $HOME/.weechat/
+            rm -f $HOME/.weechat/weechat.log
+            ln -s /dev/null weechat.log
+        ;;
+        openssh)
+            sudo pacman -S openssh--noconfirm
+            sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+            sudo /etc/init.d/ssh restart
+            sudo export DISPLAY=:0
+        ;;
+        rtorrent)
+            sudo pacman -S rtorrent --noconfirm
+            mkdir -p $HOME/.rtorrent
+            cp $CONF/rtorrent/hide.rtorrent-arch.rc $HOME/.rtorrent.rc
+        ;;
+        rxvt-unicode)
+            sudo pacman -S rxvt-unicode --noconfirm
+            cp $CONF/rxvt/hide.Xresources $HOME/.Xresources
+            xrdb -merge $HOME/.Xresources 
+        ;;
+        uzbl)
+            sudo pacman -S uzbl-browser --noconfirm
+            cp $CONF/uzbl/config $HOME/.config/uzbl/config
+            cp $CONF/dwb/bookmarks $HOME/.local/share/uzbl/bookmarks
+        ;;
+        virtualbox)
+            sudo pacman -S virtualbox virtualbox-host-modules virtualbox-guest-iso --noconfirm
+        ;;
+        youtube-dl)
+            sudo pacman -S youtube-dl --noconfirm
+        ;;
+        xboxdrv)
+            yaourt -S xboxdrv --noconfirm
+            sudo sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
+            sudo rmmod xpad
+        ;;
+        xcalib)
+            yaourt -S xcalib --noconfirm
+        ;;
+        xf86-input)
+            sudo pacman -S xf86-input-synaptics --noconfirm
+        ;;
+        xorg)
+            sudo pacman -S xorg-server xorg-xinit --noconfirm
+        ;;
+        zathura)
+            sudo pacman -S zathura zathura-pdf-poppler --noconfirm
+        ;;
+        zsh)
+            SHELL="ZSH"
+
+            sudo pacman -S colordiff zsh inconsolata acpi --noconfirm
+            cp $CONF/zsh/arch-zshrc $HOME/.zshrc
+            chsh -s /bin/zsh
+        ;;
+        *vim-minimal*)
+            #==============================================================
+            # Plugin list:
+            #   Pathogen
+            #   Nerdtree
+            #   Syntastic
+            #   Tagbar / Taglist
+            #   GitGutter
+            #   Vim-airline
+            #   Auto-pairs
+            #   Supertab
+            #   Neosnippet
+            #   indentLine
+            #   Vim-commentary
+            #   Solarized theme
+            #==============================================================
+
+            sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
+
+            # Making dirs
+            mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
+
+            # Pathogen
+            curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+            # Supertab
+            git clone git://github.com/ervandew/supertab.git
+
+            # Vim-airline
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
+
+            # Syntastic
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/scrooloose/syntastic.git
+
+            # Nerdtree
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdtree.git
+
+            # Taglist
+            cd $HOME/.vim/bundle && \
+            git clone git://github.com/vim-scripts/taglist.vim.git
+
+            # Git-gutter
+            cd $HOME/.vim/bundle && \
+            git clone git://github.com/airblade/vim-gitgutter.git
+
+            # Auto-pairs
+            cd $HOME/.vim/bundle && \
+            git clone git://github.com/jiangmiao/auto-pairs.git
+
+            # Neosnippet
+            cd $HOME/.vim/bundle
+            git clone https://github.com/Shougo/neosnippet.vim
+            git clone https://github.com/Shougo/neosnippet-snippets
+            cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+
+            # Indent-line
+            cd $HOME/.vim/bundle
+            git clone https://github.com/Yggdroot/indentLine.git
+
+            # Vim-commentary
+            cd $HOME/.vim/bundle
+            git clone https://github.com/tpope/vim-commentary.git
+
+            # Copying solarized theme
+            cp $CONF/vim/solarized.vim $HOME/.vim/colors/
+
+            # Copying .vimrc
+            cp $CONF/vim/hide.vimrc $HOME/.vimrc
+            
+        ;;
+        *vim*)
+            #==============================================================
+            # Plugin list:
+            #   Pathogen
+            #   Nerdtree
+            #   Syntastic
+            #   Tagbar
+            #   GitGutter
+            #   Vim-airline
+            #   Auto-pairs
+            #   Supertab
+            #   Neosnippet
+            #   indentLine
+            #   CtrlP
+            #   Vim-commentary
+            #   neocomplete
+            #==============================================================
+
+            sudo pacman -S vim cmake curl ctags ttf-inconsolata lua
+
+            # Making dirs
+            mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
+
+            # Pathogen
+            curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+            # Supertab
+            git clone git://github.com/ervandew/supertab.git
+
+            # Vim-airline
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
+
+            # Syntastic
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/scrooloose/syntastic.git
+
+            # Nerdtree
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/scrooloose/nerdtree.git
+
+            # Git-gutter
+            cd $HOME/.vim/bundle && \
+            git clone git://github.com/airblade/vim-gitgutter.git
+
+            # Tagbar
+            cd $HOME/.vim/bundle && \
+            git clone https://github.com/majutsushi/tagbar
+
+            # Auto-pairs
+            cd $HOME/.vim/bundle && \
+            git clone git://github.com/jiangmiao/auto-pairs.git
+
+            # Neosnippet
+            cd $HOME/.vim/bundle
+            git clone https://github.com/Shougo/neosnippet.vim
+            git clone https://github.com/Shougo/neosnippet-snippets
+            cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
+
+            # Indent-line
+            cd $HOME/.vim/bundle
+            git clone https://github.com/Yggdroot/indentLine.git
+
+            # CtrlP
+            cd $HOME/.vim/bundle
+            git clone https://github.com/kien/ctrlp.vim.git
+
+            # Vim-commentary
+            cd $HOME/.vim/bundle
+            git clone https://github.com/tpope/vim-commentary.git
+
+            # neocomplete
+            cd $HOME/.vim/bundle/
+            git clone https://github.com/Shougo/neocomplete.vim
+
+            # Copying themes
+            cp $CONF/vim/colors/* $HOME/.vim/colors/
+
+            # Copying .vimrc
+            cp $CONF/vim/hide.vimrc $HOME/.vimrc
+        ;;
+        esac
         done < results
 
     fi
@@ -663,15 +670,37 @@ config_scripts()
         "Do you want to copy useful scripts?" 20 70) then
 
         (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
-        "live-usb" "Make bootable usb" OFF 2>results)
+        "live-usb" 			"Make bootable usb" \
+		"run-mc" 			"Running midnight commander" \
+        "take-screenshot" 	"Easier screenshots" \
+        "run-wicd" 	        "Run wicd daemon and app" \
+        "run-emacs" 		"Running Emacs" OFF 2>results)
 
         while read choice
         do
             case $choice in
-                live-usb)
-                    sudo cp $HOME/repo/linux_stuff/config-files/scripts/live-usb /usr/local/bin/
-                    sudo chmod +x /usr/local/bin/live-usb
-                ;;
+            live-usb)
+                sudo cp $CONF/scripts/live-usb /usr/local/bin/
+                sudo chmod +x /usr/local/bin/live-usb
+            ;;
+            run-mc)
+                sudo cp $CONF/scripts/run-mc /usr/local/bin/
+                sudo chmod +x /usr/local/bin/run-mc
+            ;;
+            take-screenshot)
+                sudo cp $CONF/scripts/take-screenshot /usr/local/bin/
+                sudo cp $CONF/scripts/take-screenshot-s /usr/local/bin/
+                sudo chmod +x /usr/local/bin/take-screenshot
+                sudo chmod +x /usr/local/bin/take-screenshot-s
+            ;;
+            run-wicd)
+                sudo cp $CONF/scripts/run-wicd /usr/local/bin/
+                sudo chmod +x /usr/local/bin/run-wicd
+            ;;
+            run-emacs)
+                sudo cp $CONF/scripts/run-emacs /usr/local/bin/
+                sudo chmod +x /usr/local/bin/run-emacs
+            ;;
             esac
         done < results
     fi 
@@ -688,37 +717,34 @@ config_pc()
     "Choose your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
     "Beep" "Disable bepp sound" OFF \
     "Touchpad" "Enable touchpad" OFF \
-    "Microphone" "Enable Lenovo G580 microphone" OFF \
-    "CS:GO" "Global Offensive config file" OFF \
+    "Font" "Set TTY font to Terminus" OFF \
     "Lid" "Don't suspend laptop when lid closed" off 2>results)
 
     while read choice
     do
-        case $choice in
-            Beep)
-                sudo rmmod pcspkr
-                sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
-            ;;
-            Touchpad)
-                sudo pacman -S xf86-input-synaptics --noconfirm
-                sudo mkdir -p /etc/X11/xorg.conf.d
-                sudo cp $HOME/repo/linux_stuff/config-files/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-            ;;
-            Microphone)
-                sudo cp $HOME/repo/linux_stuff/config-files/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
-            ;;
-            CS:GO)
-                if [[ -d $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg ]]; then
-                    cp $HOME/repo/linux_stuff/config-files/CS:GO/autoexec.cfg $HOME/.steam/steam/steamapps/common/Counter-Strike\ Global\ Offensive/csgo/cfg/
-                else
-                    whiptail --title "Arch config" --msgbox "Counter-Strike Global Offensive isn't installed" 20 70
-                fi
-            ;;
-            Lid)
-                sudo cp $HOME/repo/linux_stuff/config-files/lid/logind.conf /etc/systemd/logind.conf
-            ;;
+    case $choice in
+        Beep)
+            sudo rmmod pcspkr
+            sudo sh -c "echo 'blacklist pcspkr' >> /etc/modprobe.d/blacklist"
+        ;;
+        Touchpad)
+            sudo pacman -S xf86-input-synaptics --noconfirm
+            sudo mkdir -p /etc/X11/xorg.conf.d
+            sudo cp $CONF/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
+        ;;
+        Microphone)
+            sudo cp $CONF/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+        ;;
+        Font)
+            sudo pacman -S terminus-font
+            sudo cp $CONF/other/vconsole.conf /etc/vconsole.conf
+            setfont /usr/share/kbd/consolefonts/ter-v12n.psf.gz
+        ;;
+        Lid)
+            sudo cp $CONF/lid/logind.conf /etc/systemd/logind.conf
+        ;;
 
-        esac
+    esac
 
     done < results
 
@@ -731,13 +757,13 @@ config_pc()
 main_menu() 
 {
     menu_item=$(whiptail --nocancel --title "Arch config" --menu "Menu Items:" 20 70 10 \
-        "Clone repo"            "-" \
-        "Config pacman"         "-" \
-        "Install GUI"           "-" \
-        "Install packages"      "-" \
-        "Copy scripts"          "-" \
-        "Config PC things"      "-" \
-        "Exit"                  "-" 3>&1 1>&2 2>&3)
+    "Clone repo"            "-" \
+    "Config pacman"         "-" \
+    "Install GUI"           "-" \
+    "Install packages"      "-" \
+    "Copy scripts"          "-" \
+    "Config PC things"      "-" \
+    "Exit"                  "-" 3>&1 1>&2 2>&3)
 
     case "$menu_item" in
     "Clone repo")

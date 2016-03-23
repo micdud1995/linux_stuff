@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xterm -T "emacs" -geometry 110x30 -e "sh -c 'export TERM="screen-256color" && emacs -nw'"

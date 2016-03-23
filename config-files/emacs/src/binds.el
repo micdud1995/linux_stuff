@@ -18,6 +18,10 @@
 (global-set-key (kbd "<right>") 'next-buffer)
 (global-set-key (kbd "<left>") 'previous-buffer)
 
+;; Move to the beginning and the end of function
+(global-set-key (kbd "<up>") 'beginning-of-defun)
+(global-set-key (kbd "<down>") 'end-of-defun)
+
 ;; Make bind
 (global-set-key (kbd "C-c m") 'recompile)
 
@@ -25,8 +29,8 @@
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;; Buffer resize
-(global-set-key (kbd "C-x <up>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-x <down>") 'enlarge-window-horizontally)
+;(global-set-key (kbd "C-x <up>") 'shrink-window-horizontally)
+;(global-set-key (kbd "C-x <down>") 'enlarge-window-horizontally)
 
 ;; Shows numbers of buffers to choice
 (global-set-key (kbd "M-p") 'switch-window)
@@ -46,3 +50,19 @@
   (yank)
   )
 (global-set-key (kbd "C-i") 'duplicate-line)
+
+(defun kill-current-line (&optional n)
+  (interactive "p")
+  (save-excursion
+    (beginning-of-line)
+    (let ((kill-whole-line t))
+      (kill-line n))))
+(global-set-key (kbd "C-k") 'kill-current-line)
+
+(defun vi-open-line-below ()
+  "Insert a newline below the current line and put point at beginning."
+  (interactive)
+  (unless (eolp)
+    (end-of-line))
+  (newline-and-indent))
+(global-set-key (kbd "C-o") 'vi-open-line-below)

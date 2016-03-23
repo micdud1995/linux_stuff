@@ -9,6 +9,7 @@
     autopair
     bongo
     centered-cursor-mode
+    cyberpunk-theme
     dash
     ecb
     elfeed
@@ -16,7 +17,6 @@
     magit
     magit-popup
     popup
-    quasi-monochrome-theme
     smex
     switch-window
     undo-tree
@@ -60,12 +60,17 @@ ido-case-fold  t ;; be case-insensitive
  '(ecb-compile-window-height 6)
  '(ecb-eshell-auto-activate t)
  '(ecb-fix-window-size (quote width))
- '(ecb-layout-name "leftright1")
+ '(ecb-layout-name "left6")
  '(ecb-layout-window-sizes nil)
  '(ecb-minor-mode-text "")
  '(ecb-options-version "2.40")
  '(ecb-windows-height 40)
- '(ecb-windows-width 32)
+ '(ecb-windows-width 24)
+  ;; static left align for nicks
+ '(erc-fill-function 'erc-fill-static)
+ '(erc-fill-static-center 18)
+ ;; utf-8 always and forever
+ '(erc-server-coding-system '(utf-8 . utf-8))
  '(erc-autojoin-mode t)
  '(erc-beep-match-types (quote (current-nick)))
  '(erc-beep-p t)
@@ -143,6 +148,5 @@ ido-case-fold  t ;; be case-insensitive
       "http://wroclaw.naszemiasto.pl/rss/artykuly/61.xml"
       "http://wroclaw.naszemiasto.pl/rss/artykuly/73.xml"
       "http://feeds.linuxportal.pl/LinuxPortalpl-news" 
-      "http://joemonster.org/backend.php?channel" 
       "http://www.cdaction.pl/rss_newsy.xml"
       "http://www.devrand.org/feeds/posts/default"))

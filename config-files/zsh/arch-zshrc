@@ -142,6 +142,7 @@ bindkey '^e' end-of-line
 	alias Ss="pacman -Ss" # Search packages
 	alias Sy="sudo pacman -Sy" # Synchronize the repository databases
 	alias Syu="sudo pacman -Syu" # Synchronize the repository databases and update the system's packages
+    alias Syyu="sudo pacman -Syyu" # Update all with forcing
 	alias Sc="sudo pacman -Sc" # Clear pacman cache
     alias Qi="pacman -Qi " # Information about package
 	alias R="sudo pacman -R" # Remove package
@@ -175,8 +176,10 @@ bindkey '^e' end-of-line
     alias hist="cat ~/.zsh_history | grep"
     # up wired connection
     alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
-    alias w="wicd-curses"
+    alias w="sudo run-wicd"
     alias cal="cal -w"
+    alias cli="mpv -vo caca"    # Warch movie in terminal
+    alias yt="mpsyt"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
