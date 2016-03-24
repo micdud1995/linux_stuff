@@ -154,11 +154,11 @@ config_gui()
         "i3"                "" \
         "xfce"              "" \
         "gnome"             "" \
-        "lxde-common"       ""   3>&1 1>&2 2>&3)
+        "lxde"              ""   3>&1 1>&2 2>&3)
 
         case "$DE" in
         "i3")
-            sudo pacman -S i3-wm i3status dmenu ttf-inconsolata terminus-font \
+            sudo pacman -S i3-wm i3status dmenu terminus-font \
             tamsyn-font alsa-utils feh rxvt-unicode udiskie --noconfirm
             yaourt -S ttf-font-awesome xcalib --noconfirm
             mkdir -p $HOME/.i3
@@ -180,17 +180,10 @@ config_gui()
             cp $CONF/openbox/rc.xml $HOME/.config/openbox/lxde-rc.xml
             cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
             sudo cp $CONF/scripts/run-cmus /usr/local/bin/
-            sudo chmod +x /usr/local/bin/run-cmus
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
             nano $HOME/.xinitrc
             cp $CONF/xterm/hide.Xresources $HOME/.Xresources
             xrdb -merge $HOME/.Xresources 
-            cp $CONF/scripts/run-mc /usr/local/bin/
-            cp $CONF/scripts/take-screenshot /usr/local/bin/
-            cp $CONF/scripts/take-screenshot-s /usr/local/bin/
-            chmod +x /usr/local/bin/run-mc
-            chmod +x /usr/local/bin/take-screenshot
-            chmod +x /usr/local/bin/take-screenshot-s
         ;;
         "xfce")
             sudo pacman -S xfwm4 --noconfirm
@@ -256,10 +249,8 @@ config_packages()
         "ufw"                           "Firewall" OFF \
         "unpacking"                     "Archive tools" OFF \
         "uzbl"                          "Web Browser" OFF \
-        "vim-minimal"                   "Text Editor" OFF \
         "vim"                           "Vim with scripts support" OFF \
         "virtualbox"                    "Virtual Machines" OFF \
-        "w3m"                           "Web Browser" OFF \
         "weechat"                       "IRC Client" OFF \
         "xcalib"                        "Screen brightness" OFF \
         "xboxdrv"                       "Xbox pad driver" OFF \
@@ -281,7 +272,7 @@ config_packages()
         bash)
             SHELL="BASH"
 
-            sudo pacman -S colordiff bash ttf-inconsolata --noconfirm
+            sudo pacman -S colordiff bash --noconfirm
             cp $CONF/bash/arch-bashrc $HOME/.bashrc
             chsh -s /bin/bash
         ;;
@@ -491,82 +482,9 @@ config_packages()
         zsh)
             SHELL="ZSH"
 
-            sudo pacman -S colordiff zsh inconsolata acpi alsi --noconfirm
+            sudo pacman -S colordiff zsh acpi alsi --noconfirm
             cp $CONF/zsh/arch-zshrc $HOME/.zshrc
             chsh -s /bin/zsh
-        ;;
-        vim-minimal)
-            #==============================================================
-            # Plugin list:
-            #   Pathogen
-            #   Nerdtree
-            #   Syntastic
-            #   Tagbar / Taglist
-            #   GitGutter
-            #   Vim-airline
-            #   Auto-pairs
-            #   Supertab
-            #   Neosnippet
-            #   indentLine
-            #   Vim-commentary
-            #   Solarized theme
-            #==============================================================
-
-            sudo pacman -S vim-minimal curl ctags ttf-inconsolata 
-
-            # Making dirs
-            mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
-
-            # Pathogen
-            curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-            # Supertab
-            git clone git://github.com/ervandew/supertab.git
-
-            # Vim-airline
-            cd $HOME/.vim/bundle && \
-            git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
-
-            # Syntastic
-            cd $HOME/.vim/bundle && \
-            git clone https://github.com/scrooloose/syntastic.git
-
-            # Nerdtree
-            cd $HOME/.vim/bundle && \
-            git clone https://github.com/scrooloose/nerdtree.git
-
-            # Taglist
-            cd $HOME/.vim/bundle && \
-            git clone git://github.com/vim-scripts/taglist.vim.git
-
-            # Git-gutter
-            cd $HOME/.vim/bundle && \
-            git clone git://github.com/airblade/vim-gitgutter.git
-
-            # Auto-pairs
-            cd $HOME/.vim/bundle && \
-            git clone git://github.com/jiangmiao/auto-pairs.git
-
-            # Neosnippet
-            cd $HOME/.vim/bundle
-            git clone https://github.com/Shougo/neosnippet.vim
-            git clone https://github.com/Shougo/neosnippet-snippets
-            cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
-
-            # Indent-line
-            cd $HOME/.vim/bundle
-            git clone https://github.com/Yggdroot/indentLine.git
-
-            # Vim-commentary
-            cd $HOME/.vim/bundle
-            git clone https://github.com/tpope/vim-commentary.git
-
-            # Copying solarized theme
-            cp $CONF/vim/solarized.vim $HOME/.vim/colors/
-
-            # Copying .vimrc
-            cp $CONF/vim/hide.vimrc $HOME/.vimrc
-            
         ;;
         vim)
             #==============================================================
@@ -586,15 +504,16 @@ config_packages()
             #   neocomplete
             #==============================================================
 
-            sudo pacman -S vim cmake curl ctags ttf-inconsolata lua
+            sudo pacman -S vim cmake curl ctags lua
 
             # Making dirs
-            mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors $HOME/tmp/tagbar
+            mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
             # Pathogen
             curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
             # Supertab
+            cd $HOME/.vim/bundle && \
             git clone git://github.com/ervandew/supertab.git
 
             # Vim-airline
