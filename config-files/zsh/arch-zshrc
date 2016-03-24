@@ -176,10 +176,11 @@ bindkey '^e' end-of-line
     alias hist="cat ~/.zsh_history | grep"
     # up wired connection
     alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
-    alias w="sudo run-wicd"
+    alias w="sudo wifi-menu"
     alias cal="cal -w"
     alias cli="mpv -vo caca"    # Warch movie in terminal
     alias yt="mpsyt"
+    alias a="alsi --bold=black --normal=cyan -l"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
