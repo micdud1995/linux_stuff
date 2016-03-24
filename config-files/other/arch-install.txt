@@ -33,7 +33,7 @@ mount /dev/sdaH /mnt/home (H - home partition)
 # =================================================
 
 # INSTALL =========================================
-dhcpcd
+wifi-menu
 ping -c 3 wp.pl
 pacman -Sy
  
@@ -58,8 +58,6 @@ cp /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
 nano /etc/locale.gen
     uncomment two lines with pl
 locale-gen
-echo LANG=pl_PL.UTF-8 > /etc/locale.conf
-export LANG=pl_PL.UTF-8
 
 # Change root password
 passwd
@@ -80,7 +78,7 @@ nano /etc/pacman.conf
 pacman -Syyu
 
 # Install wicd stuff
-pacman -S wget net-tools wicd wireless_tools wpa_supplicant wpa_actiond
+pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
 
 # Install dependencies for my script
 pacman -S git libnewt
@@ -91,11 +89,6 @@ umount -R /mnt
 reboot -> boot existing OS
 arch login: root
 Password: you've typed this earlier
-
-# Run wicd daemon for network
-systemctl start wicd
-# Optionally automate this
-systemctl enable wicd
 
 # Add new user
 useradd -m -g users -G wheel,games,audio,video,storage,power \

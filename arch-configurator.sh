@@ -110,7 +110,7 @@ config_gui()
     if (whiptail --title "Arch config" --yes-button "Yes" --no-button "No" --yesno \
         "Install graphics drivers now? \nDrivers for Intel, and Virtual Box guests" 20 70) then
 
-        sudo pacman -S xorg-server xorg-server-utils mesa mesa-libgl xorg-xinit
+        sudo pacman -S xorg-server xorg-server-utils mesa mesa-libgl xorg-xinit --noconfirm
 
         DRIVERS=$(whiptail --title  "Arch config" --menu "Select drivers:" 20 70 10 \
         "intel"                 "" \
@@ -123,25 +123,25 @@ config_gui()
 
         case "$DRIVERS" in
             "intel")
-                sudo pacman -S xf86-video-intel
+                sudo pacman -S xf86-video-intel --noconfirm
             ;;
             "intel-multilib")
-                sudo pacman -S xf86-video-intel lib32-mesa-libgl
+                sudo pacman -S xf86-video-intel lib32-mesa-libgl --noconfirm
             ;;
             "amd")
-                sudo pacman -S xf86-video-ati 
+                sudo pacman -S xf86-video-ati --noconfirm
             ;;
             "amd-multilib")
-                sudo pacman -S xf86-video-ati lib32-mesa-libgl
+                sudo pacman -S xf86-video-ati lib32-mesa-libgl --noconfirm
             ;;
             "nvidia")
-                sudo pacman -S nvidia nvidia-libgl nvidia-utils 
+                sudo pacman -S nvidia nvidia-libgl nvidia-utils --noconfirm
             ;;
             "nvidia-multilib")
-                sudo pacman -S nvidia nvidia-libgl lib32-nvidia-libgl nvidia-utils lib32-nvidia-utils
+                sudo pacman -S nvidia nvidia-libgl lib32-nvidia-libgl nvidia-utils lib32-nvidia-utils --noconfirm
             ;;
             "vbox")
-                sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules
+                sudo pacman -S virtualbox-guest-utils virtualbox-guest-modules --noconfirm
                 sudo cp $CONF/virtualbox/vbox.conf /etc/modules-load.d/vbox.conf
             ;;
         esac
@@ -326,7 +326,7 @@ config_packages()
             sudo pacman -S firefox --noconfirm
         ;;
         fuck)
-            sudo pacman -S thefuck
+            sudo pacman -S thefuck --noconfirm
         ;;
         git)
             sudo pacman -S git --noconfirm
@@ -370,7 +370,7 @@ config_packages()
         ;;
         mps-youtube)
             sudo pacman -S aalib libcaca mpv --noconfirm
-            sudo yaourt -S mps-youtube
+            sudo yaourt -S mps-youtube-git
         ;;
         mpv)
             sudo pacman -S mpv --noconfirm
@@ -504,7 +504,7 @@ config_packages()
             #   neocomplete
             #==============================================================
 
-            sudo pacman -S vim cmake curl ctags lua
+            sudo pacman -S vim cmake curl ctags lua --noconfirm
 
             # Making dirs
             mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
@@ -647,9 +647,9 @@ config_pc()
             sudo cp $CONF/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         ;;
         Font)
-            sudo pacman -S terminus-font
+            sudo pacman -S terminus-font --noconfirm
             sudo cp $CONF/other/vconsole.conf /etc/vconsole.conf
-            setfont /usr/share/kbd/consolefonts/ter-v12n.psf.gz
+            setfont /usr/share/kbd/consolefonts/ter-v14n.psf.gz
         ;;
         Lid)
             sudo cp $CONF/lid/logind.conf /etc/systemd/logind.conf
