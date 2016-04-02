@@ -12,31 +12,37 @@ Running
 * in Debian:
     
     1) Edit sudoers file with visudo command
-
-        >visudo
+        ```
+        visudo
+        ```
 
     2) Make script executable
-
-        >chmod +x debian-configurator.sh
+        ```
+        chmod +x debian-configurator.sh
+        ```
 
     3) Run it with sudo
-
-        >sudo ./debian-configurator.sh
+        ```
+        sudo ./debian-configurator.sh
+        ```
         
 
 * in Arch:
     
     1) Make script executable
-
-        >chmod +x debian-configurator.sh
+        ```
+        chmod +x debian-configurator.sh
+        ```
 
     2) Install depedencies
-
-        >pacman -S libnewt
+        ```
+        pacman -S libnewt
+        ```
 
     3) Run it as a user
-
-        >./arch-configurator.sh
+        ```
+        ./arch-configurator.sh
+        ```
     
 
 Program layout:
