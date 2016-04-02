@@ -595,7 +595,7 @@ config_packages()
                     aptitude install xorg -y
                 ;;
                 xterm)
-                    aptitude install xterm fonts-inconsolata -y
+                    aptitude install xterm -y
                     cp $HOME/repo/linux_stuff/config-files/xterm/hide.Xresources $HOME/.Xresources
                     xrdb -merge $HOME/.Xresources 
                 ;;

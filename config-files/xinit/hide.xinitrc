@@ -1,5 +1,5 @@
 language="pl"
-session="openbox"
+session="i3"
 
 setxkbmap $language
 xset b off
@@ -18,8 +18,8 @@ xrdb -merge $HOME/.Xresources
 # tint2 &
 
 # Volume control
-# amixer sset Master 60%
-# amixer sset Master mute
+amixer sset Master 60%
+amixer sset Master unmute
 
 case $session in
     awesome           ) exec awesome;;

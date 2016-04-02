@@ -6,26 +6,15 @@ setxkbmap -option ctrl:nocaps   # disable caps-lock
 #=================================================================
 
 #=================================================================
-# VCS info
-# autoload -Uz vcs_info
-# zstyle ':vcs_info:*' enable git svn hg
-# zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%c%{$fg[green]%}%u%{$reset_color%} [%{$fg[orange]%}%b%{$reset_color%}] %{$fg[yellow]%}%s%{$reset_color%}:%r"
-# precmd() {  # run before each prompt
-#   vcs_info
-# }
-#=================================================================
-
-#=================================================================
 # Prompt
 setopt PROMPT_SUBST     # allow funky stuff in prompt
-color="white"
+color_1="white"
+color_2="cyan"
 # left prompt part
-PROMPT="%{$fg[$color]%}[%{$fg[cyan]%}%n%{$fg[$color]%}]-%{$reset_color%}[%{$fg[cyan]%}%~%{$fg[$color]%}]%{$reset_color%}$ "
+PROMPT="%{$fg[$color_1]%}[%{$fg[$color_2]%}%n%{$fg[$color_1]%}]-%{$reset_color%}[%{$fg[$color_2]%}%~%{$fg[$color_1]%}]%{$reset_color%}$ "
 # right prompt part
 local BAT="$(acpi | grep -o "[0-9]*%")%"
-# RPROMPT="%{$fg[$color]%}[%{$fg[cyan]%}${BAT}%{$fg[$color]%}]-%{$fg[$color]%}[%{$fg[cyan]%}%m%{$fg[$color]%}]"
-RPROMPT="%{$fg[$color]%}[%{$fg[cyan]%}${BAT}%{$fg[$color]%}]"
+RPROMPT="%{$fg[$color_1]%}[%{$fg[$color_2]%}${BAT}%{$fg[$color_1]%}]"
 #=================================================================
 
 #=================================================================
@@ -127,9 +116,9 @@ bindkey '^e' end-of-line
 # shutdown the system
 	alias off='systemctl poweroff'
 # show hidden files only
-	alias l.='ls -d .* --color=auto'
+	alias l.='clear;ls -d .* --color=auto -lg'
 # list all folders
-	alias lf='ls -Gl | grep ^d'
+	alias lf='clear;ls -Gl | grep ^d'
 # grep aliases
     alias grep='grep --color=auto'
 # other
@@ -144,18 +133,30 @@ bindkey '^e' end-of-line
 	alias Syu="sudo pacman -Syu" # Synchronize the repository databases and update the system's packages
     alias Syyu="sudo pacman -Syyu" # Update all with forcing
 	alias Sc="sudo pacman -Sc" # Clear pacman cache
-    alias Qi="pacman -Qi " # Information about package
+    alias Qi="pacman -Qi" # Information about package
 	alias R="sudo pacman -R" # Remove package
 	alias Rs="sudo pacman -Rs" # Remove package with depedencies
 	alias Rns="sudo pacman -Rs" # Remove package with depedencies and config files
 	alias U="sudo pacman -U" # Upgrade package
 	alias V="pacman -V" # Version of pacman
+# yaourt aliases
+	alias yS="yaourt -S" # Install package
+	alias ySs="yaourt -Ss" # Search packages
+	alias ySy="yaourt -Sy" # Synchronize the repository databases
+    alias ySyyu="yaourt -Syyu" # Update all with forcing
+	alias ySc="yaourt -Sc" # Clear pacman cache
+    alias yQi="yaourt -Qi" # Information about package
+	alias yR="yaourt -R" # Remove package
+	alias yRs="yaourt -Rs" # Remove package with depedencies
+	alias yRns="yaourt -Rs" # Remove package with depedencies and config files
+	alias yU="yaourt -U" # Upgrade package
+	alias yV="yaourt -V" # Version of yaourt
 # show which commands you use the most
 	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
 # move aliases	
-	alias ..="cd ..;ls"
-	alias ...="cd ../..;ls"
-	alias ....="cd ../../..;ls"	
+	alias ..="cd ..;clear;ls -lg"
+	alias ...="cd ../..;clear;ls -lg"
+	alias ....="cd ../../..;clear;ls -lg"	
 # Git aliases
 	alias gs="git status -sb"
 	alias gd="git diff --word-diff --color"
@@ -181,6 +182,7 @@ bindkey '^e' end-of-line
     alias cli="mpv -vo caca"    # Warch movie in terminal
     alias yt="mpsyt"
     alias a="alsi --bold=black --normal=cyan -l"
+    alias nim="vim -u ~/.vimrc-minimal"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
@@ -191,7 +193,7 @@ bindkey '^e' end-of-line
     alias -s txt=vim
     alias -s log=vim
     alias -s rc=vim
-    alias -s html=linkx
+    alias -s html=links
 #=================================================================
 
 #=================================================================

@@ -1,0 +1,219 @@
+"==================================================
+" This is vim config file that doesn't require any
+" installed plugins - works out of the box.
+"==================================================
+"
+"==================================================
+set encoding=utf-8
+set nocompatible
+syntax on
+filetype on
+filetype plugin on
+set autoindent
+filetype indent on
+set showmatch
+set t_Co=256
+set background=dark
+let mapleader=" "
+"==================================================
+	
+"==================================================
+"Set incremental searching	
+set incsearch
+
+"Highlight searching
+set hlsearch
+
+" A tab is 4 spaces
+set tabstop=4
+
+" Width of indent with shift
+set shiftwidth=4
+
+" Insert spaces instead of tabs
+set expandtab
+
+" See multiple space characters as tabstops
+set softtabstop=4
+
+" Ignore case when searching
+set ignorecase
+
+" Remember more commands
+set history=1000
+
+" save undo's after file closes 
+set undofile
+" where to save undo history
+set undodir=~/.vim/undo
+" how many undos
+set undolevels=1000
+" numbers of lines to save for undo
+set undoreload=10000
+"
+" Don't beep
+set visualbell
+set noerrorbells
+set visualbell t_vb=
+
+" Highlight current line and column
+" au WinLeave * set nocursorline nocursorcolumn
+" au WinEnter * set cursorline cursorcolumn
+set cursorline " cursorcolumn
+
+" Cursor stays in the middle of the screen
+set scrolloff=50
+
+" show numbers of lines
+set number
+" set relativenumber
+
+" Write the old file out when switching between files.
+set autowrite
+
+" Display current cursor position in lower right corner.
+set ruler
+
+"Better line wrapping 
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+
+"Enable code folding
+set foldenable
+
+" How to fold
+set foldmethod=indent
+
+"Hide mouse when typing
+set mousehide
+
+" More useful command-line completion
+set wildmenu
+
+"Auto-completion menu
+set wildmode=list:longest
+
+" Open splits below and on the right
+set splitbelow
+set splitright
+"==================================================
+
+" =================================================
+" Kill the capslock when leaving insert mode.
+autocmd InsertLeave * set iminsert=0
+"==================================================
+
+"==================================================
+" Better copy/paste (go to insert, press F2 and paste text)
+set pastetoggle=<F2>
+set clipboard=unnamed
+"==================================================
+
+"==================================================
+" Compiling directly in vim
+nmap <Leader>9 :make<cr>
+
+" run compiled file
+map <Leader>0 :!./bin<CR>
+
+" jk instead od ESC
+inoremap jk <ESC> 
+
+" search with space
+" noremap <space> /
+
+" 
+nnoremap Y y$
+
+" Easier split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Faster commands 
+noremap ; :
+
+" Move to the first non-blank character of the line
+nnoremap m ^
+
+" Undo/Redo with arrows
+:map <Left> :undo<CR>
+:map <Right> :redo<CR>
+
+" Previous/Next function
+:map <Up> [[
+:map <Down> ]]
+
+" ctrl+n to off backlight during search in text
+noremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>
+inoremap <C-n> :nohl<CR>
+
+" jump to the end of pasted text
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" vp doesn't replace paste buffer
+function! RestoreRegister()
+  let @" = s:restore_reg
+  return ''
+endfunction
+function! s:Repl()
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
+endfunction
+vmap <silent> <expr> p <sid>Repl()
+"==================================================
+
+"==================================================
+" leader-key maps
+" saving
+nnoremap <Leader>w :w<CR>
+" closing
+nnoremap <Leader>c :q<CR>
+" search and replace (cs - replace first match, n - next)
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+" splitting
+nnoremap <Leader>a :sp<CR>
+nnoremap <Leader>s :vsp<CR>
+nnoremap <Leader>k :resize +5<CR>
+nnoremap <Leader>j :resize -5<CR>
+"==================================================
+"
+"==================================================
+" No backup and swap files
+set nobackup
+set nowritebackup
+set noswapfile
+"==================================================
+
+"==================================================
+" Statusline
+function! HighlightSearch()
+  if &hls
+    return 'H'
+  else
+    return ''
+  endif
+endfunction
+
+" Set colors
+hi StatusLine ctermbg=black ctermfg=white
+
+set statusline=
+set statusline+=%7*\[%n]
+set statusline+=%1*\ %<%F
+set statusline+=%2*\ %y
+set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}
+set statusline+=%4*\ %{&ff}
+set statusline+=%5*\ %{&spelllang}\%{HighlightSearch()}
+set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)
+set statusline+=%9*\ col:%03c
+set statusline+=%0*\ \ %m%r%w\ %P\ \ \
+"==================================================
