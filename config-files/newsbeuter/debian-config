@@ -20,7 +20,7 @@ refresh-on-startup yes
 reload-time 60
 reload-threads 2
 show-read-feeds no
-browser links
+browser jumanji
 macro d set ; open-in-browser ;
 player mpv
 # =================================================

@@ -17,7 +17,7 @@ set $mod Mod1
 font pango:Terminus 8
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 2
+for_window [class="^."] border pixel 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -29,7 +29,7 @@ exec amixer sset Master unmute
 
 # Wallpaper restoring
 #exec --no-startup-id nitrogen --restore
-exec feh --bg-scale /home/michal/pictures/wallpaper.jpg
+#exec feh --bg-scale ~/pictures/wallpaper.jpg
 
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
@@ -82,30 +82,11 @@ bar
 # Start a terminal
 bindsym $mod+x exec xterm
 bindsym $mod+m exec xterm -e mocp
-bindsym $mod+v exec xterm -e vifm
+bindsym $mod+v exec xterm -e ranger
 
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
 bindsym $mod+F8 exec setxkbmap ru
-
-#Assings
-assign [class="^Dwb$"] → $tag2
-for_window [class="^Dwb$"] focus
-assign [class="^Uzbl$"] → $tag2
-for_window [class="^Uzbl$"] focus
-assign [class="^Iceweasel$"] → $tag2
-for_window [class="^Iceweasel$"] focus
-assign [class="^Firefox$"] → $tag2
-for_window [class="^Firefox$"] focus
-assign [class="^Leafpad$"] → $tag3
-for_window [class="^Leafpad$"] focus
-# assign [class="^Lxterminal$"] → $tag4
-assign [class="^Mpv$"] → $tag6
-assign [class="^Lxrandr$"] → $tag6
-assign [class="^Steam$"] → $tag6
-for_window [class="^Steam$"] focus
-assign [class="^Virtualbox$"] → $tag7
-for_window [class="^Virtualbox$"] focus
 
 bindsym $mod+F5 exec amixer sset Master toggle
 # Kill focused window
@@ -228,8 +209,8 @@ bindsym $mod+r mode "resize"
 # Shutdown, reboot, lock screen
 
 #set $Locker i3lock -c 000000 && sleep 1
-# set $Locker i3lock -i ~/Pictures/i3lock-arch.png --color=ff0000
-set $Locker i3lock -i ~/Pictures/i3lock-deb.png --color=ff0000
+# set $Locker i3lock -i ~/pictures/i3lock-arch.png --color=ff0000
+set $Locker i3lock -i ~/pictures/i3lock-deb.png --color=ff0000
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {

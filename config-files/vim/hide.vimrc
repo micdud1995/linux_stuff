@@ -120,16 +120,6 @@ autocmd VimEnter * wincmd p
 " =================================================
 
 " =================================================
-" Neosnippet
-imap ,,   <Plug>(neosnippet_expand_or_jump)
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-" =================================================
-
-" =================================================
 " Taglist
  " autocmd FileType c,h,cpp,java,sh,py nested :TlistOpen
 " let Tlist_Use_Right_Window = 1
@@ -142,7 +132,7 @@ map <Leader>2 :TlistToggle<CR>
 " =================================================
 " Tagbar
 " Open Tagbar only with specific files
-autocmd FileType c,h,cpp,java,sh nested :TagbarOpen
+" autocmd FileType c,h,cpp,java,sh nested :TagbarOpen
 map <Leader>2 :TagbarToggle<CR>
 let g:tagbar_left = 0
 let g:tagbar_width = 25
@@ -170,7 +160,7 @@ highlight TagbarVisibilityPrivate ctermfg=196
 " =================================================
 " NERDTree
 " autocmd FileType c,h,cpp,java,sh,py nested :NERDTree
-autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * NERDTree | wincmd p
 let g:NERDTreeWinSize = 20
 map <Leader>1 :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
@@ -196,31 +186,36 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " =================================================
 
 " =================================================
-" YouCompleteMe
-" let g:ycm_complete_in_strings = 0
-" let g:ycm_complete_in_comments = 1
-" let g:ycm_add_preview_to_completeopt = 0
-" let g:ycm_min_num_of_chars_for_completion = 2
-" let g:ycm_min_num_identifier_candidate_chars = 0
-" let g:ycm_disable_for_files_larger_than_kb = 2048
-" let g:ycm_autoclose_preview_window_after_insertion = 0
-" let g:ycm_autoclose_preview_window_after_completion = 0
-" let g:ycm_collect_identifiers_from_comments_and_strings = 0
-" let g:ycm_key_list_select_completion=[]
-" let g:ycm_key_list_previous_completion=[]
-" let g:ycm_key_list_select_completion = ['<Tab>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<S-Tab>', '<Up>']
+" undotree
+nnoremap <Leader>u :UndotreeToggle<cr>
+if !exists('g:undotree_WindowLayout')
+    let g:undotree_WindowLayout = 1
+endif
+
+" undotree window width
+if !exists('g:undotree_SplitWidth')
+    let g:undotree_SplitWidth = 40
+endif
+
+" diff window height
+if !exists('g:undotree_DiffpanelHeight')
+    let g:undotree_DiffpanelHeight = 20
+endif
+
+" auto open diff window
+if !exists('g:undotree_DiffAutoOpen')
+    let g:undotree_DiffAutoOpen = 1
+endif
+
+" Highlight changed text
+if !exists('g:undotree_HighlightChangedText')
+    let g:undotree_HighlightChangedText = 1
+endif
 " =================================================
 
 " =================================================
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
-
-" IndentLine
-let g:indentLine_enabled = 1
-let g:indentLine_char = '|'
-" let g:indentLine_char = '¦'
-let g:indentLine_color_term = 239
 "==================================================
 
 "==================================================
@@ -257,11 +252,13 @@ noremap ; :
 " Move to the first non-blank character of the line
 nnoremap m ^
 
-" Disable the arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" Undo/Redo with arrows
+:map <Left> :undo<CR>
+:map <Right> :redo<CR>
+
+" Previous/Next function
+:map <Up> [[
+:map <Down> ]]
 
 " ctrl+n to off backlight during search in text
 noremap <C-n> :nohl<CR>
@@ -308,21 +305,3 @@ set nobackup
 set nowritebackup
 set noswapfile
 "==================================================
-
-"==================================================
-" Keyboard commands
-
-" NerdTree 
-" i - open the selected file in a horizontal split window
-" s - open the selected file in a vertical split window
-" I - toggle hidden files
-" R - refresh the tree
-" m, a to create file
-" m, d to delete file
-
-" Vim-commentary
-" gc - comment/comment out selected text
-" gcc - comment/comment out a line
-
-" Taglist
-" press Space on function to show the prototype

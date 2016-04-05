@@ -173,17 +173,18 @@ config_gui()
 
         WALLPAPER=$(whiptail --title "Debian config" --menu "Select your wallpaper" 20 70 10 \
             "Black Debian"  "" \
+            "Debian Ascii"  "" \
             "Grey Space"    "" 3>&1 1>&2 2>&3)
 
         case "$WALLPAPER" in
             "Black Debian")
-                cp $CONF/wallpapers/debian-wallpaper.jpg $HOME/Pictures/wallpaper.jpg
+                cp $CONF/wallpapers/debian-wallpaper.jpg $HOME/pictures/wallpaper.jpg
             ;;
             "Debian Ascii")
-                cp $CONF/wallpapers/debian-ascii.jpg $HOME/Pictures/wallpaper.jpg
+                cp $CONF/wallpapers/debian-ascii.jpg $HOME/pictures/wallpaper.jpg
             ;;
             "Grey Space")
-                cp $CONF/wallpapers/space.jpg $HOME/Pictures/wallpaper.jpg
+                cp $CONF/wallpapers/space.jpg $HOME/pictures/wallpaper.jpg
             ;;
         esac
     ;;
@@ -300,7 +301,7 @@ config_packages()
     bash)
         aptitude install colordiff bash -y
         cp $CONF/bash/debian-bashrc $HOME/.bashrc
-        chsh -s /bin/bash
+        chsh -s /bin/bash ${HOME///\home\/}
     ;;
     brasero)
         aptitude install brasero -y
@@ -587,9 +588,9 @@ config_packages()
         cp $CONF/zathura/zathurarc $HOME/.config/zathura/ 
     ;;
     zsh)
-        aptitude install colordiff zsh -y
+        aptitude install colordiff zsh screenfetch -y
         cp $CONF/zsh/debian-zshrc $HOME/.zshrc
-        chsh -s /bin/zsh
+        chsh -s /bin/zsh ${HOME///\home\/}
     ;;
     vim-clear)
         #==============================================================
@@ -598,14 +599,11 @@ config_packages()
         #   Nerdtree
         #   Syntastic
         #   Tagbar
-        #   GitGutter
-        #   CtrlP
-        #   Vim-airline
         #   Auto-pairs
         #   Supertab
         #   Neosnippet
-        #   indentLine
         #   Vim-commentary
+        #   undotree 
         #==============================================================
 
         aptitude install vim curl exuberant-ctags fonts-inconsolata -y
@@ -615,10 +613,6 @@ config_packages()
 
         # Pathogen
         curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-        # CtrlP
-        cd $HOME/.vim/bundle
-        git clone https://github.com/kien/ctrlp.vim.git
 
         # Nerdtree
         cd $HOME/.vim/bundle && \
@@ -631,14 +625,6 @@ config_packages()
         # Tagbar
         cd $HOME/.vim/bundle && \
         git clone https://github.com/majutsushi/tagbar
-
-        # Git-gutter
-        cd $HOME/.vim/bundle && \
-        git clone git://github.com/airblade/vim-gitgutter.git
-
-        # Vim-airline
-        cd $HOME/.vim/bundle && \
-        git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
 
         # Auto-pairs
         cd $HOME/.vim/bundle && \
@@ -653,10 +639,6 @@ config_packages()
         git clone https://github.com/Shougo/neosnippet-snippets
         cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
-        # Indent-line
-        cd $HOME/.vim/bundle
-        git clone https://github.com/Yggdroot/indentLine.git
-
         # Vim-commentary
         cd $HOME/.vim/bundle
         git clone https://github.com/tpope/vim-commentary.git
@@ -664,8 +646,13 @@ config_packages()
         # Themes
         cp $CONF/vim/colors/*.vim $HOME/.vim/colors/
 
+        # undotree
+        cd $HOME/.vim/bundle && \
+        git clone https://github.com/mbbill/undotree
+
         # Copying .vimrc
         cp $CONF/vim/hide.vimrc $HOME/.vimrc
+        cp $CONF/vim/hide.vimrc-minimal $HOME/.vimrc-minimal
 
         # Copying NERDTree bookmarks
         if [[ "$USER" == "michal"  ]]; then
@@ -679,14 +666,12 @@ config_packages()
         #   Nerdtree
         #   Syntastic
         #   Tagbar
-        #   GitGutter
-        #   Vim-airline
         #   Auto-pairs
         #   Supertab
         #   Neosnippet
-        #   indentLine
         #   Vim-commentary
         #   neocomplete
+        #   undotree 
         #==============================================================
 
         aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
@@ -696,10 +681,6 @@ config_packages()
 
         # Pathogen
         curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-        # CtrlP
-        cd $HOME/.vim/bundle
-        git clone https://github.com/kien/ctrlp.vim.git
 
         # Nerdtree
         cd $HOME/.vim/bundle && \
@@ -713,30 +694,15 @@ config_packages()
         cd $HOME/.vim/bundle && \
         git clone https://github.com/majutsushi/tagbar
 
-        # Git-gutter
-        cd $HOME/.vim/bundle && \
-        git clone git://github.com/airblade/vim-gitgutter.git
-
-        # Vim-airline
-        cd $HOME/.vim/bundle && \
-        git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
-
         # Auto-pairs
         cd $HOME/.vim/bundle && \
         git clone git://github.com/jiangmiao/auto-pairs.git
 
-        # Supertab
-        git clone git://github.com/ervandew/supertab.git
-
         # Neosnippet
-        cd $HOME/.vim/bundle
-        git clone https://github.com/Shougo/neosnippet.vim
-        git clone https://github.com/Shougo/neosnippet-snippets
-        cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
-
-        # Indent-line
-        cd $HOME/.vim/bundle
-        git clone https://github.com/Yggdroot/indentLine.git
+        # cd $HOME/.vim/bundle
+        # git clone https://github.com/Shougo/neosnippet.vim
+        # git clone https://github.com/Shougo/neosnippet-snippets
+        # cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
         # Vim-commentary
         cd $HOME/.vim/bundle
@@ -745,12 +711,17 @@ config_packages()
         # Themes
         cp $CONF/vim/colors/*.vim $HOME/.vim/colors/
 
+        # undotree
+        cd $HOME/.vim/bundle && \
+        git clone https://github.com/mbbill/undotree
+
         # neocomplete
         cd $HOME/.vim/bundle/
         git clone https://github.com/Shougo/neocomplete.vim
 
         # Copying .vimrc
         cp $CONF/vim/hide.vimrc $HOME/.vimrc
+        cp $CONF/vim/hide.vimrc-minimal $HOME/.vimrc-minimal
 
         # Copying NERDTree bookmarks
         if [[ "$USER" == "michal"  ]]; then
@@ -820,7 +791,7 @@ config_pc()
     "Touchpad" "Enable touchpad" OFF \
     "WiFi" "Enable Lenovo G580 net. card" OFF \
     "Microphone" "Enable Lenovo G580 microphone" OFF \
-    "Terminus" "Nice font" OFF \
+    "Font" "Set console font" OFF \
     "Grub" "Boot loader configuration" OFF \
     "Lid" "Don't suspend laptop when lid closed" off 2>$LOG_FILE)
 
@@ -851,9 +822,8 @@ config_pc()
         Microphone)
             cp $CONF/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
         ;;
-        Terminus)
-            aptitude install xfonts-terminus -y
-            # !!! setfont
+        Font)
+            aptitude install xfonts-terminus console-terminus -y
         ;;
         Grub)
             vim /etc/default/grub
