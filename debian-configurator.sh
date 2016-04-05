@@ -161,7 +161,7 @@ config_gui()
     case "$DE" in
     "i3")
         aptitude install xorg xinit i3 dmenu fonts-inconsolata \
-        fonts-font-awesome feh weechat xterm ranger moc -y
+        fonts-font-awesome feh xterm -y
         mkdir -p $HOME/.i3
         mkdir -p $HOME/Pictures
         cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
@@ -190,7 +190,7 @@ config_gui()
     ;;
     "openbox")
         aptitude install openbox tint2 fonts-inconsolata colordiff xterm xorg \
-        alsa-utils feh  xfonts-terminus moc xbacklight -y
+        alsa-utils feh  xfonts-terminus xbacklight -y
 
         cp -R $CONF/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
 
@@ -258,6 +258,7 @@ config_packages()
     "lxrandr"           "Output manager" OFF \
     "mc"                "Midnight Commander" OFF \
     "moc"               "Music Player" OFF \
+    "mps-youtube"       "Youtube Player" OFF \
     "mpv"               "Video Player" OFF \
     "mutt"              "Mail Client" OFF \
     "nethack"           "Roguelike game" OFF \
@@ -460,6 +461,10 @@ config_packages()
     ;;
     lxrandr)
         aptitude install lxrandr -y
+    ;;
+    mps-youtube)
+        aptitude install mpv python3-pip -y
+        pip3 install mps-youtube
     ;;
     mpv)
         aptitude install mpv -y
@@ -824,6 +829,7 @@ config_pc()
         ;;
         Font)
             aptitude install xfonts-terminus console-terminus -y
+            sudo dpkg-reconfigure console-setup
         ;;
         Grub)
             vim /etc/default/grub

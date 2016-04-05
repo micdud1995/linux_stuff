@@ -119,17 +119,17 @@ bindkey '^e' end-of-line
 #=================================================================
 # Aliases
 # clear the screen
-    alias c='clear'
+	alias c='clear'
 # ls with colors
-    alias ls='ls --color'
+	alias ls='ls --color'
 # ls witch colors and screen cleaning
     alias l="clear;ls --color -lg"
 # shutdown the system
-    alias off='systemctl poweroff'
+	alias off='systemctl poweroff'
 # show hidden files only
-    alias l.='ls -d .* --color=auto'
+	alias l.='clear;ls -d .* --color=auto -lg'
 # list all folders
-    alias lf='ls -Gl | grep ^d'
+	alias lf='clear;ls -Gl | grep ^d'
 # grep aliases
     alias grep='grep --color=auto'
 # other

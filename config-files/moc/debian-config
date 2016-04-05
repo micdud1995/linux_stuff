@@ -23,7 +23,7 @@ MOCDir = ~/.moc
 # /usr/share/moc/themes/ (depends on installation prefix) or
 # ~/.moc/themes/ .
 #
-Theme = green_theme 
+Theme = red_theme 
 #=================================================================
 
 #=================================================================
@@ -229,7 +229,7 @@ ShowTime = IfAvailable
 #=================================================================
 # Use ASCII rather than graphic characters for drawing lines.  This
 # helps on some terminals.
-#ASCIILines = no
+ASCIILines = yes
 #=================================================================
 
 #=================================================================
