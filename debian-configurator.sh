@@ -12,9 +12,9 @@
 # Global variables
 ROOT_UID=0
 LOG_FILE="history.log"  # File with logs
+HOME=""                 # Path to home directory
 REPO=""                 # Path to repository
 CONF=""                 # Path to config files
-HOME=""                 # Path to home directory
 #==============================================================================
 
 info()
@@ -76,10 +76,7 @@ repo_dirs()
 config_sources() 
 {
     if (whiptail --title "Updating sources" --yes-button "Yes" --no-button "No" --yesno \
-    "Do you want to update sources.list file?\n\nYou can choose between \
-    different versions of sources.\n\n
-    \n\nContrib software requires non-free depedencies.\nNon-free section \
-    contains non-free software." 20 70) then
+    "Do you want to update sources.list file?\n\nYou can choose between different versions of sources." 20 70) then
 
     VERSION=$(whiptail --nocancel --title "Edit sources.list" \
     --menu "Select version of repositories" 20 70 10 \
@@ -237,9 +234,7 @@ config_packages()
     if (whiptail --title "Debian config" --yes-button "Yes" --no-button "No" --yesno \
     "Do you want to install/config some common software?" 20 70) then
 
-    (whiptail --title "Additional software" --separate-output --checklist \
-    "Choose your desired software \nUse spacebar to check/uncheck \npress \
-    enter when finished" 20 70 14 \
+    (whiptail --title "Additional software" --separate-output --checklist "" 20 70 14 \
     "alpine"            "Mail client" OFF \
     "alsa-utils"        "Sound" OFF \
     "bash"              "Shell" OFF \
@@ -248,7 +243,7 @@ config_packages()
     "cmus"              "Music player" OFF \
     "conky"             "System Info" OFF \
     "dictd"             "Offline dictionary" OFF \
-    "emacs-nox"         "GNU Editor"
+    "emacs-nox"         "GNU Editor" OFF \
     "faenza-icon-theme" "Icon Theme" OFF \
     "feh"               "Image Viewer" OFF \
     "git"               "Content tracker" OFF \
@@ -352,7 +347,7 @@ config_packages()
         "eng-deu" "" OFF \
         "eng-fra" "" OFF \
         "eng-rus" "" OFF \
-        "eng-spa" "" off 2>$LOG_FILE2
+        "eng-spa" "" off 2>$LOG_FILE
 
         while read choice2
         do
@@ -375,10 +370,10 @@ config_packages()
         *)
         ;;
         esac
-        done < $LOG_FILE2
+        done < $LOG_FILE
     ;;
     emacs-nox)
-        sudo pacman -S emacs-nox --noconfirm
+        aptitude install emacs-nox --noconfirm
         mkdir -p $HOME/.emacs.d/
         cp $CONF/emacs/* $HOME/.emacs.d/
     ;;
@@ -416,7 +411,6 @@ config_packages()
         make install
         cd ..
         rm -rf jumanji
-
     ;;
     libreoffice)
         aptitude install libreoffice -y
@@ -425,7 +419,7 @@ config_packages()
         "Deutsch"       "German" \
         "British"       "English_british" \
         "American"      "English_american" \
-        "Espanol"       "Spanish" 2>$LOG_FILE3)
+        "Espanol"       "Spanish" 2>$LOG_FILE)
 
         while read choice3
         do
@@ -446,7 +440,7 @@ config_packages()
             aptitude install libreoffice-l10n-es -y
         ;;
         esac
-        done < $LOG_FILE3
+        done < $LOG_FILE
     ;;
     links)
         aptitude install links -y
@@ -771,10 +765,42 @@ config_packages()
 config_scripts() 
 {
     if (whiptail --title "Scripts" --yes-button "Yes" --no-button "No" --yesno \
-        "Do you want to install automount packages?" 20 70) then
+    "Do you want to copy useful scripts?" 20 70) then
 
-        mkdir -p /mnt/sdb1
-        aptitude install fuse ntfs-3g udisks2 -y
+        (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
+        "live-usb" 			"Make bootable usb" OFF \
+		"run-mc" 			"Running midnight commander" OFF \
+        "take-screenshot" 	"Easier screenshots" OFF \
+        "run-wicd" 	        "Run wicd daemon and app" OFF \
+        "run-emacs" 		"Running Emacs" OFF 2>$LOG_FILE)
+
+        while read choice
+        do
+            case $choice in
+            live-usb)
+                cp $CONF/scripts/live-usb /usr/local/bin/
+                chmod +x /usr/local/bin/live-usb
+            ;;
+            run-mc)
+                cp $CONF/scripts/run-mc /usr/local/bin/
+                chmod +x /usr/local/bin/run-mc
+            ;;
+            take-screenshot)
+                cp $CONF/scripts/take-screenshot /usr/local/bin/
+                cp $CONF/scripts/take-screenshot-s /usr/local/bin/
+                chmod +x /usr/local/bin/take-screenshot
+                chmod +x /usr/local/bin/take-screenshot-s
+            ;;
+            run-wicd)
+                cp $CONF/scripts/run-wicd /usr/local/bin/
+                chmod +x /usr/local/bin/run-wicd
+            ;;
+            run-emacs)
+                cp $CONF/scripts/run-emacs /usr/local/bin/
+                chmod +x /usr/local/bin/run-emacs
+            ;;
+            esac
+        done < $LOG_FILE
     fi 
 
     config_pc
@@ -783,8 +809,7 @@ config_scripts()
 config_pc() 
 {
     if (whiptail --title "Additional settings" --yes-button "Yes" --no-button \
-    "No" --yesno "Do you want to configure computer options?\n\nYou can set here \
-    things depending on your computer and personal preferences." 20 70) then
+    "No" --yesno "Do you want to configure computer options?" 20 70) then
 
     (whiptail --title "Additional settings" --checklist --separate-output "Choose \
     your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
