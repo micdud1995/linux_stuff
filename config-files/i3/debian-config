@@ -1,47 +1,35 @@
 # =======================================================
-# set $tag1 "1: Desktop"
-# set $tag2 "2: Web"
-# set $tag3 "3: Code"
-# set $tag4 "4: Terminal"
-# set $tag5 "5: IRC"
-# set $tag6 "6: Other"
-# set $tag7 "7: Virtual"
-# set $tag8 "8: Settings"
-# set $tag9 "9: tmp"
-
-set $tag1 "1: база"
-set $tag2 "2: сеть"
-set $tag3 "3: код"
-set $tag4 "4: терминал"
-set $tag5 "5: чат"
-set $tag6 "6: эмуляция"
-set $tag7 "7: настройки"
+set $tag1 "1: Code"
+set $tag2 "2: IRC"
+set $tag3 "3: Web"
+set $tag4 "4: Other"
+set $tag5 "5: Other"
+set $tag6 "6: Other"
+set $tag7 "7: Other"
+set $tag8 "8: Other"
+set $tag9 "9: Other"
 # =======================================================
 
 # =======================================================
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
 
-font pango:Inconsolata 8
-font pango:FontAwesome 8
+font pango:Terminus 8
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 1
+for_window [class="^."] border pixel 2
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Basic layout
-#exec --no-startup-id exec $HOME/.i3/load_workspaces.sh
-
 # Default volume
-exec --no-startup-id amixer sset Master 60%
-exec amixer sset Master mute
-# exec amixer sset Master unmute
+exec --no-startup-id amixer sset Master 50%
+# exec amixer sset Master mute
+exec amixer sset Master unmute
 
 # Wallpaper restoring
 #exec --no-startup-id nitrogen --restore
-exec feh --bg-scale /home/michal/Pictures/wallpaper.jpg
+exec feh --bg-scale /home/michal/pictures/wallpaper.jpg
 
 # Press again $mod+number to return to workspace you were working on
 workspace_auto_back_and_forth yes
@@ -84,8 +72,7 @@ bar
 	position bottom
 
 	status_command i3status
-    # font pango:Amble regular 9, Ionicons, Tamsyn 9
-    font pango:UniCyr-sans 8
+    font pango: Terminus 8
 }
 # =======================================================
 
@@ -100,10 +87,6 @@ bindsym $mod+v exec xterm -e vifm
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
 bindsym $mod+F8 exec setxkbmap ru
-
-for_window [class="XTerm" instance="xterm"] floating enable
-for_window [class="Virtualbox"] floating enable
-for_window [class="Pavucontrol"] floating enable, border normal
 
 #Assings
 assign [class="^Dwb$"] → $tag2
@@ -134,8 +117,10 @@ bindsym $mod+d exec dmenu_run -fn 'Tamsyn-7' -f -nb '#FFFFFF' -nf '#000000' -sb 
 
 # Open menu with system commands
 bindsym $mod+F2 mode "$mode_system"
-bindsym --release Print exec scrot ~/tmp/%H:%M:%S-%d-%m_screenshot.png
-bindsym --release $mod+Print exec scrot -s ~/tmp/%H:%M:%S-%d-%m_screenshot.png
+
+# Screenshots
+bindsym --release Print exec scrot $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
+bindsym --release $mod+Print exec scrot -s $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
 
 # Change focused window
 bindsym $mod+h focus left
@@ -211,11 +196,12 @@ bindsym $mod+Shift+8 move container to workspace $tag8
 bindsym $mod+Shift+9 move container to workspace $tag9
 
 # Volume control
-bindsym $mod+F11 exec amixer set Master 4%-
-bindsym $mod+F12 exec amixer set Master 4%+
+bindsym $mod+F11 exec amixer set Master 5%-
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+bindsym $mod+F12 exec amixer set Master 5%+
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+
 # Brightness control
-# bindsym $mod+F9 exec xbacklight -dec 5
-# bindsym $mod+F10 exec xbacklight -inc 5
 bindsym $mod+F9 exec xcalib -c
 bindsym $mod+F10 exec xcalib -co 95 -a
 

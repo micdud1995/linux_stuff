@@ -1,0 +1,10 @@
+set browser_name jumanji
+set homepage http://duckduckgo.com/
+set private_browsing true
+set editor vim
+set font terminus 8
+set download-dir ~/downloads/
+set download_command xterm -e sh -c "wget --load-cookies ~/.config/jumanji/cookies '%s' -O '%s'";
+searchengine go http://www.google.com/search?q=%s
+searchengine ddg https://duckduckgo.com/?q=%s
+searchengine arch https://wiki.archlinux.org/index.php?search=%s

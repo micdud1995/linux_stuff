@@ -411,6 +411,8 @@ config_packages()
         make install
         cd ..
         rm -rf jumanji
+        mkdir -p $HOME/.config/jumanji
+        cp $CONF/jumanji/jumanjirc $HOME/.config/jumanji/
     ;;
     libreoffice)
         aptitude install libreoffice -y
