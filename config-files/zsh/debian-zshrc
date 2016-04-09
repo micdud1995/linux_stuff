@@ -170,7 +170,7 @@ bindkey '^e' end-of-line
     alias hist="cat ~/.zsh_history | grep"
     # up wired connection
     alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
-    alias w="wicd-curses"
+    alias w="nmtui.sh"
     alias cal="cal -w"
     alias nim="vim -u ~/.vimrc-minimal"
     alias s="screenfetch -c 1,15"

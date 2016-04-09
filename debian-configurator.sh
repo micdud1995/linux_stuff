@@ -262,6 +262,7 @@ config_packages()
     "mpv"               "Video Player" OFF \
     "mutt"              "Mail Client" OFF \
     "nethack"           "Roguelike game" OFF \
+    "network-manager"   "Network Manager" OFF \
     "newsbeuter"        "RSS feed reader" OFF \
     "openssh"           "Secure Shell" OFF \
     "pavucontrol"       "Sound output" OFF \
@@ -473,6 +474,13 @@ config_packages()
         aptitude install nethack-console -y
         cp $CONF/nethack/hide.nethackrc $HOME/.nethackrc
         cp $CONF/nethack/record /var/games/nethack/record
+    ;;
+    network-manager)
+        aptitude install network-manager -y
+        systemctl disable NetworkManager.service
+        systemctl stop NetworkManager.service
+        cp $CONF/scripts/nmtui.sh /usr/local/bin
+        chmod +x /usr/local/bin/nmtui.sh
     ;;
     unpacking)
         aptitude install p7zip unrar unzip zip -y
@@ -862,7 +870,6 @@ main_menu()
     "Install GUI"       "-" \
     "Install packages"  "-" \
     "Copy scripts"      "-" \
-    "Disable beep"      "-" \
     "Config PC things"  "-" \
     "Exit"              "-" 3>&1 1>&2 2>&3)
 
@@ -884,9 +891,6 @@ main_menu()
     ;;
     "Copy scripts")
         config_scripts
-    ;;
-    "Disable beep")
-        config_beep
     ;;
     "Config PC things")
         config_pc
