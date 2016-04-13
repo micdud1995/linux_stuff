@@ -11,10 +11,10 @@
 #==============================================================================
 # Global variables
 ROOT_UID=0
-LOG_FILE="history.log"  # File with logs
-HOME=""                 # Path to home directory
-REPO=""                 # Path to repository
-CONF=""                 # Path to config files
+LOG_FILE=""  # File with logs
+HOME=""      # Path to home directory
+REPO=""      # Path to repository
+CONF=""      # Path to config files
 #==============================================================================
 
 info()
@@ -28,6 +28,7 @@ info()
         "/home/qeni" 3>&1 1>&2 2>&3)
         REPO="$HOME/repo/linux_stuff"   # Path to repository
         CONF="$REPO/config-files"       # Path to config files
+        LOG_FILE="$HOME/log/debian-configurator.log"  # File with logs
         main_menu
     fi
 }
@@ -50,21 +51,24 @@ select_system()
 
 repo_dirs() 
 {
+    mkdir -p $HOME/repo
+    mkdir -p $HOME/tmp
+    mkdir -p $HOME/log
+    mkdir -p $HOME/src
+
     if [[ ! -d $REPO ]]; then
         if (whiptail --title "Cloning repository" --yes-button \
         "Yes" --no-button "No" --yesno \
         "Do you want to clone repo?\nThere are important files for this program\n\n \
         Repository: \ngithub.com/qeni/linux_stuff.git" 20 70) then
 
-            mkdir -p $HOME/repo
-            mkdir -p $HOME/tmp
 
-            # Creating repo dir and cloning repository
-            if [[ ! -d $REPO ]]; then
-                cd $HOME/repo
-                aptitude install git tree -y
-                git clone https://github.com/qeni/linux_stuff.git
-            fi
+        # Creating repo dir and cloning repository
+        if [[ ! -d $REPO ]]; then
+            cd $HOME/repo
+            aptitude install git tree -y
+            git clone https://github.com/qeni/linux_stuff.git
+        fi
         fi
     else
         whiptail --title "Debian config" --msgbox "OK, $REPO exists already" 20 70
@@ -407,7 +411,7 @@ config_packages()
     jumanji)
         aptitude install cmake pkg-config libgtk-3-0 libgirara-dev \
         libwebkitgtk-3.0-dev libsoup2.4-1 libsoup2.4-dev -y
-        cd $HOME/tmp
+        cd $HOME/src
         git clone https://git.pwmt.org/pwmt/jumanji.git
         cd jumanji
         make
@@ -454,11 +458,11 @@ config_packages()
     ;;
     livestreamer)
         aptitude install python python-requests python-setuptools python-singledispatch -y
-        cd $HOME/tmp
+        cd $HOME/src
         git clone https://github.com/chrippa/livestreamer.git
-        cd $HOME/tmp/livestreamer
+        cd $HOME/src/livestreamer
         python setup.py install
-        rm -rf $HOME/tmp/livestreamer
+        rm -rf $HOME/src/livestreamer
     ;;
     lxrandr)
         aptitude install lxrandr -y
@@ -601,7 +605,12 @@ config_packages()
         cp $CONF/zathura/zathurarc $HOME/.config/zathura/ 
     ;;
     zsh)
-        aptitude install colordiff zsh screenfetch -y
+        mkdir -p $HOME/.config/zsh
+        cp $CONF/zsh/aliases $HOME/.config/zsh/
+        cp $CONF/zsh/functions $HOME/.config/zsh/
+        aptitude install zsh -y
+        cp $CONF/scritps/welcomer /usr/local/bin/
+        chmod +x /usr/local/bin/welcomer
         cp $CONF/zsh/debian-zshrc $HOME/.zshrc
         chsh -s /bin/zsh ${HOME///\home\/}
     ;;
@@ -622,7 +631,7 @@ config_packages()
         aptitude install vim curl exuberant-ctags fonts-inconsolata -y
 
         # Making dirs
-        mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
+        mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
         # Pathogen
         curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -690,7 +699,7 @@ config_packages()
         aptitude install vim-nox build-essential cmake python-dev curl exuberant-ctags fonts-inconsolata -y
 
         # Making dirs
-        mkdir -p $HOME/tmp $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
+        mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/colors
 
         # Pathogen
         curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -802,7 +811,6 @@ config_pc()
     "Beep" "Disable bepp sound" OFF \
     "Caps" "Making Esc from Caps Lock key" OFF \
     "Touchpad" "Enable touchpad" OFF \
-    "WiFi" "Enable Lenovo G580 net. card" OFF \
     "Microphone" "Enable Lenovo G580 microphone" OFF \
     "Font" "Set console font" OFF \
     "Grub" "Boot loader configuration" OFF \
@@ -821,16 +829,6 @@ config_pc()
         Touchpad)
             mkdir -p /etc/X11/xorg.conf.d
             cp $CONF/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
-        ;;
-        WiFi)
-            aptitude install linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms wicd -y
-            modprobe -r b44 b43 b43legacy ssb brcmsmac
-            modprobe wl
-            cp $CONF/other/interfaces /etc/network/interfaces
-            adduser michal netdev
-            /etc/init.d/dbus reload
-            /etc/init.d/wicd start
-            wicd-client -n
         ;;
         Microphone)
             cp $CONF/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf

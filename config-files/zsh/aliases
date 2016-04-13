@@ -1,0 +1,68 @@
+#=================================================================
+# Aliases
+# clear the screen
+	alias c='clear'
+# ls with colors
+	alias ls='ls --color'
+# ls witch colors and screen cleaning
+    alias l="clear;ls --color -lh"
+# shutdown the system
+	alias off='systemctl poweroff'
+# show hidden files only
+	alias l.='ls -d .* --color=auto'
+# list all folders
+	alias lf='ls -Gl | grep ^d'
+# grep aliases
+    alias grep='grep --color=auto'
+# other
+    alias df='df -kTh'
+    alias free='free -ht'
+    alias ip='sudo ip addr show'
+# aptitude aliases
+    alias a="aptitude"
+	alias ai="sudo aptitude install"
+	alias as="aptitude search"
+	alias ash="aptitude show"
+    alias ap="sudo aptitude purge"
+	alias upgrade='sudo aptitude update; sudo aptitude upgrade -y; sudo aptitude clean'
+# show which commands you use the most
+	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
+# cd aliases	
+	alias ..="cd ..;clear;ls --color -lh"
+	alias ...="cd ../..;clear;ls --color -lh"
+	alias ....="cd ../../..;clear;ls --color -lh"	
+# Git aliases
+	alias gs="git status -sb"
+	alias gd="git diff --word-diff --color"
+	alias ga="git add"
+	alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	alias gp="git push"
+	alias gpl="git pull"
+	alias gcl="git clone"
+	alias gc="git commit"
+	alias gcm="git commit -m"
+	alias gch="git checkout"
+	alias gb="git branch"
+	alias gr="git reset" # e.g. git reset abc.txt
+	alias grc="git reset --hard HEAD~1" # git reset commit
+    alias gta="git tag -a -m"
+# Programs aliases
+    alias x="chmod +x"
+    alias hist="cat ~/.zsh_history | grep"
+    # up wired connection
+    alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
+    alias w="nmtui.sh"
+    alias cal="cal -w"
+    alias nim="vim -u ~/.vimrc-minimal"
+# Systemd aliases
+    alias reb="systemctl reboot"
+    alias off="systemctl poweroff"
+    alias sus="systemctl suspend"
+# Global aliases
+    alias -g grp="| grep -i"
+# Suffix aliases
+    alias -s txt=vim
+    alias -s log=vim
+    alias -s rc=vim
+    alias -s html=links
+#=================================================================

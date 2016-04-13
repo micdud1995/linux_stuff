@@ -252,6 +252,9 @@ noremap ; :
 " Move to the first non-blank character of the line
 nnoremap m ^
 
+" Move to the last non-blank character of the line
+nnoremap M $
+
 " Undo/Redo with arrows
 :map <Left> :undo<CR>
 :map <Right> :redo<CR>
