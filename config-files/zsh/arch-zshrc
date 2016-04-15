@@ -112,11 +112,11 @@ bindkey '^e' end-of-line
 # ls with colors
 	alias ls='ls --color'
 # ls witch colors and screen cleaning
-    alias l="clear;ls --color -lg"
+    alias l="clear;ls --color -lgh"
 # shutdown the system
 	alias off='systemctl poweroff'
 # show hidden files only
-	alias l.='clear;ls -d .* --color=auto -lg'
+	alias l.='clear;ls -d .* --color=auto -lgh'
 # list all folders
 	alias lf='clear;ls -Gl | grep ^d'
 # grep aliases

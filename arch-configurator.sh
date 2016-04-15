@@ -254,6 +254,7 @@ config_packages()
     "unpacking"             "Archive tools" OFF \
     "uzbl"                  "Web Browser" OFF \
     "vim"                   "Vim with scripts support" OFF \
+    "vim-minimal"           "Vim config without plugins" OFF \
     "virtualbox"            "Virtual Machines" OFF \
     "vrms-arch"             "Virtual RMS" OFF \
     "weechat"               "IRC Client" OFF \
@@ -480,12 +481,16 @@ config_packages()
     zathura)
         sudo pacman -S zathura zathura-pdf-poppler $FLAGS_PACMAN
         mkdir -p $HOME/.config/zathura
-        cp $HOME/repo/linux_stuff/config-files/zathura/zathurarc $HOME/.config/zathura/ 
+        cp $CONF/zathura/zathurarc $HOME/.config/zathura/ 
     ;;
     zsh)
         sudo pacman -S colordiff zsh acpi alsi $FLAGS_PACMAN
         cp $CONF/zsh/arch-zshrc $HOME/.zshrc
         chsh -s /bin/zsh
+    ;;
+    vim-minimal)
+        sudo pacman -S vim $FLAGS_PACMAN
+        cp $CONF/vim/hide.vimrc-minimal $HOME/.vimrc
     ;;
     vim)
         #==============================================================
@@ -494,13 +499,8 @@ config_packages()
         #   Nerdtree
         #   Syntastic
         #   Tagbar
-        #   GitGutter
-        #   Vim-airline
         #   Auto-pairs
-        #   Supertab
         #   Neosnippet
-        #   indentLine
-        #   CtrlP
         #   Vim-commentary
         #   neocomplete
         #   undotree 
@@ -514,14 +514,6 @@ config_packages()
         # Pathogen
         curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-        # Supertab
-        # cd $HOME/.vim/bundle && \
-        # git clone git://github.com/ervandew/supertab.git
-
-        # Vim-airline
-        # cd $HOME/.vim/bundle && \
-        # git clone https://github.com/bling/vim-airline $HOME/.vim/bundle/vim-airline
-
         # Syntastic
         cd $HOME/.vim/bundle && \
         git clone https://github.com/scrooloose/syntastic.git
@@ -529,10 +521,6 @@ config_packages()
         # Nerdtree
         cd $HOME/.vim/bundle && \
         git clone https://github.com/scrooloose/nerdtree.git
-
-        # Git-gutter
-        # cd $HOME/.vim/bundle && \
-        # git clone git://github.com/airblade/vim-gitgutter.git
 
         # Tagbar
         cd $HOME/.vim/bundle && \
@@ -543,18 +531,10 @@ config_packages()
         git clone git://github.com/jiangmiao/auto-pairs.git
 
         # Neosnippet
-        cd $HOME/.vim/bundle && \
-        git clone https://github.com/Shougo/neosnippet.vim
-        git clone https://github.com/Shougo/neosnippet-snippets
-        cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
-
-        # Indent-line
-        cd $HOME/.vim/bundle && \
-        git clone https://github.com/Yggdroot/indentLine.git
-
-        # CtrlP
-        cd $HOME/.vim/bundle && \
-        git clone https://github.com/kien/ctrlp.vim.git
+        # cd $HOME/.vim/bundle && \
+        # git clone https://github.com/Shougo/neosnippet.vim
+        # git clone https://github.com/Shougo/neosnippet-snippets
+        # cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
         # Vim-commentary
         cd $HOME/.vim/bundle && \
@@ -573,6 +553,7 @@ config_packages()
 
         # Copying .vimrc
         cp $CONF/vim/hide.vimrc $HOME/.vimrc
+        cp $CONF/vim/hide.vimrc-minimal $HOME/.vimrc-minimal
     ;;
     esac
     done < $LOG_FILE
@@ -666,7 +647,7 @@ config_pc()
             setfont /usr/share/kbd/consolefonts/Lat2-Terminus16.psfu.gz
         ;;
         Lid)
-            sudo cp $CONF/lid/logind.conf /etc/systemd/logind.conf
+            sudo cp $CONF/other/logind.conf /etc/systemd/logind.conf
         ;;
 
     esac
