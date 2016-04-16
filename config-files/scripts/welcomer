@@ -1,0 +1,18 @@
+#!/bin/bash
+
+OS="Debian GNU/Linux $(cat /etc/debian_version)"
+KERNEL=$(uname -r)
+DATE=$(date +%Y-%m-%d::%H:%M:%S)
+UPTIME=$(uptime -p)
+
+# colors
+red=$(tput setaf 1)
+white=$(tput setaf 9)
+
+echo -e "$red ======================================"
+echo -e "$red  .''\`.   Kernel: $white $KERNEL"
+echo -e "$red : :'  :  Date: $white   $DATE"
+echo -e "$red \`. \`'\`   Uptime: $white $UPTIME"
+echo -e "$red  \`'-     OS: $white     $OS"
+echo -e "$red ======================================"
+echo

@@ -47,4 +47,4 @@ Running
 
 Program layout:
 =====================
-![program layout](https://raw.github.com/micdud1995/linux_stuff/master/img/screenshot-program.png)
+![program layout](https://raw.github.com/qeni/linux_stuff/master/img/screenshot-program.png)

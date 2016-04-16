@@ -6,17 +6,6 @@ setxkbmap -option ctrl:nocaps   # disable caps-lock
 #=================================================================
 
 #=================================================================
-# VCS info
-# autoload -Uz vcs_info
-# zstyle ':vcs_info:*' enable git svn hg
-# zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%c%{$fg[green]%}%u%{$reset_color%} [%{$fg[orange]%}%b%{$reset_color%}] %{$fg[yellow]%}%s%{$reset_color%}:%r"
-# precmd() {  # run before each prompt
-#   vcs_info
-# }
-#=================================================================
-
-#=================================================================
 # Prompt
 setopt PROMPT_SUBST     # allow funky stuff in prompt
 color="white"
@@ -65,8 +54,6 @@ zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=29=34"
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
-users=(michal root)           # because I don't care about others
-zstyle ':completion:*' users $users
 #=================================================================
 
 #=================================================================
@@ -117,131 +104,10 @@ bindkey '^e' end-of-line
 #=================================================================
 
 #=================================================================
-# Aliases
-# clear the screen
-    alias c='clear'
-# ls with colors
-    alias ls='ls --color'
-# ls witch colors and screen cleaning
-    alias l="clear;ls --color -lgh"
-# shutdown the system
-    alias off='systemctl poweroff'
-# show hidden files only
-    alias l.='ls -d .* --color=auto'
-# list all folders
-    alias lf='ls -Gl | grep ^d'
-# grep aliases
-    alias grep='grep --color=auto'
-# other
-    alias diff='colordiff'  # requires colordiff package
-    alias df='df -kTh'
-    alias free='free -ht'
-    alias ip='sudo ip addr show'
-# aptitude aliases
-    alias a="aptitude"
-    alias ai="sudo aptitude install"
-    alias as="aptitude search"
-    alias ash="aptitude show"
-    alias ap="sudo aptitude purge"
-    alias upgrade='sudo aptitude update; sudo aptitude upgrade -y; sudo aptitude clean'
-# show which commands you use the most
-    alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
-# move aliases	
-    alias ..="cd ..;ls"
-    alias ...="cd ../..;ls"
-    alias ....="cd ../../..;ls"	
-# Git aliases
-    alias gs="git status -sb"
-    alias gd="git diff --word-diff --color"
-    alias ga="git add"
-    alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-    alias gp="git push"
-    alias gpl="git pull"
-    alias gcl="git clone"
-    alias gc="git commit"
-    alias gcm="git commit -m"
-    alias gch="git checkout"
-    alias gb="git branch"
-    alias gr="git reset" # e.g. git reset abc.txt
-    alias grc="git reset --hard HEAD~1" # git reset commit
-    alias gta="git tag -a -m"
-# Programs aliases
-    alias x="chmod +x"
-    alias hist="cat ~/.zsh_history | grep"
-    # up wired connection
-    alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
-    alias w="wicd-curses"
-    alias cal="cal -w"
-    alias nim="vim -u ~/.vimrc-minimal"
-    alias s="screenfetch -c 1,15"
-# Systemd aliases
-    alias reb="systemctl reboot"
-    alias off="systemctl poweroff"
-    alias sus="systemctl suspend"
-# Global aliases
-    alias -g grp="| grep -i"
-# Suffix aliases
-    alias -s txt=vim
-    alias -s log=vim
-    alias -s rc=vim
-    alias -s html=links
-#=================================================================
+# Additional files
+source $HOME/.config/zsh/aliases
+source $HOME/.config/zsh/functions
 
-#=================================================================
-# Functions
-
-#copy and go to dir
-cpg (){
-  if [ -d "$2" ];then
-    cp $1 $2 && cd $2
-  else
-    cp $1 $2
-  fi
-}
-
-#move and go to dir
-mvg (){
-  if [ -d "$2" ];then
-    mv $1 $2 && cd $2
-  else
-    mv $1 $2
-  fi
-}
-
-# Extract archives
-extract () {
-    if [ -f $1 ] ; then
-      case $1 in
-        *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
-        *.bz2)       bunzip2 $1     ;;
-        *.rar)       unrar e $1     ;;
-        *.gz)        gunzip $1      ;;
-        *.tar)       tar xf $1      ;;
-        *.tbz2)      tar xjf $1     ;;
-        *.tgz)       tar xzf $1     ;;
-        *.zip)       unzip $1       ;;
-        *.Z)         uncompress $1  ;;
-        *.7z)        7z x $1        ;;
-        *)     echo "'$1' cannot be extracted via extract()" ;;
-         esac
-     else
-         echo "'$1' is not a valid file"
-     fi
-}
-
-# Calculator
-# usage: calc <equation>
-calc() {
-  if which bc &>/dev/null; then
-    echo "scale=3; $*" | bc -l
-  else
-    awk "BEGIN { print $* }"
-  fi
-}
-#=================================================================
-
-#=================================================================
 # Autorun commands
-screenfetch -c 1,15
+welcomer
 #=================================================================
