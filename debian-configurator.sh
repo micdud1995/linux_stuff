@@ -5,12 +5,13 @@
 # Description       This script will config installed Debian GNU/Linux system 
 #                   in version 8.x
 # Notes             Run with sudo only
+#                   Program can change some file permissions (exiting function)
 # License           GNU General Public License v3.0
 #==============================================================================
 
 #==============================================================================
 # Global variables
-ROOT_UID=0
+ROOT_UID=0   # Root ID
 LOG_FILE=""  # File with logs
 HOME=""      # Path to home directory
 REPO=""      # Path to repository
@@ -243,7 +244,6 @@ config_packages()
     "alpine"            "Mail client" OFF \
     "alsa-utils"        "Sound" OFF \
     "bash"              "Shell" OFF \
-    "brasero"           "Burning app" OFF \
     "calcurse"          "Text-based organizer" OFF \
     "cmus"              "Music player" OFF \
     "conky"             "System Info" OFF \
@@ -308,9 +308,6 @@ config_packages()
         aptitude install colordiff bash -y
         cp $CONF/bash/debian-bashrc $HOME/.bashrc
         chsh -s /bin/bash ${HOME///\home\/}
-    ;;
-    brasero)
-        aptitude install brasero -y
     ;;
     calcurse)
         aptitude install calcurse -y
@@ -520,7 +517,6 @@ config_packages()
     ;;
     vrms)
         aptitude install vrms -y
-        ufw enable
     ;;
     weechat)
         aptitude install weechat -y
