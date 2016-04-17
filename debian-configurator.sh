@@ -173,7 +173,7 @@ config_gui()
         cp $CONF/i3/debian-config $HOME/.i3/config
 
         cp -R $CONF/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
-        cp $CONF/i3/i3lock-deb.png $HOME/Pictures/i3lock-deb.png
+        cp $CONF/i3/i3lock-deb.png $HOME/pictures/i3lock-deb.png
         cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
 
         WALLPAPER=$(whiptail --title "Debian config" --menu "Select your wallpaper" 20 70 10 \
@@ -249,7 +249,6 @@ config_packages()
     "conky"             "System Info" OFF \
     "dictd"             "Offline dictionary" OFF \
     "emacs-nox"         "GNU Editor" OFF \
-    "faenza-icon-theme" "Icon Theme" OFF \
     "feh"               "Image Viewer" OFF \
     "git"               "Content tracker" OFF \
     "htop"              "Process Info" OFF \
@@ -268,28 +267,20 @@ config_packages()
     "nethack"           "Roguelike game" OFF \
     "network-manager"   "Network Manager" OFF \
     "newsbeuter"        "RSS feed reader" OFF \
-    "openssh"           "Secure Shell" OFF \
-    "pavucontrol"       "Sound output" OFF \
     "pinta"             "Image Editor" OFF \
     "ranger"            "File manager" OFF \
     "rtorrent"          "Torrent Client" OFF \
-    "screenfetch"       "System Info" OFF \
     "scrot"             "Screenshots" OFF \
     "texmaker"          "LaTeX Editor" OFF \
     "tor"               "Communication System" OFF \
-    "ufw"               "Firewall" OFF \
     "unpacking"         "Archive tools" OFF \
     "uzbl"              "Web Browser" OFF \
     "vifm"              "File Manager" OFF \
     "vim-clear"         "Text Editor" OFF \
     "vim-nox"           "Vim with scripts support" OFF \
-    "virtualbox"        "Virtual Machines" OFF \
     "vrms"              "Virtual RMS" OFF \
     "weechat"           "IRC Client" OFF \
-    "xboxdrv"           "Xbox pad driver" OFF \
-    "xorg"              "X Server" OFF \
     "xterm"             "Terminal Emulator" OFF \
-    "input-synaptics"   "Touchpad" OFF \
     "youtube-dl"        "YT Downloader" OFF \
     "zathura"           "PDF Viewer" OFF \
     "zsh"               "Z-shell" OFF 2>$LOG_FILE)
@@ -380,9 +371,6 @@ config_packages()
         aptitude install emacs-nox --noconfirm
         mkdir -p $HOME/.emacs.d/
         cp $CONF/emacs/* $HOME/.emacs.d/
-    ;;
-    faenza-icon-theme)
-        aptitude install faenza-icon-theme -y
     ;;
     feh)
         aptitude install feh -y
@@ -484,16 +472,10 @@ config_packages()
         chmod +x /usr/local/bin/nmtui.sh
     ;;
     unpacking)
-        aptitude install p7zip unrar unzip zip -y
-    ;;
-    pavucontrol)
-        aptitude install pavucontrol -y
+        aptitude install p7zip unzip zip -y
     ;;
     pinta)
         aptitude install pinta -y
-    ;;
-    screenfetch)
-        aptitude install screenfetch -y
     ;;
     scrot)
         aptitude install scrot -y
@@ -511,10 +493,6 @@ config_packages()
     texmaker)
         aptitude install texmaker texlive-full texlive-lang-polish texlive-doc-pl texlive-math-extra texlive-latex-extra-doc -y
     ;;
-    ufw)
-        aptitude install ufw -y
-        ufw enable
-    ;;
     vrms)
         aptitude install vrms -y
     ;;
@@ -529,12 +507,6 @@ config_packages()
         mkdir -p $HOME/.config/newsbeuter
         cp $CONF/newsbeuter/debian-urls $HOME/.config/newsbeuter/urls
         cp $CONF/newsbeuter/debian-config $HOME/.config/newsbeuter/config
-    ;;
-    openssh)
-        aptitude install openssh-server -y
-        iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-        /etc/init.d/ssh restart
-        export DISPLAY=:0
     ;;
     mc)
         aptitude install mc -y
@@ -562,38 +534,25 @@ config_packages()
     ;;
     uzbl)
         aptitude install uzbl -y
+        mkdir -p $HOME/.config/uzbl
+        mkdir -p $HOME/.local/share/uzbl/
         cp $CONF/uzbl/config $HOME/.config/uzbl/config
         cp $CONF/uzbl/bookmarks $HOME/.local/share/uzbl/bookmarks
     ;;
     vifm)
         aptitude install vifm -y
-        mkdir -p $HOME/.vifm
         mkdir -p $HOME/.vifm/colors
         cp $CONF/vifm/vifmrc $HOME/.vifm/
         cp $CONF/vifm/solarized.vifm $HOME/.vifm/colors/
-    ;;
-    virtualbox)
-        aptitude install dkms build-essential linux-headers-amd64 virtualbox-guest-x11 virtualbox-dkms virtualbox-guest-utils -y
     ;;
     youtube-dl)
         wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         chmod a+rx /usr/local/bin/youtube-dl
     ;;
-    xboxdrv)
-        aptitude install xboxdrv -y
-        sh -c "echo 'blacklist xpad' >> /etc/modprobe.d/blacklist"
-        rmmod xpad
-    ;;
-    xorg)
-        aptitude install xorg -y
-    ;;
     xterm)
         aptitude install xterm -y
         cp $CONF/xterm/hide.Xresources $HOME/.Xresources
         xrdb -merge $HOME/.Xresources 
-    ;;
-    input-synaptics)
-        aptitude install xserver-xorg-input-synaptics -y
     ;;
     zathura)
         aptitude install zathura -y
@@ -601,10 +560,10 @@ config_packages()
         cp $CONF/zathura/zathurarc $HOME/.config/zathura/ 
     ;;
     zsh)
+        aptitude install zsh -y
         mkdir -p $HOME/.config/zsh
         cp $CONF/zsh/aliases $HOME/.config/zsh/
         cp $CONF/zsh/functions $HOME/.config/zsh/
-        aptitude install zsh -y
         cp $CONF/scritps/welcomer /usr/local/bin/
         chmod +x /usr/local/bin/welcomer
         cp $CONF/zsh/debian-zshrc $HOME/.zshrc
