@@ -20,6 +20,7 @@ LOG_FILE5="" # File with additional settings logs
 HOME=""      # Path to home directory
 REPO=""      # Path to repository
 CONF=""      # Path to config files
+USER=""      # User name
 #==============================================================================
 
 info()
@@ -38,6 +39,7 @@ info()
         LOG_FILE3="$HOME/log/libreoffice.log"
         LOG_FILE4="$HOME/log/scripts.log"
         LOG_FILE5="$HOME/log/additionallog"
+        USER="${HOME///\home\/}"
         main_menu
     fi
 }
@@ -441,8 +443,6 @@ config_packages()
         aptitude install network-manager -y
         systemctl disable NetworkManager.service
         systemctl stop NetworkManager.service
-        cp $CONF/scripts/nmtui.sh /usr/local/bin
-        chmod +x /usr/local/bin/nmtui.sh
     ;;
     unpacking)
         aptitude install p7zip unzip zip -y
@@ -694,6 +694,7 @@ config_scripts()
         "live-usb" 			"Make bootable usb" OFF \
 		"run-mc" 			"Running midnight commander" OFF \
         "take-screenshot" 	"Easier screenshots" OFF \
+        "mountpoint" 	            "Create mountpoint" OFF \
         "yt" 	            "Download YT playlist" OFF \
         "run-emacs" 		"Running Emacs" OFF 2>$LOG_FILE4)
 
@@ -717,6 +718,11 @@ config_scripts()
             yt)
                 cp $CONF/scripts/yt /usr/local/bin/
                 chmod +x /usr/local/bin/yt
+            ;;
+            m)
+                aptitude install ntfs-3g -y
+                mkdir /mnt/mountpoint
+                chown $USER /mnt/mountpoint
             ;;
             run-emacs)
                 cp $CONF/scripts/run-emacs /usr/local/bin/
@@ -783,7 +789,7 @@ config_pc()
 
 exiting()
 {
-    chown -R "${HOME///\home\/}" $HOME
+    chown -R $USER $HOME
     whiptail --title "Debian config" --msgbox "System configured." 20 70
     exit 0
 }
