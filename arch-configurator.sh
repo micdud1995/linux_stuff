@@ -167,7 +167,7 @@ config_gui()
         case "$DE" in
         "i3")
             sudo pacman -S i3-wm i3status dmenu terminus-font \
-            tamsyn-font alsa-utils feh udiskie xterm $FLAGS_PACMAN
+            alsa-utils feh udiskie xterm $FLAGS_PACMAN
             yaourt -S ttf-font-awesome xcalib $FLAGS_PACMAN
             mkdir -p $HOME/.i3
             mkdir -p $HOME/.config/i3/
@@ -183,7 +183,6 @@ config_gui()
             sudo pacman -S lxde faenza-icon-theme $FLAGS_PACMAN
             cp $CONF/openbox/rc.xml $HOME/.config/openbox/lxde-rc.xml
             cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
-            sudo cp $CONF/scripts/run-cmus /usr/local/bin/
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
             nano $HOME/.xinitrc
             cp $CONF/xterm/hide.Xresources $HOME/.Xresources
@@ -219,7 +218,6 @@ config_packages()
     "bash"                  "Shell" OFF \
     "brasero"               "Burning app" OFF \
     "calcurse"              "Text-based organizer" OFF \
-    "cmus"                  "Music player" OFF \
     "conky"                 "System Info" OFF \
     "emacs-nox"             "GNU Editor" OFF \
     "faenza-icon-theme"     "Icon Theme" OFF \
@@ -245,7 +243,6 @@ config_packages()
     "pinta"                 "Image Editor" OFF \
     "ranger"                "File manager" OFF \
     "rtorrent"              "Torrent Client" OFF \
-    "rxvt-unicode"          "Terminal emulator" OFF \
     "scrot"                 "Screenshots" OFF \
     "texmaker"              "LaTeX Editor" OFF \
     "tor"                   "Communication System" OFF \
@@ -288,12 +285,6 @@ config_packages()
     ;;
     calcurse)
         sudo pacman -S calcurse $FLAGS_PACMAN
-    ;;
-    cmus)
-        sudo pacman -S cmus $FLAGS_PACMAN
-        mkdir -p $HOME/.cmus
-        cp $CONF/cmus/zenburn.theme $HOME/.cmus/
-        cp $CONF/cmus/solarized.theme $HOME/.cmus/
     ;;
     conky)
         sudo pacman -S conky $FLAGS_PACMAN
@@ -447,11 +438,6 @@ config_packages()
         sudo pacman -S rtorrent $FLAGS_PACMAN
         mkdir -p $HOME/.rtorrent
         cp $CONF/rtorrent/hide.rtorrent-arch.rc $HOME/.rtorrent.rc
-    ;;
-    rxvt-unicode)
-        sudo pacman -S rxvt-unicode $FLAGS_PACMAN
-        cp $CONF/rxvt/hide.Xresources $HOME/.Xresources
-        xrdb -merge $HOME/.Xresources 
     ;;
     uzbl)
         sudo pacman -S uzbl-browser $FLAGS_PACMAN

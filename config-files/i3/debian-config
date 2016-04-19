@@ -83,6 +83,7 @@ bar
 bindsym $mod+x exec xterm
 bindsym $mod+m exec xterm -e mocp
 bindsym $mod+v exec xterm -e ranger
+bindsym $mod+t exec uzbl-tabbed
 
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
@@ -93,7 +94,7 @@ bindsym $mod+F5 exec amixer sset Master toggle
 bindsym $mod+c kill
 
 # Start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -fn 'Tamsyn-7' -f -nb '#FFFFFF' -nf '#000000' -sb '#000000' -sf '#FFFFFF'
+bindsym $mod+d exec dmenu_run -fn "-xos4-terminus-medium-r-*-*-12-*" -f -nb '#FFFFFF' -nf '#000000' -sb '#000000' -sf '#FFFFFF'
 # bindsym $mod+d exec j4-dmenu-desktop
 
 # Open menu with system commands
@@ -236,10 +237,10 @@ mode "resize" {
 	bindsym semicolon resize grow width $Size px or $Size ppt
 
 	# Same bindings, but for the arrow keys
-	bindsym Left resize shrink width $Size px or $Size ppt
+	bindsym Right resize shrink width $Size px or $Size ppt
 	bindsym Down resize grow height $Size px or $Size ppt
 	bindsym Up resize shrink height $Size px or $Size ppt
-	bindsym Right resize grow width $Size px or $Size ppt
+	bindsym Left resize grow width $Size px or $Size ppt
 
 	# Back to normal: Enter or Escape
 	bindsym Return mode "default"

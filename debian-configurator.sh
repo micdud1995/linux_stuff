@@ -12,7 +12,11 @@
 #==============================================================================
 # Global variables
 ROOT_UID=0   # Root ID
-LOG_FILE=""  # File with logs
+LOG_FILE=""  # File main logs
+LOG_FILE2="" # File with dictd logs
+LOG_FILE3="" # File with libreoffice logs
+LOG_FILE4="" # File with scripts logs
+LOG_FILE5="" # File with additional settings logs
 HOME=""      # Path to home directory
 REPO=""      # Path to repository
 CONF=""      # Path to config files
@@ -29,7 +33,11 @@ info()
         "/home/qeni" 3>&1 1>&2 2>&3)
         REPO="$HOME/repo/linux_stuff"   # Path to repository
         CONF="$REPO/config-files"       # Path to config files
-        LOG_FILE="$HOME/log/debian-configurator.log"  # File with logs
+        LOG_FILE="$HOME/log/debian-configurator.log"
+        LOG_FILE2="$HOME/log/dictd.log"
+        LOG_FILE3="$HOME/log/libreoffice.log"
+        LOG_FILE4="$HOME/log/scripts.log"
+        LOG_FILE5="$HOME/log/additionallog"
         main_menu
     fi
 }
@@ -56,6 +64,8 @@ repo_dirs()
     mkdir -p $HOME/tmp
     mkdir -p $HOME/log
     mkdir -p $HOME/src
+    mkdir -p $HOME/music
+    mkdir -p $HOME/movies
 
     if [[ ! -d $REPO ]]; then
         if (whiptail --title "Cloning repository" --yes-button \
@@ -110,10 +120,6 @@ config_sources()
     ;;
     "Sid contrib non-free")
         sh -c "cat $CONF/sources.list/unstable-nonfree.txt > /etc/apt/sources.list"
-    ;;
-    "*")
-        whiptail --title "Debian config" --msgbox "Wrong version" 20 70
-        main_menu
     ;;
     esac
 
@@ -172,32 +178,12 @@ config_gui()
         cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
         cp $CONF/i3/debian-config $HOME/.i3/config
 
-        cp -R $CONF/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
         cp $CONF/i3/i3lock-deb.png $HOME/pictures/i3lock-deb.png
         cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
-
-        WALLPAPER=$(whiptail --title "Debian config" --menu "Select your wallpaper" 20 70 10 \
-            "Black Debian"  "" \
-            "Debian Ascii"  "" \
-            "Grey Space"    "" 3>&1 1>&2 2>&3)
-
-        case "$WALLPAPER" in
-            "Black Debian")
-                cp $CONF/wallpapers/debian-wallpaper.jpg $HOME/pictures/wallpaper.jpg
-            ;;
-            "Debian Ascii")
-                cp $CONF/wallpapers/debian-ascii.jpg $HOME/pictures/wallpaper.jpg
-            ;;
-            "Grey Space")
-                cp $CONF/wallpapers/space.jpg $HOME/pictures/wallpaper.jpg
-            ;;
-        esac
     ;;
     "openbox")
         aptitude install openbox tint2 fonts-inconsolata colordiff xterm xorg \
         alsa-utils feh  xfonts-terminus xbacklight -y
-
-        cp -R $CONF/fonts/tamsyn-font-1.11/ /usr/share/fonts/truetype/
 
         mkdir -p $HOME/.config/openbox
         mkdir -p $HOME/.config/tint2
@@ -213,21 +199,16 @@ config_gui()
         lxappearance-obconf lxrandr fonts-inconsolata faenza-icon-theme -y
         cp $CONF/lxde/lxde-rc.xml $HOME/.config/openbox/
         cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
-        cp $CONF/scripts/run-cmus /usr/local/bin/
-        chmod +x /usr/local/bin/run-cmus
         cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
     ;;
     "xfce")
         aptitude install xorg xinit xfce4 -y
-        cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
     ;;
     "gnome")
         aptitude install xorg xinit gnome -y
-        cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
     ;;
     "kde")
         aptitude install xorg xinit kde-standard -y
-        cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
     ;;
     esac
     fi
@@ -245,7 +226,6 @@ config_packages()
     "alsa-utils"        "Sound" OFF \
     "bash"              "Shell" OFF \
     "calcurse"          "Text-based organizer" OFF \
-    "cmus"              "Music player" OFF \
     "conky"             "System Info" OFF \
     "dictd"             "Offline dictionary" OFF \
     "emacs-nox"         "GNU Editor" OFF \
@@ -262,7 +242,7 @@ config_packages()
     "mc"                "Midnight Commander" OFF \
     "moc"               "Music Player" OFF \
     "mps-youtube"       "Youtube Player" OFF \
-    "mpv"               "Video Player" OFF \
+    "mplayer"           "Video Player" OFF \
     "mutt"              "Mail Client" OFF \
     "nethack"           "Roguelike game" OFF \
     "network-manager"   "Network Manager" OFF \
@@ -303,13 +283,6 @@ config_packages()
     calcurse)
         aptitude install calcurse -y
     ;;
-    cmus)
-        aptitude install cmus -y
-        mkdir -p $HOME/.cmus
-        cp $CONF/cmus/zenburn.theme $HOME/.cmus/
-        cp $CONF/cmus/solarized.theme $HOME/.cmus/
-        cp $CONF/cmus/red.theme $HOME/.cmus/
-    ;;
     conky)
         aptitude install conky alsa-utils xfonts-terminus -y
 
@@ -342,11 +315,11 @@ config_packages()
         "eng-deu" "" OFF \
         "eng-fra" "" OFF \
         "eng-rus" "" OFF \
-        "eng-spa" "" off 2>$LOG_FILE
+        "eng-spa" "" off 2>$LOG_FILE2
 
-        while read choice2
+        while read choice
         do
-        case $choice2 in
+        case $choice in
         eng-pol)
             aptitude install dict-freedict-eng-pol -y
         ;;
@@ -365,10 +338,10 @@ config_packages()
         *)
         ;;
         esac
-        done < $LOG_FILE
+        done < $LOG_FILE2
     ;;
     emacs-nox)
-        aptitude install emacs-nox --noconfirm
+        aptitude install emacs-nox -y
         mkdir -p $HOME/.emacs.d/
         cp $CONF/emacs/* $HOME/.emacs.d/
     ;;
@@ -413,11 +386,11 @@ config_packages()
         "Deutsch"       "German" \
         "British"       "English_british" \
         "American"      "English_american" \
-        "Espanol"       "Spanish" 2>$LOG_FILE)
+        "Espanol"       "Spanish" 2>$LOG_FILE3)
 
-        while read choice3
+        while read choice
         do
-        case $choice3 in
+        case $choice in
         "Polski")
             aptitude install libreoffice-l10n-pl -y
         ;;
@@ -434,7 +407,7 @@ config_packages()
             aptitude install libreoffice-l10n-es -y
         ;;
         esac
-        done < $LOG_FILE
+        done < $LOG_FILE3
     ;;
     links)
         aptitude install links -y
@@ -453,11 +426,11 @@ config_packages()
         aptitude install lxrandr -y
     ;;
     mps-youtube)
-        aptitude install mpv python3-pip -y
+        aptitude install mplayer python3-pip -y
         pip3 install mps-youtube
     ;;
-    mpv)
-        aptitude install mpv -y
+    mplayer)
+        aptitude install mplayer -y
     ;;
     nethack)
         aptitude install nethack-console -y
@@ -721,8 +694,8 @@ config_scripts()
         "live-usb" 			"Make bootable usb" OFF \
 		"run-mc" 			"Running midnight commander" OFF \
         "take-screenshot" 	"Easier screenshots" OFF \
-        "run-wicd" 	        "Run wicd daemon and app" OFF \
-        "run-emacs" 		"Running Emacs" OFF 2>$LOG_FILE)
+        "yt" 	            "Download YT playlist" OFF \
+        "run-emacs" 		"Running Emacs" OFF 2>$LOG_FILE4)
 
         while read choice
         do
@@ -741,16 +714,16 @@ config_scripts()
                 chmod +x /usr/local/bin/take-screenshot
                 chmod +x /usr/local/bin/take-screenshot-s
             ;;
-            run-wicd)
-                cp $CONF/scripts/run-wicd /usr/local/bin/
-                chmod +x /usr/local/bin/run-wicd
+            yt)
+                cp $CONF/scripts/yt /usr/local/bin/
+                chmod +x /usr/local/bin/yt
             ;;
             run-emacs)
                 cp $CONF/scripts/run-emacs /usr/local/bin/
                 chmod +x /usr/local/bin/run-emacs
             ;;
             esac
-        done < $LOG_FILE
+        done < $LOG_FILE4
     fi 
 
     config_pc
@@ -766,10 +739,10 @@ config_pc()
     "Beep" "Disable bepp sound" OFF \
     "Caps" "Making Esc from Caps Lock key" OFF \
     "Touchpad" "Enable touchpad" OFF \
-    "Microphone" "Enable Lenovo G580 microphone" OFF \
+    "T61_wifi" "Copy iwlwifi-4965-2.ucode" OFF \
     "Font" "Set console font" OFF \
     "Grub" "Boot loader configuration" OFF \
-    "Lid" "Don't suspend laptop when lid closed" off 2>$LOG_FILE)
+    "Lid" "Don't suspend laptop when lid closed" off 2>$LOG_FILE5)
 
     while read choice
     do
@@ -785,22 +758,23 @@ config_pc()
             mkdir -p /etc/X11/xorg.conf.d
             cp $CONF/other/50-synaptics.conf /etc/X11/xorg.conf.d/50-synaptics.conf
         ;;
-        Microphone)
-            cp $CONF/other/alsa-base.conf /etc/modprobe.d/alsa-base.conf
+        T61_wifi)
+            mkdir -p /lib/firmware
+            cp $CONF/other/iwlwifi-4965-2.ucode
         ;;
         Font)
             aptitude install xfonts-terminus console-terminus -y
             sudo dpkg-reconfigure console-setup
         ;;
         Grub)
-            vim /etc/default/grub
+            nano /etc/default/grub
             update-grub
         ;;
         Lid)
             cp $CONF/other/logind.conf /etc/systemd/logind.conf
         ;;
         esac
-    done < $LOG_FILE
+    done < $LOG_FILE5
 
     fi 
 
