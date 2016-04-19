@@ -48,7 +48,7 @@
     alias nim="vim -u ~/.vimrc-minimal"
     alias nm="sudo systemctl start NetworkManager.service"
     alias yt="youtube-dl -f 22/43/18/best"
-    alias m="mplayer"
+    alias mp="mplayer"
     alias d="dict"
 # Systemd aliases
     alias reb="systemctl reboot"
