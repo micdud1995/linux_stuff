@@ -37,7 +37,7 @@ info()
         LOG_FILE2="$HOME/log/dictd.log"
         LOG_FILE3="$HOME/log/libreoffice.log"
         LOG_FILE4="$HOME/log/scripts.log"
-        LOG_FILE5="$HOME/log/additionallog"
+        LOG_FILE5="$HOME/log/additional.log"
         main_menu
     fi
 }
