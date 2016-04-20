@@ -1,0 +1,25 @@
+
+# < - current file
+# @ - name of target file
+# ^ - components
+
+EXECUTABLE=bin                                  # Name of binary file
+CXX=g++                                         # C++ compiler
+LINKER=g++                                      # C++ linker
+CXXFLAGS=-g -Wall                               # Flags for compiler
+NCURSESFLAGS=-lncurses 							# Linker flags for ncurses library
+INCDIRS := -I.                                  # Where the compiler looks for headers 
+
+SOURCES=$(wildcard *.cpp)                       # Source files (.cpp)
+OBJECTS=$(SOURCES:.cpp=.o)                      # Machine code files (.o)
+    
+$(EXECUTABLE): $(OBJECTS) 
+	$(LINKER) $^ -o $@
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCDIRS) $< -c -o $@
+
+clean:
+	rm -f *.o $(EXECUTABLE)
+
+.PHONY: clean

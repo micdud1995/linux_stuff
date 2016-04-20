@@ -31,7 +31,7 @@ Running
     
     1) Make script executable
         ```
-        chmod +x debian-configurator.sh
+        chmod +x arch-configurator.sh
         ```
 
     2) Install depedencies
