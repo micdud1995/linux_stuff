@@ -32,13 +32,21 @@ info()
     else
         HOME=$(whiptail --nocancel --inputbox "Type your home folder: " 20 70 \
         "/home/qeni" 3>&1 1>&2 2>&3)
+
+        mkdir -p $HOME/repo
+        mkdir -p $HOME/tmp
+        mkdir -p $HOME/src
+        mkdir -p $HOME/music
+        mkdir -p $HOME/movies
+        mkdir -p /var/log/debian-configurator
+
         REPO="$HOME/repo/linux_stuff"   # Path to repository
         CONF="$REPO/config-files"       # Path to config files
-        LOG_FILE="$HOME/log/debian-configurator.log"
-        LOG_FILE2="$HOME/log/dictd.log"
-        LOG_FILE3="$HOME/log/libreoffice.log"
-        LOG_FILE4="$HOME/log/scripts.log"
-        LOG_FILE5="$HOME/log/additional.log"
+        LOG_FILE="/var/log/debian-configurator/debian-configurator.log"
+        LOG_FILE2="/var/log/debian-configurator/dictd.log"
+        LOG_FILE3="/var/log/debian-configurator/libreoffice.log"
+        LOG_FILE4="/var/log/debian-configurator/scripts.log"
+        LOG_FILE5="/var/log/debian-configurator/additional.log"
         USER="${HOME///\home\/}"
         main_menu
     fi
@@ -62,13 +70,6 @@ select_system()
 
 repo_dirs() 
 {
-    mkdir -p $HOME/repo
-    mkdir -p $HOME/tmp
-    mkdir -p $HOME/log
-    mkdir -p $HOME/src
-    mkdir -p $HOME/music
-    mkdir -p $HOME/movies
-
     if [[ ! -d $REPO ]]; then
         if (whiptail --title "Cloning repository" --yes-button \
         "Yes" --no-button "No" --yesno \
@@ -262,6 +263,7 @@ config_packages()
     "vim-nox"           "Vim with scripts support" OFF \
     "vrms"              "Virtual RMS" OFF \
     "weechat"           "IRC Client" OFF \
+    "wifite"            "Wireless attack tool" OFF \
     "xterm"             "Terminal Emulator" OFF \
     "youtube-dl"        "YT Downloader" OFF \
     "zathura"           "PDF Viewer" OFF \
@@ -345,7 +347,7 @@ config_packages()
     emacs-nox)
         aptitude install emacs-nox -y
         mkdir -p $HOME/.emacs.d/
-        cp $CONF/emacs/* $HOME/.emacs.d/
+        cp -R $CONF/emacs/* $HOME/.emacs.d/
     ;;
     feh)
         aptitude install feh -y
@@ -445,7 +447,7 @@ config_packages()
         systemctl stop NetworkManager.service
     ;;
     unpacking)
-        aptitude install p7zip unzip zip -y
+        aptitude install p7zip unzip zip unrar-free -y
     ;;
     pinta)
         aptitude install pinta -y
@@ -521,6 +523,12 @@ config_packages()
     youtube-dl)
         wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
         chmod a+rx /usr/local/bin/youtube-dl
+    ;;
+    wifite)
+        aptitude install aircrack-ng -y
+        cd $HOME/src
+        wget https://raw.github.com/derv82/wifite/master/wifite.py
+        chmod +x wifite.py
     ;;
     xterm)
         aptitude install xterm -y
@@ -742,13 +750,14 @@ config_pc()
 
     (whiptail --title "Additional settings" --checklist --separate-output "Choose \
     your desired software\nSpacebar - check/uncheck \nEnter - finished:" 20 78 15 \
-    "Beep" "Disable bepp sound" OFF \
-    "Caps" "Making Esc from Caps Lock key" OFF \
-    "Touchpad" "Enable touchpad" OFF \
-    "T61_wifi" "Copy iwlwifi-4965-2.ucode" OFF \
-    "Font" "Set console font" OFF \
-    "Grub" "Boot loader configuration" OFF \
-    "Lid" "Don't suspend laptop when lid closed" off 2>$LOG_FILE5)
+    "Beep"      "Disable bepp sound" OFF \
+    "Caps"      "Making Esc from Caps Lock key" OFF \
+    "Touchpad"  "Enable touchpad" OFF \
+    "T61_wifi"  "Copy iwlwifi-4965-2.ucode" OFF \
+    "Font"      "Set console font" OFF \
+    "Wallpaper" "Copy wallpaper to pictures" OFF \
+    "Grub"      "Boot loader configuration" OFF \
+    "Lid"       "Don't suspend laptop when lid closed" off 2>$LOG_FILE5)
 
     while read choice
     do
@@ -771,6 +780,20 @@ config_pc()
         Font)
             aptitude install xfonts-terminus console-terminus -y
             sudo dpkg-reconfigure console-setup
+        ;;
+        Wallpaper)
+
+            WALL=$(whiptail --title  "Debian config" --menu "Select wallpaper:" 20 70 10 \
+            "A"     "deb_think_1280x800" \
+            "B"     "deb_white_1366x768" 3>&1 1>&2 2>&3)
+
+            case "$WALL" in
+            "A")
+                cp $CONF/wallpapers/deb_think_1280x800.png $HOME/pictures/wallpaper.png
+            ;;
+            "B")
+                cp $CONF/wallpapers/deb_white_1366x768.png $HOME/pictures/wallpaper.png
+            esac
         ;;
         Grub)
             nano /etc/default/grub
