@@ -416,7 +416,7 @@ config_packages()
     links)
         aptitude install links -y
         mkdir -p $HOME/.links2
-        cp $CONF/links2/links.cfg $HOME/.links2/
+        cp $CONF/links/links.cfg $HOME/.links2/
     ;;
     livestreamer)
         aptitude install python python-requests python-setuptools python-singledispatch -y
@@ -545,7 +545,7 @@ config_packages()
         mkdir -p $HOME/.config/zsh
         cp $CONF/zsh/aliases $HOME/.config/zsh/
         cp $CONF/zsh/functions $HOME/.config/zsh/
-        cp $CONF/scritps/welcomer /usr/local/bin/
+        cp $CONF/scripts/welcomer /usr/local/bin/
         chmod +x /usr/local/bin/welcomer
         cp $CONF/zsh/debian-zshrc $HOME/.zshrc
         chsh -s /bin/zsh ${HOME///\home\/}
@@ -595,7 +595,6 @@ config_packages()
         cd $HOME/.vim/bundle
         git clone https://github.com/Shougo/neosnippet.vim
         git clone https://github.com/Shougo/neosnippet-snippets
-        cp $CONF/vim/python.snip $HOME/.vim/bundle/neosnippet-snippets/neosnippets/python.snip
 
         # Vim-commentary
         cd $HOME/.vim/bundle
