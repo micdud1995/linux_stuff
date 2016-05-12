@@ -9,7 +9,7 @@
 # You will be able to jump straight to this directory with the '-m'
 # parameter or the 'm' command.  This can also point to a playlist.
 
-MusicDir = /home/michal/Muzyka
+MusicDir = /home/qeni/music
 #=================================================================
 
 #=================================================================

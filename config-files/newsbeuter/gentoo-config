@@ -1,0 +1,36 @@
+# =================================================
+always-display-description false
+auto-reload yes
+datetime-format "%b %d %R"
+download-path "$HOME/downloads/"
+feed-sort-order title-dec
+max-downloads 4
+cleanup-on-quit no
+mark-as-read-on-hover no
+download-retries 1
+goto-first-unread yes
+notify-always no
+notify-xterm no
+notify-screen no
+notify-beep no
+delete-read-articles-on-quit no
+display-article-progress yes
+keep-articles-days 20
+refresh-on-startup yes
+reload-time 60
+reload-threads 2
+show-read-feeds no
+browser firefox
+macro d set ; open-in-browser ;
+# =================================================
+
+# =================================================
+# Theme
+color background            black   black 
+color listnormal            white   black
+color listnormal_unread     magenta     black   
+color listfocus             magenta     black   reverse
+color listfocus_unread      magenta     black   reverse
+color info                  magenta     black   
+color article               white   black 
+# =================================================

@@ -1,0 +1,67 @@
+# clear the screen
+	alias c='clear'
+# ls witch colors and screen cleaning
+    alias l="clear;ls --color -lh"
+# show hidden files only
+	alias l.='ls -d .* --color=auto'
+# other
+    alias df='df -kTh'
+    alias free='free -ht'
+    alias ip='sudo ip addr show'
+# portage aliases
+    alias e="sudo emerge"
+    alias es="sudo emerge --search"
+    alias es="sudo emerge --searchdesc"
+    alias epv="sudo emerge -pv"
+    alias ea="sudo emerge --ask"
+    alias ef="sudo emerge --fetchonly"
+    alias eun="sudo emerge --unmerge"
+    alias eup="sudo emerge-webrsync"
+    alias ew="sudo emerge --update --deep --with-bdeps=y @world"
+    alias ew="sudo emerge --update --newuse --deep --with-bdeps=y @world"
+# show which commands you use the most
+	alias freq='cut -f1 -d" " ~/.zsh_history | sort | uniq -c | sort -nr | head -n 30'
+# cd aliases	
+	alias ..="cd ..;clear;ls --color -lh"
+	alias ...="cd ../..;clear;ls --color -lh"
+	alias ....="cd ../../..;clear;ls --color -lh"	
+# Git aliases
+	alias gs="git status -sb"
+	alias gd="git diff --word-diff --color"
+	alias ga="git add"
+	alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	alias gp="git push"
+	alias gpl="git pull"
+	alias gcl="git clone"
+	alias gc="git commit"
+	alias gcm="git commit -m"
+	alias gch="git checkout"
+	alias gb="git branch"
+	alias gr="git reset" # e.g. git reset abc.txt
+	alias grc="git reset --hard HEAD~1" # git reset commit
+    alias gta="git tag -a -m"
+# Programs aliases
+    alias x="chmod +x"
+    alias hist="cat ~/.zsh_history | grep"
+    alias n="newsbeuter -u ~/.config/newsbeuter/urls -C ~/.config/newsbeuter/config"
+    alias w="sudo nmtui"
+    alias cal="cal -w"
+    alias v="vim"
+    alias nim="vim -u ~/.vimrc-minimal"
+    alias nm="sudo systemctl start NetworkManager.service"
+    alias yt="youtube-dl -f 22/43/18/best"
+    alias mp="mplayer"
+    alias pass="pwgen -cny"
+    alias sizes="du -skh *"
+# Systemd aliases
+    alias reb="sudo shutdown -r now"
+    alias off="sudo shutdown -h now"
+# Suffix aliases
+    alias -s txt=vim
+    alias -s log=vim
+    alias -s rc=vim
+    alias -s html=links
+# Mount aliases
+    alias m="sudo mount /dev/sdb1 /mnt/mountpoint"
+    alias mn="sudo mount -t ntfs-3g /dev/sdb1 /mnt/mountpoint"
+    alias um="sudo umount /mnt/mountpoint"

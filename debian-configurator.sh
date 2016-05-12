@@ -774,7 +774,7 @@ config_pc()
         ;;
         T61_wifi)
             mkdir -p /lib/firmware
-            cp $CONF/other/iwlwifi-4965-2.ucode
+            cp $CONF/other/iwlwifi-4965-2.ucode /lib/firmware/
         ;;
         Font)
             aptitude install xfonts-terminus console-terminus -y
@@ -792,6 +792,7 @@ config_pc()
             ;;
             "B")
                 cp $CONF/wallpapers/deb_white_1366x768.png $HOME/pictures/wallpaper.png
+            ;;
             esac
         ;;
         Grub)
@@ -821,7 +822,6 @@ main_menu()
     menu_item=$(whiptail --nocancel --title "Debian config" --menu "Menu Items:" 20 70 10 \
     "Clone repo"        "-" \
     "Config sources"    "-" \
-    "Config shell"      "-" \
     "Install GUI"       "-" \
     "Install packages"  "-" \
     "Copy scripts"      "-" \
@@ -834,9 +834,6 @@ main_menu()
     ;;
     "Config sources")
         config_sources
-    ;;
-    "Config shell")
-        config_shell
     ;;
     "Install GUI") 
         config_gui

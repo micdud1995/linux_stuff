@@ -1,0 +1,249 @@
+# =======================================================
+set $tag1 "1: Code"
+set $tag2 "2: IRC"
+set $tag3 "3: Web"
+set $tag4 "4: Other"
+set $tag5 "5: Other"
+set $tag6 "6: Other"
+set $tag7 "7: Other"
+set $tag8 "8: Other"
+set $tag9 "9: Other"
+# =======================================================
+
+# =======================================================
+# Mod1 is Alt key, Mod4 is Win key
+set $mod Mod1
+
+font pango:Terminus 8
+
+# Really small borders and no title for windows
+for_window [class="^."] border pixel 2
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Default volume
+exec --no-startup-id amixer sset Master 50%
+# exec amixer sset Master mute
+exec amixer sset Master unmute
+
+# Wallpaper restoring
+exec feh --bg-scale ~/pictures/wallpaper.png
+
+# Press again $mod+number to return to workspace you were working on
+workspace_auto_back_and_forth yes
+
+# BORDERS ======================
+# green
+# set $bo #00FF00
+# red
+# set $bo #FF0000
+# purple
+set $bo #990099
+# 2nd color - gray
+set $se #666666
+
+# # set some nice colors    border  backgr.     text    indicator
+client.focused              $bo     $bo         $bo     $bo
+client.unfocused            $se     $se         $se     $se
+client.focused_inactive     $se     $se         $se     $se
+client.urgent               $se     $se         $se     $se
+
+# Bar
+bar 
+{
+	colors 
+	{
+        # Whole color settings
+        background #000000
+        statusline #666666
+        separator  #959595
+
+        # Type             border  background font
+        focused_workspace  #FFFFFF #525555 #ffffff
+        active_workspace   #f7003a #5f676a #ffffff
+        inactive_workspace #333333 #222222 #888888
+        urgent_workspace   #f7003a #990000 #ffffff
+    }
+    
+	# i3bar position
+    # position top
+	position bottom
+
+	status_command i3status
+    font pango: Terminus 8
+}
+# =======================================================
+
+# =======================================================
+# Bindings
+
+# Start a terminal
+bindsym $mod+x exec xterm
+bindsym $mod+m exec xterm -e mocp
+bindsym $mod+v exec xterm -e ranger
+bindsym $mod+w exec run-mc
+bindsym $mod+t exec uzbl-tabbed
+
+# Change keyboard layout
+bindsym $mod+F7 exec setxkbmap pl
+bindsym $mod+F8 exec setxkbmap ru
+
+bindsym $mod+F5 exec amixer sset Master toggle
+# Kill focused window
+bindsym $mod+c kill
+
+# Start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run -fn "-xos4-terminus-medium-r-*-*-12-*" -f -nb '#FFFFFF' -nf '#000000' -sb '#000000' -sf '#FFFFFF'
+# bindsym $mod+d exec j4-dmenu-desktop
+
+# Open menu with system commands
+bindsym $mod+F2 mode "$mode_system"
+
+# Screenshots
+bindsym --release Print exec scrot $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
+bindsym --release $mod+Print exec scrot -s $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
+
+# Change focused window
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# Or, with the arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+							
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+# Or, with the arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+p split h
+# split in vertical orientation
+bindsym $mod+o split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+f floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# switch to workspace
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace $tag4
+bindsym $mod+5 workspace $tag5
+bindsym $mod+6 workspace $tag6
+bindsym $mod+7 workspace $tag7
+bindsym $mod+8 workspace $tag8
+bindsym $mod+9 workspace $tag9
+# and with KP
+bindsym KP_4 workspace $tag4
+bindsym KP_5 workspace $tag5
+bindsym KP_6 workspace $tag6
+bindsym KP_7 workspace $tag7
+bindsym KP_8 workspace $tag8
+bindsym KP_9 workspace $tag9
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $tag1
+bindsym $mod+Shift+2 move container to workspace $tag2
+bindsym $mod+Shift+3 move container to workspace $tag3
+bindsym $mod+Shift+4 move container to workspace $tag4
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+6 move container to workspace $tag6
+bindsym $mod+Shift+7 move container to workspace $tag7
+bindsym $mod+Shift+8 move container to workspace $tag8
+bindsym $mod+Shift+9 move container to workspace $tag9
+
+# Volume control
+bindsym $mod+F11 exec amixer set Master 5%-
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+bindsym $mod+F12 exec amixer set Master 5%+
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+
+# Brightness control
+bindsym $mod+F9 exec xcalib -c
+bindsym $mod+F10 exec xcalib -co 95 -a
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you want to end your X session?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# =======================================================
+
+# =======================================================
+# Shutdown, reboot, lock screen
+
+#set $Locker i3lock -c 000000 && sleep 1
+# set $Locker i3lock -i ~/pictures/i3lock-arch.png --color=ff0000
+set $Locker i3lock -i ~/pictures/i3lock-deb.png --color=ff0000
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+	bindsym e exec --no-startup-id i3-msg exit, mode "default"
+	bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+	bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+	bindsym r exec --no-startup-id systemctl reboot, mode "default"
+	bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+# =======================================================
+
+mode "resize" {
+	set $Size 3
+	# These bindings trigger as soon as you enter the resize mode
+	bindsym h resize shrink width $Size px or $Size ppt
+	bindsym k resize grow height $Size px or $Size ppt
+	bindsym j resize shrink height $Size px or $Size ppt
+	bindsym l resize grow width $Size px or $Size ppt
+
+	# Same bindings, but for the arrow keys
+	bindsym Right resize shrink width $Size px or $Size ppt
+	bindsym Down resize grow height $Size px or $Size ppt
+	bindsym Up resize shrink height $Size px or $Size ppt
+	bindsym Left resize grow width $Size px or $Size ppt
+
+	# Back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
