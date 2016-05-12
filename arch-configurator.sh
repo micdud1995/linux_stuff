@@ -431,7 +431,6 @@ config_packages()
     openssh)
         sudo pacman -S openssh $FLAGS_PACMAN
         sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-        sudo /etc/init.d/ssh restart # !!! change to systemd command
         sudo export DISPLAY=:0
     ;;
     rtorrent)

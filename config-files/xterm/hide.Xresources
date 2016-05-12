@@ -67,10 +67,13 @@ XTerm*foreground: #FFFFFF
 *color12: #b5b5df
 
 ! magenta
-*color5: #8d3c8d
+! *color5: #8d3c8d
+! *color5: #cc00cc
+*color5: #551A8B
 
 ! bright_magenta
-*color13: #dfb5df
+!*color13: #dfb5df
+*color13: #800080
 
 ! cyan
 !*color6: #3c8d8d

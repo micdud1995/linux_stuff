@@ -488,6 +488,7 @@ config_packages()
         mkdir -p $HOME/.config/mc
         mkdir -p $HOME/.local/share/mc/skins
         cp $CONF/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
+        cp $CONF/midnight-commander/ini $HOME/.config/mc/ini
         cp $CONF/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
         cp $CONF/midnight-commander/red.ini $HOME/.local/share/mc/skins/
     ;;
