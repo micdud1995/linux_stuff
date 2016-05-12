@@ -88,6 +88,7 @@ config_gui()
         cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
         cp $CONF/i3/gentoo-config $HOME/.i3/config
         cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+    ;;
     esac
     fi
 
@@ -249,7 +250,7 @@ config_packages()
         cp $CONF/zathura/zathurarc $HOME/.config/zathura/ 
     ;;
     zsh)
-        emerge zsh
+        emerge zsh fortune-mod cowsay
         mkdir -p $HOME/.config/zsh
         cp $CONF/zsh/aliases $HOME/.config/zsh/
         cp $CONF/zsh/functions $HOME/.config/zsh/
