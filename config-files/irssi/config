@@ -1,0 +1,120 @@
+servers = (
+  { 
+    address = "chat.freenode.net";
+    chatnet = "Freenode";
+    port = "6667";
+  }
+);
+
+chatnets = {
+  Freenode = {
+    type = "IRC";
+    max_kicks = "1";
+    max_msgs = "4";
+    max_whois = "1";
+  };
+};
+
+channels = (
+  { name = "#debian"; chatnet = "Freenode"; autojoin = "No"; },
+  { name = "#debian-offtopic"; chatnet = "Freenode"; autojoin = "No"; }
+);
+
+aliases = {
+  1 = "WINDOW GOTO 1";
+  2 = "WINDOW GOTO 2";
+  3 = "WINDOW GOTO 3";
+  4 = "WINDOW GOTO 4";
+  5 = "WINDOW GOTO 5";
+  6 = "WINDOW GOTO 6";
+  7 = "WINDOW GOTO 7";
+  8 = "WINDOW GOTO 8";
+  9 = "WINDOW GOTO 9";
+};
+
+statusbar = {
+  default = {
+    window = {
+
+      # disable the default bar containing window list
+      disabled = "yes";
+
+      # window, root
+      type = "window";
+      # top, bottom
+      placement = "bottom";
+      # number
+      position = "0";
+      # active, inactive, always
+      visible = "active";
+
+      # list of items in statusbar in the display order
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+        user = { };
+        window = { };
+        window_empty = { };
+        lag = { priority = "-1"; };
+        more = { priority = "-1"; alignment = "right"; };
+        barend = { priority = "100"; alignment = "right"; };
+        active = { };
+        act = { };
+      };
+    };
+
+    # <snip>
+
+    prompt = {
+      type = "root";
+      placement = "bottom";
+      # we want to be at the bottom always
+      position = "100";
+      visible = "always";
+      items = {
+        barstart = { priority = "100"; };
+        time = { };
+
+        user = { };
+        # added my current nick here b/c it was the only useful
+        # item in the disabled bar
+
+        prompt = { priority = "-1"; };
+        prompt_empty = { priority = "-1"; };
+        # treated specially, this is the real input line.
+        input = { priority = "10"; };
+      };
+    };
+  };
+};
+
+settings = {
+  core = { 
+    user_name = "qeni";
+    nick = "qeni";
+    real_name = "Michał Dudek";
+  };
+  "fe-text" = { actlist_sort = "refnum"; };
+  "fe-common/core" = { theme = "pandemonium"; };
+  "perl/core/scripts" = {
+    neat_maxlength = "15";
+    neat_colorize = "yes";
+    neat_melength = "4";
+    neat_left_messages = "no";
+  };
+};
+ignores = (
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#debian" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ubuntu" ); },
+  {
+    level = "JOINS PARTS QUITS NICKS";
+    channels = ( "#ubuntu-unregg" );
+  },
+  {
+    level = "JOINS PARTS QUITS NICKS";
+    channels = ( "#debian-offtopic" );
+  },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#plug" ); }
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#gentoo" ); }
+);
+hilights = ( { text = "qeni"; nick = "yes"; word = "yes"; } );

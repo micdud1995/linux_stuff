@@ -237,6 +237,7 @@ config_packages()
     "htop"              "Process Info" OFF \
     "icedove"           "Mail Client" OFF \
     "iceweasel"         "Web Browser" OFF \
+    "irssi"             "IRC Client" OFF \
     "jumanji"           "Web Browser" OFF \
     "libreoffice"       "Libre Office" OFF \
     "links"             "Web Browser" OFF \
@@ -369,6 +370,11 @@ config_packages()
     ;;
     iceweasel)
         aptitude install iceweasel -y
+    ;;
+    irssi)
+        aptitude install irssi -y
+        mkdir $HOME/.irssi
+        cp -R $CONF/irssi/* $HOME/.irssi/
     ;;
     jumanji)
         aptitude install cmake pkg-config libgtk-3-0 libgirara-dev \
