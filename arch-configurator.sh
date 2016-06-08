@@ -175,7 +175,7 @@ config_gui()
             cp $CONF/i3/arch-config $HOME/.i3/config
 
             cp $CONF/i3/i3lock-arch.png $HOME/pictures/i3lock-arch.png
-            cp $CONF/wallpapers/arch-wallpaper.jpg $HOME/pictures/wallpaper.png
+            cp $CONF/wallpapers/arch-wallpaper.png $HOME/pictures/wallpaper.png
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
             nano $HOME/.xinitrc
         ;;
