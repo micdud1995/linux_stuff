@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-scrot $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
+scrot $HOME/pictures/scrots/%y-%m-%d_%H:%M:%S_screenshot.png
 notify-send "Screenshot taken"

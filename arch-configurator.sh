@@ -33,7 +33,7 @@ info()
             mkdir -p $HOME/music
             mkdir -p $HOME/movies
             mkdir -p $HOME/downloads
-            mkdir -p $HOME/pictures
+            mkdir -p $HOME/pictures/scrots
         fi
         fi
 
@@ -159,12 +159,19 @@ config_gui()
 
         DE=$(whiptail --title  "Arch config" \
         --menu "Select environment:" 20 70 10 \
+        "awesome"           "" \
         "i3"                "" \
         "xfce"              "" \
         "gnome"             "" \
         "lxde"              ""   3>&1 1>&2 2>&3)
 
         case "$DE" in
+        "awesome")
+            sudo pacman -S awesome terminus-font alsa-utils xterm $FLAGS_PACMAN
+            mkdir -p $HOME/.config/awesome
+            cp $CONF/awesome/* $HOME/.config/awesome/
+            cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+        ;;
         "i3")
             sudo pacman -S i3-wm i3status dmenu terminus-font \
             alsa-utils feh udiskie xterm $FLAGS_PACMAN
@@ -356,6 +363,7 @@ config_packages()
         mkdir -p $HOME/.local/share/mc/skins
         cp $CONF/midnight-commander/mc.ext $HOME/.config/mc/mc.ext
         cp $CONF/midnight-commander/darkcourses_green.ini $HOME/.local/share/mc/skins/
+        cp $CONF/midnight-commander/cyan_love.ini $HOME/.local/share/mc/skins/
     ;;
     moc)
         sudo pacman -S moc $FLAGS_PACMAN

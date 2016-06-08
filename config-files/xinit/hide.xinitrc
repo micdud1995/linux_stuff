@@ -1,5 +1,5 @@
 language="pl"
-session="i3"
+session="awesome"
 
 setxkbmap $language
 xset b off

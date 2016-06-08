@@ -38,6 +38,7 @@ info()
         mkdir -p $HOME/src
         mkdir -p $HOME/music
         mkdir -p $HOME/movies
+        mkdir -p $HOME/pictures/scrots
         mkdir -p /var/log/debian-configurator
 
         REPO="$HOME/repo/linux_stuff"   # Path to repository
