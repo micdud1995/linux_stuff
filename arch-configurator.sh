@@ -167,10 +167,12 @@ config_gui()
 
         case "$DE" in
         "awesome")
-            sudo pacman -S awesome terminus-font alsa-utils xterm $FLAGS_PACMAN
             mkdir -p $HOME/.config/awesome
+            mkdir -p $HOME/pictures
+            sudo pacman -S awesome terminus-font alsa-utils xterm $FLAGS_PACMAN
             cp $CONF/awesome/* $HOME/.config/awesome/
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+            cp $CONF/wallpapers/arch-wallpaper.png $HOME/pictures/wallpaper.png
         ;;
         "i3")
             sudo pacman -S i3-wm i3status dmenu terminus-font \
@@ -182,7 +184,7 @@ config_gui()
             cp $CONF/i3/arch-config $HOME/.i3/config
 
             cp $CONF/i3/i3lock-arch.png $HOME/pictures/i3lock-arch.png
-            cp $CONF/wallpapers/arch-wallpaper.jpg $HOME/pictures/wallpaper.png
+            cp $CONF/wallpapers/arch-wallpaper.png $HOME/pictures/wallpaper.png
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
             nano $HOME/.xinitrc
         ;;
