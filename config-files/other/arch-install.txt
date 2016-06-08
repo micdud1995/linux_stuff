@@ -78,7 +78,8 @@ nano /etc/pacman.conf
 pacman -Syyu
 
 # Install wicd stuff
-pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
+#pacman -S wireless_tools wpa_supplicant wpa_actiond dialog
+pacman -S networkmanager wireless_tools dialog
 
 # Install dependencies for my script
 pacman -S git libnewt
