@@ -1,0 +1,36 @@
+#!/bin/bash
+
+DEV=""
+DIR=""
+status1=0
+status2=0
+
+mounting()
+{
+	if (whiptail --title "Mount" --yesno "Is it ntfs?" 8 78) then
+		#sudo mount -t ntfs -o umask=000 $DEV $DIR
+		sudo mount -t ntfs-3g -o rw,umask=0,users $DEV $DIR
+	else
+		sudo mount -o umask=000 $DEV $DIR
+	fi
+}
+
+main()
+{
+	DEV=$(whiptail --inputbox "Type device to mount: " 8 78 /dev/sdb1 --title "Mount" 3>&1 1>&2 2>&3)
+	status1=$?
+
+	DIR=$(whiptail --inputbox "Type mountpoint: " 8 78 /mnt/mountpoint --title "Mount" 3>&1 1>&2 2>&3)
+	status2=$?
+
+	if [[ $status1 = 0 ]] && [[  $status2 = 0 ]]; then
+		mounting
+	else
+		exit 1
+	fi
+}
+
+main
+
+
+

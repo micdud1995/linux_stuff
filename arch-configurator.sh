@@ -169,7 +169,8 @@ config_gui()
         "awesome")
             mkdir -p $HOME/.config/awesome
             mkdir -p $HOME/pictures
-            sudo pacman -S awesome terminus-font alsa-utils xterm $FLAGS_PACMAN
+            sudo pacman -S awesome terminus-font alsa-utils xterm faenza-icon-theme feh $FLAGS_PACMAN
+            yaourt -S xcalib ttf-font-awesome $FLAGS_PACMAN
             cp $CONF/awesome/* $HOME/.config/awesome/
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
             cp $CONF/wallpapers/arch-wallpaper.png $HOME/pictures/wallpaper.png
@@ -481,7 +482,7 @@ config_packages()
     zsh)
         sudo pacman -S colordiff zsh acpi alsi $FLAGS_PACMAN
         cp $CONF/zsh/arch-zshrc $HOME/.zshrc
-        chsh -s /bin/zsh
+        chsh -s /bin/zsh $USER
     ;;
     vim-minimal)
         sudo pacman -S vim $FLAGS_PACMAN
