@@ -258,6 +258,7 @@ config_packages()
     "ranger"            "File manager" OFF \
     "rtorrent"          "Torrent Client" OFF \
     "scrot"             "Screenshots" OFF \
+    "st"                "simple terminal" OFF \
     "texmaker"          "LaTeX Editor" OFF \
     "tor"               "Communication System" OFF \
     "unpacking"         "Archive tools" OFF \
@@ -471,6 +472,14 @@ config_packages()
     ;;
     scrot)
         aptitude install scrot -y
+    ;;
+    st)
+        aptitude install pkg-config xfonts-terminus console-terminus -y
+        cd $HOME/repo 
+        git clone git://git.suckless.org/st
+        cd $HOME/repo/st
+        cp $CONF/st/config.h $HOME/repo/st
+        make clean install
     ;;
     tor)
         aptitude install tor torbrowser-launcher -y
@@ -792,11 +801,11 @@ config_pc()
         ;;
         T61_wifi)
             mkdir -p /lib/firmware
-            cp $CONF/other/iwlwifi-4965-2.ucode
+            cp $CONF/other/iwlwifi-4965-2.ucode /lib/firmware/
         ;;
         Font)
             aptitude install xfonts-terminus console-terminus -y
-            sudo dpkg-reconfigure console-setup
+            dpkg-reconfigure console-setup
         ;;
         Wallpaper)
 
