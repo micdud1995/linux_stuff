@@ -2,8 +2,8 @@
 set $tag1 "1: Code"
 set $tag2 "2: IRC"
 set $tag3 "3: Web"
-set $tag4 "4: Other"
-set $tag5 "5: Other"
+set $tag4 "4: Files"
+set $tag5 "5: Music"
 set $tag6 "6: Other"
 set $tag7 "7: Other"
 set $tag8 "8: Other"
@@ -14,7 +14,7 @@ set $tag9 "9: Other"
 # Mod1 is Alt key, Mod4 is Win key
 set $mod Mod1
 
-font pango:Terminus 8
+font xft:Terminus 10
 
 # Really small borders and no title for windows
 for_window [class="^."] border pixel 2
@@ -68,28 +68,26 @@ bar
     }
     
 	# i3bar position
-    # position top
-	position bottom
+    position top
+	# position bottom
 
 	status_command i3status
-    font pango: Terminus 8
+    font xft: Terminus 8
 }
 # =======================================================
 
 # =======================================================
 # Bindings
 
-# Start a terminal
+# Running programs
 bindsym $mod+x exec xterm
 bindsym $mod+m exec xterm -e mocp
-bindsym $mod+v exec xterm -e ranger
-bindsym $mod+t exec uzbl-tabbed
+bindsym $mod+n exec xterm -e mc
+bindsym $mod+F4 exec xterm -e htop
 
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
-bindsym $mod+F8 exec setxkbmap ru
 
-bindsym $mod+F5 exec amixer sset Master toggle
 # Kill focused window
 bindsym $mod+c kill
 
@@ -101,8 +99,8 @@ bindsym $mod+d exec dmenu_run -fn "-xos4-terminus-medium-r-*-*-12-*" -f -nb '#FF
 bindsym $mod+F2 mode "$mode_system"
 
 # Screenshots
-bindsym --release Print exec scrot $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
-bindsym --release $mod+Print exec scrot -s $HOME/tmp/%y-%m-%d_%H:%M:%S_screenshot.png
+bindsym --release Print exec scrot $HOME/pictures/screenshots/%y-%m-%d_%H:%M:%S_screenshot.png
+bindsym --release $mod+Print exec scrot -s $HOME/pictures/screenshots/%y-%m-%d_%H:%M:%S_screenshot.png
 
 # Change focused window
 bindsym $mod+h focus left
@@ -179,16 +177,14 @@ bindsym $mod+Shift+9 move container to workspace $tag9
 
 # Volume control
 bindsym $mod+F11 exec amixer set Master 5%-
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-
 bindsym $mod+F12 exec amixer set Master 5%+
+bindsym $mod+F5 exec amixer sset Master toggle
+bindsym XF86AudioLowerVolume exec amixer set Master 5%-
 bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
 
 # Brightness control
 bindsym $mod+F9 exec xcalib -c
 bindsym $mod+F10 exec xcalib -co 95 -a
-
-# focus the child container
-#bindsym $mod+d focus child
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
