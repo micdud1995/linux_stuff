@@ -254,6 +254,7 @@ config_packages()
     "ranger"                "File manager" OFF \
     "rtorrent"              "Torrent Client" OFF \
     "scrot"                 "Screenshots" OFF \
+    "st"                    "simple terminal" OFF \
     "texmaker"              "LaTeX Editor" OFF \
     "tor"                   "Communication System" OFF \
     "udiskie"               "Automounting devices" OFF \
@@ -417,6 +418,14 @@ config_packages()
     ;;
     scrot)
         sudo pacman -S scrot $FLAGS_PACMAN
+    ;;
+    st)
+        aptitude install pkg-config terminus-font -y
+        cd $HOME/repo 
+        git clone git://git.suckless.org/st
+        cd $HOME/repo/st
+        cp $CONF/st/config.h $HOME/repo/st
+        make clean install
     ;;
     texmaker)
         sudo pacman -S texmaker texlive-core texlive-lang $FLAGS_PACMAN
