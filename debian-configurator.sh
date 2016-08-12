@@ -38,7 +38,7 @@ info()
         mkdir -p $HOME/src
         mkdir -p $HOME/music
         mkdir -p $HOME/movies
-        mkdir -p $HOME/pictures/scrots
+        mkdir -p $HOME/pictures/screenshots
         mkdir -p /var/log/debian-configurator
 
         REPO="$HOME/repo/linux_stuff"   # Path to repository
@@ -178,7 +178,7 @@ config_gui()
         aptitude install xorg xinit i3 dmenu fonts-inconsolata \
         fonts-font-awesome feh xterm -y
         mkdir -p $HOME/.i3
-        mkdir -p $HOME/Pictures
+        mkdir -p $HOME/pictures/screenshots
         cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
         cp $CONF/i3/debian-config $HOME/.i3/config
 
@@ -228,6 +228,7 @@ config_packages()
     (whiptail --title "Additional software" --separate-output --checklist "" 20 70 14 \
     "alpine"            "Mail client" OFF \
     "alsa-utils"        "Sound" OFF \
+    "basic-stuff"       "build-essential etc." OFF \
     "bash"              "Shell" OFF \
     "calcurse"          "Text-based organizer" OFF \
     "conky"             "System Info" OFF \
@@ -252,6 +253,7 @@ config_packages()
     "nethack"           "Roguelike game" OFF \
     "network-manager"   "Network Manager" OFF \
     "newsbeuter"        "RSS feed reader" OFF \
+    "pcsxr"             "PSX Emulator" OFF \
     "pinta"             "Image Editor" OFF \
     "ranger"            "File manager" OFF \
     "rtorrent"          "Torrent Client" OFF \
@@ -280,6 +282,9 @@ config_packages()
     ;;
     alsa-utils)
         aptitude install alsa-utils -y
+    ;;
+    basic-stuff)
+        aptitude install build-essential module-assistant linux-headers-$(uname -r) -y
     ;;
     bash)
         aptitude install colordiff bash -y
@@ -455,6 +460,11 @@ config_packages()
     ;;
     unpacking)
         aptitude install p7zip unzip zip unrar-free -y
+    ;;
+    pcsxr)
+        mkdir -p $HOME/.pcsx/bios
+        aptitude install pcsxr libstdc++5 -y
+        cp $CONF/other/SCPH7003.bin $HOME/.pcsx/bios/
     ;;
     pinta)
         aptitude install pinta -y
@@ -709,7 +719,7 @@ config_scripts()
         "live-usb" 			"Make bootable usb" OFF \
 		"run-mc" 			"Running midnight commander" OFF \
         "take-screenshot" 	"Easier screenshots" OFF \
-        "mountpoint" 	            "Create mountpoint" OFF \
+        "mountpoint" 	    "Create mountpoint" OFF \
         "yt" 	            "Download YT playlist" OFF \
         "run-emacs" 		"Running Emacs" OFF 2>$LOG_FILE4)
 
@@ -734,7 +744,7 @@ config_scripts()
                 cp $CONF/scripts/yt /usr/local/bin/
                 chmod +x /usr/local/bin/yt
             ;;
-            m)
+            mountpoint)
                 aptitude install ntfs-3g -y
                 mkdir /mnt/mountpoint
                 chown $USER /mnt/mountpoint
