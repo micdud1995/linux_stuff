@@ -33,7 +33,7 @@ info()
             mkdir -p $HOME/music
             mkdir -p $HOME/movies
             mkdir -p $HOME/downloads
-            mkdir -p $HOME/pictures/scrots
+            mkdir -p $HOME/pictures/screenshots
         fi
         fi
 
@@ -191,12 +191,14 @@ config_gui()
         ;;
         "lxde")
             sudo pacman -S lxde faenza-icon-theme $FLAGS_PACMAN
-            cp $CONF/openbox/rc.xml $HOME/.config/openbox/lxde-rc.xml
+            cp $CONF/openbox/lxde-rc.xml $HOME/.config/openbox/lxde-rc.xml
             cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
+            sudo cp -R $CONF/lxde/Onyx /usr/share/themes/
+            sudo cp -R $CONF/lxde/Flat-Adapta-OSX /usr/share/themes/
+            sudo cp -R $CONF/lxde/Ardoise_shadow_100 /usr/share/icons/
+            sudo cp $CONF/scripts/run-st /usr/local/bin/
             cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
             nano $HOME/.xinitrc
-            cp $CONF/xterm/hide.Xresources $HOME/.Xresources
-            xrdb -merge $HOME/.Xresources 
         ;;
         "xfce")
             sudo pacman -S xfwm4 $FLAGS_PACMAN
@@ -225,14 +227,14 @@ config_packages()
     "alpine"                "Mail client" OFF \
     "alsa-utils"            "Sound" OFF \
     "alsi"                  "System Info" OFF \
+    "artha"                 "Thesaurus" OFF \
     "bash"                  "Shell" OFF \
     "brasero"               "Burning app" OFF \
-    "calcurse"              "Text-based organizer" OFF \
     "conky"                 "System Info" OFF \
     "emacs-nox"             "GNU Editor" OFF \
-    "faenza-icon-theme"     "Icon Theme" OFF \
     "feh"                   "Image Viewer" OFF \
     "firefox"               "Web Browser" OFF \
+    "fprintd"               "Fingerprint reader" OFF \
     "fuck"                  "Command correcting" OFF \
     "git"                   "Content tracker" OFF \
     "htop"                  "Process Info" OFF \
@@ -247,7 +249,6 @@ config_packages()
     "ncurses"               "ncurses library" OFF \
     "nethack"               "Roguelike game" OFF \
     "newsbeuter"            "RSS feed reader" OFF \
-    "nmap"                  "Network Mapper" OFF \
     "openssh"               "Secure Shell" OFF \
     "pavucontrol"           "Sound output" OFF \
     "pinta"                 "Image Editor" OFF \
@@ -286,6 +287,9 @@ config_packages()
     alsi)
         sudo pacman -S alsi $FLAGS_PACMAN
     ;;
+    artha)
+        yaourt -S artha $FLAGS_PACMAN
+    ;;
     bash)
         sudo pacman -S colordiff bash $FLAGS_PACMAN
         cp $CONF/bash/arch-bashrc $HOME/.bashrc
@@ -293,9 +297,6 @@ config_packages()
     ;;
     brasero)
         sudo pacman -S brasero $FLAGS_PACMAN
-    ;;
-    calcurse)
-        sudo pacman -S calcurse $FLAGS_PACMAN
     ;;
     conky)
         sudo pacman -S conky $FLAGS_PACMAN
@@ -326,14 +327,16 @@ config_packages()
         cp $CONF/emacs/init.el $HOME/.emacs.d/
         cp -r $CONF/emacs/src/* $HOME/.emacs.d/src/
     ;;
-    faenza-icon-theme)
-        sudo pacman -S faenza-icon-theme $FLAGS_PACMAN
-    ;;
     feh)
         sudo pacman -S feh $FLAGS_PACMAN
     ;;
     firefox)
         sudo pacman -S firefox $FLAGS_PACMAN
+    ;;
+    fprintd)
+        sudo pacman -S fprintd $FLAGS_PACMAN
+        sudo cp $CONF/other/system-local-login /etc/pam.d/system-local-login
+        fprintd-enroll
     ;;
     fuck)
         sudo pacman -S thefuck $FLAGS_PACMAN
@@ -404,9 +407,6 @@ config_packages()
         cp $CONF/newsbeuter/arch-urls $HOME/.config/newsbeuter/urls
         cp $CONF/newsbeuter/arch-config $HOME/.config/newsbeuter/config
     ;;
-    nmap)
-        sudo pacman -S nmap $FLAGS_PACMAN
-    ;;
     unpacking)
         sudo pacman -S p7zip unrar unzip zip $FLAGS_PACMAN
     ;;
@@ -420,18 +420,20 @@ config_packages()
         sudo pacman -S scrot $FLAGS_PACMAN
     ;;
     st)
-        aptitude install pkg-config terminus-font -y
+        sudo pacman -S pkg-config terminus-font $FLAGS_PACMAN
         cd $HOME/repo 
         git clone git://git.suckless.org/st
         cd $HOME/repo/st
         cp $CONF/st/config.h $HOME/repo/st
-        make clean install
+        sudo make clean install
     ;;
     texmaker)
         sudo pacman -S texmaker texlive-core texlive-lang $FLAGS_PACMAN
     ;;
     tor)
-        sudo pacman -S tor torbrowser-launcher $FLAGS_PACMAN
+        sudo pacman -S tor proxychains-ng $FLAGS_PACMAN
+        sudo systemctl enable tor.service
+        sudo systemctl start tor.service
     ;;
     ranger)
         sudo pacman -S w3m ranger $FLAGS_PACMAN
@@ -576,6 +578,7 @@ config_scripts()
         (whiptail --title "Scripts" --checklist --separate-output "Choose:" 20 78 15 \
         "live-usb" 			"Make bootable usb" OFF \
 		"run-mc" 			"Running midnight commander" OFF \
+		"run-st" 			"Running simple terminal" OFF \
         "take-screenshot" 	"Easier screenshots" OFF \
         "run-wicd" 	        "Run wicd daemon and app" OFF \
         "run-emacs" 		"Running Emacs" OFF 2>$LOG_FILE)
@@ -590,6 +593,10 @@ config_scripts()
             run-mc)
                 sudo cp $CONF/scripts/run-mc /usr/local/bin/
                 sudo chmod +x /usr/local/bin/run-mc
+            ;;
+            run-st)
+                sudo cp $CONF/scripts/run-st /usr/local/bin/
+                sudo chmod +x /usr/local/bin/run-st
             ;;
             take-screenshot)
                 sudo cp $CONF/scripts/take-screenshot /usr/local/bin/

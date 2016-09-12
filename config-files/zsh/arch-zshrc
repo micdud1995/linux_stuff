@@ -180,9 +180,9 @@ bindkey '^e' end-of-line
     alias w="sudo wifi-menu"
     alias cal="cal -w"
     alias cli="mpv -vo caca"    # Warch movie in terminal
-    alias yt="mpsyt"
     alias a="alsi --bold=black --normal=cyan -l"
     alias nim="vim -u ~/.vimrc-minimal"
+    alias p="sudo proxychains"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"
@@ -252,5 +252,5 @@ calc() {
 
 #=================================================================
 # Autorun commands
-alsi --bold=black --normal=cyan -l
+# alsi --bold=black --normal=cyan -l
 #=================================================================

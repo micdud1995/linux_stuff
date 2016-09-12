@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+st -g 120x50

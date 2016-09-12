@@ -50,6 +50,7 @@
     alias yt="youtube-dl -f 22/43/18/best"
     alias mp="mplayer"
     alias d="dict"
+    alias p="sudo proxychains"
 # Systemd aliases
     alias reb="systemctl reboot"
     alias off="systemctl poweroff"

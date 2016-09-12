@@ -1,11 +1,11 @@
-============= DEBIAN =============
+# ============= DEBIAN =============
 http://bits.debian.org/feeds/feed.rss
 https://dug.net.pl/rss/text.xml
 https://dug.net.pl/rss/news.xml
 https://dug.net.pl/rss/comments.xml
 https://www.debian.org/News/weekly/dwn.en.rdf
 
-============= INNE =============
+# ============= INNE =============
 http://wroclaw.naszemiasto.pl/rss/artykuly/1.xml
 http://wroclaw.naszemiasto.pl/rss/artykuly/665.xml
 http://wroclaw.naszemiasto.pl/rss/artykuly/848.xml
@@ -19,3 +19,12 @@ http://bash.org.pl/rss
 http://www.raspberrypi.org/feed
 https://static.fsf.org/fsforg/rss/news.xml
 http://static.fsf.org/fsforg/rss/events.xml
+
+# =========== RUNNING ===========
+http://wybiegane.pl/feed/
+https://heavyrunslight.wordpress.com/feed/
+http://www.pawelbiega.pl/feed/
+http://ksstaszewscy.pl/feed/
+http://obieganiu.pl/feed/
+http://arekbiegablog.pl/feed/
+http://www.kubaosinski.eu/feed/
