@@ -191,7 +191,7 @@ config_gui()
         ;;
         "lxde")
             sudo pacman -S lxde faenza-icon-theme $FLAGS_PACMAN
-            cp $CONF/openbox/lxde-rc.xml $HOME/.config/openbox/lxde-rc.xml
+            cp $CONF/lxde/lxde-rc.xml $HOME/.config/openbox/lxde-rc.xml
             cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
             sudo cp -R $CONF/lxde/Onyx /usr/share/themes/
             sudo cp -R $CONF/lxde/Flat-Adapta-OSX /usr/share/themes/
@@ -236,6 +236,7 @@ config_packages()
     "firefox"               "Web Browser" OFF \
     "fprintd"               "Fingerprint reader" OFF \
     "fuck"                  "Command correcting" OFF \
+    "hexchat"               "IRC client" OFF \
     "git"                   "Content tracker" OFF \
     "htop"                  "Process Info" OFF \
     "libreoffice"           "Libre Office" OFF \
@@ -340,6 +341,11 @@ config_packages()
     ;;
     fuck)
         sudo pacman -S thefuck $FLAGS_PACMAN
+    ;;
+    hexchat)
+        sudo pacman -S hexchat $FLAGS_PACMAN
+        mkdir $HOME/.config/hexchat
+        cp $CONF/hexchat/* $HOME/.config/hexchat/
     ;;
     git)
         sudo pacman -S git $FLAGS_PACMAN

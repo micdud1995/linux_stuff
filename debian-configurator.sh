@@ -204,6 +204,10 @@ config_gui()
         cp $CONF/lxde/lxde-rc.xml $HOME/.config/openbox/
         cp $CONF/lxde/panel $HOME/.config/lxpanel/LXDE/panels/panel
         cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
+        cp -R $CONF/lxde/Onyx /usr/share/themes/
+        cp -R $CONF/lxde/Flat-Adapta-OSX /usr/share/themes/
+        cp -R $CONF/lxde/Ardoise_shadow_100 /usr/share/icons/
+        cp $CONF/scripts/run-st /usr/local/bin/
     ;;
     "xfce")
         aptitude install xorg xinit xfce4 -y

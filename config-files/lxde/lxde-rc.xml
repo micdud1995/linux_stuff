@@ -224,30 +224,75 @@
         <wrap>no</wrap>
       </action>
     </keybind>
-    <keybind key="W-F1">
+    <keybind key="A-h">
+      <action name="DesktopLeft">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="A-l">
+      <action name="DesktopRight">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="A-k">
+      <action name="DesktopUp">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="A-j">
+      <action name="DesktopDown">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-h">
+      <action name="SendToDesktopLeft">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-l">
+      <action name="SendToDesktopRight">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-k">
+      <action name="SendToDesktopUp">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-j">
+      <action name="SendToDesktopDown">
+        <dialog>no</dialog>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="A-1">
       <action name="Desktop">
         <desktop>1</desktop>
       </action>
     </keybind>
-    <keybind key="W-F2">
+    <keybind key="A-2">
       <action name="Desktop">
         <desktop>2</desktop>
       </action>
     </keybind>
-    <keybind key="W-F3">
+    <keybind key="A-3">
       <action name="Desktop">
         <desktop>3</desktop>
       </action>
     </keybind>
-    <keybind key="W-F4">
+    <keybind key="A-4">
       <action name="Desktop">
         <desktop>4</desktop>
       </action>
     </keybind>
     <keybind key="A-z">
-      <action name="ToggleShowDesktop"/>
-    </keybind>
-    <keybind key="C-A-d">
       <action name="ToggleShowDesktop"/>
     </keybind>
     <!-- Keybindings for windows -->
@@ -282,9 +327,9 @@
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
-          <name>xterm</name>
+          <name>st</name>
         </startupnotify>
-        <command>xterm</command>
+        <command>run-st</command>
       </action>
     </keybind>
     <keybind key="A-r">
@@ -296,26 +341,42 @@
         <command>xterm -e openbox --restart</command>
       </action>
     </keybind>
-    <keybind key="A-v">
-      <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>ranger</name>
-        </startupnotify>
-        <command>xterm -e ranger</command>
-      </action>
-    </keybind>
     <keybind key="A-m">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
           <name>mocp</name>
         </startupnotify>
-        <command>xterm -e mocp</command>
+        <command>st -e mocp</command>
+      </action>
+    </keybind>
+    <keybind key="A-n">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>run-mc</name>
+        </startupnotify>
+        <command>run-mc</command>
       </action>
     </keybind>
     <keybind key="A-f">
-        <action name="ToggleFullscreen"/>
+      <action name="ToggleFullscreen"/>
+    </keybind>
+    <!--keybindings for volume-->
+    <keybind key="A-F11">
+      <action name="Execute">
+        <command>amixer set Master 5%-</command>
+      </action>
+    </keybind>
+    <keybind key="A-F12">
+      <action name="Execute">
+        <command>amixer set Master 5%+</command>
+      </action>
+    </keybind>
+    <keybind key="A-F5">
+      <action name="Execute">
+        <command>amixer sset Master toggle</command>
+      </action>
     </keybind>
     <!--keybindings for LXPanel -->
     <keybind key="W-r">
@@ -344,26 +405,14 @@
         <command>xterm -e htop</command>
       </action>
     </keybind>
-    <!-- Launch gnome-screenshot when PrintScreen is pressed -->
     <keybind key="Print">
       <action name="Execute">
-        <command>scrot ~/tmp/%H:%M:%S-%d-%m_screenshot.png</command>
+        <command>take-screenshot</command>
       </action>
     </keybind>
-    <!-- Launch LXRandR when Fn+Screen is pressed -->
-    <keybind key="A-l">
+    <keybind key="A-Print">
       <action name="Execute">
-        <command>lxrandr</command>
-      </action>
-    </keybind>
-    <keybind key="A-i">
-      <action name="Execute">
-        <command>uzbl</command>
-      </action>
-    </keybind>
-    <keybind key="A-s">
-      <action name="Execute">
-        <command>steam</command>
+        <command>take-screenshot-s</command>
       </action>
     </keybind>
   </keyboard>
