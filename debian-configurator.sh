@@ -433,7 +433,7 @@ config_packages()
     links)
         aptitude install links -y
         mkdir -p $HOME/.links2
-        cp $CONF/links/links.cfg $HOME/.links2/
+        cp $CONF/links/* $HOME/.links2/
     ;;
     livestreamer)
         aptitude install python python-requests python-setuptools python-singledispatch -y
@@ -478,7 +478,7 @@ config_packages()
         aptitude install scrot -y
     ;;
     st)
-        aptitude install pkg-config xfonts-terminus console-terminus -y
+        aptitude install pkg-config xfonts-terminus console-terminus libx11-dev libxft-dev libxext-dev -y
         cd $HOME/repo 
         git clone git://git.suckless.org/st
         cd $HOME/repo/st
