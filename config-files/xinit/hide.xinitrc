@@ -1,10 +1,10 @@
 language="pl"
-session="lxde"
+session="i3"
 
 setxkbmap $language
 xset b off
 xset b 0 0 0
-# xrdb -merge $HOME/.Xresources
+xrdb -merge $HOME/.Xresources
 
 # udiskie -t -n --file-manager=pcmanfm &
 

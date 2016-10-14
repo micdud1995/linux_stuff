@@ -176,12 +176,13 @@ config_gui()
     case "$DE" in
     "i3")
         aptitude install xorg xinit i3 dmenu fonts-inconsolata \
-        fonts-font-awesome feh xterm -y
+        fonts-font-awesome feh xterm xcalib -y
         mkdir -p $HOME/.i3
         mkdir -p $HOME/pictures/screenshots
         cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
         cp $CONF/i3/debian-config $HOME/.i3/config
 
+        cp $CONF/wallpapers/black_1440x900.png $HOME/pictures/wallpaper.png
         cp $CONF/i3/i3lock-deb.png $HOME/pictures/i3lock-deb.png
         cp $CONF/xinit/hide.xinitrc $HOME/.xinitrc
     ;;
@@ -357,21 +358,24 @@ config_packages()
         done < $LOG_FILE2
     ;;
     emacs-nox)
-        aptitude install emacs-nox -y
+        # aptitude install emacs-nox -y
+        aptitude install emacs -y
         mkdir -p $HOME/.emacs.d/
         cp -R $CONF/emacs/* $HOME/.emacs.d/
+        cp $CONF/scr/run-emacs /usr/local/bin/
     ;;
     feh)
         aptitude install feh -y
     ;;
     git)
         aptitude install git -y
-        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
-        git config --global user.name "$name"
-        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
-        git config --global user.email $mail
-        edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
-        git config --global core.editor $edit
+        # name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
+        # git config --global user.name "$name"
+        # mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
+        # git config --global user.email $mail
+        # edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
+        # git config --global core.editor $edit
+        cp $CONF/git/hide.gitconfig $HOME/.gitconfig
     ;;
     htop)
         aptitude install htop -y
@@ -815,13 +819,17 @@ config_pc()
 
             WALL=$(whiptail --title  "Debian config" --menu "Select wallpaper:" 20 70 10 \
             "A"     "deb_think_1280x800" \
-            "B"     "deb_white_1366x768" 3>&1 1>&2 2>&3)
+            "B"     "black_1440x900.png" \
+            "C"     "deb_white_1366x768" 3>&1 1>&2 2>&3)
 
             case "$WALL" in
             "A")
                 cp $CONF/wallpapers/deb_think_1280x800.png $HOME/pictures/wallpaper.png
             ;;
             "B")
+                cp $CONF/wallpapers/black_1440x900.png $HOME/pictures/wallpaper.png
+            ;;
+            "C")
                 cp $CONF/wallpapers/deb_white_1366x768.png $HOME/pictures/wallpaper.png
             esac
         ;;

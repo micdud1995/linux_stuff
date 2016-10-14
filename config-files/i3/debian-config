@@ -17,7 +17,7 @@ set $mod Mod1
 font xft:Terminus 10
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 2
+for_window [class="^."] border pixel 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -38,9 +38,9 @@ workspace_auto_back_and_forth yes
 # purple
 # set $bo #8A00B8
 # green
-# set $bo #00FF00
+set $bo #00FF00
 # red
-set $bo #FF0000
+# set $bo #FF0000
 # 2nd color - gray
 set $se #666666
 
@@ -84,6 +84,7 @@ bindsym $mod+x exec xterm
 bindsym $mod+m exec xterm -e mocp
 bindsym $mod+n exec xterm -e mc
 bindsym $mod+F4 exec xterm -e htop
+bindsym $mod+q exec xterm -e links
 
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
