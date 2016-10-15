@@ -20,7 +20,7 @@ main()
 	DEV=$(whiptail --inputbox "Type device to mount: " 8 78 /dev/sdb1 --title "Mount" 3>&1 1>&2 2>&3)
 	status1=$?
 
-	DIR=$(whiptail --inputbox "Type mountpoint: " 8 78 /mnt/mountpoint --title "Mount" 3>&1 1>&2 2>&3)
+	DIR=$(whiptail --inputbox "Type mountpoint: " 8 78 /home/qeni/mountpoint --title "Mount" 3>&1 1>&2 2>&3)
 	status2=$?
 
 	if [[ $status1 = 0 ]] && [[  $status2 = 0 ]]; then

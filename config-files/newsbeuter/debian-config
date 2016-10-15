@@ -28,9 +28,9 @@ macro d set ; open-in-browser ;
 # Theme
 color background            black   black 
 color listnormal            white   black
-color listnormal_unread     red     black   
-color listfocus             red     black   reverse
-color listfocus_unread      red     black   reverse
-color info                  red     black   
+color listnormal_unread     green     black   
+color listfocus             green     black   reverse
+color listfocus_unread      green     black   reverse
+color info                  green     black   
 color article               white   black 
 # =================================================

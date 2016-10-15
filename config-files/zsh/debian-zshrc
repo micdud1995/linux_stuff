@@ -10,11 +10,15 @@ setxkbmap -option ctrl:nocaps   # disable caps-lock
 setopt PROMPT_SUBST     # allow funky stuff in prompt
 color="white"
 # left prompt part
-PROMPT="%{$fg[$color]%}[%{$fg[red]%}%n%{$fg[$color]%}]-%{$reset_color%}[%{$fg[red]%}%~%{$fg[$color]%}]%{$reset_color%}$ "
+# PROMPT="%{$fg[$color]%}[%{$fg[red]%}%n%{$fg[$color]%}]-%{$reset_color%}[%{$fg[red]%}%~%{$fg[$color]%}]%{$reset_color%}$ "
 # right prompt part
-local BAT="$(acpi | grep -o "[0-9]*%")%"
+# local BAT="$(acpi | grep -o "[0-9]*%")%"
 # RPROMPT="%{$fg[$color]%}[%{$fg[red]%}${BAT}%{$fg[$color]%}]-%{$fg[$color]%}[%{$fg[red]%}%m%{$fg[$color]%}]"
-RPROMPT="%{$fg[$color]%}[%{$fg[red]%}${BAT}%{$fg[$color]%}]"
+# RPROMPT="%{$fg[$color]%}[%{$fg[red]%}${BAT}%{$fg[$color]%}]"
+local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+PROMPT='%m %{${fg[green]}%}::%{$reset_color%} '
+# PROMPT='%m %{${fg[red]}%}:: %{$reset_color%}%{${fg[green]}%}%3~ %{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%} '
+RPS1="${return_code}"
 #=================================================================
 
 #=================================================================
@@ -109,5 +113,5 @@ source $HOME/.config/zsh/aliases
 source $HOME/.config/zsh/functions
 
 # Autorun commands
-welcomer
+# welcomer
 #=================================================================

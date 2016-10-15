@@ -763,8 +763,8 @@ config_scripts()
             ;;
             mountpoint)
                 aptitude install ntfs-3g -y
-                mkdir /mnt/mountpoint
-                chown $USER /mnt/mountpoint
+                mkdir =p /home/qeni/mountpoint
+                chown $USER /home/qeni/mountpoint
             ;;
             run-emacs)
                 cp $CONF/scripts/run-emacs /usr/local/bin/
