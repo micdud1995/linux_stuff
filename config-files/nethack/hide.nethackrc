@@ -1,14 +1,16 @@
 #OPTIONS=gender:male,name:Ekhart,role:Wizard,race:Elf,align:chaotic
 # OPTIONS=gender:male,name:Geralt,role:Knight,race:Human,align:lawful
+# OPTIONS=tile_file=tiles32.xpm,tile_width:32,tile_height:32
+OPTIONS=windowtype:X11 
+OPTIONS=tile_file=x11tiles,tile_width:32,tile_height:32
 OPTIONS=catname:Garfield
 OPTIONS=horsename:Plotka
-OPTIONS=dogname:Bailey
+OPTIONS=dogname:Misiek
 OPTIONS=autodig
 OPTIONS=autoquiver
 OPTIONS=fruit:raspberry
 OPTIONS=color
 OPTIONS=hilite_pet
-#OPTIONS=DECgraphics
 OPTIONS=showexp
 OPTIONS=time
 OPTIONS=rest_on_space
@@ -24,7 +26,6 @@ OPTIONS=autopickup
 OPTIONS=pickup_types:$!/="+?*
 OPTIONS=pickup_burden:unencumbered
 OPTIONS=menucolors
-#OPTIONS=ascii_map
 MENUCOLOR=" blessed "=green
 MENUCOLOR=" holy "=green
 MENUCOLOR=" cursed "=red

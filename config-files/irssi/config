@@ -92,7 +92,7 @@ settings = {
   core = { 
     user_name = "qeni";
     nick = "qeni";
-    real_name = "Michał Dudek";
+    real_name = "Michal Dudek";
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = { theme = "pandemonium"; };
@@ -105,7 +105,7 @@ settings = {
 };
 ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#debian" ); },
-  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#ubuntu" ); },
+  { level = "JOINS PARTS QUITS NICKS"; channels = ( "#freebsd" ); },
   {
     level = "JOINS PARTS QUITS NICKS";
     channels = ( "#ubuntu-unregg" );
@@ -117,4 +117,5 @@ ignores = (
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#plug" ); }
   { level = "JOINS PARTS QUITS NICKS"; channels = ( "#gentoo" ); }
 );
+
 hilights = ( { text = "qeni"; nick = "yes"; word = "yes"; } );

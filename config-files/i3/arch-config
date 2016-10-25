@@ -1,13 +1,9 @@
 # =======================================================
-set $tag1 "1: Code"
-set $tag2 "2: IRC"
-set $tag3 "3: Web"
-set $tag4 "4: Other"
-set $tag5 "5: Other"
-set $tag6 "6: Other"
-set $tag7 "7: Other"
-set $tag8 "8: Other"
-set $tag9 "9: Other"
+set $tag1 "1: www"
+set $tag2 "2: code"
+set $tag3 "3: terminal"
+set $tag4 "4: irc"
+set $tag5 "5: music"
 # =======================================================
 
 # =======================================================
@@ -17,7 +13,7 @@ set $mod Mod1
 font pango:Terminus 8
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 2
+for_window [class="^."] border pixel 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -81,9 +77,11 @@ bar
 
 bindsym $mod+x exec xterm
 bindsym $mod+m exec xterm -e mocp
+bindsym $mod+n exec xterm -e mc -ac
+bindsym $mod+F4 exec xterm -e htop
+bindsym $mod+q exec xterm -e links
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
-bindsym $mod+F8 exec setxkbmap ru
 
 bindsym $mod+F5 exec amixer -q set Master toggle
 # Kill focused window
