@@ -21,7 +21,7 @@ cecho() {
 main()
 {
     cecho g "=========================> Type your dev without number on the end:\n"
-    cecho g "Your device is [da0s1]: \n> /dev/" 
+    cecho g "Your device is [sdb]: \n> /dev/" 
     read dev
     if [[ "$dev" == "" ]]; then
         dev="sdb"
