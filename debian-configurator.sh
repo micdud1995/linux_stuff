@@ -369,12 +369,6 @@ config_packages()
     ;;
     git)
         aptitude install git -y
-        # name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
-        # git config --global user.name "$name"
-        # mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
-        # git config --global user.email $mail
-        # edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
-        # git config --global core.editor $edit
         cp $CONF/git/hide.gitconfig $HOME/.gitconfig
     ;;
     htop)

@@ -33,6 +33,7 @@ info()
             mkdir -p $HOME/music
             mkdir -p $HOME/movies
             mkdir -p $HOME/downloads
+            mkdir -p $HOME/mountpoint
             mkdir -p $HOME/pictures/screenshots
         fi
         fi
@@ -349,12 +350,7 @@ config_packages()
     ;;
     git)
         sudo pacman -S git $FLAGS_PACMAN
-        name=$(whiptail --nocancel --inputbox "Set git username:" 20 70 "<name>" 3>&1 1>&2 2>&3)
-        git config --global user.name "$name"
-        mail=$(whiptail --nocancel --inputbox "Set git usermail:" 20 70 "<mail>" 3>&1 1>&2 2>&3)
-        git config --global user.email $mail
-        edit=$(whiptail --nocancel --inputbox "Set git text editor:" 20 70 "vim" 3>&1 1>&2 2>&3)
-        git config --global core.editor $edit
+        cp $CONF/git/hide.gitconfig $HOME/.gitconfig
     ;;
     htop)
         sudo pacman -S htop $FLAGS_PACMAN
@@ -434,7 +430,7 @@ config_packages()
         sudo make clean install
     ;;
     texmaker)
-        sudo pacman -S texmaker texlive-core texlive-lang $FLAGS_PACMAN
+        sudo pacman -S texmaker texlive-core $FLAGS_PACMAN
     ;;
     tor)
         sudo pacman -S tor proxychains-ng $FLAGS_PACMAN
@@ -458,8 +454,6 @@ config_packages()
     ;;
     openssh)
         sudo pacman -S openssh $FLAGS_PACMAN
-        sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT
-        sudo export DISPLAY=:0
     ;;
     rtorrent)
         sudo pacman -S rtorrent $FLAGS_PACMAN
