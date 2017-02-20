@@ -181,6 +181,8 @@ config_gui()
         mkdir -p $HOME/pictures/screenshots
         cp $CONF/i3/hide.i3status.conf $HOME/.i3status.conf
         cp $CONF/i3/debian-config $HOME/.i3/config
+        cp $CONF/i3/code.json $HOME/.i3/code.json
+        cp $CONF/i3/load_code.sh $HOME/.i3/load_code.sh
 
         cp $CONF/wallpapers/black_1440x900.png $HOME/pictures/wallpaper.png
         cp $CONF/i3/i3lock-deb.png $HOME/pictures/i3lock-deb.png

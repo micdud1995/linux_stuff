@@ -1,13 +1,22 @@
 # =======================================================
-set $tag1 "1: Code"
-set $tag2 "2: IRC"
-set $tag3 "3: Web"
-set $tag4 "4: Files"
-set $tag5 "5: Music"
-set $tag6 "6: Other"
-set $tag7 "7: Other"
-set $tag8 "8: Other"
-set $tag9 "9: Other"
+set $tag1 "1"
+set $tag2 "2"
+set $tag3 "3"
+set $tag4 "4"
+set $tag5 "5"
+set $tag6 "6"
+set $tag7 "7"
+set $tag8 "8"
+set $tag9 "9"
+# set $tag1 "1: Code"
+# set $tag2 "2: IRC"
+# set $tag3 "3: Web"
+# set $tag4 "4: Files"
+# set $tag5 "5: Music"
+# set $tag6 "6: Other"
+# set $tag7 "7: Other"
+# set $tag8 "8: Other"
+# set $tag9 "9: Other"
 # =======================================================
 
 # =======================================================
@@ -17,7 +26,7 @@ set $mod Mod1
 font xft:Terminus 10
 
 # Really small borders and no title for windows
-for_window [class="^."] border pixel 1
+for_window [class="^."] border pixel 2
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -38,7 +47,7 @@ workspace_auto_back_and_forth yes
 # purple
 # set $bo #8A00B8
 # green
-set $bo #00FF00
+set $bo #00AF87
 # red
 # set $bo #FF0000
 # 2nd color - gray
@@ -61,7 +70,7 @@ bar
         separator  #959595
 
         # Type             border  background font
-        focused_workspace  #FFFFFF #525555 #ffffff
+        focused_workspace  #FFFFFF #00AF87 #ffffff
         active_workspace   #f7003a #5f676a #ffffff
         inactive_workspace #333333 #222222 #888888
         urgent_workspace   #f7003a #990000 #ffffff
@@ -72,7 +81,7 @@ bar
 	# position bottom
 
 	status_command i3status
-    font xft: Terminus 8
+    font xft: Terminus 9
 }
 # =======================================================
 
@@ -84,7 +93,10 @@ bindsym $mod+x exec xterm
 bindsym $mod+m exec xterm -e mocp
 bindsym $mod+n exec xterm -e mc
 bindsym $mod+F4 exec xterm -e htop
-bindsym $mod+q exec xterm -e links
+# bindsym $mod+q exec xterm -e links
+
+# Saved layouts
+bindsym $mod+q exec /home/qeni/.i3/load_code.sh &
 
 # Change keyboard layout
 bindsym $mod+F7 exec setxkbmap pl
